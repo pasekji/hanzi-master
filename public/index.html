@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <title>汉字 MASTER | HSK1 Chinese Learning</title>
+  <meta name="description" content="Learn Chinese characters with flashcards, drawing practice, and quizzes. HSK1 vocabulary from lessons 12-15.">
+  
+  <!-- Preload fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>汉</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100'/><text y='.9em' font-size='90'>汉</text></svg>">
+  
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+    
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    
+    html, body, #root {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+    
+    body {
+      background: #0a0a0a;
+      color: #ffffff;
+      font-family: 'Space Mono', 'Courier New', monospace;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+    }
+    
+    /* Prevent pull-to-refresh on mobile */
+    body {
+      overscroll-behavior-y: contain;
+    }
+    
+    /* Safe area for notched phones */
+    @supports (padding: max(0px)) {
+      body {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+      }
+    }
+    
+    /* ===== LOADING SCREEN ===== */
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    
+    .loading-char {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: clamp(60px, 20vw, 100px);
+      font-weight: 900;
+      color: #c8ff00;
+      text-shadow: 4px 4px 0 #ff6b6b, 8px 8px 0 #00ffff;
+      animation: loadingPulse 1s ease-in-out infinite;
+    }
+    
+    .loading-text {
+      margin-top: 24px;
+      font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+      font-size: clamp(18px, 5vw, 24px);
+      color: #fff;
+      letter-spacing: 6px;
+      animation: loadingBlink 0.6s infinite;
+    }
+    
+    @keyframes loadingPulse {
+      0%, 100% { transform: scale(1) rotate(-2deg); }
+      50% { transform: scale(1.08) rotate(2deg); }
+    }
+    
+    @keyframes loadingBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    
+    .app-ready .loading-screen {
+      display: none;
+    }
+    
+    /* Selection color */
+    ::selection {
+      background: #c8ff00;
+      color: #0a0a0a;
+    }
+    
+    /* Focus visible for accessibility */
+    :focus-visible {
+      outline: 3px solid #00ffff;
+      outline-offset: 2px;
+    }
+    
+    /* Remove default button styles */
+    button {
+      font: inherit;
+      color: inherit;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <div class="loading-screen">
+      <div class="loading-char">汉</div>
+      <div class="loading-text">LOADING</div>
+    </div>
+  </div>
+  
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <script type="text/babel" data-type="module">
+    // ============================================
+    // HSK1 VOCABULARY DATABASE - COMPLETE
+    // ============================================
+    const VOCABULARY = [
+      // ========== LESSON 12 - Weather 天气 ==========
+      { id: 1, hanzi: '天', pinyin: 'tiān', meaning: 'sky/day', lesson: 12, strokes: 4 },
+      { id: 2, hanzi: '气', pinyin: 'qì', meaning: 'air/gas', lesson: 12, strokes: 4 },
+      { id: 3, hanzi: '冷', pinyin: 'lěng', meaning: 'cold', lesson: 12, strokes: 7 },
+      { id: 4, hanzi: '热', pinyin: 'rè', meaning: 'hot', lesson: 12, strokes: 10 },
+      { id: 5, hanzi: '雨', pinyin: 'yǔ', meaning: 'rain', lesson: 12, strokes: 8 },
+      { id: 6, hanzi: '下', pinyin: 'xià', meaning: 'down/below', lesson: 12, strokes: 3 },
+      { id: 7, hanzi: '来', pinyin: 'lái', meaning: 'come', lesson: 12, strokes: 7 },
+      { id: 8, hanzi: '去', pinyin: 'qù', meaning: 'go', lesson: 12, strokes: 5 },
+      { id: 9, hanzi: '会', pinyin: 'huì', meaning: 'can/will', lesson: 12, strokes: 6 },
+      { id: 10, hanzi: '身', pinyin: 'shēn', meaning: 'body', lesson: 12, strokes: 7 },
+      { id: 11, hanzi: '体', pinyin: 'tǐ', meaning: 'body/form', lesson: 12, strokes: 7 },
+      { id: 12, hanzi: '爱', pinyin: 'ài', meaning: 'love', lesson: 12, strokes: 10 },
+      { id: 13, hanzi: '些', pinyin: 'xiē', meaning: 'some', lesson: 12, strokes: 8 },
+      { id: 14, hanzi: '水', pinyin: 'shuǐ', meaning: 'water', lesson: 12, strokes: 4 },
+      { id: 15, hanzi: '果', pinyin: 'guǒ', meaning: 'fruit', lesson: 12, strokes: 8 },
+      { id: 16, hanzi: '太', pinyin: 'tài', meaning: 'too/very', lesson: 12, strokes: 4 },
+      
+      // ========== LESSON 13 - Actions in Progress ==========
+      { id: 17, hanzi: '学', pinyin: 'xué', meaning: 'study/learn', lesson: 13, strokes: 8 },
+      { id: 18, hanzi: '习', pinyin: 'xí', meaning: 'practice', lesson: 13, strokes: 3 },
+      { id: 19, hanzi: '睡', pinyin: 'shuì', meaning: 'sleep', lesson: 13, strokes: 13 },
+      { id: 20, hanzi: '觉', pinyin: 'jiào', meaning: 'feel/sleep', lesson: 13, strokes: 9 },
+      { id: 21, hanzi: '午', pinyin: 'wǔ', meaning: 'noon', lesson: 13, strokes: 4 },
+      { id: 22, hanzi: '上', pinyin: 'shàng', meaning: 'up/above', lesson: 13, strokes: 3 },
+      { id: 23, hanzi: '电', pinyin: 'diàn', meaning: 'electric', lesson: 13, strokes: 5 },
+      { id: 24, hanzi: '视', pinyin: 'shì', meaning: 'view/watch', lesson: 13, strokes: 8 },
+      { id: 25, hanzi: '影', pinyin: 'yǐng', meaning: 'shadow/film', lesson: 13, strokes: 15 },
+      { id: 26, hanzi: '脑', pinyin: 'nǎo', meaning: 'brain', lesson: 13, strokes: 10 },
+      { id: 27, hanzi: '喜', pinyin: 'xǐ', meaning: 'happy/like', lesson: 13, strokes: 12 },
+      { id: 28, hanzi: '欢', pinyin: 'huān', meaning: 'happy/joyful', lesson: 13, strokes: 6 },
+      { id: 29, hanzi: '话', pinyin: 'huà', meaning: 'speech/words', lesson: 13, strokes: 8 },
+      { id: 30, hanzi: '打', pinyin: 'dǎ', meaning: 'hit/make', lesson: 13, strokes: 5 },
+      { id: 31, hanzi: '在', pinyin: 'zài', meaning: 'at/in', lesson: 13, strokes: 6 },
+      { id: 32, hanzi: '做', pinyin: 'zuò', meaning: 'do/make', lesson: 13, strokes: 11 },
+      { id: 33, hanzi: '饭', pinyin: 'fàn', meaning: 'rice/meal', lesson: 13, strokes: 7 },
+      
+      // ========== LESSON 14 - Shopping ==========
+      { id: 34, hanzi: '东', pinyin: 'dōng', meaning: 'east', lesson: 14, strokes: 5 },
+      { id: 35, hanzi: '西', pinyin: 'xī', meaning: 'west', lesson: 14, strokes: 6 },
+      { id: 36, hanzi: '点', pinyin: 'diǎn', meaning: 'point/dot', lesson: 14, strokes: 9 },
+      { id: 37, hanzi: '先', pinyin: 'xiān', meaning: 'first/before', lesson: 14, strokes: 6 },
+      { id: 38, hanzi: '生', pinyin: 'shēng', meaning: 'life/birth', lesson: 14, strokes: 5 },
+      { id: 39, hanzi: '看', pinyin: 'kàn', meaning: 'look/see', lesson: 14, strokes: 9 },
+      { id: 40, hanzi: '见', pinyin: 'jiàn', meaning: 'see/meet', lesson: 14, strokes: 4 },
+      { id: 41, hanzi: '开', pinyin: 'kāi', meaning: 'open/drive', lesson: 14, strokes: 4 },
+      { id: 42, hanzi: '车', pinyin: 'chē', meaning: 'car/vehicle', lesson: 14, strokes: 4 },
+      { id: 43, hanzi: '后', pinyin: 'hòu', meaning: 'after/behind', lesson: 14, strokes: 6 },
+      { id: 44, hanzi: '漂', pinyin: 'piào', meaning: 'float/pretty', lesson: 14, strokes: 14 },
+      { id: 45, hanzi: '亮', pinyin: 'liàng', meaning: 'bright', lesson: 14, strokes: 9 },
+      { id: 46, hanzi: '衣', pinyin: 'yī', meaning: 'clothes', lesson: 14, strokes: 6 },
+      { id: 47, hanzi: '服', pinyin: 'fú', meaning: 'clothes/serve', lesson: 14, strokes: 8 },
+      { id: 48, hanzi: '少', pinyin: 'shǎo', meaning: 'few/less', lesson: 14, strokes: 4 },
+      { id: 49, hanzi: '都', pinyin: 'dōu', meaning: 'all/both', lesson: 14, strokes: 10 },
+      { id: 50, hanzi: '买', pinyin: 'mǎi', meaning: 'buy', lesson: 14, strokes: 6 },
+      { id: 51, hanzi: '了', pinyin: 'le', meaning: 'particle', lesson: 14, strokes: 2 },
+      { id: 52, hanzi: '没', pinyin: 'méi', meaning: 'not/no', lesson: 14, strokes: 7 },
+      
+      // ========== LESSON 15 - 是...的 Structure ==========
+      { id: 53, hanzi: '认', pinyin: 'rèn', meaning: 'recognize', lesson: 15, strokes: 4 },
+      { id: 54, hanzi: '识', pinyin: 'shí', meaning: 'know', lesson: 15, strokes: 7 },
+      { id: 55, hanzi: '年', pinyin: 'nián', meaning: 'year', lesson: 15, strokes: 6 },
+      { id: 56, hanzi: '店', pinyin: 'diàn', meaning: 'shop/store', lesson: 15, strokes: 8 },
+      { id: 57, hanzi: '大', pinyin: 'dà', meaning: 'big/large', lesson: 15, strokes: 3 },
+      { id: 58, hanzi: '起', pinyin: 'qǐ', meaning: 'rise/start', lesson: 15, strokes: 10 },
+      { id: 59, hanzi: '听', pinyin: 'tīng', meaning: 'listen', lesson: 15, strokes: 7 },
+      { id: 60, hanzi: '飞', pinyin: 'fēi', meaning: 'fly', lesson: 15, strokes: 3 },
+      { id: 61, hanzi: '机', pinyin: 'jī', meaning: 'machine', lesson: 15, strokes: 6 },
+      { id: 62, hanzi: '坐', pinyin: 'zuò', meaning: 'sit/ride', lesson: 15, strokes: 7 },
+      { id: 63, hanzi: '火', pinyin: 'huǒ', meaning: 'fire', lesson: 15, strokes: 4 },
+      { id: 64, hanzi: '走', pinyin: 'zǒu', meaning: 'walk/go', lesson: 15, strokes: 7 },
+      { id: 65, hanzi: '路', pinyin: 'lù', meaning: 'road', lesson: 15, strokes: 13 },
+      { id: 66, hanzi: '新', pinyin: 'xīn', meaning: 'new', lesson: 15, strokes: 13 },
+      { id: 67, hanzi: '校', pinyin: 'xiào', meaning: 'school', lesson: 15, strokes: 10 },
+      { id: 68, hanzi: '同', pinyin: 'tóng', meaning: 'same/together', lesson: 15, strokes: 6 },
+      { id: 69, hanzi: '一', pinyin: 'yī', meaning: 'one', lesson: 15, strokes: 1 },
+    ];
+
+    const COMPOUNDS = [
+      // Lesson 12
+      { hanzi: '天气', pinyin: 'tiānqì', meaning: 'weather', lesson: 12 },
+      { hanzi: '下雨', pinyin: 'xiàyǔ', meaning: 'to rain', lesson: 12 },
+      { hanzi: '身体', pinyin: 'shēntǐ', meaning: 'body/health', lesson: 12 },
+      { hanzi: '水果', pinyin: 'shuǐguǒ', meaning: 'fruit', lesson: 12 },
+      { hanzi: '太热', pinyin: 'tài rè', meaning: 'too hot', lesson: 12 },
+      { hanzi: '太冷', pinyin: 'tài lěng', meaning: 'too cold', lesson: 12 },
+      // Lesson 13
+      { hanzi: '学习', pinyin: 'xuéxí', meaning: 'to study', lesson: 13 },
+      { hanzi: '睡觉', pinyin: 'shuìjiào', meaning: 'to sleep', lesson: 13 },
+      { hanzi: '上午', pinyin: 'shàngwǔ', meaning: 'morning', lesson: 13 },
+      { hanzi: '下午', pinyin: 'xiàwǔ', meaning: 'afternoon', lesson: 13 },
+      { hanzi: '电视', pinyin: 'diànshì', meaning: 'television', lesson: 13 },
+      { hanzi: '电影', pinyin: 'diànyǐng', meaning: 'movie', lesson: 13 },
+      { hanzi: '电脑', pinyin: 'diànnǎo', meaning: 'computer', lesson: 13 },
+      { hanzi: '电话', pinyin: 'diànhuà', meaning: 'telephone', lesson: 13 },
+      { hanzi: '喜欢', pinyin: 'xǐhuan', meaning: 'to like', lesson: 13 },
+      { hanzi: '打电话', pinyin: 'dǎ diànhuà', meaning: 'make a call', lesson: 13 },
+      { hanzi: '做饭', pinyin: 'zuòfàn', meaning: 'to cook', lesson: 13 },
+      // Lesson 14
+      { hanzi: '东西', pinyin: 'dōngxi', meaning: 'things', lesson: 14 },
+      { hanzi: '一点儿', pinyin: 'yìdiǎnr', meaning: 'a little', lesson: 14 },
+      { hanzi: '先生', pinyin: 'xiānsheng', meaning: 'Mr./sir', lesson: 14 },
+      { hanzi: '看见', pinyin: 'kànjiàn', meaning: 'to see', lesson: 14 },
+      { hanzi: '开车', pinyin: 'kāichē', meaning: 'to drive', lesson: 14 },
+      { hanzi: '漂亮', pinyin: 'piàoliang', meaning: 'beautiful', lesson: 14 },
+      { hanzi: '衣服', pinyin: 'yīfu', meaning: 'clothes', lesson: 14 },
+      { hanzi: '买东西', pinyin: 'mǎi dōngxi', meaning: 'to shop', lesson: 14 },
+      // Lesson 15
+      { hanzi: '认识', pinyin: 'rènshi', meaning: 'to know/meet', lesson: 15 },
+      { hanzi: '饭店', pinyin: 'fàndiàn', meaning: 'restaurant/hotel', lesson: 15 },
+      { hanzi: '大学', pinyin: 'dàxué', meaning: 'university', lesson: 15 },
+      { hanzi: '一起', pinyin: 'yìqǐ', meaning: 'together', lesson: 15 },
+      { hanzi: '飞机', pinyin: 'fēijī', meaning: 'airplane', lesson: 15 },
+      { hanzi: '火车', pinyin: 'huǒchē', meaning: 'train', lesson: 15 },
+      { hanzi: '走路', pinyin: 'zǒulù', meaning: 'to walk', lesson: 15 },
+      { hanzi: '学校', pinyin: 'xuéxiào', meaning: 'school', lesson: 15 },
+      { hanzi: '同学', pinyin: 'tóngxué', meaning: 'classmate', lesson: 15 },
+      { hanzi: '新年', pinyin: 'xīnnián', meaning: 'new year', lesson: 15 },
+    ];
+
+    // ============================================
+    // STORAGE
+    // ============================================
+    const STORAGE_KEY = 'hanzi_master_v3';
+
+    const loadProgress = () => {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const data = JSON.parse(saved);
+          // Validate data structure
+          if (data && typeof data === 'object' && Array.isArray(data.masteredChars)) {
+            return data;
+          }
+        }
+      } catch (e) {
+        console.warn('Failed to load progress:', e);
+      }
+      return {
+        masteredChars: [],
+        learningChars: [],
+        quizScores: [],
+        totalReviews: 0,
+        streakDays: 0,
+        lastStudyDate: null,
+        drawingAttempts: {},
+      };
+    };
+
+    const saveProgress = (progress) => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+      } catch (e) {
+        console.warn('Failed to save progress:', e);
+      }
+    };
+
+    // ============================================
+    // STYLES
+    // ============================================
+    const styles = `
+      :root {
+        --bg-primary: #0a0a0a;
+        --bg-secondary: #141414;
+        --bg-card: #1a1a1a;
+        --accent-lime: #c8ff00;
+        --accent-coral: #ff6b6b;
+        --accent-cyan: #00ffff;
+        --accent-purple: #b366ff;
+        --text-primary: #ffffff;
+        --text-secondary: #888888;
+        --border-width: 3px;
+        --border-color: #ffffff;
+        --radius: 0px;
+        --shadow-offset: 6px;
+        --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+      
+      /* ===== LAYOUT ===== */
+      .app-container {
+        min-height: 100vh;
+        min-height: 100dvh;
+        background: var(--bg-primary);
+        background-image: 
+          radial-gradient(ellipse at 20% 0%, rgba(200, 255, 0, 0.03) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 100%, rgba(255, 107, 107, 0.03) 0%, transparent 50%);
+        color: var(--text-primary);
+        font-family: 'Space Mono', monospace;
+      }
+      
+      .screen {
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding: 16px;
+        padding-bottom: calc(100px + env(safe-area-inset-bottom, 20px));
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      
+      /* Desktop: wider layout */
+      @media (min-width: 768px) {
+        .screen {
+          padding: 24px;
+          padding-bottom: 120px;
+          max-width: 560px;
+        }
+        
+        :root {
+          --shadow-offset: 8px;
+          --border-width: 4px;
+        }
+      }
+      
+      /* ===== HEADER ===== */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        padding: 12px 0;
+        gap: 12px;
+      }
+      
+      .logo {
+        font-family: 'Noto Sans SC', sans-serif;
+        font-weight: 900;
+        font-size: clamp(28px, 8vw, 36px);
+        color: var(--accent-lime);
+        text-shadow: 3px 3px 0 var(--accent-coral), 6px 6px 0 var(--accent-cyan);
+        letter-spacing: -2px;
+        transform: rotate(-2deg);
+        transition: transform var(--transition-bounce);
+        user-select: none;
+      }
+      
+      @media (hover: hover) {
+        .logo:hover {
+          transform: rotate(2deg) scale(1.05);
+        }
+      }
+      
+      .back-btn {
+        background: var(--bg-primary);
+        border: var(--border-width) solid var(--border-color);
+        color: var(--text-primary);
+        padding: 10px 16px;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 16px;
+        letter-spacing: 2px;
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+        transition: all var(--transition-fast);
+        white-space: nowrap;
+      }
+      
+      .back-btn:active {
+        transform: translate(3px, 3px);
+        box-shadow: calc(var(--shadow-offset) - 3px) calc(var(--shadow-offset) - 3px) 0 var(--border-color);
+      }
+      
+      @media (hover: hover) {
+        .back-btn:hover {
+          background: var(--text-primary);
+          color: var(--bg-primary);
+        }
+      }
+      
+      /* ===== CARDS ===== */
+      .card {
+        background: var(--bg-card);
+        border: var(--border-width) solid var(--border-color);
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+        padding: 20px;
+        margin-bottom: 16px;
+        position: relative;
+        transition: all var(--transition-fast);
+      }
+      
+      .card-clickable {
+        cursor: pointer;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      
+      .card-clickable:active {
+        transform: translate(3px, 3px);
+        box-shadow: calc(var(--shadow-offset) - 3px) calc(var(--shadow-offset) - 3px) 0 var(--border-color);
+      }
+      
+      @media (hover: hover) {
+        .card-clickable:hover {
+          transform: translate(2px, 2px);
+          box-shadow: calc(var(--shadow-offset) - 2px) calc(var(--shadow-offset) - 2px) 0 var(--border-color);
+        }
+      }
+      
+      .card-accent-lime {
+        border-color: var(--accent-lime);
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--accent-lime);
+      }
+      
+      .card-accent-coral {
+        border-color: var(--accent-coral);
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--accent-coral);
+      }
+      
+      .card-accent-cyan {
+        border-color: var(--accent-cyan);
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--accent-cyan);
+      }
+      
+      .card-accent-purple {
+        border-color: var(--accent-purple);
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--accent-purple);
+      }
+      
+      /* ===== TYPOGRAPHY ===== */
+      .title-hero {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(42px, 12vw, 56px);
+        line-height: 0.95;
+        margin-bottom: 8px;
+        letter-spacing: 2px;
+        background: linear-gradient(135deg, #fff 0%, var(--accent-lime) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      
+      .title-xl {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(32px, 9vw, 42px);
+        line-height: 1;
+        margin-bottom: 8px;
+        letter-spacing: 2px;
+      }
+      
+      .title-lg {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(22px, 6vw, 28px);
+        line-height: 1.1;
+        margin-bottom: 6px;
+        letter-spacing: 1px;
+      }
+      
+      .title-md {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      
+      .text-sm {
+        font-size: 11px;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+      
+      .text-accent {
+        color: var(--accent-lime);
+      }
+      
+      /* ===== STATS BAR ===== */
+      .stats-bar {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      
+      .stat-item {
+        background: var(--bg-secondary);
+        border: 2px solid var(--border-color);
+        padding: 14px 8px;
+        text-align: center;
+      }
+      
+      .stat-value {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(28px, 8vw, 38px);
+        color: var(--accent-lime);
+        line-height: 1;
+      }
+      
+      .stat-label {
+        font-size: 9px;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 4px;
+      }
+      
+      /* ===== BUTTONS ===== */
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 54px;
+        padding: 14px 20px;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 18px;
+        letter-spacing: 2px;
+        border: var(--border-width) solid var(--border-color);
+        transition: all var(--transition-fast);
+        text-decoration: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      
+      .btn-primary {
+        background: var(--accent-lime);
+        color: var(--bg-primary);
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-primary);
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+      }
+      
+      .btn-coral {
+        background: var(--accent-coral);
+        color: var(--bg-primary);
+        border-color: var(--accent-coral);
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 #cc5555;
+      }
+      
+      .btn:active {
+        transform: translate(3px, 3px);
+        box-shadow: calc(var(--shadow-offset) - 3px) calc(var(--shadow-offset) - 3px) 0 var(--border-color);
+      }
+      
+      @media (hover: hover) {
+        .btn-secondary:hover {
+          background: var(--text-primary);
+          color: var(--bg-primary);
+        }
+      }
+      
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      
+      /* ===== HANZI DISPLAY ===== */
+      .hanzi-display {
+        font-family: 'Noto Sans SC', sans-serif;
+        font-weight: 900;
+      }
+      
+      .hanzi-hero {
+        font-size: clamp(100px, 30vw, 140px);
+        line-height: 1;
+        text-align: center;
+        padding: 16px;
+        animation: hanziFloat 4s ease-in-out infinite;
+      }
+      
+      @keyframes hanziFloat {
+        0%, 100% { transform: translateY(0) rotate(-1deg); }
+        50% { transform: translateY(-8px) rotate(1deg); }
+      }
+      
+      .hanzi-xl {
+        font-size: clamp(60px, 18vw, 90px);
+        line-height: 1;
+        text-align: center;
+        padding: 12px;
+      }
+      
+      .hanzi-lg {
+        font-size: clamp(48px, 14vw, 64px);
+        line-height: 1;
+      }
+      
+      .hanzi-md {
+        font-size: clamp(28px, 8vw, 36px);
+        line-height: 1;
+      }
+      
+      /* ===== PROGRESS BAR ===== */
+      .progress-bar {
+        width: 100%;
+        height: 10px;
+        background: var(--bg-secondary);
+        border: 2px solid var(--border-color);
+        margin: 16px 0;
+        overflow: hidden;
+      }
+      
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent-lime), var(--accent-cyan));
+        transition: width 0.4s ease-out;
+      }
+      
+      /* ===== MENU GRID ===== */
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      
+      .menu-item {
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      
+      .menu-icon {
+        font-size: clamp(40px, 12vw, 52px);
+        transition: transform var(--transition-bounce);
+      }
+      
+      .menu-item:active .menu-icon {
+        transform: scale(1.15) rotate(-5deg);
+      }
+      
+      @media (hover: hover) {
+        .menu-item:hover .menu-icon {
+          transform: scale(1.15) rotate(-5deg);
+        }
+      }
+      
+      .menu-label {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 16px;
+        letter-spacing: 2px;
+      }
+      
+      /* ===== STREAK BADGE ===== */
+      .streak-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--accent-coral);
+        color: #000;
+        padding: 8px 14px;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 15px;
+        letter-spacing: 1px;
+        border: 2px solid #000;
+        box-shadow: 3px 3px 0 #000;
+        flex-shrink: 0;
+      }
+      
+      /* ===== CANVAS ===== */
+      .canvas-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1;
+        border: var(--border-width) solid var(--border-color);
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+        background: var(--bg-card);
+        margin: 16px 0;
+        touch-action: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      
+      .drawing-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        touch-action: none;
+      }
+      
+      .canvas-guide {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: clamp(150px, 45vw, 200px);
+        font-weight: 900;
+        color: rgba(200, 255, 0, 0.1);
+        pointer-events: none;
+        user-select: none;
+        line-height: 1;
+      }
+      
+      .canvas-controls {
+        display: flex;
+        gap: 10px;
+      }
+      
+      .canvas-controls .btn {
+        flex: 1;
+        min-height: 48px;
+      }
+      
+      /* ===== QUIZ ===== */
+      .quiz-question {
+        text-align: center;
+        padding: 20px 0;
+      }
+      
+      .quiz-options {
+        display: grid;
+        gap: 12px;
+      }
+      
+      .quiz-option {
+        padding: 16px;
+        font-family: 'Space Mono', monospace;
+        font-size: 15px;
+        background: var(--bg-card);
+        border: var(--border-width) solid var(--border-color);
+        box-shadow: 4px 4px 0 var(--border-color);
+        color: var(--text-primary);
+        text-align: left;
+        transition: all var(--transition-fast);
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      
+      .quiz-option:active:not(.disabled) {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 var(--border-color);
+      }
+      
+      @media (hover: hover) {
+        .quiz-option:hover:not(.disabled) {
+          background: var(--bg-secondary);
+        }
+      }
+      
+      .quiz-option.correct {
+        background: var(--accent-lime);
+        color: #000;
+        border-color: var(--accent-lime);
+        animation: correctPop 0.35s ease-out;
+      }
+      
+      @keyframes correctPop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.03); }
+        100% { transform: scale(1); }
+      }
+      
+      .quiz-option.incorrect {
+        background: var(--accent-coral);
+        color: #000;
+        border-color: var(--accent-coral);
+        animation: incorrectShake 0.35s ease-out;
+      }
+      
+      @keyframes incorrectShake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-8px); }
+        40% { transform: translateX(8px); }
+        60% { transform: translateX(-4px); }
+        80% { transform: translateX(4px); }
+      }
+      
+      .quiz-option.disabled {
+        pointer-events: none;
+        cursor: default;
+      }
+      
+      /* ===== FLASHCARD ===== */
+      .flashcard {
+        min-height: 280px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      
+      .flashcard-hint {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-top: 16px;
+        animation: hintPulse 2s ease-in-out infinite;
+      }
+      
+      @keyframes hintPulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+      }
+      
+      .pinyin-display {
+        font-size: clamp(22px, 6vw, 28px);
+        color: var(--accent-cyan);
+        margin-top: 12px;
+      }
+      
+      .meaning-display {
+        font-size: clamp(16px, 4.5vw, 20px);
+        color: var(--text-secondary);
+        margin-top: 8px;
+      }
+      
+      /* ===== NAV ACTIONS ===== */
+      .nav-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+      }
+      
+      .nav-actions .btn {
+        flex: 1;
+      }
+      
+      /* ===== RESULTS ===== */
+      .results-display {
+        text-align: center;
+        padding: 32px 0;
+      }
+      
+      .score-circle {
+        width: clamp(140px, 40vw, 170px);
+        height: clamp(140px, 40vw, 170px);
+        border-radius: 50%;
+        border: 6px solid var(--accent-lime);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        box-shadow: 0 0 30px rgba(200, 255, 0, 0.25);
+      }
+      
+      .score-value {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(48px, 14vw, 60px);
+        color: var(--accent-lime);
+      }
+      
+      .score-label {
+        font-size: 12px;
+        color: var(--text-secondary);
+        letter-spacing: 2px;
+      }
+      
+      /* ===== CHAR GRID ===== */
+      .char-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        margin-top: 16px;
+      }
+      
+      @media (min-width: 400px) {
+        .char-grid {
+          grid-template-columns: repeat(6, 1fr);
+        }
+      }
+      
+      .char-item {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-secondary);
+        border: 2px solid var(--border-color);
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: clamp(16px, 4.5vw, 20px);
+        font-weight: 700;
+        transition: transform var(--transition-fast);
+      }
+      
+      .char-item.mastered {
+        background: var(--accent-lime);
+        color: #000;
+        border-color: var(--accent-lime);
+      }
+      
+      .char-item.learning {
+        background: var(--accent-cyan);
+        color: #000;
+        border-color: var(--accent-cyan);
+      }
+      
+      /* ===== SECTION TITLE ===== */
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 28px 0 16px;
+      }
+      
+      .section-line {
+        flex: 1;
+        height: 3px;
+        background: linear-gradient(90deg, var(--border-color), transparent);
+      }
+      
+      /* ===== LESSON CARD ===== */
+      .lesson-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      
+      .lesson-number {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(44px, 12vw, 56px);
+        color: var(--accent-lime);
+        min-width: 70px;
+        text-align: center;
+      }
+      
+      .lesson-info {
+        flex: 1;
+        min-width: 0;
+      }
+      
+      /* ===== FLOATING INDICATOR ===== */
+      .floating-indicator {
+        position: fixed;
+        bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--bg-card);
+        border: var(--border-width) solid var(--accent-lime);
+        padding: 14px 28px;
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--accent-lime);
+        z-index: 100;
+        animation: floatIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+      
+      @keyframes floatIn {
+        0% { transform: translateX(-50%) translateY(80px); opacity: 0; }
+        100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+      }
+      
+      /* ===== UTILITY ANIMATIONS ===== */
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .animate-slide-up {
+        animation: slideUp 0.35s ease-out;
+      }
+    `;
+
+    // ============================================
+    // MAIN APP
+    // ============================================
+    function HanziMasterApp() {
+      const [currentView, setCurrentView] = React.useState('home');
+      const [progress, setProgress] = React.useState(loadProgress);
+      const [selectedLesson, setSelectedLesson] = React.useState(null);
+
+      React.useEffect(() => {
+        saveProgress(progress);
+      }, [progress]);
+
+      React.useEffect(() => {
+        const today = new Date().toDateString();
+        if (progress.lastStudyDate !== today) {
+          const yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+          const wasYesterday = progress.lastStudyDate === yesterday.toDateString();
+          setProgress(prev => ({
+            ...prev,
+            lastStudyDate: today,
+            streakDays: wasYesterday ? prev.streakDays + 1 : (prev.lastStudyDate ? 1 : 1),
+          }));
+        }
+      }, []);
+
+      const updateProgress = React.useCallback((updates) => {
+        setProgress(prev => ({ ...prev, ...updates }));
+      }, []);
+
+      const markCharacterLearned = React.useCallback((charId) => {
+        setProgress(prev => {
+          if (prev.learningChars.includes(charId)) return { ...prev, totalReviews: prev.totalReviews + 1 };
+          return { ...prev, learningChars: [...prev.learningChars, charId], totalReviews: prev.totalReviews + 1 };
+        });
+      }, []);
+
+      const markCharacterMastered = React.useCallback((charId) => {
+        setProgress(prev => {
+          if (prev.masteredChars.includes(charId)) return prev;
+          return {
+            ...prev,
+            masteredChars: [...prev.masteredChars, charId],
+            learningChars: prev.learningChars.filter(id => id !== charId)
+          };
+        });
+      }, []);
+
+      const viewProps = { progress, setCurrentView, selectedLesson, setSelectedLesson, updateProgress, markCharacterLearned, markCharacterMastered };
+
+      return (
+        <div className="app-container">
+          <style>{styles}</style>
+          {currentView === 'home' && <HomeView {...viewProps} />}
+          {currentView === 'lessons' && <LessonsView {...viewProps} />}
+          {currentView === 'learn' && <LearnView {...viewProps} />}
+          {currentView === 'draw' && <DrawView {...viewProps} />}
+          {currentView === 'quiz' && <QuizView {...viewProps} />}
+          {currentView === 'stats' && <StatsView {...viewProps} />}
+        </div>
+      );
+    }
+
+    // ============================================
+    // HOME VIEW
+    // ============================================
+    function HomeView({ progress, setCurrentView, setSelectedLesson }) {
+      const masteredCount = progress.masteredChars.length;
+      const learningCount = progress.learningChars.length;
+      const totalChars = VOCABULARY.length;
+      const progressPercent = Math.round((masteredCount / totalChars) * 100);
+
+      return (
+        <div className="screen">
+          <header className="header">
+            <div className="logo">汉字</div>
+            {progress.streakDays > 0 && (
+              <div className="streak-badge">🔥 {progress.streakDays} DAY{progress.streakDays !== 1 ? 'S' : ''}</div>
+            )}
+          </header>
+
+          <div className="card card-accent-lime animate-slide-up">
+            <p className="text-sm">YOUR PROGRESS</p>
+            <h2 className="title-hero">{progressPercent}%</h2>
+            <div className="progress-bar">
+              <div className="progress-fill" style={{ width: `${progressPercent}%` }} />
+            </div>
+            <p className="text-sm">{masteredCount} OF {totalChars} CHARACTERS MASTERED</p>
+          </div>
+
+          <div className="stats-bar">
+            <div className="stat-item">
+              <div className="stat-value">{masteredCount}</div>
+              <div className="stat-label">Mastered</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-value">{learningCount}</div>
+              <div className="stat-label">Learning</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-value">{progress.totalReviews}</div>
+              <div className="stat-label">Reviews</div>
+            </div>
+          </div>
+
+          <div className="section-title">
+            <span className="text-sm">STUDY MODES</span>
+            <div className="section-line" />
+          </div>
+
+          <div className="menu-grid">
+            <div className="card card-clickable card-accent-lime menu-item" onClick={() => setCurrentView('lessons')} role="button" tabIndex={0} aria-label="Lessons">
+              <span className="menu-icon">📚</span>
+              <span className="menu-label">LESSONS</span>
+            </div>
+            <div className="card card-clickable card-accent-cyan menu-item" onClick={() => { setSelectedLesson(null); setCurrentView('learn'); }} role="button" tabIndex={0} aria-label="Flashcards">
+              <span className="menu-icon">🎴</span>
+              <span className="menu-label">FLASHCARDS</span>
+            </div>
+            <div className="card card-clickable card-accent-coral menu-item" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }} role="button" tabIndex={0} aria-label="Draw">
+              <span className="menu-icon">✍️</span>
+              <span className="menu-label">DRAW</span>
+            </div>
+            <div className="card card-clickable card-accent-purple menu-item" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }} role="button" tabIndex={0} aria-label="Quiz">
+              <span className="menu-icon">🎯</span>
+              <span className="menu-label">QUIZ</span>
+            </div>
+          </div>
+
+          <div className="section-title">
+            <span className="text-sm">STATS</span>
+            <div className="section-line" />
+          </div>
+
+          <div className="card card-clickable" onClick={() => setCurrentView('stats')} role="button" tabIndex={0}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <p className="title-md">VIEW STATISTICS</p>
+                <p className="text-sm">TRACK YOUR JOURNEY</p>
+              </div>
+              <span style={{ fontSize: '28px', color: 'var(--accent-lime)' }}>→</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ============================================
+    // LESSONS VIEW
+    // ============================================
+    function LessonsView({ setCurrentView, setSelectedLesson, progress }) {
+      const lessons = [12, 13, 14, 15];
+      const lessonTitles = { 12: 'Weather 天气', 13: 'Actions 正在', 14: 'Shopping 买东西', 15: 'Structure 是...的' };
+
+      const getLessonProgress = (num) => {
+        const chars = VOCABULARY.filter(v => v.lesson === num);
+        const mastered = chars.filter(v => progress.masteredChars.includes(v.id)).length;
+        return { mastered, total: chars.length, percent: Math.round((mastered / chars.length) * 100) };
+      };
+
+      return (
+        <div className="screen">
+          <header className="header">
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+            <div className="logo">汉字</div>
+          </header>
+
+          <h1 className="title-xl">HSK 1</h1>
+          <p className="text-sm" style={{ marginBottom: '24px' }}>LESSONS 12-15</p>
+
+          <div style={{ display: 'grid', gap: '14px' }}>
+            {lessons.map((num) => {
+              const { mastered, total, percent } = getLessonProgress(num);
+              return (
+                <div key={num} className="card card-clickable" onClick={() => { setSelectedLesson(num); setCurrentView('learn'); }} role="button" tabIndex={0}>
+                  <div className="lesson-card">
+                    <div className="lesson-number">{num}</div>
+                    <div className="lesson-info">
+                      <p className="title-md">{lessonTitles[num]}</p>
+                      <p className="text-sm">{mastered}/{total} • {percent}%</p>
+                      <div className="progress-bar" style={{ marginTop: '8px', marginBottom: '0' }}>
+                        <div className="progress-fill" style={{ width: `${percent}%` }} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="section-title">
+            <span className="text-sm">QUICK ACTIONS</span>
+            <div className="section-line" />
+          </div>
+
+          <div style={{ display: 'flex', gap: '12px' }}>
+            <button className="btn btn-secondary" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }}>QUIZ ALL</button>
+            <button className="btn btn-primary" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }}>DRAW ALL</button>
+          </div>
+        </div>
+      );
+    }
+
+    // ============================================
+    // LEARN VIEW
+    // ============================================
+    function LearnView({ selectedLesson, progress, markCharacterLearned, setCurrentView }) {
+      const vocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
+      const [currentIndex, setCurrentIndex] = React.useState(0);
+      const [isFlipped, setIsFlipped] = React.useState(false);
+      const [showCompound, setShowCompound] = React.useState(false);
+
+      const currentChar = vocab[currentIndex];
+      const relatedCompounds = React.useMemo(() => COMPOUNDS.filter(c => c.hanzi.includes(currentChar.hanzi)), [currentChar]);
+
+      const handleNext = () => {
+        markCharacterLearned(currentChar.id);
+        setIsFlipped(false);
+        setShowCompound(false);
+        if (currentIndex < vocab.length - 1) setCurrentIndex(currentIndex + 1);
+      };
+
+      const handlePrev = () => {
+        setIsFlipped(false);
+        setShowCompound(false);
+        if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+      };
+
+      return (
+        <div className="screen">
+          <header className="header">
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+            <span className="text-sm" style={{ color: 'var(--accent-lime)' }}>{currentIndex + 1} / {vocab.length}</span>
+          </header>
+
+          <div className="progress-bar">
+            <div className="progress-fill" style={{ width: `${((currentIndex + 1) / vocab.length) * 100}%` }} />
+          </div>
+
+          <div className="card card-accent-lime flashcard" onClick={() => setIsFlipped(!isFlipped)} role="button" tabIndex={0} aria-label="Flip card">
+            <div className="hanzi-display hanzi-hero" style={{ color: 'var(--accent-lime)' }}>{currentChar.hanzi}</div>
+            {isFlipped && (
+              <div className="animate-slide-up" style={{ textAlign: 'center' }}>
+                <div className="pinyin-display">{currentChar.pinyin}</div>
+                <div className="meaning-display">{currentChar.meaning}</div>
+                <p className="text-sm" style={{ marginTop: '12px' }}>{currentChar.strokes} STROKES • L{currentChar.lesson}</p>
+              </div>
+            )}
+            {!isFlipped && <p className="flashcard-hint">TAP TO REVEAL</p>}
+          </div>
+
+          {relatedCompounds.length > 0 && (
+            <div className="card card-clickable" onClick={() => setShowCompound(!showCompound)} role="button" tabIndex={0}>
+              <p className="title-md">RELATED WORDS ({relatedCompounds.length})</p>
+              {showCompound && (
+                <div className="animate-slide-up" style={{ marginTop: '12px' }}>
+                  {relatedCompounds.map((c, i) => (
+                    <div key={i} style={{ padding: '8px 0', borderBottom: i < relatedCompounds.length - 1 ? '1px solid #333' : 'none' }}>
+                      <span className="hanzi-display hanzi-md">{c.hanzi}</span>
+                      <span style={{ marginLeft: '12px', color: 'var(--accent-cyan)' }}>{c.pinyin}</span>
+                      <span style={{ marginLeft: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>{c.meaning}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="nav-actions">
+            <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>← PREV</button>
+            <button className="btn btn-primary" onClick={handleNext}>{currentIndex === vocab.length - 1 ? 'FINISH' : 'NEXT →'}</button>
+          </div>
+
+          {currentIndex === vocab.length - 1 && isFlipped && (
+            <div className="floating-indicator">
+              <span style={{ fontFamily: 'Bebas Neue', fontSize: '18px', letterSpacing: '2px' }}>🎉 SESSION COMPLETE!</span>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // ============================================
+    // DRAW VIEW
+    // ============================================
+    function DrawView({ selectedLesson, progress, updateProgress, setCurrentView }) {
+      const vocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
+      const [currentIndex, setCurrentIndex] = React.useState(0);
+      const [showGuide, setShowGuide] = React.useState(true);
+      const canvasRef = React.useRef(null);
+      const isDrawingRef = React.useRef(false);
+      const lastPosRef = React.useRef({ x: 0, y: 0 });
+
+      const currentChar = vocab[currentIndex];
+
+      const setupCanvas = React.useCallback(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+      }, []);
+
+      React.useEffect(() => {
+        setupCanvas();
+        window.addEventListener('resize', setupCanvas);
+        return () => window.removeEventListener('resize', setupCanvas);
+      }, [setupCanvas]);
+
+      const getCoords = React.useCallback((e) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return { x: 0, y: 0 };
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: clientX - rect.left, y: clientY - rect.top };
+      }, []);
+
+      const startDrawing = React.useCallback((e) => {
+        e.preventDefault();
+        isDrawingRef.current = true;
+        lastPosRef.current = getCoords(e);
+      }, [getCoords]);
+
+      const draw = React.useCallback((e) => {
+        if (!isDrawingRef.current) return;
+        e.preventDefault();
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        const coords = getCoords(e);
+        
+        ctx.beginPath();
+        ctx.moveTo(lastPosRef.current.x, lastPosRef.current.y);
+        ctx.lineTo(coords.x, coords.y);
+        ctx.strokeStyle = '#c8ff00';
+        ctx.lineWidth = 8;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+        
+        lastPosRef.current = coords;
+      }, [getCoords]);
+
+      const stopDrawing = React.useCallback(() => {
+        isDrawingRef.current = false;
+      }, []);
+
+      const clearCanvas = React.useCallback(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+        ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
+      }, []);
+
+      const handleNext = () => {
+        updateProgress({ drawingAttempts: { ...progress.drawingAttempts, [currentChar.id]: (progress.drawingAttempts[currentChar.id] || 0) + 1 } });
+        clearCanvas();
+        if (currentIndex < vocab.length - 1) setCurrentIndex(currentIndex + 1);
+      };
+
+      return (
+        <div className="screen">
+          <header className="header">
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+            <span className="text-sm" style={{ color: 'var(--accent-coral)' }}>{currentIndex + 1} / {vocab.length}</span>
+          </header>
+
+          <div className="card" style={{ textAlign: 'center' }}>
+            <p className="text-sm">DRAW THIS CHARACTER</p>
+            <div className="hanzi-display hanzi-xl" style={{ color: 'var(--accent-lime)' }}>{currentChar.hanzi}</div>
+            <div className="pinyin-display" style={{ fontSize: '20px' }}>{currentChar.pinyin}</div>
+            <p className="text-sm">{currentChar.meaning} • {currentChar.strokes} STROKES</p>
+          </div>
+
+          <div className="canvas-container">
+            {showGuide && <div className="canvas-guide">{currentChar.hanzi}</div>}
+            <canvas
+              ref={canvasRef}
+              className="drawing-canvas"
+              onMouseDown={startDrawing}
+              onMouseMove={draw}
+              onMouseUp={stopDrawing}
+              onMouseLeave={stopDrawing}
+              onTouchStart={startDrawing}
+              onTouchMove={draw}
+              onTouchEnd={stopDrawing}
+            />
+          </div>
+
+          <div className="canvas-controls">
+            <button className="btn btn-secondary" onClick={clearCanvas}>CLEAR</button>
+            <button className="btn btn-secondary" onClick={() => setShowGuide(!showGuide)}>{showGuide ? 'HIDE' : 'SHOW'} GUIDE</button>
+          </div>
+
+          <div className="nav-actions">
+            <button className="btn btn-secondary" onClick={() => { clearCanvas(); if (currentIndex > 0) setCurrentIndex(currentIndex - 1); }} disabled={currentIndex === 0}>← PREV</button>
+            <button className="btn btn-primary" onClick={handleNext}>{currentIndex === vocab.length - 1 ? 'FINISH' : 'NEXT →'}</button>
+          </div>
+        </div>
+      );
+    }
+
+    // ============================================
+    // QUIZ VIEW
+    // ============================================
+    function QuizView({ selectedLesson, progress, updateProgress, markCharacterMastered, setCurrentView }) {
+      const vocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
+      const [questions, setQuestions] = React.useState([]);
+      const [currentIndex, setCurrentIndex] = React.useState(0);
+      const [selectedAnswer, setSelectedAnswer] = React.useState(null);
+      const [score, setScore] = React.useState(0);
+      const [isComplete, setIsComplete] = React.useState(false);
+      const [quizType, setQuizType] = React.useState(null);
+
+      const generateQuestions = React.useCallback(() => {
+        const shuffled = [...vocab].sort(() => Math.random() - 0.5).slice(0, Math.min(10, vocab.length));
+        const qs = shuffled.map(char => {
+          const wrong = vocab.filter(v => v.id !== char.id).sort(() => Math.random() - 0.5).slice(0, 3);
+          let opts;
+          if (quizType === 'hanzi-to-pinyin') {
+            opts = [{ text: char.pinyin, isCorrect: true }, ...wrong.map(w => ({ text: w.pinyin, isCorrect: false }))];
+          } else if (quizType === 'pinyin-to-hanzi') {
+            opts = [{ text: char.hanzi, isCorrect: true }, ...wrong.map(w => ({ text: w.hanzi, isCorrect: false }))];
+          } else {
+            opts = [{ text: char.meaning, isCorrect: true }, ...wrong.map(w => ({ text: w.meaning, isCorrect: false }))];
+          }
+          return { char, options: opts.sort(() => Math.random() - 0.5), type: quizType };
+        });
+        setQuestions(qs);
+        setCurrentIndex(0);
+        setScore(0);
+        setSelectedAnswer(null);
+        setIsComplete(false);
+      }, [vocab, quizType]);
+
+      React.useEffect(() => {
+        if (quizType) generateQuestions();
+      }, [quizType, generateQuestions]);
+
+      const handleAnswer = (option) => {
+        if (selectedAnswer !== null) return;
+        setSelectedAnswer(option);
+        const newScore = option.isCorrect ? score + 1 : score;
+        if (option.isCorrect) {
+          setScore(newScore);
+          markCharacterMastered(questions[currentIndex].char.id);
+        }
+        setTimeout(() => {
+          if (currentIndex < questions.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+            setSelectedAnswer(null);
+          } else {
+            setIsComplete(true);
+            updateProgress({ quizScores: [...progress.quizScores, { score: newScore, total: questions.length, date: new Date().toISOString() }] });
+          }
+        }, 1000);
+      };
+
+      if (!quizType) {
+        return (
+          <div className="screen">
+            <header className="header">
+              <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+              <div className="logo">汉字</div>
+            </header>
+            <h1 className="title-xl">QUIZ MODE</h1>
+            <p className="text-sm" style={{ marginBottom: '24px' }}>CHOOSE QUIZ TYPE</p>
+            <div className="card card-clickable card-accent-lime" onClick={() => setQuizType('hanzi-to-pinyin')} role="button" tabIndex={0}>
+              <p className="title-lg">HANZI → PINYIN</p>
+              <p className="text-sm">SEE CHARACTER, GUESS SOUND</p>
+            </div>
+            <div className="card card-clickable card-accent-cyan" onClick={() => setQuizType('pinyin-to-hanzi')} role="button" tabIndex={0}>
+              <p className="title-lg">PINYIN → HANZI</p>
+              <p className="text-sm">SEE SOUND, GUESS CHARACTER</p>
+            </div>
+            <div className="card card-clickable card-accent-coral" onClick={() => setQuizType('hanzi-to-meaning')} role="button" tabIndex={0}>
+              <p className="title-lg">HANZI → MEANING</p>
+              <p className="text-sm">SEE CHARACTER, GUESS MEANING</p>
+            </div>
+          </div>
+        );
+      }
+
+      if (isComplete) {
+        const pct = Math.round((score / questions.length) * 100);
+        return (
+          <div className="screen">
+            <header className="header">
+              <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+            </header>
+            <div className="results-display">
+              <div className="score-circle">
+                <div className="score-value">{pct}%</div>
+                <div className="score-label">SCORE</div>
+              </div>
+              <h2 className="title-xl">{pct >= 80 ? '🎉 EXCELLENT!' : pct >= 60 ? '👍 GOOD JOB!' : '💪 KEEP GOING!'}</h2>
+              <p className="text-sm" style={{ marginTop: '12px' }}>{score} OUT OF {questions.length} CORRECT</p>
+            </div>
+            <div className="nav-actions">
+              <button className="btn btn-secondary" onClick={() => setQuizType(null)}>CHANGE TYPE</button>
+              <button className="btn btn-primary" onClick={generateQuestions}>TRY AGAIN</button>
+            </div>
+          </div>
+        );
+      }
+
+      const q = questions[currentIndex];
+      if (!q) return null;
+
+      return (
+        <div className="screen">
+          <header className="header">
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+            <span className="text-sm" style={{ color: 'var(--accent-purple)' }}>{currentIndex + 1} / {questions.length}</span>
+          </header>
+          <div className="progress-bar">
+            <div className="progress-fill" style={{ width: `${(currentIndex / questions.length) * 100}%` }} />
+          </div>
+          <div className="quiz-question">
+            {q.type === 'pinyin-to-hanzi' ? (
+              <>
+                <p className="text-sm">WHAT CHARACTER IS THIS?</p>
+                <div className="pinyin-display" style={{ fontSize: '42px', marginTop: '16px' }}>{q.char.pinyin}</div>
+                <p className="meaning-display">{q.char.meaning}</p>
+              </>
+            ) : (
+              <>
+                <p className="text-sm">{q.type === 'hanzi-to-pinyin' ? 'WHAT IS THE PRONUNCIATION?' : 'WHAT DOES THIS MEAN?'}</p>
+                <div className="hanzi-display hanzi-xl" style={{ color: 'var(--accent-lime)' }}>{q.char.hanzi}</div>
+              </>
+            )}
+          </div>
+          <div className="quiz-options">
+            {q.options.map((opt, i) => (
+              <button
+                key={i}
+                className={`quiz-option ${selectedAnswer === opt ? (opt.isCorrect ? 'correct' : 'incorrect') : (selectedAnswer && opt.isCorrect ? 'correct' : '')} ${selectedAnswer ? 'disabled' : ''}`}
+                onClick={() => handleAnswer(opt)}
+                style={q.type === 'pinyin-to-hanzi' ? { fontFamily: "'Noto Sans SC', sans-serif", fontSize: '32px', textAlign: 'center', justifyContent: 'center' } : {}}
+              >
+                {opt.text}
+              </button>
+            ))}
+          </div>
+          <p className="text-sm" style={{ textAlign: 'center', marginTop: '20px' }}>SCORE: {score} / {currentIndex}</p>
+        </div>
+      );
+    }
+
+    // ============================================
+    // STATS VIEW
+    // ============================================
+    function StatsView({ progress, setCurrentView }) {
+      const byLesson = [12, 13, 14, 15].map(l => ({
+        lesson: l,
+        mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.id)).length,
+        total: VOCABULARY.filter(v => v.lesson === l).length
+      }));
+      const recentScores = progress.quizScores.slice(-5).reverse();
+
+      const handleReset = () => {
+        if (window.confirm('Reset all progress? This cannot be undone.')) {
+          localStorage.removeItem(STORAGE_KEY);
+          window.location.reload();
+        }
+      };
+
+      return (
+        <div className="screen">
+          <header className="header">
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+            <div className="logo">汉字</div>
+          </header>
+
+          <h1 className="title-xl">STATISTICS</h1>
+
+          <div className="stats-bar">
+            <div className="stat-item">
+              <div className="stat-value">{progress.masteredChars.length}</div>
+              <div className="stat-label">Mastered</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-value">{progress.totalReviews}</div>
+              <div className="stat-label">Reviews</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-value">{progress.streakDays}</div>
+              <div className="stat-label">Streak</div>
+            </div>
+          </div>
+
+          <div className="section-title">
+            <span className="text-sm">BY LESSON</span>
+            <div className="section-line" />
+          </div>
+
+          {byLesson.map(({ lesson, mastered, total }) => (
+            <div key={lesson} className="card">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <p className="title-md">LESSON {lesson}</p>
+                <span className="text-accent" style={{ fontFamily: 'Bebas Neue', fontSize: '22px' }}>{mastered}/{total}</span>
+              </div>
+              <div className="progress-bar" style={{ marginTop: '10px', marginBottom: '0' }}>
+                <div className="progress-fill" style={{ width: `${(mastered / total) * 100}%` }} />
+              </div>
+            </div>
+          ))}
+
+          {recentScores.length > 0 && (
+            <>
+              <div className="section-title">
+                <span className="text-sm">RECENT QUIZZES</span>
+                <div className="section-line" />
+              </div>
+              {recentScores.map((q, i) => (
+                <div key={i} className="card">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '13px' }}>{new Date(q.date).toLocaleDateString()}</span>
+                    <span className="text-accent" style={{ fontFamily: 'Bebas Neue', fontSize: '24px' }}>{Math.round((q.score / q.total) * 100)}%</span>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+
+          <div className="section-title">
+            <span className="text-sm">ALL {VOCABULARY.length} CHARACTERS</span>
+            <div className="section-line" />
+          </div>
+
+          <div className="char-grid">
+            {VOCABULARY.map(c => (
+              <div key={c.id} className={`char-item ${progress.masteredChars.includes(c.id) ? 'mastered' : progress.learningChars.includes(c.id) ? 'learning' : ''}`} title={`${c.pinyin} - ${c.meaning}`}>
+                {c.hanzi}
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: '28px' }}>
+            <button className="btn btn-coral" onClick={handleReset}>RESET PROGRESS</button>
+          </div>
+        </div>
+      );
+    }
+
+    // ============================================
+    // MOUNT
+    // ============================================
+    document.body.classList.add('app-ready');
+    ReactDOM.createRoot(document.getElementById('root')).render(<HanziMasterApp />);
+  </script>
+</body>
+</html>

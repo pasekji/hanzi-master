@@ -1,0 +1,16 @@
+{
+  "name": "hanzi-master",
+  "version": "3.0.0",
+  "description": "Neobrutalist Chinese character learning app - HSK1 Lessons 12-15",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
