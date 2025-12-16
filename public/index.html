@@ -342,6 +342,7 @@
         min-height: 100vh;
         min-height: 100dvh;
         padding: 16px;
+        padding-right: calc(16px + 6px); /* compensate for box-shadow offset */
         padding-bottom: calc(100px + env(safe-area-inset-bottom, 20px));
         width: 100%;
         max-width: 500px;
@@ -352,6 +353,7 @@
       @media (min-width: 768px) {
         .screen {
           padding: 24px;
+          padding-right: calc(24px + 8px); /* compensate for larger shadow on desktop */
           padding-bottom: 120px;
           max-width: 560px;
         }
