@@ -273,6 +273,35 @@
     // ============================================
     const STORAGE_KEY = 'hanzi_master_v3';
 
+    // Helper to migrate old ID-based progress to hanzi-based
+    const migrateProgress = (data) => {
+      // Check if already migrated (masteredChars contains strings/hanzi)
+      if (data.masteredChars.length > 0 && typeof data.masteredChars[0] === 'string') {
+        return data; // Already migrated
+      }
+      
+      // Migrate IDs to hanzi
+      const idToHanzi = {};
+      VOCABULARY.forEach(v => { idToHanzi[v.id] = v.hanzi; });
+      
+      const migrated = {
+        ...data,
+        masteredChars: data.masteredChars.map(id => idToHanzi[id]).filter(Boolean),
+        learningChars: data.learningChars.map(id => idToHanzi[id]).filter(Boolean),
+        drawingAttempts: {}
+      };
+      
+      // Migrate drawingAttempts keys
+      if (data.drawingAttempts) {
+        Object.entries(data.drawingAttempts).forEach(([id, count]) => {
+          const hanzi = idToHanzi[parseInt(id)];
+          if (hanzi) migrated.drawingAttempts[hanzi] = count;
+        });
+      }
+      
+      return migrated;
+    };
+
     const loadProgress = () => {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
@@ -280,7 +309,7 @@
           const data = JSON.parse(saved);
           // Validate data structure
           if (data && typeof data === 'object' && Array.isArray(data.masteredChars)) {
-            return data;
+            return migrateProgress(data);
           }
         }
       } catch (e) {
@@ -1196,20 +1225,20 @@
         setProgress(prev => ({ ...prev, ...updates }));
       }, []);
 
-      const markCharacterLearned = React.useCallback((charId) => {
+      const markCharacterLearned = React.useCallback((hanzi) => {
         setProgress(prev => {
-          if (prev.learningChars.includes(charId)) return { ...prev, totalReviews: prev.totalReviews + 1 };
-          return { ...prev, learningChars: [...prev.learningChars, charId], totalReviews: prev.totalReviews + 1 };
+          if (prev.learningChars.includes(hanzi)) return { ...prev, totalReviews: prev.totalReviews + 1 };
+          return { ...prev, learningChars: [...prev.learningChars, hanzi], totalReviews: prev.totalReviews + 1 };
         });
       }, []);
 
-      const markCharacterMastered = React.useCallback((charId) => {
+      const markCharacterMastered = React.useCallback((hanzi) => {
         setProgress(prev => {
-          if (prev.masteredChars.includes(charId)) return prev;
+          if (prev.masteredChars.includes(hanzi)) return prev;
           return {
             ...prev,
-            masteredChars: [...prev.masteredChars, charId],
-            learningChars: prev.learningChars.filter(id => id !== charId)
+            masteredChars: [...prev.masteredChars, hanzi],
+            learningChars: prev.learningChars.filter(h => h !== hanzi)
           };
         });
       }, []);
@@ -1322,7 +1351,7 @@
 
       const getLessonProgress = (num) => {
         const chars = VOCABULARY.filter(v => v.lesson === num);
-        const mastered = chars.filter(v => progress.masteredChars.includes(v.id)).length;
+        const mastered = chars.filter(v => progress.masteredChars.includes(v.hanzi)).length;
         return { mastered, total: chars.length, percent: Math.round((mastered / chars.length) * 100) };
       };
 
@@ -1382,7 +1411,7 @@
       const relatedCompounds = React.useMemo(() => COMPOUNDS.filter(c => c.hanzi.includes(currentChar.hanzi)), [currentChar]);
 
       const handleNext = () => {
-        markCharacterLearned(currentChar.id);
+        markCharacterLearned(currentChar.hanzi);
         setIsFlipped(false);
         setShowCompound(false);
         if (currentIndex < vocab.length - 1) setCurrentIndex(currentIndex + 1);
@@ -1560,7 +1589,7 @@
                   }));
                   if (finalMistakes === 0) {
                     setFeedback({ type: 'success', message: '🎉 PERFECT!' });
-                    markCharacterMastered(currentChar.id);
+                    markCharacterMastered(currentChar.hanzi);
                   } else if (finalMistakes <= 2) {
                     setFeedback({ type: 'success', message: '👍 WELL DONE!' });
                   } else {
@@ -1628,7 +1657,7 @@
         updateProgress({ 
           drawingAttempts: { 
             ...progress.drawingAttempts, 
-            [currentChar.id]: (progress.drawingAttempts[currentChar.id] || 0) + 1 
+            [currentChar.hanzi]: (progress.drawingAttempts[currentChar.hanzi] || 0) + 1 
           } 
         });
         if (currentIndex < vocab.length - 1) {
@@ -1822,7 +1851,7 @@
         const newScore = option.isCorrect ? score + 1 : score;
         if (option.isCorrect) {
           setScore(newScore);
-          markCharacterMastered(questions[currentIndex].char.id);
+          markCharacterMastered(questions[currentIndex].char.hanzi);
         }
         setTimeout(() => {
           if (currentIndex < questions.length - 1) {
@@ -1932,7 +1961,7 @@
     function StatsView({ progress, setCurrentView }) {
       const byLesson = [12, 13, 14, 15].map(l => ({
         lesson: l,
-        mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.id)).length,
+        mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.hanzi)).length,
         total: VOCABULARY.filter(v => v.lesson === l).length
       }));
       const recentScores = progress.quizScores.slice(-5).reverse();
@@ -1976,7 +2005,7 @@
             }
             
             // Merge with defaults for forward compatibility
-            const imported = {
+            let imported = {
               masteredChars: data.progress.masteredChars || [],
               learningChars: data.progress.learningChars || [],
               quizScores: data.progress.quizScores || [],
@@ -1986,6 +2015,9 @@
               totalReviews: data.progress.totalReviews || 0,
               streakDays: data.progress.streakDays || 0
             };
+            
+            // Migrate old ID-based backups to hanzi-based
+            imported = migrateProgress(imported);
             
             if (window.confirm(`Import backup from ${new Date(data.exportDate).toLocaleDateString()}?\n\nThis will replace your current progress.`)) {
               localStorage.setItem(STORAGE_KEY, JSON.stringify(imported));
@@ -2064,7 +2096,7 @@
 
           <div className="char-grid">
             {VOCABULARY.map(c => (
-              <div key={c.id} className={`char-item ${progress.masteredChars.includes(c.id) ? 'mastered' : progress.learningChars.includes(c.id) ? 'learning' : ''}`} title={`${c.pinyin} - ${c.meaning}`}>
+              <div key={c.id} className={`char-item ${progress.masteredChars.includes(c.hanzi) ? 'mastered' : progress.learningChars.includes(c.hanzi) ? 'learning' : ''}`} title={`${c.pinyin} - ${c.meaning}`}>
                 {c.hanzi}
               </div>
             ))}
