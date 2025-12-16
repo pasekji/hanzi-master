@@ -141,6 +141,7 @@
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
   
   <script type="text/babel" data-type="module">
     // ============================================
@@ -769,6 +770,139 @@
         min-height: 48px;
       }
       
+      /* ===== DRAW MODES ===== */
+      .draw-mode-selector {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      
+      .draw-mode-btn {
+        flex: 1;
+        padding: 12px 8px;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 14px;
+        letter-spacing: 1px;
+        border: 2px solid var(--border-color);
+        background: var(--bg-card);
+        color: var(--text-secondary);
+        transition: all var(--transition-fast);
+      }
+      
+      .draw-mode-btn.active {
+        background: var(--accent-lime);
+        color: var(--bg-primary);
+        border-color: var(--accent-lime);
+      }
+      
+      .hanzi-writer-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1;
+        border: var(--border-width) solid var(--border-color);
+        box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+        background: var(--bg-card);
+        margin: 16px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .hanzi-writer-container svg {
+        width: 100% !important;
+        height: 100% !important;
+      }
+      
+      .stroke-counter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin: 12px 0;
+        font-family: 'Space Mono', monospace;
+        font-size: 14px;
+      }
+      
+      .stroke-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--bg-secondary);
+        border: 2px solid var(--border-color);
+        transition: all 0.2s ease;
+      }
+      
+      .stroke-dot.completed {
+        background: var(--accent-lime);
+        border-color: var(--accent-lime);
+      }
+      
+      .stroke-dot.current {
+        background: var(--accent-cyan);
+        border-color: var(--accent-cyan);
+        transform: scale(1.3);
+      }
+      
+      .stroke-dot.error {
+        background: var(--accent-coral);
+        border-color: var(--accent-coral);
+      }
+      
+      .draw-feedback {
+        text-align: center;
+        padding: 12px;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 18px;
+        letter-spacing: 2px;
+        border: 2px solid;
+        margin-bottom: 12px;
+        animation: feedbackPop 0.3s ease-out;
+      }
+      
+      @keyframes feedbackPop {
+        0% { transform: scale(0.9); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      
+      .draw-feedback.success {
+        background: var(--accent-lime);
+        color: var(--bg-primary);
+        border-color: var(--accent-lime);
+      }
+      
+      .draw-feedback.error {
+        background: var(--accent-coral);
+        color: var(--bg-primary);
+        border-color: var(--accent-coral);
+      }
+      
+      .draw-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-top: 12px;
+      }
+      
+      .draw-stat {
+        text-align: center;
+        padding: 10px;
+        background: var(--bg-secondary);
+        border: 2px solid var(--border-color);
+      }
+      
+      .draw-stat-value {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 24px;
+        color: var(--accent-lime);
+      }
+      
+      .draw-stat-label {
+        font-size: 9px;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      
       /* ===== QUIZ ===== */
       .quiz-question {
         text-align: center;
@@ -1304,84 +1438,214 @@
     // ============================================
     // DRAW VIEW
     // ============================================
-    function DrawView({ selectedLesson, progress, updateProgress, setCurrentView }) {
+    function DrawView({ selectedLesson, progress, updateProgress, markCharacterMastered, setCurrentView }) {
       const vocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
       const [currentIndex, setCurrentIndex] = React.useState(0);
-      const [showGuide, setShowGuide] = React.useState(true);
-      const canvasRef = React.useRef(null);
-      const isDrawingRef = React.useRef(false);
-      const lastPosRef = React.useRef({ x: 0, y: 0 });
-
+      const [drawMode, setDrawMode] = React.useState('practice'); // learn, practice, quiz
+      const [strokesCompleted, setStrokesCompleted] = React.useState(0);
+      const [totalStrokes, setTotalStrokes] = React.useState(0);
+      const [mistakes, setMistakes] = React.useState(0);
+      const mistakesRef = React.useRef(0);
+      const [feedback, setFeedback] = React.useState(null); // { type: 'success' | 'error', message }
+      const [isComplete, setIsComplete] = React.useState(false);
+      const [isLoading, setIsLoading] = React.useState(true);
+      const [charStats, setCharStats] = React.useState({ completed: 0, totalMistakes: 0 });
+      
+      const writerRef = React.useRef(null);
+      const containerRef = React.useRef(null);
       const currentChar = vocab[currentIndex];
 
-      const setupCanvas = React.useCallback(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const dpr = window.devicePixelRatio || 1;
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
-        const ctx = canvas.getContext('2d');
-        ctx.scale(dpr, dpr);
-      }, []);
-
+      // Initialize Hanzi Writer
       React.useEffect(() => {
-        setupCanvas();
-        window.addEventListener('resize', setupCanvas);
-        return () => window.removeEventListener('resize', setupCanvas);
-      }, [setupCanvas]);
-
-      const getCoords = React.useCallback((e) => {
-        const canvas = canvasRef.current;
-        if (!canvas) return { x: 0, y: 0 };
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return { x: clientX - rect.left, y: clientY - rect.top };
-      }, []);
-
-      const startDrawing = React.useCallback((e) => {
-        e.preventDefault();
-        isDrawingRef.current = true;
-        lastPosRef.current = getCoords(e);
-      }, [getCoords]);
-
-      const draw = React.useCallback((e) => {
-        if (!isDrawingRef.current) return;
-        e.preventDefault();
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        const coords = getCoords(e);
+        if (!containerRef.current || !currentChar) return;
         
-        ctx.beginPath();
-        ctx.moveTo(lastPosRef.current.x, lastPosRef.current.y);
-        ctx.lineTo(coords.x, coords.y);
-        ctx.strokeStyle = '#c8ff00';
-        ctx.lineWidth = 8;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.stroke();
+        // Clear previous
+        if (writerRef.current) {
+          writerRef.current = null;
+        }
+        containerRef.current.innerHTML = '';
         
-        lastPosRef.current = coords;
-      }, [getCoords]);
+        // Reset state
+        setStrokesCompleted(0);
+        setMistakes(0);
+        mistakesRef.current = 0;
+        setFeedback(null);
+        setIsComplete(false);
+        setIsLoading(true);
 
-      const stopDrawing = React.useCallback(() => {
-        isDrawingRef.current = false;
-      }, []);
+        // Calculate size based on container
+        const containerWidth = containerRef.current.parentElement.offsetWidth - 20;
+        const size = Math.min(containerWidth, 320);
 
-      const clearCanvas = React.useCallback(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        const dpr = window.devicePixelRatio || 1;
-        ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
-      }, []);
+        try {
+          const writer = HanziWriter.create(containerRef.current, currentChar.hanzi, {
+            width: size,
+            height: size,
+            padding: 10,
+            showOutline: true,
+            showCharacter: drawMode === 'learn',
+            strokeColor: '#c8ff00',
+            outlineColor: '#333333',
+            drawingColor: '#c8ff00',
+            highlightColor: '#00ffff',
+            radicalColor: '#ff6b6b',
+            strokeAnimationSpeed: 1,
+            delayBetweenStrokes: 300,
+            drawingWidth: 6,
+            showHintAfterMisses: drawMode === 'practice' ? 2 : 3,
+            highlightOnComplete: true,
+            charDataLoader: (char, onComplete) => {
+              fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${char}.json`)
+                .then(res => res.json())
+                .then(data => onComplete(data))
+                .catch(() => {
+                  setFeedback({ type: 'error', message: 'Character data not available' });
+                });
+            }
+          });
+
+          writerRef.current = writer;
+
+          // Get stroke count
+          fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${currentChar.hanzi}.json`)
+            .then(res => res.json())
+            .then(data => {
+              setTotalStrokes(data.strokes.length);
+              setIsLoading(false);
+            })
+            .catch(() => {
+              setTotalStrokes(currentChar.strokes);
+              setIsLoading(false);
+            });
+
+          // Start based on mode
+          if (drawMode === 'learn') {
+            // Just show the character, user can click animate
+          } else {
+            // Start quiz mode for practice and quiz
+            setTimeout(() => {
+              writer.quiz({
+                onCorrectStroke: (data) => {
+                  setStrokesCompleted(data.strokeNum + 1);
+                  if (data.strokeNum === 0) {
+                    setFeedback({ type: 'success', message: 'GOOD START!' });
+                  }
+                  setTimeout(() => setFeedback(null), 800);
+                },
+                onMistake: (data) => {
+                  mistakesRef.current += 1;
+                  setMistakes(prev => prev + 1);
+                  setFeedback({ type: 'error', message: 'TRY AGAIN' });
+                  setTimeout(() => setFeedback(null), 800);
+                },
+                onComplete: (data) => {
+                  setIsComplete(true);
+                  const finalMistakes = mistakesRef.current;
+                  setCharStats(prev => ({
+                    completed: prev.completed + 1,
+                    totalMistakes: prev.totalMistakes + finalMistakes
+                  }));
+                  if (finalMistakes === 0) {
+                    setFeedback({ type: 'success', message: '🎉 PERFECT!' });
+                    markCharacterMastered(currentChar.id);
+                  } else if (finalMistakes <= 2) {
+                    setFeedback({ type: 'success', message: '👍 WELL DONE!' });
+                  } else {
+                    setFeedback({ type: 'success', message: '✓ COMPLETED' });
+                  }
+                }
+              });
+            }, 300);
+          }
+        } catch (err) {
+          console.warn('Hanzi Writer init error:', err);
+        }
+
+        return () => {
+          if (writerRef.current) {
+            writerRef.current = null;
+          }
+        };
+      }, [currentChar, drawMode]);
+
+      const handleAnimate = () => {
+        if (writerRef.current) {
+          writerRef.current.animateCharacter();
+        }
+      };
+
+      const handleReset = () => {
+        setStrokesCompleted(0);
+        setMistakes(0);
+        mistakesRef.current = 0;
+        setFeedback(null);
+        setIsComplete(false);
+        
+        if (writerRef.current) {
+          if (drawMode === 'learn') {
+            writerRef.current.showCharacter();
+          } else {
+            writerRef.current.quiz({
+              onCorrectStroke: (data) => {
+                setStrokesCompleted(data.strokeNum + 1);
+                setFeedback({ type: 'success', message: 'GOOD!' });
+                setTimeout(() => setFeedback(null), 600);
+              },
+              onMistake: () => {
+                mistakesRef.current += 1;
+                setMistakes(prev => prev + 1);
+                setFeedback({ type: 'error', message: 'TRY AGAIN' });
+                setTimeout(() => setFeedback(null), 600);
+              },
+              onComplete: () => {
+                setIsComplete(true);
+                const finalMistakes = mistakesRef.current;
+                setCharStats(prev => ({
+                  completed: prev.completed + 1,
+                  totalMistakes: prev.totalMistakes + finalMistakes
+                }));
+                setFeedback({ type: 'success', message: finalMistakes === 0 ? '🎉 PERFECT!' : '✓ DONE' });
+              }
+            });
+          }
+        }
+      };
 
       const handleNext = () => {
-        updateProgress({ drawingAttempts: { ...progress.drawingAttempts, [currentChar.id]: (progress.drawingAttempts[currentChar.id] || 0) + 1 } });
-        clearCanvas();
-        if (currentIndex < vocab.length - 1) setCurrentIndex(currentIndex + 1);
+        updateProgress({ 
+          drawingAttempts: { 
+            ...progress.drawingAttempts, 
+            [currentChar.id]: (progress.drawingAttempts[currentChar.id] || 0) + 1 
+          } 
+        });
+        if (currentIndex < vocab.length - 1) {
+          setCurrentIndex(currentIndex + 1);
+        } else {
+          // Last character - go back to home
+          setCurrentView('home');
+        }
       };
+
+      const handlePrev = () => {
+        if (currentIndex > 0) {
+          setCurrentIndex(currentIndex - 1);
+        }
+      };
+
+      // Stroke dots for visual progress
+      const strokeDots = React.useMemo(() => {
+        const dots = [];
+        for (let i = 0; i < Math.min(totalStrokes, 12); i++) {
+          let className = 'stroke-dot';
+          if (i < strokesCompleted) className += ' completed';
+          else if (i === strokesCompleted && !isComplete) className += ' current';
+          dots.push(<div key={i} className={className} />);
+        }
+        if (totalStrokes > 12) {
+          dots.push(<span key="more" style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>+{totalStrokes - 12}</span>);
+        }
+        return dots;
+      }, [totalStrokes, strokesCompleted, isComplete]);
 
       return (
         <div className="screen">
@@ -1390,36 +1654,113 @@
             <span className="text-sm" style={{ color: 'var(--accent-coral)' }}>{currentIndex + 1} / {vocab.length}</span>
           </header>
 
-          <div className="card" style={{ textAlign: 'center' }}>
-            <p className="text-sm">DRAW THIS CHARACTER</p>
-            <div className="hanzi-display hanzi-xl" style={{ color: 'var(--accent-lime)' }}>{currentChar.hanzi}</div>
-            <div className="pinyin-display" style={{ fontSize: '20px' }}>{currentChar.pinyin}</div>
-            <p className="text-sm">{currentChar.meaning} • {currentChar.strokes} STROKES</p>
+          {/* Mode selector */}
+          <div className="draw-mode-selector">
+            <button 
+              className={`draw-mode-btn ${drawMode === 'learn' ? 'active' : ''}`}
+              onClick={() => setDrawMode('learn')}
+            >
+              📖 LEARN
+            </button>
+            <button 
+              className={`draw-mode-btn ${drawMode === 'practice' ? 'active' : ''}`}
+              onClick={() => setDrawMode('practice')}
+            >
+              ✍️ PRACTICE
+            </button>
+            <button 
+              className={`draw-mode-btn ${drawMode === 'quiz' ? 'active' : ''}`}
+              onClick={() => setDrawMode('quiz')}
+            >
+              🎯 QUIZ
+            </button>
           </div>
 
-          <div className="canvas-container">
-            {showGuide && <div className="canvas-guide">{currentChar.hanzi}</div>}
-            <canvas
-              ref={canvasRef}
-              className="drawing-canvas"
-              onMouseDown={startDrawing}
-              onMouseMove={draw}
-              onMouseUp={stopDrawing}
-              onMouseLeave={stopDrawing}
-              onTouchStart={startDrawing}
-              onTouchMove={draw}
-              onTouchEnd={stopDrawing}
-            />
+          {/* Character info */}
+          <div className="card" style={{ textAlign: 'center', padding: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+              <div className="hanzi-display" style={{ fontSize: '48px', color: 'var(--accent-lime)' }}>{currentChar.hanzi}</div>
+              <div style={{ textAlign: 'left' }}>
+                <div className="pinyin-display" style={{ fontSize: '20px', marginTop: 0 }}>{currentChar.pinyin}</div>
+                <p className="text-sm" style={{ margin: '4px 0 0 0' }}>{currentChar.meaning}</p>
+              </div>
+            </div>
           </div>
 
+          {/* Feedback */}
+          {feedback && (
+            <div className={`draw-feedback ${feedback.type}`}>
+              {feedback.message}
+            </div>
+          )}
+
+          {/* Hanzi Writer container */}
+          <div className="hanzi-writer-container">
+            {isLoading && (
+              <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                <div style={{ fontSize: '48px', animation: 'loadingPulse 1s ease-in-out infinite' }}>✍️</div>
+                <div className="text-sm">LOADING STROKES...</div>
+              </div>
+            )}
+            <div ref={containerRef} style={{ touchAction: 'none', opacity: isLoading ? 0 : 1 }} />
+          </div>
+
+          {/* Stroke progress */}
+          {drawMode !== 'learn' && totalStrokes > 0 && (
+            <div className="stroke-counter">
+              {strokeDots}
+            </div>
+          )}
+
+          {/* Controls based on mode */}
           <div className="canvas-controls">
-            <button className="btn btn-secondary" onClick={clearCanvas}>CLEAR</button>
-            <button className="btn btn-secondary" onClick={() => setShowGuide(!showGuide)}>{showGuide ? 'HIDE' : 'SHOW'} GUIDE</button>
+            {drawMode === 'learn' ? (
+              <>
+                <button className="btn btn-secondary" onClick={handleAnimate}>▶ ANIMATE</button>
+                <button className="btn btn-primary" onClick={handleNext}>
+                  {currentIndex === vocab.length - 1 ? 'FINISH' : 'NEXT →'}
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="btn btn-secondary" onClick={handleReset}>
+                  {isComplete ? '↺ RETRY' : '↺ RESET'}
+                </button>
+                {isComplete && (
+                  <button className="btn btn-primary" onClick={handleNext}>
+                    {currentIndex === vocab.length - 1 ? 'FINISH' : 'NEXT →'}
+                  </button>
+                )}
+              </>
+            )}
           </div>
 
+          {/* Stats */}
+          {drawMode !== 'learn' && (
+            <div className="draw-stats">
+              <div className="draw-stat">
+                <div className="draw-stat-value">{strokesCompleted}/{totalStrokes}</div>
+                <div className="draw-stat-label">Strokes</div>
+              </div>
+              <div className="draw-stat">
+                <div className="draw-stat-value" style={{ color: mistakes > 0 ? 'var(--accent-coral)' : 'var(--accent-lime)' }}>{mistakes}</div>
+                <div className="draw-stat-label">Mistakes</div>
+              </div>
+              <div className="draw-stat">
+                <div className="draw-stat-value">{charStats.completed}</div>
+                <div className="draw-stat-label">Completed</div>
+              </div>
+            </div>
+          )}
+
+          {/* Navigation */}
           <div className="nav-actions">
-            <button className="btn btn-secondary" onClick={() => { clearCanvas(); if (currentIndex > 0) setCurrentIndex(currentIndex - 1); }} disabled={currentIndex === 0}>← PREV</button>
-            <button className="btn btn-primary" onClick={handleNext}>{currentIndex === vocab.length - 1 ? 'FINISH' : 'NEXT →'}</button>
+            <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>← PREV</button>
+            {(drawMode === 'learn' || !isComplete) && (
+              <button className="btn btn-secondary" onClick={handleNext}>
+                SKIP →
+              </button>
+            )}
           </div>
         </div>
       );
