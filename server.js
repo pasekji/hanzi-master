@@ -15,14 +15,18 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static files with caching
+// Serve static files (JS, CSS, images) with caching
 app.use(express.static(path.join(__dirname, 'public'), {
   maxAge: '1d',
-  etag: true
+  etag: true,
+  index: false // Don't serve index.html from static middleware
 }));
 
-// SPA fallback
+// Serve HTML with no-cache (always fresh)
 app.get('*', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
