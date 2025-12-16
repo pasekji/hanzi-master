@@ -1089,6 +1089,19 @@
         border-color: var(--accent-cyan);
       }
       
+      /* ===== BACKUP BUTTONS ===== */
+      .backup-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      
+      .backup-buttons .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
       /* ===== SECTION TITLE ===== */
       .section-title {
         display: flex;
@@ -1931,6 +1944,61 @@
         }
       };
 
+      const handleExport = () => {
+        const exportData = {
+          version: 1,
+          exportDate: new Date().toISOString(),
+          appName: 'hanzi-master',
+          progress: progress
+        };
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `hanzi-master-backup-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+
+      const handleImport = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const data = JSON.parse(event.target.result);
+            
+            // Validate structure
+            if (!data.progress || data.appName !== 'hanzi-master') {
+              alert('Invalid backup file.');
+              return;
+            }
+            
+            // Merge with defaults for forward compatibility
+            const imported = {
+              masteredChars: data.progress.masteredChars || [],
+              learningChars: data.progress.learningChars || [],
+              quizScores: data.progress.quizScores || [],
+              drawingAttempts: data.progress.drawingAttempts || {},
+              lastStudyDate: data.progress.lastStudyDate || null,
+              streak: data.progress.streak || 0,
+              totalReviews: data.progress.totalReviews || 0,
+              streakDays: data.progress.streakDays || 0
+            };
+            
+            if (window.confirm(`Import backup from ${new Date(data.exportDate).toLocaleDateString()}?\n\nThis will replace your current progress.`)) {
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(imported));
+              window.location.reload();
+            }
+          } catch (err) {
+            alert('Failed to read backup file.');
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = ''; // Reset input
+      };
+
       return (
         <div className="screen">
           <header className="header">
@@ -2002,7 +2070,22 @@
             ))}
           </div>
 
-          <div style={{ marginTop: '28px' }}>
+          <div className="section-title" style={{ marginTop: '28px' }}>
+            <span className="text-sm">BACKUP</span>
+            <div className="section-line" />
+          </div>
+
+          <div className="backup-buttons">
+            <button className="btn btn-secondary" onClick={handleExport}>
+              <span style={{ marginRight: '8px' }}>📤</span> EXPORT
+            </button>
+            <label className="btn btn-secondary" style={{ cursor: 'pointer' }}>
+              <span style={{ marginRight: '8px' }}>📥</span> IMPORT
+              <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
+            </label>
+          </div>
+
+          <div style={{ marginTop: '20px' }}>
             <button className="btn btn-coral" onClick={handleReset}>RESET PROGRESS</button>
           </div>
         </div>
