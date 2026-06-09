@@ -323,6 +323,7 @@
         streakDays: 0,
         lastStudyDate: null,
         drawingAttempts: {},
+        lastPositions: {},
       };
     };
 
@@ -332,6 +333,61 @@
       } catch (e) {
         console.warn('Failed to save progress:', e);
       }
+    };
+
+    const SIMILAR_CHAR_GROUPS = [
+      ['是', '十', '师', '时'],
+      ['人', '个', '大', '太', '八', '入'],
+      ['日', '目', '白', '百'],
+      ['口', '回', '四'],
+      ['小', '少'],
+      ['天', '夫', '大'],
+      ['去', '云'],
+      ['坐', '座'],
+      ['买', '卖'],
+      ['看', '着'],
+    ];
+
+    const getKnownSet = (items = []) => new Set(items.filter(Boolean));
+
+    const getStudyQueue = (vocab, progress) => {
+      const mastered = getKnownSet(progress.masteredChars);
+      const learning = getKnownSet(progress.learningChars);
+      return [...vocab].sort((a, b) => {
+        const priority = (char) => {
+          if (!mastered.has(char.hanzi) && !learning.has(char.hanzi)) return 0;
+          if (learning.has(char.hanzi)) return 1;
+          return 2;
+        };
+        const diff = priority(a) - priority(b);
+        return diff || a.id - b.id;
+      });
+    };
+
+    const getDrawQueue = (vocab, progress) => {
+      const mastered = getKnownSet(progress.masteredChars);
+      const attempts = progress.drawingAttempts || {};
+      return [...vocab].sort((a, b) => {
+        const masteredDiff = Number(mastered.has(a.hanzi)) - Number(mastered.has(b.hanzi));
+        if (masteredDiff) return masteredDiff;
+        const attemptDiff = (attempts[a.hanzi] || 0) - (attempts[b.hanzi] || 0);
+        return attemptDiff || a.id - b.id;
+      });
+    };
+
+    const getSimilarDistractors = (char, vocab, count = 3) => {
+      const sameGroup = SIMILAR_CHAR_GROUPS.find(group => group.includes(char.hanzi)) || [];
+      const byGroup = sameGroup
+        .filter(hanzi => hanzi !== char.hanzi)
+        .map(hanzi => vocab.find(v => v.hanzi === hanzi))
+        .filter(Boolean);
+      const byShape = vocab
+        .filter(v => v.id !== char.id && !byGroup.some(g => g.id === v.id))
+        .sort((a, b) => {
+          const strokeDiff = Math.abs((a.strokes || 0) - (char.strokes || 0)) - Math.abs((b.strokes || 0) - (char.strokes || 0));
+          return strokeDiff || Math.abs(a.id - char.id) - Math.abs(b.id - char.id);
+        });
+      return [...byGroup, ...byShape].slice(0, count);
     };
 
     // ============================================
@@ -878,14 +934,19 @@
       }
       
       .draw-feedback {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        z-index: 5;
         text-align: center;
         padding: 12px;
         font-family: 'Bebas Neue', sans-serif;
         font-size: 18px;
         letter-spacing: 2px;
         border: 2px solid;
-        margin-bottom: 12px;
         animation: feedbackPop 0.3s ease-out;
+        pointer-events: none;
       }
       
       @keyframes feedbackPop {
@@ -999,6 +1060,24 @@
       .quiz-option.disabled {
         pointer-events: none;
         cursor: default;
+      }
+
+      .quiz-feedback {
+        margin-top: 16px;
+        padding: 14px;
+        border: 2px solid var(--border-color);
+        background: var(--bg-secondary);
+        font-size: 13px;
+        color: var(--text-primary);
+      }
+
+      .quiz-feedback strong {
+        color: var(--accent-lime);
+      }
+
+      .quiz-feedback .pinyin-display {
+        margin-top: 6px;
+        font-size: 22px;
       }
       
       /* ===== FLASHCARD ===== */
@@ -1401,9 +1480,11 @@
     // ============================================
     // LEARN VIEW
     // ============================================
-    function LearnView({ selectedLesson, progress, markCharacterLearned, setCurrentView }) {
-      const vocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
-      const [currentIndex, setCurrentIndex] = React.useState(0);
+    function LearnView({ selectedLesson, progress, markCharacterLearned, updateProgress, setCurrentView }) {
+      const baseVocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
+      const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
+      const positionKey = `learn:${selectedLesson || 'all'}`;
+      const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
       const [isFlipped, setIsFlipped] = React.useState(false);
       const [showCompound, setShowCompound] = React.useState(false);
 
@@ -1414,13 +1495,23 @@
         markCharacterLearned(currentChar.hanzi);
         setIsFlipped(false);
         setShowCompound(false);
-        if (currentIndex < vocab.length - 1) setCurrentIndex(currentIndex + 1);
+        if (currentIndex < vocab.length - 1) {
+          const nextIndex = currentIndex + 1;
+          updateProgress({ lastPositions: { ...(progress.lastPositions || {}), [positionKey]: nextIndex } });
+          setCurrentIndex(nextIndex);
+        } else {
+          updateProgress({ lastPositions: { ...(progress.lastPositions || {}), [positionKey]: 0 } });
+        }
       };
 
       const handlePrev = () => {
         setIsFlipped(false);
         setShowCompound(false);
-        if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+        if (currentIndex > 0) {
+          const prevIndex = currentIndex - 1;
+          updateProgress({ lastPositions: { ...(progress.lastPositions || {}), [positionKey]: prevIndex } });
+          setCurrentIndex(prevIndex);
+        }
       };
 
       return (
@@ -1481,9 +1572,12 @@
     // DRAW VIEW
     // ============================================
     function DrawView({ selectedLesson, progress, updateProgress, markCharacterMastered, setCurrentView }) {
-      const vocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
-      const [currentIndex, setCurrentIndex] = React.useState(0);
+      const baseVocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
+      const [vocab] = React.useState(() => getDrawQueue(baseVocab, progress));
+      const positionKey = `draw:${selectedLesson || 'all'}`;
+      const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
       const [drawMode, setDrawMode] = React.useState('practice'); // learn, practice, quiz
+      const [showReference, setShowReference] = React.useState(false);
       const [strokesCompleted, setStrokesCompleted] = React.useState(0);
       const [totalStrokes, setTotalStrokes] = React.useState(0);
       const [mistakes, setMistakes] = React.useState(0);
@@ -1524,8 +1618,8 @@
             width: size,
             height: size,
             padding: 10,
-            showOutline: true,
-            showCharacter: drawMode === 'learn',
+            showOutline: drawMode === 'learn' || showReference,
+            showCharacter: drawMode === 'learn' || showReference,
             strokeColor: '#c8ff00',
             outlineColor: '#333333',
             drawingColor: '#c8ff00',
@@ -1608,7 +1702,7 @@
             writerRef.current = null;
           }
         };
-      }, [currentChar, drawMode]);
+      }, [currentChar, drawMode, showReference]);
 
       const handleAnimate = () => {
         if (writerRef.current) {
@@ -1654,14 +1748,16 @@
       };
 
       const handleNext = () => {
+        const nextIndex = currentIndex < vocab.length - 1 ? currentIndex + 1 : 0;
         updateProgress({ 
           drawingAttempts: { 
             ...progress.drawingAttempts, 
             [currentChar.hanzi]: (progress.drawingAttempts[currentChar.hanzi] || 0) + 1 
-          } 
+          },
+          lastPositions: { ...(progress.lastPositions || {}), [positionKey]: nextIndex }
         });
         if (currentIndex < vocab.length - 1) {
-          setCurrentIndex(currentIndex + 1);
+          setCurrentIndex(nextIndex);
         } else {
           // Last character - go back to home
           setCurrentView('home');
@@ -1670,7 +1766,9 @@
 
       const handlePrev = () => {
         if (currentIndex > 0) {
-          setCurrentIndex(currentIndex - 1);
+          const prevIndex = currentIndex - 1;
+          updateProgress({ lastPositions: { ...(progress.lastPositions || {}), [positionKey]: prevIndex } });
+          setCurrentIndex(prevIndex);
         }
       };
 
@@ -1721,20 +1819,15 @@
           {/* Character info */}
           <div className="card" style={{ textAlign: 'center', padding: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
-              <div className="hanzi-display" style={{ fontSize: '48px', color: 'var(--accent-lime)' }}>{currentChar.hanzi}</div>
+              <div className="hanzi-display" style={{ fontSize: '48px', color: 'var(--accent-lime)', minWidth: '64px' }}>
+                {(drawMode === 'learn' || showReference) ? currentChar.hanzi : '?'}
+              </div>
               <div style={{ textAlign: 'left' }}>
                 <div className="pinyin-display" style={{ fontSize: '20px', marginTop: 0 }}>{currentChar.pinyin}</div>
                 <p className="text-sm" style={{ margin: '4px 0 0 0' }}>{currentChar.meaning}</p>
               </div>
             </div>
           </div>
-
-          {/* Feedback */}
-          {feedback && (
-            <div className={`draw-feedback ${feedback.type}`}>
-              {feedback.message}
-            </div>
-          )}
 
           {/* Hanzi Writer container */}
           <div className="hanzi-writer-container">
@@ -1745,6 +1838,11 @@
               </div>
             )}
             <div ref={containerRef} style={{ touchAction: 'none', opacity: isLoading ? 0 : 1 }} />
+            {feedback && (
+              <div className={`draw-feedback ${feedback.type}`}>
+                {feedback.message}
+              </div>
+            )}
           </div>
 
           {/* Stroke progress */}
@@ -1767,6 +1865,9 @@
               <>
                 <button className="btn btn-secondary" onClick={handleReset}>
                   {isComplete ? '↺ RETRY' : '↺ RESET'}
+                </button>
+                <button className="btn btn-secondary" onClick={() => setShowReference(prev => !prev)}>
+                  {showReference ? 'HIDE' : 'SHOW'}
                 </button>
                 {isComplete && (
                   <button className="btn btn-primary" onClick={handleNext}>
@@ -1812,18 +1913,29 @@
     // QUIZ VIEW
     // ============================================
     function QuizView({ selectedLesson, progress, updateProgress, markCharacterMastered, setCurrentView }) {
-      const vocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
+      const baseVocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
+      const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
+      const [initialMasteredChars] = React.useState(progress.masteredChars);
       const [questions, setQuestions] = React.useState([]);
       const [currentIndex, setCurrentIndex] = React.useState(0);
-      const [selectedAnswer, setSelectedAnswer] = React.useState(null);
+      const [attemptedAnswers, setAttemptedAnswers] = React.useState([]);
+      const [answeredCorrect, setAnsweredCorrect] = React.useState(false);
+      const [revealedAnswer, setRevealedAnswer] = React.useState(false);
       const [score, setScore] = React.useState(0);
       const [isComplete, setIsComplete] = React.useState(false);
       const [quizType, setQuizType] = React.useState(null);
 
       const generateQuestions = React.useCallback(() => {
-        const shuffled = [...vocab].sort(() => Math.random() - 0.5).slice(0, Math.min(10, vocab.length));
+        const mastered = getKnownSet(initialMasteredChars);
+        const weakPool = vocab.filter(v => !mastered.has(v.hanzi));
+        const source = weakPool.length >= 4 ? weakPool : vocab;
+        const shuffled = [...source].sort(() => Math.random() - 0.5).slice(0, Math.min(10, source.length));
         const qs = shuffled.map(char => {
-          const wrong = vocab.filter(v => v.id !== char.id).sort(() => Math.random() - 0.5).slice(0, 3);
+          const similar = getSimilarDistractors(char, vocab, 3);
+          const fill = vocab
+            .filter(v => v.id !== char.id && !similar.some(s => s.id === v.id))
+            .sort(() => Math.random() - 0.5);
+          const wrong = [...similar, ...fill].slice(0, 3);
           let opts;
           if (quizType === 'hanzi-to-pinyin') {
             opts = [{ text: char.pinyin, isCorrect: true }, ...wrong.map(w => ({ text: w.pinyin, isCorrect: false }))];
@@ -1832,36 +1944,51 @@
           } else {
             opts = [{ text: char.meaning, isCorrect: true }, ...wrong.map(w => ({ text: w.meaning, isCorrect: false }))];
           }
-          return { char, options: opts.sort(() => Math.random() - 0.5), type: quizType };
+          const uniqueOpts = [];
+          opts.forEach(opt => {
+            if (!uniqueOpts.some(existing => existing.text === opt.text)) uniqueOpts.push(opt);
+          });
+          return { char, options: uniqueOpts.sort(() => Math.random() - 0.5), type: quizType };
         });
         setQuestions(qs);
         setCurrentIndex(0);
         setScore(0);
-        setSelectedAnswer(null);
+        setAttemptedAnswers([]);
+        setAnsweredCorrect(false);
+        setRevealedAnswer(false);
         setIsComplete(false);
-      }, [vocab, quizType]);
+      }, [vocab, quizType, initialMasteredChars]);
 
       React.useEffect(() => {
         if (quizType) generateQuestions();
       }, [quizType, generateQuestions]);
 
       const handleAnswer = (option) => {
-        if (selectedAnswer !== null) return;
-        setSelectedAnswer(option);
-        const newScore = option.isCorrect ? score + 1 : score;
+        if (answeredCorrect || revealedAnswer || attemptedAnswers.some(a => a.text === option.text)) return;
         if (option.isCorrect) {
+          const newScore = score + 1;
           setScore(newScore);
+          setAnsweredCorrect(true);
           markCharacterMastered(questions[currentIndex].char.hanzi);
+          return;
         }
-        setTimeout(() => {
-          if (currentIndex < questions.length - 1) {
-            setCurrentIndex(currentIndex + 1);
-            setSelectedAnswer(null);
-          } else {
-            setIsComplete(true);
-            updateProgress({ quizScores: [...progress.quizScores, { score: newScore, total: questions.length, date: new Date().toISOString() }] });
-          }
-        }, 1000);
+        const nextAttempts = [...attemptedAnswers, option];
+        setAttemptedAnswers(nextAttempts);
+        if (nextAttempts.length >= 2) {
+          setRevealedAnswer(true);
+        }
+      };
+
+      const handleNextQuestion = () => {
+        if (currentIndex < questions.length - 1) {
+          setCurrentIndex(currentIndex + 1);
+          setAttemptedAnswers([]);
+          setAnsweredCorrect(false);
+          setRevealedAnswer(false);
+        } else {
+          setIsComplete(true);
+          updateProgress({ quizScores: [...progress.quizScores, { score, total: questions.length, date: new Date().toISOString() }] });
+        }
       };
 
       if (!quizType) {
@@ -1914,6 +2041,8 @@
 
       const q = questions[currentIndex];
       if (!q) return null;
+      const canContinue = answeredCorrect || revealedAnswer;
+      const correctOption = q.options.find(opt => opt.isCorrect);
 
       return (
         <div className="screen">
@@ -1939,18 +2068,43 @@
             )}
           </div>
           <div className="quiz-options">
-            {q.options.map((opt, i) => (
-              <button
-                key={i}
-                className={`quiz-option ${selectedAnswer === opt ? (opt.isCorrect ? 'correct' : 'incorrect') : (selectedAnswer && opt.isCorrect ? 'correct' : '')} ${selectedAnswer ? 'disabled' : ''}`}
-                onClick={() => handleAnswer(opt)}
-                style={q.type === 'pinyin-to-hanzi' ? { fontFamily: "'Noto Sans SC', sans-serif", fontSize: '32px', textAlign: 'center', justifyContent: 'center' } : {}}
-              >
-                {opt.text}
-              </button>
-            ))}
+            {q.options.map((opt, i) => {
+              const wasTried = attemptedAnswers.some(a => a.text === opt.text);
+              const showCorrect = canContinue && opt.isCorrect;
+              return (
+                <button
+                  key={i}
+                  className={`quiz-option ${showCorrect ? 'correct' : ''} ${wasTried ? 'incorrect disabled' : ''} ${canContinue ? 'disabled' : ''}`}
+                  onClick={() => handleAnswer(opt)}
+                  style={q.type === 'pinyin-to-hanzi' ? { fontFamily: "'Noto Sans SC', sans-serif", fontSize: '32px', textAlign: 'center', justifyContent: 'center' } : {}}
+                >
+                  {opt.text}
+                </button>
+              );
+            })}
           </div>
-          <p className="text-sm" style={{ textAlign: 'center', marginTop: '20px' }}>SCORE: {score} / {currentIndex}</p>
+          {(attemptedAnswers.length > 0 || canContinue) && (
+            <div className="quiz-feedback">
+              {answeredCorrect ? (
+                <strong>CORRECT</strong>
+              ) : revealedAnswer ? (
+                <>
+                  <div>Correct answer: <strong>{correctOption?.text}</strong></div>
+                  <div className="pinyin-display">{q.char.pinyin}</div>
+                </>
+              ) : (
+                <strong>TRY ONCE MORE</strong>
+              )}
+            </div>
+          )}
+          {canContinue && (
+            <div className="nav-actions">
+              <button className="btn btn-primary" onClick={handleNextQuestion}>
+                {currentIndex === questions.length - 1 ? 'FINISH' : 'NEXT â†’'}
+              </button>
+            </div>
+          )}
+          <p className="text-sm" style={{ textAlign: 'center', marginTop: '20px' }}>SCORE: {score} / {currentIndex + (canContinue ? 1 : 0)}</p>
         </div>
       );
     }
@@ -2010,6 +2164,7 @@
               learningChars: data.progress.learningChars || [],
               quizScores: data.progress.quizScores || [],
               drawingAttempts: data.progress.drawingAttempts || {},
+              lastPositions: data.progress.lastPositions || {},
               lastStudyDate: data.progress.lastStudyDate || null,
               streak: data.progress.streak || 0,
               totalReviews: data.progress.totalReviews || 0,
