@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta name="theme-color" content="#e8f7ef">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
   <title>汉字 MASTER | HSK1 Chinese Learning</title>
@@ -14,11 +14,11 @@
   <!-- Preload fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
   
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>汉</text></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230a0a0a' width='100' height='100'/><text y='.9em' font-size='90'>汉</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='22' fill='%2307c160' width='100' height='100'/><text x='50' y='70' text-anchor='middle' font-size='62' fill='white'>汉</text></svg>">
   
   <style>
     /* ===== RESET & BASE ===== */
@@ -43,9 +43,9 @@
     }
     
     body {
-      background: #0a0a0a;
-      color: #ffffff;
-      font-family: 'Space Mono', 'Courier New', monospace;
+      background: #e8f7ef;
+      color: #18212b;
+      font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.5;
@@ -68,40 +68,99 @@
     .loading-screen {
       position: fixed;
       inset: 0;
-      background: #0a0a0a;
+      background:
+        radial-gradient(circle at 22% 12%, rgba(7, 193, 96, 0.18), transparent 30%),
+        radial-gradient(circle at 88% 18%, rgba(22, 119, 255, 0.15), transparent 28%),
+        linear-gradient(180deg, #e8f7ef 0%, #f7fbf8 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 9999;
+      overflow: hidden;
     }
-    
-    .loading-char {
+
+    .loading-screen::before {
+      content: "学";
+      position: absolute;
+      right: max(14px, 12vw);
+      top: 16%;
       font-family: 'Noto Sans SC', sans-serif;
-      font-size: clamp(60px, 20vw, 100px);
+      font-size: clamp(120px, 34vw, 220px);
       font-weight: 900;
-      color: #c8ff00;
-      text-shadow: 4px 4px 0 #ff6b6b, 8px 8px 0 #00ffff;
-      animation: loadingPulse 1s ease-in-out infinite;
+      color: rgba(7, 193, 96, 0.06);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .loading-card {
+      position: relative;
+      z-index: 1;
+      width: min(320px, calc(100vw - 48px));
+      padding: 28px 22px 24px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 18px 46px rgba(20, 49, 35, 0.14);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .loading-panda {
+      width: 104px;
+      height: 104px;
+      filter: drop-shadow(0 14px 20px rgba(7, 193, 96, 0.18));
+      animation: loadingPulse 2.8s ease-in-out infinite;
     }
     
     .loading-text {
-      margin-top: 24px;
-      font-family: 'Bebas Neue', 'Arial Black', sans-serif;
-      font-size: clamp(18px, 5vw, 24px);
-      color: #fff;
-      letter-spacing: 6px;
-      animation: loadingBlink 0.6s infinite;
+      margin-top: 2px;
+      font-size: 18px;
+      color: #14251c;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .loading-subtext {
+      color: #687870;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .loading-dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .loading-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #07c160;
+      animation: loadingBlink 1.2s ease-in-out infinite;
+    }
+
+    .loading-dots span:nth-child(2) {
+      animation-delay: 0.16s;
+      background: #1677ff;
+    }
+
+    .loading-dots span:nth-child(3) {
+      animation-delay: 0.32s;
+      background: #ffcf33;
     }
     
     @keyframes loadingPulse {
-      0%, 100% { transform: scale(1) rotate(-2deg); }
-      50% { transform: scale(1.08) rotate(2deg); }
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-6px) rotate(1deg); }
     }
     
     @keyframes loadingBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+      0%, 100% { transform: translateY(0); opacity: 0.45; }
+      50% { transform: translateY(-4px); opacity: 1; }
     }
     
     .app-ready .loading-screen {
@@ -110,13 +169,13 @@
     
     /* Selection color */
     ::selection {
-      background: #c8ff00;
-      color: #0a0a0a;
+      background: #07c160;
+      color: #ffffff;
     }
     
     /* Focus visible for accessibility */
     :focus-visible {
-      outline: 3px solid #00ffff;
+      outline: 3px solid #1677ff;
       outline-offset: 2px;
     }
     
@@ -133,8 +192,32 @@
 <body>
   <div id="root">
     <div class="loading-screen">
-      <div class="loading-char">汉</div>
-      <div class="loading-text">LOADING</div>
+      <div class="loading-card">
+        <svg class="loading-panda" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="15" y="18" width="90" height="84" rx="28" fill="#E8FFF3"/>
+          <circle cx="38" cy="40" r="14" fill="#17382A"/>
+          <circle cx="82" cy="40" r="14" fill="#17382A"/>
+          <circle cx="60" cy="58" r="34" fill="white"/>
+          <ellipse cx="46" cy="55" rx="10" ry="13" fill="#17382A" transform="rotate(-18 46 55)"/>
+          <ellipse cx="74" cy="55" rx="10" ry="13" fill="#17382A" transform="rotate(18 74 55)"/>
+          <circle cx="47" cy="53" r="3" fill="white"/>
+          <circle cx="73" cy="53" r="3" fill="white"/>
+          <path d="M60 61c4 0 7 2.5 7 5.5S64 72 60 72s-7-2.5-7-5.5S56 61 60 61Z" fill="#17382A"/>
+          <path d="M52 79c5 4 11 4 16 0" stroke="#17382A" stroke-width="4" stroke-linecap="round"/>
+          <rect x="42" y="84" width="36" height="18" rx="8" fill="url(#loadingBookGradient)"/>
+          <path d="M51 90h18M51 96h13" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <text x="92" y="89" text-anchor="middle" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="22" font-weight="900" fill="#07C160">学</text>
+          <defs>
+            <linearGradient id="loadingBookGradient" x1="42" y1="84" x2="78" y2="102" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#07C160"/>
+              <stop offset="1" stop-color="#1677FF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="loading-text">熊猫老师正在准备</div>
+        <div class="loading-subtext">Hanzi Master</div>
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+      </div>
     </div>
   </div>
   
@@ -291,7 +374,7 @@
       if (data.masteredChars.length > 0 && typeof data.masteredChars[0] === 'string') {
         return data; // Already migrated
       }
-      
+
       // Migrate IDs to hanzi
       const idToHanzi = {};
       VOCABULARY.forEach(v => { idToHanzi[v.id] = v.hanzi; });
@@ -1123,7 +1206,7 @@
         color: var(--accent-cyan);
         margin-top: 12px;
       }
-      
+
       .meaning-display {
         font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
         font-size: clamp(16px, 4.5vw, 20px);
@@ -1278,14 +1361,1583 @@
         100% { transform: translateX(-50%) translateY(0); opacity: 1; }
       }
       
+      /* ===== CHINESE SUPER-APP THEME ===== */
+      :root {
+        --bg-primary: #f5f7f6;
+        --bg-secondary: #eef7f3;
+        --bg-card: #ffffff;
+        --accent-lime: #07c160;
+        --accent-coral: #f24848;
+        --accent-cyan: #1677ff;
+        --accent-purple: #d99a18;
+        --text-primary: #18212b;
+        --text-secondary: #697780;
+        --border-width: 1px;
+        --border-color: #dce7e2;
+        --radius: 8px;
+        --shadow-offset: 0px;
+        --transition-fast: 0.18s ease;
+        --transition-bounce: 0.38s cubic-bezier(0.2, 0.9, 0.2, 1.2);
+      }
+
+      body {
+        background:
+          linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 36%, #f7f8fb 100%);
+        color: var(--text-primary);
+        overflow-x: hidden;
+      }
+
+      html,
+      body,
+      #root {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      .app-container {
+        background:
+          radial-gradient(circle at 18% 8%, rgba(7, 193, 96, 0.16), transparent 28%),
+          radial-gradient(circle at 86% 12%, rgba(22, 119, 255, 0.14), transparent 24%),
+          linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 42%, #f9faf8 100%);
+        color: var(--text-primary);
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+      }
+
+      .screen {
+        width: min(calc(100vw - 24px), 460px);
+        box-sizing: border-box;
+        max-width: 460px;
+        margin: 0 auto;
+        padding: 18px;
+        padding-bottom: calc(92px + env(safe-area-inset-bottom, 20px));
+      }
+
+      .screen *,
+      .app-bottom-nav,
+      .app-bottom-nav * {
+        box-sizing: border-box;
+      }
+
+      @media (min-width: 768px) {
+        .screen {
+          max-width: 480px;
+          padding: 24px;
+          padding-bottom: 110px;
+        }
+      }
+
+      .screen::before {
+        content: "汉";
+        position: fixed;
+        top: 76px;
+        right: max(12px, calc((100vw - 460px) / 2 - 24px));
+        z-index: 0;
+        font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+        font-size: 116px;
+        font-weight: 900;
+        color: rgba(7, 193, 96, 0.06);
+        animation: characterDrift 7s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      .screen > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .header {
+        padding: 10px 0 14px;
+        margin-bottom: 10px;
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #0d1f17;
+        font-size: 30px;
+        letter-spacing: 0;
+        text-shadow: none;
+        transform: none;
+      }
+
+      .logo::after {
+        content: "Master";
+        padding: 4px 9px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #07c160, #1677ff);
+        color: #fff;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .streak-badge,
+      .back-btn,
+      .btn,
+      .draw-mode-btn,
+      .quiz-option {
+        border-radius: var(--radius);
+        letter-spacing: 0;
+        box-shadow: none;
+      }
+
+      .back-btn {
+        background: rgba(255, 255, 255, 0.82);
+        color: var(--text-primary);
+        border-color: rgba(7, 193, 96, 0.2);
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .card,
+      .stat-item,
+      .draw-stat,
+      .hanzi-writer-container,
+      .canvas-container,
+      .quiz-option,
+      .floating-indicator {
+        border-color: rgba(24, 33, 43, 0.08);
+        border-radius: var(--radius);
+        box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.94);
+        padding: 18px;
+        margin-bottom: 14px;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 3px;
+        background: linear-gradient(90deg, #07c160, #1677ff, #d99a18);
+        opacity: 0;
+        transition: opacity var(--transition-fast);
+      }
+
+      .card-clickable:hover::before,
+      .card-accent-lime::before,
+      .card-accent-cyan::before,
+      .card-accent-coral::before,
+      .card-accent-purple::before {
+        opacity: 1;
+      }
+
+      .card-clickable:active,
+      .btn:active,
+      .back-btn:active {
+        transform: scale(0.985);
+        box-shadow: 0 5px 14px rgba(20, 49, 35, 0.08);
+      }
+
+      @media (hover: hover) {
+        .card-clickable:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 14px 34px rgba(20, 49, 35, 0.12);
+        }
+
+        .btn-secondary:hover,
+        .back-btn:hover {
+          background: #ecfff5;
+          color: #06783d;
+        }
+      }
+
+      .card-accent-lime,
+      .card-accent-cyan,
+      .card-accent-coral,
+      .card-accent-purple {
+        border-color: rgba(24, 33, 43, 0.08);
+        box-shadow: 0 12px 30px rgba(20, 49, 35, 0.1);
+      }
+
+      .title-hero {
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+        font-size: 44px;
+        letter-spacing: 0;
+        background: linear-gradient(135deg, #07c160 0%, #1677ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .title-xl {
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+        font-size: 32px;
+        letter-spacing: 0;
+      }
+
+      .title-lg {
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+        font-size: 22px;
+        letter-spacing: 0;
+      }
+
+      .title-md,
+      .menu-label,
+      .stat-label,
+      .draw-stat-label,
+      .score-label,
+      .text-sm {
+        letter-spacing: 0;
+      }
+
+      .text-sm {
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      .progress-bar {
+        height: 8px;
+        border: none;
+        border-radius: 999px;
+        background: #e3ebe7;
+      }
+
+      .progress-fill {
+        border-radius: 999px;
+        background: linear-gradient(90deg, #07c160, #1677ff);
+      }
+
+      .stats-bar {
+        gap: 8px;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.76);
+        padding: 12px 8px;
+      }
+
+      .stat-value,
+      .draw-stat-value,
+      .score-value,
+      .lesson-number,
+      .text-accent {
+        color: #07c160;
+      }
+
+      .stat-value,
+      .lesson-number,
+      .score-value {
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+        font-size: 34px;
+      }
+
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .menu-item {
+        min-height: 112px;
+        padding: 16px;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.94), rgba(250,253,252,0.94));
+      }
+
+      .menu-icon {
+        width: 52px;
+        height: 52px;
+        display: grid;
+        place-items: center;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(7, 193, 96, 0.14), rgba(22, 119, 255, 0.14));
+        font-size: 28px;
+        animation: iconBreathe 4s ease-in-out infinite;
+      }
+
+      .menu-label {
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 900;
+        color: #1d2c35;
+      }
+
+      .btn {
+        min-height: 50px;
+        border: none;
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #07c160, #0aa75a);
+        color: #fff;
+        box-shadow: 0 10px 22px rgba(7, 193, 96, 0.24);
+      }
+
+      .btn-secondary {
+        background: #ffffff;
+        color: #1677ff;
+        border: 1px solid rgba(22, 119, 255, 0.16);
+      }
+
+      .btn-coral,
+      .quiz-option.incorrect,
+      .draw-feedback.error {
+        background: #fff1f0;
+        color: #cf2b2b;
+        border-color: #ffd2cf;
+      }
+
+      .hanzi-display {
+        font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', 'SimSun', sans-serif;
+      }
+
+      .hanzi-hero {
+        font-size: 116px;
+        color: #07c160;
+        animation: hanziFloat 5s ease-in-out infinite;
+      }
+
+      .hanzi-xl {
+        font-size: 78px;
+      }
+
+      .pinyin-display {
+        color: #1677ff;
+      }
+
+      .meaning-display {
+        color: #5b6973;
+      }
+
+      .section-title {
+        margin: 24px 0 12px;
+      }
+
+      .section-line {
+        height: 1px;
+        background: linear-gradient(90deg, rgba(7, 193, 96, 0.35), transparent);
+      }
+
+      .lesson-card {
+        gap: 14px;
+      }
+
+      .lesson-number {
+        min-width: 58px;
+      }
+
+      .draw-mode-selector {
+        padding: 4px;
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.74);
+        box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.06);
+      }
+
+      .draw-mode-btn {
+        border: none;
+        background: transparent;
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+        font-weight: 900;
+        color: #65737d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .draw-mode-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .hanzi-writer-container .text-sm + svg,
+      .hanzi-writer-container svg:first-child {
+        max-width: 100%;
+      }
+
+      .hanzi-writer-container > div[style*="position: absolute"] svg {
+        width: 46px;
+        height: 46px;
+      }
+
+      .draw-mode-btn.active {
+        background: #07c160;
+        color: #fff;
+        box-shadow: 0 7px 16px rgba(7, 193, 96, 0.2);
+      }
+
+      .hanzi-writer-container {
+        background:
+          linear-gradient(135deg, rgba(7, 193, 96, 0.04), rgba(22, 119, 255, 0.04)),
+          #fff;
+      }
+
+      .stroke-dot {
+        border: none;
+        background: #d8e6df;
+      }
+
+      .stroke-dot.completed,
+      .draw-feedback.success,
+      .quiz-option.correct {
+        background: #e8fff3;
+        color: #087541;
+        border-color: #b7f1d2;
+      }
+
+      .stroke-dot.current {
+        background: #1677ff;
+      }
+
+      .draw-stat {
+        background: rgba(255, 255, 255, 0.76);
+      }
+
+      .quiz-question {
+        margin: 10px 0 14px;
+        padding: 24px 16px;
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);
+      }
+
+      .quiz-option {
+        padding: 15px 16px;
+        background: #fff;
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+        box-shadow: 0 8px 18px rgba(20, 49, 35, 0.06);
+      }
+
+      .quiz-feedback {
+        border-radius: var(--radius);
+        border-color: rgba(22, 119, 255, 0.16);
+        background: #f0f7ff;
+        color: #17344d;
+      }
+
+      .flashcard {
+        min-height: 310px;
+        background:
+          radial-gradient(circle at 50% 24%, rgba(7, 193, 96, 0.13), transparent 35%),
+          #fff;
+      }
+
+      .flashcard-hint {
+        color: #84929a;
+      }
+
+      .char-item {
+        border: none;
+        border-radius: 6px;
+        background: #edf3ef;
+      }
+
+      .char-item.mastered {
+        background: #07c160;
+        color: #fff;
+      }
+
+      .char-item.learning {
+        background: #1677ff;
+        color: #fff;
+      }
+
+      .streak-badge {
+        background: #fff7e6;
+        color: #9a6400;
+        border: 1px solid #ffe2a8;
+        font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+      }
+
+      .floating-indicator {
+        background: rgba(255, 255, 255, 0.96);
+        border-color: rgba(7, 193, 96, 0.2);
+      }
+
+      .app-mascot {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 12px;
+        align-items: center;
+        padding: 14px;
+        margin-bottom: 14px;
+        border-radius: var(--radius);
+        background:
+          linear-gradient(135deg, rgba(7, 193, 96, 0.12), rgba(22, 119, 255, 0.1)),
+          rgba(255, 255, 255, 0.82);
+        box-shadow: 0 10px 24px rgba(20, 49, 35, 0.08);
+        animation: slideUp 0.35s ease-out;
+      }
+
+      .app-mascot-face {
+        width: 58px;
+        height: 58px;
+        display: grid;
+        place-items: center;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #07c160, #1677ff);
+        color: #fff;
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: 34px;
+        font-weight: 900;
+        box-shadow: 0 10px 18px rgba(7, 193, 96, 0.24);
+        animation: mascotPulse 3.4s ease-in-out infinite;
+      }
+
+      .app-mascot-title {
+        margin: 0 0 2px;
+        font-size: 15px;
+        font-weight: 900;
+        color: #1d2c35;
+      }
+
+      .app-mascot-subtitle {
+        margin: 0;
+        font-size: 12px;
+        color: #5f6e77;
+      }
+
+      @keyframes characterDrift {
+        0%, 100% { transform: translateY(0) rotate(-5deg); }
+        50% { transform: translateY(18px) rotate(3deg); }
+      }
+
+      @keyframes iconBreathe {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-3px) scale(1.04); }
+      }
+
+      @keyframes mascotPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+
       /* ===== UTILITY ANIMATIONS ===== */
       @keyframes slideUp {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      
+
       .animate-slide-up {
         animation: slideUp 0.35s ease-out;
+      }
+
+      /* ===== FULL PRODUCT REDESIGN ===== */
+      .app-container {
+        position: relative;
+        min-height: 100vh;
+      }
+
+      .screen {
+        padding-top: 22px;
+        padding-bottom: calc(118px + env(safe-area-inset-bottom, 20px));
+      }
+
+      .app-container::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(7, 193, 96, 0.12), transparent 220px),
+          repeating-linear-gradient(135deg, rgba(7, 193, 96, 0.025) 0 1px, transparent 1px 18px);
+        pointer-events: none;
+      }
+
+      .super-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-mark {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: transparent;
+      }
+
+      .hanzi-mascot-svg {
+        width: 58px;
+        height: 58px;
+        filter: drop-shadow(0 12px 22px rgba(7, 193, 96, 0.22));
+        animation: mascotPulse 3.4s ease-in-out infinite;
+      }
+
+      .brand-title {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1;
+        font-weight: 900;
+        color: #14251c;
+      }
+
+      .brand-subtitle {
+        margin: 4px 0 0;
+        color: #6c7a73;
+        font-size: 12px;
+      }
+
+      .daily-chip {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 34px;
+        padding: 0 11px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(217, 154, 24, 0.22);
+        color: #9a6400;
+        font-weight: 900;
+        box-shadow: 0 8px 20px rgba(154, 100, 0, 0.08);
+      }
+
+      .wallet-card {
+        position: relative;
+        min-height: 188px;
+        padding: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+        background:
+          linear-gradient(135deg, rgba(7, 193, 96, 0.96), rgba(22, 119, 255, 0.88)),
+          #07c160;
+        color: #fff;
+        box-shadow: 0 18px 40px rgba(7, 193, 96, 0.24);
+        animation: walletEnter 0.48s ease-out;
+      }
+
+      .wallet-card::before {
+        content: "学";
+        position: absolute;
+        right: -10px;
+        top: -28px;
+        font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+        font-size: 180px;
+        font-weight: 900;
+        color: rgba(255,255,255,0.11);
+        line-height: 1;
+      }
+
+      .wallet-card::after {
+        content: "";
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 18px;
+        height: 1px;
+        background: rgba(255,255,255,0.28);
+      }
+
+      .wallet-label {
+        margin: 0;
+        color: rgba(255,255,255,0.78);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .wallet-score {
+        margin: 8px 0 16px;
+        font-size: 56px;
+        line-height: 0.9;
+        font-weight: 900;
+        letter-spacing: -1px;
+      }
+
+      .wallet-card .progress-bar {
+        background: rgba(255,255,255,0.25);
+      }
+
+      .wallet-card .progress-fill {
+        background: #fff;
+      }
+
+      .wallet-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 12px;
+        color: rgba(255,255,255,0.86);
+        font-size: 12px;
+      }
+
+      .wallet-seal {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border: 1px solid rgba(255,255,255,0.36);
+        border-radius: 8px;
+        color: #fff;
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: 24px;
+        font-weight: 900;
+      }
+
+      .quick-lane {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+        margin: 14px 0 20px;
+      }
+
+      .quick-action {
+        min-width: 0;
+        min-height: 82px;
+        padding: 0 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: 0;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.92);
+        color: #1c2b34;
+        box-shadow: 0 10px 26px rgba(20, 49, 35, 0.08);
+        font-weight: 900;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .quick-action:active {
+        transform: translateY(2px) scale(0.98);
+      }
+
+      .quick-action-icon {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: #e8fff3;
+        color: #07a653;
+      }
+
+      .quick-action-icon svg,
+      .bottom-nav-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .quick-action:nth-child(2) .quick-action-icon {
+        background: #eef5ff;
+      }
+
+      .quick-action:nth-child(3) .quick-action-icon {
+        background: #fff4e0;
+      }
+
+      .quick-action:nth-child(4) .quick-action-icon {
+        background: #fff0f0;
+      }
+
+      .quick-action-label {
+        font-size: 11px;
+      }
+
+      .insight-panel {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 16px;
+        margin-bottom: 18px;
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.96), rgba(240, 255, 248, 0.96));
+        box-shadow: 0 12px 28px rgba(20, 49, 35, 0.08);
+      }
+
+      .insight-title {
+        margin: 0 0 4px;
+        font-weight: 900;
+        color: #152820;
+      }
+
+      .insight-copy {
+        margin: 0;
+        color: #66756e;
+        font-size: 12px;
+      }
+
+      .insight-character {
+        width: 54px;
+        height: 54px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: #121f18;
+        color: #07c160;
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: 32px;
+        font-weight: 900;
+        animation: characterBlink 4.2s ease-in-out infinite;
+      }
+
+      .app-bottom-nav {
+        position: fixed;
+        left: 50%;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+        z-index: 200;
+        width: min(440px, calc(100vw - 24px));
+        max-width: calc(100vw - 24px);
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+        padding: 8px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.92);
+        border: 1px solid rgba(24, 33, 43, 0.08);
+        box-shadow: 0 18px 50px rgba(20, 49, 35, 0.18);
+        transform: translateX(-50%);
+        backdrop-filter: blur(16px);
+      }
+
+      .bottom-nav-item {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        padding: 7px 2px;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: #728078;
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .bottom-nav-item.active {
+        background: #e8fff3;
+        color: #07a653;
+      }
+
+      .bottom-nav-icon {
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .menu-grid {
+        display: none;
+      }
+
+      .stats-bar {
+        margin-top: 12px;
+      }
+
+      .card {
+        border: none;
+      }
+
+      .section-title {
+        margin-top: 22px;
+      }
+
+      .header {
+        min-height: 54px;
+        padding: 0;
+        margin-bottom: 14px;
+      }
+
+      .header .logo {
+        font-size: 24px;
+      }
+
+      .header .logo::after {
+        content: "学";
+        width: 22px;
+        height: 22px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        font-size: 12px;
+      }
+
+      .screen > .title-xl {
+        margin-top: 4px;
+      }
+
+      .lesson-card {
+        min-height: 82px;
+      }
+
+      .lesson-number {
+        width: 54px;
+        height: 54px;
+        min-width: 54px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: #e8fff3;
+        font-size: 24px;
+      }
+
+      .lesson-info .title-md {
+        font-size: 15px;
+      }
+
+      .lesson-title-line {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        min-width: 0;
+      }
+
+      .lesson-title-line .title-md {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .lesson-chinese-chip {
+        flex: 0 0 auto;
+        max-width: 74px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 3px 7px;
+        border-radius: 8px;
+        background: #e8fff3;
+        color: #07a653;
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .flashcard.card {
+        border: 0;
+      }
+
+      .flashcard::before {
+        opacity: 1;
+        height: 0;
+      }
+
+      .flashcard .hanzi-display {
+        color: #07c160 !important;
+      }
+
+      .card[style*="text-align: center"] {
+        background: rgba(255,255,255,0.9);
+      }
+
+      .hanzi-writer-container {
+        border: 1px solid rgba(24, 33, 43, 0.08);
+      }
+
+      .canvas-controls,
+      .nav-actions,
+      .backup-buttons {
+        gap: 10px;
+      }
+
+      .results-display {
+        border-radius: 8px;
+        background: rgba(255,255,255,0.78);
+        box-shadow: 0 12px 28px rgba(20, 49, 35, 0.08);
+      }
+
+      .score-circle {
+        border-color: #07c160;
+        box-shadow: 0 0 0 8px rgba(7,193,96,0.08);
+      }
+
+      .char-grid {
+        gap: 8px;
+      }
+
+      .floating-indicator {
+        bottom: calc(98px + env(safe-area-inset-bottom, 0px));
+      }
+
+      .lessons-quick-actions {
+        display: none !important;
+      }
+
+      @keyframes walletEnter {
+        from { opacity: 0; transform: translateY(18px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      @keyframes characterBlink {
+        0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(7,193,96,0); }
+        50% { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(7,193,96,0.18); }
+      }
+
+      /* ===== DEEP SUPER-APP POLISH ===== */
+      .wallet-card {
+        min-height: 206px;
+        background:
+          radial-gradient(circle at 78% 30%, rgba(255, 255, 255, 0.22), transparent 28%),
+          linear-gradient(135deg, #06b85b 0%, #12c8a1 48%, #1777ff 100%);
+      }
+
+      .wallet-card .progress-bar {
+        height: 7px;
+        margin-top: 22px;
+      }
+
+      .wallet-meta {
+        position: relative;
+        z-index: 1;
+      }
+
+      .wallet-seal {
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(10px);
+      }
+
+      .wallet-panda {
+        position: absolute;
+        z-index: 1;
+        right: 14px;
+        top: 14px;
+        width: 70px;
+        height: 70px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.16);
+        backdrop-filter: blur(10px);
+      }
+
+      .wallet-panda .panda-buddy-svg {
+        width: 62px;
+        height: 62px;
+        filter: drop-shadow(0 8px 12px rgba(15, 40, 30, 0.18));
+      }
+
+      @media (max-width: 380px) {
+        .wallet-panda {
+          width: 58px;
+          height: 58px;
+          right: 12px;
+          top: 12px;
+        }
+
+        .wallet-panda .panda-buddy-svg {
+          width: 52px;
+          height: 52px;
+        }
+      }
+
+      .quick-lane {
+        padding: 8px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.64);
+        box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.04);
+      }
+
+      .quick-action {
+        min-height: 88px;
+        box-shadow: none;
+      }
+
+      .quick-action-icon {
+        position: relative;
+      }
+
+      .quick-action-icon::after {
+        content: "";
+        position: absolute;
+        right: -2px;
+        top: -2px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ffcf33;
+        box-shadow: 0 0 0 2px #fff;
+      }
+
+      .home-metrics .stat-item {
+        background: linear-gradient(180deg, #fff, #f8fffb);
+      }
+
+      .account-entry {
+        display: block;
+        background:
+          linear-gradient(90deg, rgba(255,255,255,0.96), rgba(241, 250, 246, 0.96));
+      }
+
+      .service-section {
+        padding: 10px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.58);
+        box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.04);
+      }
+
+      .service-section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 4px 12px;
+        color: #708078;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .service-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .service-row {
+        margin-bottom: 0;
+        box-shadow: none;
+        background: #fff;
+      }
+
+      .service-row::after {
+        content: "›";
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #a6b4ad;
+        font-size: 28px;
+        line-height: 1;
+      }
+
+      .service-row .lesson-info {
+        padding-right: 20px;
+      }
+
+      .study-pass-card {
+        min-height: 336px;
+        background:
+          radial-gradient(circle at 50% 18%, rgba(7, 193, 96, 0.18), transparent 38%),
+          linear-gradient(180deg, #fff, #fafffc);
+      }
+
+      .study-pass-card::after {
+        content: "记";
+        position: absolute;
+        right: 18px;
+        bottom: 14px;
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: 64px;
+        color: rgba(7, 193, 96, 0.06);
+        font-weight: 900;
+      }
+
+      .related-service-card {
+        background: #fff;
+      }
+
+      .mini-app-segment {
+        background: rgba(255,255,255,0.78);
+        border: 1px solid rgba(24, 33, 43, 0.06);
+      }
+
+      .draw-prompt-card {
+        display: block;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241, 250, 246, 0.98));
+      }
+
+      .draw-prompt-card::after {
+        content: "写";
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: 54px;
+        font-weight: 900;
+        color: rgba(7, 193, 96, 0.08);
+      }
+
+      .writer-mini-program {
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248, 253, 251, 0.96)),
+          repeating-linear-gradient(0deg, transparent 0 39px, rgba(7,193,96,0.05) 39px 40px),
+          repeating-linear-gradient(90deg, transparent 0 39px, rgba(7,193,96,0.05) 39px 40px);
+      }
+
+      .quiz-pass-card {
+        background:
+          radial-gradient(circle at 50% 20%, rgba(7, 193, 96, 0.1), transparent 36%),
+          #fff;
+      }
+
+      .quiz-mode-card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        align-items: center;
+        padding: 16px;
+        margin-bottom: 12px;
+        background: #fff;
+      }
+
+      .quiz-mode-icon {
+        width: 50px;
+        height: 50px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: #e8fff3;
+        color: #07a653;
+      }
+
+      .quiz-mode-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .quiz-mode-card:nth-of-type(2) .quiz-mode-icon {
+        background: #eef5ff;
+        color: #1677ff;
+      }
+
+      .quiz-mode-card:nth-of-type(3) .quiz-mode-icon {
+        background: #fff4e0;
+        color: #c77600;
+      }
+
+      .quiz-option {
+        border-radius: 8px;
+        position: relative;
+      }
+
+      .quiz-option::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 10px;
+        bottom: 10px;
+        width: 3px;
+        border-radius: 999px;
+        background: rgba(7, 193, 96, 0.28);
+      }
+
+      .stats-wallet {
+        padding: 8px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.6);
+      }
+
+      .stats-wallet .stat-item {
+        background: #fff;
+        box-shadow: none;
+      }
+
+      .char-grid {
+        padding: 10px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.62);
+      }
+
+      .char-item {
+        box-shadow: inset 0 0 0 1px rgba(24,33,43,0.04);
+      }
+
+      .app-bottom-nav {
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,252,250,0.96));
+      }
+
+      .bottom-nav-item.active .bottom-nav-icon {
+        animation: tabPop 0.28s ease-out;
+      }
+
+      /* ===== SUPER-APP ROUND TWO ===== */
+      .super-searchbar {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 10px;
+        min-height: 42px;
+        padding: 0 12px;
+        margin: 0 0 12px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.88);
+        border: 1px solid rgba(24, 33, 43, 0.06);
+        box-shadow: 0 10px 24px rgba(20, 49, 35, 0.07);
+        color: #718078;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .super-searchbar svg {
+        width: 18px;
+        height: 18px;
+        color: #07a653;
+      }
+
+      .super-searchbar strong {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #1d2c35;
+        font-size: 13px;
+      }
+
+      .super-search-action {
+        display: grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+        background: #e8fff3;
+        color: #07a653;
+      }
+
+      .mini-program-panel {
+        padding: 12px;
+        margin: 0 0 16px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.72);
+        box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.04), 0 12px 28px rgba(20, 49, 35, 0.06);
+      }
+
+      .mini-program-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        color: #687870;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .mini-program-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px 8px;
+      }
+
+      .mini-program-tile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 7px;
+        min-width: 0;
+        padding: 6px 2px;
+        border: 0;
+        background: transparent;
+        color: #213129;
+        font: inherit;
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .mini-program-tile:active {
+        transform: scale(0.96);
+      }
+
+      .mini-program-icon {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        color: #fff;
+        box-shadow: 0 8px 18px rgba(20, 49, 35, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .mini-program-icon::before {
+        content: "";
+        position: absolute;
+        inset: 4px auto auto 5px;
+        width: 12px;
+        height: 5px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.36);
+      }
+
+      .mini-program-icon svg {
+        width: 22px;
+        height: 22px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .mini-program-name {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .mini-program-tile:nth-child(1) .mini-program-icon { background: linear-gradient(135deg, #07c160, #18d58b); }
+      .mini-program-tile:nth-child(2) .mini-program-icon { background: linear-gradient(135deg, #1677ff, #28b8ff); }
+      .mini-program-tile:nth-child(3) .mini-program-icon { background: linear-gradient(135deg, #ff9f1c, #ffd166); }
+      .mini-program-tile:nth-child(4) .mini-program-icon { background: linear-gradient(135deg, #ff4d4f, #ff8a80); }
+      .mini-program-tile:nth-child(5) .mini-program-icon { background: linear-gradient(135deg, #2f3542, #57606f); }
+      .mini-program-tile:nth-child(6) .mini-program-icon { background: linear-gradient(135deg, #00a6a6, #00d2d3); }
+      .mini-program-tile:nth-child(7) .mini-program-icon { background: linear-gradient(135deg, #8e44ad, #c56cf0); }
+      .mini-program-tile:nth-child(8) .mini-program-icon { background: linear-gradient(135deg, #d99a18, #f6c343); }
+
+      .illustration-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        margin: 14px 0 16px;
+      }
+
+      .story-sticker {
+        min-width: 0;
+        min-height: 132px;
+        padding: 10px 6px 9px;
+        border: 0;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.86);
+        box-shadow: 0 10px 24px rgba(20, 49, 35, 0.07);
+        color: #1d2c35;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .story-sticker::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 auto;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(7, 193, 96, 0.08);
+      }
+
+      .story-sticker:active {
+        transform: scale(0.97);
+      }
+
+      .story-sticker-svg {
+        display: block;
+        width: 74px;
+        max-width: 100%;
+        height: 60px;
+        margin: 0 auto 5px;
+        filter: drop-shadow(0 8px 12px rgba(20, 49, 35, 0.11));
+        animation: stickerBob 4.4s ease-in-out infinite;
+      }
+
+      .story-sticker:nth-child(2) .story-sticker-svg {
+        animation-delay: -1.2s;
+      }
+
+      .story-sticker:nth-child(3) .story-sticker-svg {
+        animation-delay: -2.1s;
+      }
+
+      .story-sticker-title {
+        display: block;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .cute-coach-card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 12px;
+        align-items: center;
+        padding: 14px;
+        margin-bottom: 16px;
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.98), rgba(235, 255, 246, 0.96));
+        box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);
+      }
+
+      .coach-mini-svg,
+      .panda-buddy-svg {
+        width: 66px;
+        height: 66px;
+        filter: drop-shadow(0 10px 18px rgba(7, 193, 96, 0.18));
+        animation: coachFloat 4s ease-in-out infinite;
+      }
+
+      .coach-title {
+        margin: 0 0 4px;
+        color: #14251c;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .coach-copy {
+        margin: 0;
+        color: #66756e;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .lesson-service-icon {
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        border-radius: 8px;
+        background: #f0fff6;
+        color: #07a653;
+      }
+
+      .lesson-service-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .service-row:nth-child(2n) .lesson-service-icon {
+        background: #eff6ff;
+        color: #1677ff;
+      }
+
+      .service-row:nth-child(3n) .lesson-service-icon {
+        background: #fff6e6;
+        color: #c77600;
+      }
+
+      @keyframes coachFloat {
+        0%, 100% { transform: translateY(0) rotate(-1deg); }
+        50% { transform: translateY(-5px) rotate(1deg); }
+      }
+
+      @keyframes stickerBob {
+        0%, 100% { transform: translateY(0) rotate(-1deg); }
+        50% { transform: translateY(-4px) rotate(1deg); }
+      }
+
+      @keyframes tabPop {
+        0% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-3px) scale(1.08); }
+        100% { transform: translateY(0) scale(1); }
       }
     `;
 
@@ -1348,7 +3000,232 @@
           {currentView === 'draw' && <DrawView {...viewProps} />}
           {currentView === 'quiz' && <QuizView {...viewProps} />}
           {currentView === 'stats' && <StatsView {...viewProps} />}
+          <BottomNav currentView={currentView} setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} />
         </div>
+      );
+    }
+
+    function BottomNav({ currentView, setCurrentView, setSelectedLesson }) {
+      if (['learn', 'draw', 'quiz'].includes(currentView)) return null;
+
+      const items = [
+        { view: 'home', icon: 'home', label: 'Home' },
+        { view: 'learn', icon: 'card', label: 'Cards', resetLesson: true },
+        { view: 'draw', icon: 'brush', label: 'Write', resetLesson: true },
+        { view: 'quiz', icon: 'target', label: 'Quiz', resetLesson: true },
+        { view: 'stats', icon: 'chart', label: 'Stats' },
+      ];
+
+      return (
+        <nav className="app-bottom-nav" aria-label="Primary">
+          {items.map(item => (
+            <button
+              key={item.view}
+              className={`bottom-nav-item ${currentView === item.view ? 'active' : ''}`}
+              onClick={() => {
+                if (item.resetLesson) setSelectedLesson(null);
+                setCurrentView(item.view);
+              }}
+            >
+              <span className="bottom-nav-icon"><AppIcon name={item.icon} /></span>
+              <span>{item.label}</span>
+            </button>
+          ))}
+        </nav>
+      );
+    }
+
+    function AppIcon({ name }) {
+      const common = {
+        width: 24,
+        height: 24,
+        viewBox: '0 0 24 24',
+        fill: 'none',
+        xmlns: 'http://www.w3.org/2000/svg',
+      };
+      const stroke = { stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' };
+      if (name === 'home') return (
+        <svg {...common}><path {...stroke} d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1v-9.5Z"/><path {...stroke} d="M9 21h6"/></svg>
+      );
+      if (name === 'card') return (
+        <svg {...common}><rect x="5" y="4" width="13" height="16" rx="3" fill="currentColor" opacity="0.14"/><path {...stroke} d="M8 8h8M8 12h5M8 16h7"/><path {...stroke} d="M17 4l2 2"/></svg>
+      );
+      if (name === 'brush') return (
+        <svg {...common}><path {...stroke} d="M15.5 4.5 20 9l-8.5 8.5-4.5 1 1-4.5 7.5-9.5Z"/><path {...stroke} d="M13 7l4 4"/><path {...stroke} d="M5 20c2-1 3.5-.5 5-2"/></svg>
+      );
+      if (name === 'target') return (
+        <svg {...common}><circle {...stroke} cx="12" cy="12" r="7"/><circle {...stroke} cx="12" cy="12" r="3"/><path {...stroke} d="M12 2v3M22 12h-3M12 22v-3M2 12h3"/></svg>
+      );
+      if (name === 'chart') return (
+        <svg {...common}><path {...stroke} d="M5 19V9M12 19V5M19 19v-7"/><path {...stroke} d="M4 19h16"/></svg>
+      );
+      if (name === 'scan') return (
+        <svg {...common}><path {...stroke} d="M5 9V6a1 1 0 0 1 1-1h3M15 5h3a1 1 0 0 1 1 1v3M19 15v3a1 1 0 0 1-1 1h-3M9 19H6a1 1 0 0 1-1-1v-3"/><path {...stroke} d="M8 12h8"/></svg>
+      );
+      if (name === 'book') return (
+        <svg {...common}><path {...stroke} d="M5 5.5A2.5 2.5 0 0 1 7.5 3H19v16H7.5A2.5 2.5 0 0 0 5 21V5.5Z"/><path {...stroke} d="M5 5.5A2.5 2.5 0 0 0 7.5 8H19"/><path {...stroke} d="M9 12h6"/></svg>
+      );
+      if (name === 'sound') return (
+        <svg {...common}><path {...stroke} d="M4 10v4h4l5 4V6l-5 4H4Z"/><path {...stroke} d="M16 9.5c1.1 1.3 1.1 3.7 0 5M18.5 7c2.2 2.7 2.2 7.3 0 10"/></svg>
+      );
+      if (name === 'gift') return (
+        <svg {...common}><path {...stroke} d="M4 10h16v10H4V10Z"/><path {...stroke} d="M12 10v10M4 14h16M7 7c0-1.7 1.4-3 3-2l2 5H8a3 3 0 0 1-1-3ZM17 7c0-1.7-1.4-3-3-2l-2 5h4a3 3 0 0 0 1-3Z"/></svg>
+      );
+      if (name === 'wallet') return (
+        <svg {...common}><path {...stroke} d="M5 7.5h13a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7.5a2 2 0 0 1 2-2h11"/><path {...stroke} d="M17 13h3"/><path {...stroke} d="M6 5.5 16 3v4.5"/></svg>
+      );
+      return <svg {...common}><circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.14"/><path {...stroke} d="M8 12h8M12 8v8"/></svg>;
+    }
+
+    function HanziMascotSvg() {
+      return (
+        <svg className="hanzi-mascot-svg" width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="10" y="12" width="72" height="68" rx="22" fill="url(#mascotGradient)" />
+          <text x="46" y="58" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="38" fontWeight="900" fill="white">汉</text>
+          <circle cx="34" cy="31" r="2.5" fill="#17382A" />
+          <circle cx="58" cy="31" r="2.5" fill="#17382A" />
+          <path d="M40 66c4 3 9 3 13 0" stroke="#17382A" strokeWidth="3" strokeLinecap="round" />
+          <path d="M17 31c-7-2-9-9-4-14 6 2 9 7 8 13" fill="#FFE7A8" />
+          <path d="M75 65c8 1 12 7 9 13-7 0-11-4-12-11" fill="#FFE7A8" />
+          <defs>
+            <linearGradient id="mascotGradient" x1="10" y1="12" x2="82" y2="80" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#07C160" />
+              <stop offset="1" stopColor="#1677FF" />
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    }
+
+    function CoachSvg() {
+      return (
+        <svg className="coach-mini-svg" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="16" y="12" width="58" height="64" rx="20" fill="#E8FFF3"/>
+          <rect x="21" y="17" width="48" height="48" rx="16" fill="url(#coachGradient)"/>
+          <text x="45" y="50" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="30" fontWeight="900" fill="white">学</text>
+          <circle cx="34" cy="33" r="2.4" fill="#17382A"/>
+          <circle cx="56" cy="33" r="2.4" fill="#17382A"/>
+          <path d="M38 56c4 3 10 3 14 0" stroke="#17382A" strokeWidth="3" strokeLinecap="round"/>
+          <path d="M20 66c-5 1-8 4-9 9 7 2 12 0 15-5" fill="#FFE5A3"/>
+          <path d="M70 23c6-3 9-1 10 5-5 4-10 4-14 0" fill="#FFE5A3"/>
+          <defs>
+            <linearGradient id="coachGradient" x1="21" y1="17" x2="69" y2="65" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#07C160"/>
+              <stop offset="1" stopColor="#1677FF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    }
+
+    function PandaBuddySvg() {
+      return (
+        <svg className="panda-buddy-svg" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="10" y="13" width="70" height="64" rx="22" fill="#E8FFF3"/>
+          <circle cx="28" cy="29" r="10" fill="#17382A"/>
+          <circle cx="62" cy="29" r="10" fill="#17382A"/>
+          <circle cx="45" cy="43" r="27" fill="white"/>
+          <ellipse cx="34" cy="40" rx="8" ry="10" fill="#17382A" transform="rotate(-18 34 40)"/>
+          <ellipse cx="56" cy="40" rx="8" ry="10" fill="#17382A" transform="rotate(18 56 40)"/>
+          <circle cx="35" cy="39" r="2.2" fill="white"/>
+          <circle cx="55" cy="39" r="2.2" fill="white"/>
+          <path d="M45 45c3 0 5 2 5 4s-2 4-5 4-5-2-5-4 2-4 5-4Z" fill="#17382A"/>
+          <path d="M39 58c4 3 8 3 12 0" stroke="#17382A" strokeWidth="3" strokeLinecap="round"/>
+          <rect x="31" y="62" width="28" height="13" rx="6" fill="url(#pandaBookGradient)"/>
+          <path d="M38 66h14M38 70h10" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+          <text x="69" y="66" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="16" fontWeight="900" fill="#07C160">学</text>
+          <defs>
+            <linearGradient id="pandaBookGradient" x1="31" y1="62" x2="59" y2="75" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#07C160"/>
+              <stop offset="1" stopColor="#1677FF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    }
+
+    function LanternStickerSvg() {
+      return (
+        <svg className="story-sticker-svg" width="90" height="72" viewBox="0 0 90 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M45 5v10" stroke="#17382A" strokeWidth="3" strokeLinecap="round"/>
+          <rect x="31" y="12" width="28" height="8" rx="4" fill="#FFCF33"/>
+          <rect x="24" y="18" width="42" height="38" rx="17" fill="url(#lanternGradient)"/>
+          <path d="M34 21c-4 9-4 22 0 32M56 21c4 9 4 22 0 32" stroke="#FFE5A3" strokeWidth="3" strokeLinecap="round"/>
+          <text x="45" y="44" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="21" fontWeight="900" fill="white">课</text>
+          <rect x="33" y="55" width="24" height="7" rx="3.5" fill="#FFCF33"/>
+          <path d="M45 62v6" stroke="#17382A" strokeWidth="3" strokeLinecap="round"/>
+          <defs>
+            <linearGradient id="lanternGradient" x1="24" y1="18" x2="66" y2="56" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#FF5A5F"/>
+              <stop offset="1" stopColor="#FF9F1C"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    }
+
+    function BrushStickerSvg() {
+      return (
+        <svg className="story-sticker-svg" width="90" height="72" viewBox="0 0 90 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="18" y="11" width="54" height="42" rx="14" fill="#E8FFF3"/>
+          <path d="M30 51c9-1 17-4 24-12" stroke="#07C160" strokeWidth="6" strokeLinecap="round"/>
+          <path d="M50 17l19 19-8 8-19-19 8-8Z" fill="url(#brushGradient)"/>
+          <path d="M42 25l19 19-10 7-16 4 4-16 3-14Z" fill="#FFE5A3"/>
+          <path d="M42 25l19 19" stroke="#17382A" strokeWidth="3" strokeLinecap="round"/>
+          <circle cx="30" cy="22" r="4" fill="#1677FF"/>
+          <defs>
+            <linearGradient id="brushGradient" x1="42" y1="17" x2="69" y2="44" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#1677FF"/>
+              <stop offset="1" stopColor="#07C160"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    }
+
+    function SealStickerSvg() {
+      return (
+        <svg className="story-sticker-svg" width="90" height="72" viewBox="0 0 90 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="24" y="12" width="42" height="42" rx="12" fill="url(#sealGradient)"/>
+          <rect x="31" y="19" width="28" height="28" rx="7" stroke="white" strokeWidth="3"/>
+          <text x="45" y="40" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="21" fontWeight="900" fill="white">会</text>
+          <path d="M28 57h34" stroke="#17382A" strokeWidth="4" strokeLinecap="round"/>
+          <path d="M36 63h18" stroke="#07C160" strokeWidth="4" strokeLinecap="round"/>
+          <defs>
+            <linearGradient id="sealGradient" x1="24" y1="12" x2="66" y2="54" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#07C160"/>
+              <stop offset="1" stopColor="#1677FF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      );
+    }
+
+    function IllustrationStrip({ setCurrentView, setSelectedLesson }) {
+      return (
+        <div className="illustration-strip" aria-label="Study shortcuts">
+          <button className="story-sticker" onClick={() => setCurrentView('lessons')}>
+            <LanternStickerSvg />
+            <span className="story-sticker-title">课程地图</span>
+          </button>
+          <button className="story-sticker" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }}>
+            <BrushStickerSvg />
+            <span className="story-sticker-title">手写挑战</span>
+          </button>
+          <button className="story-sticker" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }}>
+            <SealStickerSvg />
+            <span className="story-sticker-title">今日通关</span>
+          </button>
+        </div>
+      );
+    }
+
+    function MiniProgramTile({ icon, label, onClick }) {
+      return (
+        <button className="mini-program-tile" onClick={onClick}>
+          <span className="mini-program-icon"><AppIcon name={icon} /></span>
+          <span className="mini-program-name">{label}</span>
+        </button>
       );
     }
 
@@ -1363,23 +3240,94 @@
 
       return (
         <div className="screen">
-          <header className="header">
-            <div className="logo">汉字</div>
+          <header className="super-topbar">
+            <div className="brand-lockup">
+              <div className="brand-mark"><HanziMascotSvg /></div>
+              <div>
+                <h1 className="brand-title">Hanzi Master</h1>
+                <p className="brand-subtitle">HSK1 daily study</p>
+              </div>
+            </div>
             {progress.streakDays > 0 && (
-              <div className="streak-badge">🔥 {progress.streakDays} DAY{progress.streakDays !== 1 ? 'S' : ''}</div>
+              <div className="daily-chip">🔥 {progress.streakDays}</div>
             )}
           </header>
 
-          <div className="card card-accent-lime animate-slide-up">
-            <p className="text-sm">YOUR PROGRESS</p>
-            <h2 className="title-hero">{progressPercent}%</h2>
+          <div className="super-searchbar">
+            <AppIcon name="scan" />
+            <strong>搜一搜 · 天气 / 写字 / 拼音</strong>
+            <span className="super-search-action"><AppIcon name="sound" /></span>
+          </div>
+
+          <div className="wallet-card">
+            <p className="wallet-label">学习钱包 · Character balance</p>
+            <div className="wallet-panda"><PandaBuddySvg /></div>
+            <div className="wallet-score">{progressPercent}%</div>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: `${progressPercent}%` }} />
             </div>
-            <p className="text-sm">{masteredCount} OF {totalChars} CHARACTERS MASTERED</p>
+            <div className="wallet-meta">
+              <span>{masteredCount} / {totalChars} mastered</span>
+              <span>{learningCount} learning</span>
+              <div className="wallet-seal">字</div>
+            </div>
           </div>
 
-          <div className="stats-bar">
+          <IllustrationStrip setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} />
+
+          <div className="quick-lane">
+            <button className="quick-action" onClick={() => setCurrentView('lessons')}>
+              <span className="quick-action-icon"><AppIcon name="scan" /></span>
+              <span className="quick-action-label">Lessons</span>
+            </button>
+            <button className="quick-action" onClick={() => { setSelectedLesson(null); setCurrentView('learn'); }}>
+              <span className="quick-action-icon"><AppIcon name="card" /></span>
+              <span className="quick-action-label">Cards</span>
+            </button>
+            <button className="quick-action" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }}>
+              <span className="quick-action-icon"><AppIcon name="brush" /></span>
+              <span className="quick-action-label">Write</span>
+            </button>
+            <button className="quick-action" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }}>
+              <span className="quick-action-icon"><AppIcon name="target" /></span>
+              <span className="quick-action-label">Quiz</span>
+            </button>
+          </div>
+
+          <div className="mini-program-panel">
+            <div className="mini-program-head">
+              <span>Mini programs</span>
+              <span>更多</span>
+            </div>
+            <div className="mini-program-grid">
+              <MiniProgramTile icon="book" label="生词" onClick={() => { setSelectedLesson(null); setCurrentView('learn'); }} />
+              <MiniProgramTile icon="brush" label="写字" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }} />
+              <MiniProgramTile icon="target" label="测验" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }} />
+              <MiniProgramTile icon="scan" label="课程" onClick={() => setCurrentView('lessons')} />
+              <MiniProgramTile icon="sound" label="拼音" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }} />
+              <MiniProgramTile icon="card" label="卡片" onClick={() => { setSelectedLesson(null); setCurrentView('learn'); }} />
+              <MiniProgramTile icon="wallet" label="进度" onClick={() => setCurrentView('stats')} />
+              <MiniProgramTile icon="gift" label="复习" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }} />
+            </div>
+          </div>
+
+          <div className="cute-coach-card">
+            <PandaBuddySvg />
+            <div>
+              <p className="coach-title">熊猫老师陪你练</p>
+              <p className="coach-copy">{learningCount > 0 ? '先复习，再默写。熊猫老师帮你把会认的字变成会写的字。' : '从课程开始，像点开一个小程序一样跟熊猫老师学习。'}</p>
+            </div>
+          </div>
+
+          <div className="insight-panel">
+            <div>
+              <p className="insight-title">Today's focus</p>
+              <p className="insight-copy">{learningCount > 0 ? 'Review learning cards, then write from memory.' : 'Start with lesson cards, then unlock writing practice.'}</p>
+            </div>
+            <div className="insight-character">{learningCount > 0 ? '练' : '学'}</div>
+          </div>
+
+          <div className="stats-bar home-metrics">
             <div className="stat-item">
               <div className="stat-value">{masteredCount}</div>
               <div className="stat-label">Mastered</div>
@@ -1395,35 +3343,11 @@
           </div>
 
           <div className="section-title">
-            <span className="text-sm">STUDY MODES</span>
+            <span className="text-sm">ACCOUNT</span>
             <div className="section-line" />
           </div>
 
-          <div className="menu-grid">
-            <div className="card card-clickable card-accent-lime menu-item" onClick={() => setCurrentView('lessons')} role="button" tabIndex={0} aria-label="Lessons">
-              <span className="menu-icon">📚</span>
-              <span className="menu-label">LESSONS</span>
-            </div>
-            <div className="card card-clickable card-accent-cyan menu-item" onClick={() => { setSelectedLesson(null); setCurrentView('learn'); }} role="button" tabIndex={0} aria-label="Flashcards">
-              <span className="menu-icon">🎴</span>
-              <span className="menu-label">FLASHCARDS</span>
-            </div>
-            <div className="card card-clickable card-accent-coral menu-item" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }} role="button" tabIndex={0} aria-label="Draw">
-              <span className="menu-icon">✍️</span>
-              <span className="menu-label">DRAW</span>
-            </div>
-            <div className="card card-clickable card-accent-purple menu-item" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }} role="button" tabIndex={0} aria-label="Quiz">
-              <span className="menu-icon">🎯</span>
-              <span className="menu-label">QUIZ</span>
-            </div>
-          </div>
-
-          <div className="section-title">
-            <span className="text-sm">STATS</span>
-            <div className="section-line" />
-          </div>
-
-          <div className="card card-clickable" onClick={() => setCurrentView('stats')} role="button" tabIndex={0}>
+          <div className="card card-clickable account-entry" onClick={() => setCurrentView('stats')} role="button" tabIndex={0}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <p className="title-md">VIEW STATISTICS</p>
@@ -1441,7 +3365,12 @@
     // ============================================
     function LessonsView({ setCurrentView, setSelectedLesson, progress }) {
       const lessons = [12, 13, 14, 15];
-      const lessonTitles = { 12: 'Weather 天气', 13: 'Actions 正在', 14: 'Shopping 买东西', 15: 'Structure 是...的' };
+      const lessonTitles = {
+        12: { title: 'Weather', chinese: '天气' },
+        13: { title: 'Actions', chinese: '正在' },
+        14: { title: 'Shopping', chinese: '买东西' },
+        15: { title: 'Structure', chinese: '是...的' }
+      };
 
       const getLessonProgress = (num) => {
         const chars = VOCABULARY.filter(v => v.lesson === num);
@@ -1459,15 +3388,24 @@
           <h1 className="title-xl">HSK 1</h1>
           <p className="text-sm" style={{ marginBottom: '24px' }}>LESSONS 12-15</p>
 
-          <div style={{ display: 'grid', gap: '14px' }}>
+          <div className="service-section">
+            <div className="service-section-head">
+              <span>Lesson services</span>
+              <span>HSK1</span>
+            </div>
+            <div className="service-list">
             {lessons.map((num) => {
               const { mastered, total, percent } = getLessonProgress(num);
               return (
-                <div key={num} className="card card-clickable" onClick={() => { setSelectedLesson(num); setCurrentView('learn'); }} role="button" tabIndex={0}>
+                <div key={num} className="card card-clickable service-row" onClick={() => { setSelectedLesson(num); setCurrentView('learn'); }} role="button" tabIndex={0}>
                   <div className="lesson-card">
+                    <div className="lesson-service-icon"><AppIcon name={num === 12 ? 'sound' : num === 13 ? 'brush' : num === 14 ? 'wallet' : 'book'} /></div>
                     <div className="lesson-number">{num}</div>
                     <div className="lesson-info">
-                      <p className="title-md">{lessonTitles[num]}</p>
+                      <div className="lesson-title-line">
+                        <p className="title-md">{lessonTitles[num].title}</p>
+                        <span className="lesson-chinese-chip">{lessonTitles[num].chinese}</span>
+                      </div>
                       <p className="text-sm">{mastered}/{total} • {percent}%</p>
                       <div className="progress-bar" style={{ marginTop: '8px', marginBottom: '0' }}>
                         <div className="progress-fill" style={{ width: `${percent}%` }} />
@@ -1477,6 +3415,7 @@
                 </div>
               );
             })}
+            </div>
           </div>
 
           <div className="section-title">
@@ -1484,7 +3423,7 @@
             <div className="section-line" />
           </div>
 
-          <div style={{ display: 'flex', gap: '12px' }}>
+          <div className="lessons-quick-actions" style={{ display: 'flex', gap: '12px' }}>
             <button className="btn btn-secondary" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }}>QUIZ ALL</button>
             <button className="btn btn-primary" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }}>DRAW ALL</button>
           </div>
@@ -1540,7 +3479,7 @@
             <div className="progress-fill" style={{ width: `${((currentIndex + 1) / vocab.length) * 100}%` }} />
           </div>
 
-          <div className="card card-accent-lime flashcard" onClick={() => setIsFlipped(!isFlipped)} role="button" tabIndex={0} aria-label="Flip card">
+          <div className="study-pass-card card card-accent-lime flashcard" onClick={() => setIsFlipped(!isFlipped)} role="button" tabIndex={0} aria-label="Flip card">
             <div className="hanzi-display hanzi-hero" style={{ color: 'var(--accent-lime)' }}>{currentChar.hanzi}</div>
             {isFlipped && (
               <div className="animate-slide-up" style={{ textAlign: 'center' }}>
@@ -1553,12 +3492,12 @@
           </div>
 
           {relatedCompounds.length > 0 && (
-            <div className="card card-clickable" onClick={() => setShowCompound(!showCompound)} role="button" tabIndex={0}>
+            <div className="related-service-card card card-clickable" onClick={() => setShowCompound(!showCompound)} role="button" tabIndex={0}>
               <p className="title-md">RELATED WORDS ({relatedCompounds.length})</p>
               {showCompound && (
                 <div className="animate-slide-up" style={{ marginTop: '12px' }}>
                   {relatedCompounds.map((c, i) => (
-                    <div key={i} style={{ padding: '8px 0', borderBottom: i < relatedCompounds.length - 1 ? '1px solid #333' : 'none' }}>
+                    <div key={i} style={{ padding: '8px 0', borderBottom: i < relatedCompounds.length - 1 ? '1px solid #dce7e2' : 'none' }}>
                       <span className="hanzi-display hanzi-md">{c.hanzi}</span>
                       <span style={{ marginLeft: '12px', color: 'var(--accent-cyan)' }}>{c.pinyin}</span>
                       <span style={{ marginLeft: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>{c.meaning}</span>
@@ -1576,7 +3515,7 @@
 
           {currentIndex === vocab.length - 1 && isFlipped && (
             <div className="floating-indicator">
-              <span style={{ fontFamily: 'Bebas Neue', fontSize: '18px', letterSpacing: '2px' }}>🎉 SESSION COMPLETE!</span>
+              <span style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '15px', fontWeight: 900 }}>🎉 SESSION COMPLETE!</span>
             </div>
           )}
         </div>
@@ -1635,11 +3574,11 @@
             padding: 10,
             showOutline: drawMode === 'learn' || showReference,
             showCharacter: drawMode === 'learn' || showReference,
-            strokeColor: '#c8ff00',
-            outlineColor: '#333333',
-            drawingColor: '#c8ff00',
-            highlightColor: '#00ffff',
-            radicalColor: '#c8ff00',
+            strokeColor: '#07c160',
+            outlineColor: '#dce7e2',
+            drawingColor: '#07c160',
+            highlightColor: '#1677ff',
+            radicalColor: '#07c160',
             strokeAnimationSpeed: 1,
             delayBetweenStrokes: 300,
             drawingWidth: 6,
@@ -1810,29 +3749,29 @@
           </header>
 
           {/* Mode selector */}
-          <div className="draw-mode-selector">
+          <div className="mini-app-segment draw-mode-selector">
             <button 
               className={`draw-mode-btn ${drawMode === 'learn' ? 'active' : ''}`}
               onClick={() => setDrawMode('learn')}
             >
-              📖 LEARN
+              <AppIcon name="card" /> LEARN
             </button>
             <button 
               className={`draw-mode-btn ${drawMode === 'practice' ? 'active' : ''}`}
               onClick={() => setDrawMode('practice')}
             >
-              ✍️ PRACTICE
+              <AppIcon name="brush" /> PRACTICE
             </button>
             <button 
               className={`draw-mode-btn ${drawMode === 'quiz' ? 'active' : ''}`}
               onClick={() => setDrawMode('quiz')}
             >
-              🎯 QUIZ
+              <AppIcon name="target" /> QUIZ
             </button>
           </div>
 
           {/* Character info */}
-          <div className="card" style={{ textAlign: 'center', padding: '16px' }}>
+          <div className="draw-prompt-card card" style={{ textAlign: 'center', padding: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
               <div className="hanzi-display" style={{ fontSize: '48px', color: 'var(--accent-lime)', minWidth: '64px' }}>
                 {(drawMode === 'learn' || showReference) ? currentChar.hanzi : '?'}
@@ -1845,10 +3784,10 @@
           </div>
 
           {/* Hanzi Writer container */}
-          <div className="hanzi-writer-container">
+          <div className="writer-mini-program hanzi-writer-container">
             {isLoading && (
               <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-                <div style={{ fontSize: '48px', animation: 'loadingPulse 1s ease-in-out infinite' }}>✍️</div>
+                <div style={{ color: '#07c160', animation: 'loadingPulse 1s ease-in-out infinite' }}><AppIcon name="brush" /></div>
                 <div className="text-sm">LOADING STROKES...</div>
               </div>
             )}
@@ -2015,17 +3954,26 @@
             </header>
             <h1 className="title-xl">QUIZ MODE</h1>
             <p className="text-sm" style={{ marginBottom: '24px' }}>CHOOSE QUIZ TYPE</p>
-            <div className="card card-clickable card-accent-lime" onClick={() => setQuizType('hanzi-to-pinyin')} role="button" tabIndex={0}>
-              <p className="title-lg">HANZI → PINYIN</p>
-              <p className="text-sm">SEE CHARACTER, GUESS SOUND</p>
+            <div className="card card-clickable card-accent-lime quiz-mode-card" onClick={() => setQuizType('hanzi-to-pinyin')} role="button" tabIndex={0}>
+              <span className="quiz-mode-icon"><AppIcon name="sound" /></span>
+              <div>
+                <p className="title-lg">HANZI → PINYIN</p>
+                <p className="text-sm">SEE CHARACTER, GUESS SOUND</p>
+              </div>
             </div>
-            <div className="card card-clickable card-accent-cyan" onClick={() => setQuizType('pinyin-to-hanzi')} role="button" tabIndex={0}>
-              <p className="title-lg">PINYIN → HANZI</p>
-              <p className="text-sm">SEE SOUND, GUESS CHARACTER</p>
+            <div className="card card-clickable card-accent-cyan quiz-mode-card" onClick={() => setQuizType('pinyin-to-hanzi')} role="button" tabIndex={0}>
+              <span className="quiz-mode-icon"><AppIcon name="target" /></span>
+              <div>
+                <p className="title-lg">PINYIN → HANZI</p>
+                <p className="text-sm">SEE SOUND, GUESS CHARACTER</p>
+              </div>
             </div>
-            <div className="card card-clickable card-accent-coral" onClick={() => setQuizType('hanzi-to-meaning')} role="button" tabIndex={0}>
-              <p className="title-lg">HANZI → MEANING</p>
-              <p className="text-sm">SEE CHARACTER, GUESS MEANING</p>
+            <div className="card card-clickable card-accent-coral quiz-mode-card" onClick={() => setQuizType('hanzi-to-meaning')} role="button" tabIndex={0}>
+              <span className="quiz-mode-icon"><AppIcon name="book" /></span>
+              <div>
+                <p className="title-lg">HANZI → MEANING</p>
+                <p className="text-sm">SEE CHARACTER, GUESS MEANING</p>
+              </div>
             </div>
           </div>
         );
@@ -2068,7 +4016,7 @@
           <div className="progress-bar">
             <div className="progress-fill" style={{ width: `${(currentIndex / questions.length) * 100}%` }} />
           </div>
-          <div className="quiz-question">
+          <div className="quiz-question quiz-pass-card">
             {q.type === 'pinyin-to-hanzi' ? (
               <>
                 <p className="text-sm">WHAT CHARACTER IS THIS?</p>
@@ -2082,7 +4030,7 @@
               </>
             )}
           </div>
-          <div className="quiz-options">
+          <div className="quiz-options service-list">
             {q.options.map((opt, i) => {
               const wasTried = attemptedAnswers.some(a => a.text === opt.text);
               const showCorrect = canContinue && opt.isCorrect;
@@ -2210,7 +4158,7 @@
 
           <h1 className="title-xl">STATISTICS</h1>
 
-          <div className="stats-bar">
+          <div className="stats-bar stats-wallet">
             <div className="stat-item">
               <div className="stat-value">{progress.masteredChars.length}</div>
               <div className="stat-label">Mastered</div>
@@ -2234,7 +4182,7 @@
             <div key={lesson} className="card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <p className="title-md">LESSON {lesson}</p>
-                <span className="text-accent" style={{ fontFamily: 'Bebas Neue', fontSize: '22px' }}>{mastered}/{total}</span>
+                <span className="text-accent" style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '20px', fontWeight: 900 }}>{mastered}/{total}</span>
               </div>
               <div className="progress-bar" style={{ marginTop: '10px', marginBottom: '0' }}>
                 <div className="progress-fill" style={{ width: `${(mastered / total) * 100}%` }} />
@@ -2252,7 +4200,7 @@
                 <div key={i} className="card">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: '13px' }}>{new Date(q.date).toLocaleDateString()}</span>
-                    <span className="text-accent" style={{ fontFamily: 'Bebas Neue', fontSize: '24px' }}>{Math.round((q.score / q.total) * 100)}%</span>
+                    <span className="text-accent" style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '22px', fontWeight: 900 }}>{Math.round((q.score / q.total) * 100)}%</span>
                   </div>
                 </div>
               ))}
