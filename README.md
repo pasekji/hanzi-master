@@ -3,7 +3,7 @@
 Neobrutalist Chinese character learning app for HSK1 (Lessons 12-15).
 
 ## Features
-- 📚 69 characters + 35 compound words
+- 📚 69 characters + 47 compound words
 - 🎴 Flashcards with related words
 - ✍️ Touch drawing practice
 - 🎯 3 quiz modes
