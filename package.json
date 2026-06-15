@@ -1,7 +1,7 @@
 {
   "name": "hanzi-master",
   "version": "3.0.0",
-  "description": "Neobrutalist Chinese character learning app - HSK1 Lessons 12-15",
+  "description": "Chinese superapp-inspired Hanzi learning app - HSK1 Lessons 12-15",
   "type": "module",
   "main": "server.js",
   "scripts": {

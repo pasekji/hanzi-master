@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
-  <title>汉字 MASTER | HSK1 Chinese Learning</title>
+  <title>汉字大师 | HSK1 小程序</title>
   <meta name="description" content="Learn Chinese characters with flashcards, drawing practice, and quizzes. HSK1 vocabulary from lessons 12-15.">
   
   <!-- Preload fonts -->
@@ -2939,6 +2939,134 @@
         50% { transform: translateY(-3px) scale(1.08); }
         100% { transform: translateY(0) scale(1); }
       }
+
+      /* ===== MINI-PROGRAM SYSTEM ===== */
+      .mini-app-hero {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 14px;
+        margin: 0 0 14px;
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239, 255, 247, 0.96));
+        box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);
+        border: 1px solid rgba(24, 33, 43, 0.05);
+      }
+
+      .mini-app-hero-icon {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        color: #fff;
+        background: linear-gradient(135deg, #07c160, #1677ff);
+        box-shadow: 0 10px 20px rgba(7, 193, 96, 0.2);
+      }
+
+      .mini-app-hero-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .mini-app-title {
+        margin: 0;
+        color: #14251c;
+        font-size: 19px;
+        line-height: 1.08;
+        font-weight: 900;
+      }
+
+      .mini-app-subtitle {
+        margin: 4px 0 0;
+        color: #687870;
+        font-size: 12px;
+        line-height: 1.35;
+        font-weight: 700;
+      }
+
+      .mini-app-pill {
+        display: grid;
+        place-items: center;
+        min-width: 42px;
+        min-height: 30px;
+        padding: 0 9px;
+        border-radius: 8px;
+        background: #e8fff3;
+        color: #07a653;
+        font-size: 12px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .mini-app-progress-card {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: center;
+        margin: 0 0 12px;
+        padding: 12px 14px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.78);
+        box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.05);
+      }
+
+      .mini-app-progress-card .text-sm {
+        margin: 0;
+      }
+
+      .mini-app-progress-count {
+        color: #07c160;
+        font-weight: 900;
+        font-size: 13px;
+      }
+
+      .dual-label {
+        display: block;
+        line-height: 1.15;
+      }
+
+      .dual-label strong {
+        display: block;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .dual-label span {
+        display: block;
+        margin-top: 1px;
+        font-size: 10px;
+        color: #728078;
+        font-weight: 800;
+      }
+
+      .section-title-cn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 20px 0 10px;
+        color: #687870;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .section-title-cn span:first-child {
+        color: #14251c;
+      }
+
+      @media (max-width: 380px) {
+        .mini-app-hero {
+          grid-template-columns: auto 1fr;
+        }
+
+        .mini-app-pill {
+          grid-column: 1 / -1;
+          justify-self: start;
+        }
+      }
     `;
 
     // ============================================
@@ -3009,11 +3137,11 @@
       if (['learn', 'draw', 'quiz'].includes(currentView)) return null;
 
       const items = [
-        { view: 'home', icon: 'home', label: 'Home' },
-        { view: 'learn', icon: 'card', label: 'Cards', resetLesson: true },
-        { view: 'draw', icon: 'brush', label: 'Write', resetLesson: true },
-        { view: 'quiz', icon: 'target', label: 'Quiz', resetLesson: true },
-        { view: 'stats', icon: 'chart', label: 'Stats' },
+        { view: 'home', icon: 'home', label: '首页' },
+        { view: 'learn', icon: 'card', label: '卡片', resetLesson: true },
+        { view: 'draw', icon: 'brush', label: '写字', resetLesson: true },
+        { view: 'quiz', icon: 'target', label: '测验', resetLesson: true },
+        { view: 'stats', icon: 'chart', label: '钱包' },
       ];
 
       return (
@@ -3229,6 +3357,19 @@
       );
     }
 
+    function MiniAppHeader({ icon, title, subtitle, pill }) {
+      return (
+        <div className="mini-app-hero">
+          <span className="mini-app-hero-icon"><AppIcon name={icon} /></span>
+          <div>
+            <h1 className="mini-app-title">{title}</h1>
+            <p className="mini-app-subtitle">{subtitle}</p>
+          </div>
+          {pill && <span className="mini-app-pill">{pill}</span>}
+        </div>
+      );
+    }
+
     // ============================================
     // HOME VIEW
     // ============================================
@@ -3245,7 +3386,7 @@
               <div className="brand-mark"><HanziMascotSvg /></div>
               <div>
                 <h1 className="brand-title">Hanzi Master</h1>
-                <p className="brand-subtitle">HSK1 daily study</p>
+                <p className="brand-subtitle">每日汉字小程序</p>
               </div>
             </div>
             {progress.streakDays > 0 && (
@@ -3260,15 +3401,15 @@
           </div>
 
           <div className="wallet-card">
-            <p className="wallet-label">学习钱包 · Character balance</p>
+            <p className="wallet-label">学习钱包 · 汉字余额</p>
             <div className="wallet-panda"><PandaBuddySvg /></div>
             <div className="wallet-score">{progressPercent}%</div>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: `${progressPercent}%` }} />
             </div>
             <div className="wallet-meta">
-              <span>{masteredCount} / {totalChars} mastered</span>
-              <span>{learningCount} learning</span>
+              <span>{masteredCount} / {totalChars} 已掌握</span>
+              <span>{learningCount} 学习中</span>
               <div className="wallet-seal">字</div>
             </div>
           </div>
@@ -3278,25 +3419,25 @@
           <div className="quick-lane">
             <button className="quick-action" onClick={() => setCurrentView('lessons')}>
               <span className="quick-action-icon"><AppIcon name="scan" /></span>
-              <span className="quick-action-label">Lessons</span>
+              <span className="quick-action-label">课程</span>
             </button>
             <button className="quick-action" onClick={() => { setSelectedLesson(null); setCurrentView('learn'); }}>
               <span className="quick-action-icon"><AppIcon name="card" /></span>
-              <span className="quick-action-label">Cards</span>
+              <span className="quick-action-label">卡片</span>
             </button>
             <button className="quick-action" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }}>
               <span className="quick-action-icon"><AppIcon name="brush" /></span>
-              <span className="quick-action-label">Write</span>
+              <span className="quick-action-label">写字</span>
             </button>
             <button className="quick-action" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }}>
               <span className="quick-action-icon"><AppIcon name="target" /></span>
-              <span className="quick-action-label">Quiz</span>
+              <span className="quick-action-label">测验</span>
             </button>
           </div>
 
           <div className="mini-program-panel">
             <div className="mini-program-head">
-              <span>Mini programs</span>
+              <span>我的小程序</span>
               <span>更多</span>
             </div>
             <div className="mini-program-grid">
@@ -3321,8 +3462,8 @@
 
           <div className="insight-panel">
             <div>
-              <p className="insight-title">Today's focus</p>
-              <p className="insight-copy">{learningCount > 0 ? 'Review learning cards, then write from memory.' : 'Start with lesson cards, then unlock writing practice.'}</p>
+              <p className="insight-title">今日任务</p>
+              <p className="insight-copy">{learningCount > 0 ? '先复习卡片，再进入默写练习。' : '从课程入口开始，解锁今天的写字练习。'}</p>
             </div>
             <div className="insight-character">{learningCount > 0 ? '练' : '学'}</div>
           </div>
@@ -3330,28 +3471,28 @@
           <div className="stats-bar home-metrics">
             <div className="stat-item">
               <div className="stat-value">{masteredCount}</div>
-              <div className="stat-label">Mastered</div>
+              <div className="stat-label">已掌握</div>
             </div>
             <div className="stat-item">
               <div className="stat-value">{learningCount}</div>
-              <div className="stat-label">Learning</div>
+              <div className="stat-label">学习中</div>
             </div>
             <div className="stat-item">
               <div className="stat-value">{progress.totalReviews}</div>
-              <div className="stat-label">Reviews</div>
+              <div className="stat-label">复习</div>
             </div>
           </div>
 
           <div className="section-title">
-            <span className="text-sm">ACCOUNT</span>
+            <span className="text-sm">学习账户</span>
             <div className="section-line" />
           </div>
 
           <div className="card card-clickable account-entry" onClick={() => setCurrentView('stats')} role="button" tabIndex={0}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <p className="title-md">VIEW STATISTICS</p>
-                <p className="text-sm">TRACK YOUR JOURNEY</p>
+                <p className="title-md">学习钱包</p>
+                <p className="text-sm">查看进度、复习和连续学习</p>
               </div>
               <span style={{ fontSize: '28px', color: 'var(--accent-lime)' }}>→</span>
             </div>
@@ -3366,10 +3507,10 @@
     function LessonsView({ setCurrentView, setSelectedLesson, progress }) {
       const lessons = [12, 13, 14, 15];
       const lessonTitles = {
-        12: { title: 'Weather', chinese: '天气' },
-        13: { title: 'Actions', chinese: '正在' },
-        14: { title: 'Shopping', chinese: '买东西' },
-        15: { title: 'Structure', chinese: '是...的' }
+        12: { title: '天气', chinese: 'Weather' },
+        13: { title: '正在', chinese: 'Actions' },
+        14: { title: '买东西', chinese: 'Shopping' },
+        15: { title: '是...的', chinese: 'Structure' }
       };
 
       const getLessonProgress = (num) => {
@@ -3381,16 +3522,20 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
             <div className="logo">汉字</div>
           </header>
 
-          <h1 className="title-xl">HSK 1</h1>
-          <p className="text-sm" style={{ marginBottom: '24px' }}>LESSONS 12-15</p>
+          <MiniAppHeader
+            icon="scan"
+            title="课程地图"
+            subtitle="HSK 1 · 第 12-15 课"
+            pill="4 课"
+          />
 
           <div className="service-section">
             <div className="service-section-head">
-              <span>Lesson services</span>
+              <span>课程服务</span>
               <span>HSK1</span>
             </div>
             <div className="service-list">
@@ -3419,7 +3564,7 @@
           </div>
 
           <div className="section-title">
-            <span className="text-sm">QUICK ACTIONS</span>
+            <span className="text-sm">快捷练习</span>
             <div className="section-line" />
           </div>
 
@@ -3471,9 +3616,21 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
-            <span className="text-sm" style={{ color: 'var(--accent-lime)' }}>{currentIndex + 1} / {vocab.length}</span>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
+            <span className="text-sm" style={{ color: 'var(--accent-lime)' }}>第 {currentIndex + 1} 张</span>
           </header>
+
+          <MiniAppHeader
+            icon="card"
+            title="生词卡片"
+            subtitle="先回忆，再翻开。把会认的字变成会用的字。"
+            pill={selectedLesson ? `L${selectedLesson}` : '全部'}
+          />
+
+          <div className="mini-app-progress-card">
+            <p className="text-sm">学习进度</p>
+            <span className="mini-app-progress-count">{currentIndex + 1} / {vocab.length}</span>
+          </div>
 
           <div className="progress-bar">
             <div className="progress-fill" style={{ width: `${((currentIndex + 1) / vocab.length) * 100}%` }} />
@@ -3485,15 +3642,15 @@
               <div className="animate-slide-up" style={{ textAlign: 'center' }}>
                 <div className="pinyin-display">{currentChar.pinyin}</div>
                 <div className="meaning-display">{currentChar.meaning}</div>
-                <p className="text-sm" style={{ marginTop: '12px' }}>{currentChar.strokes} STROKES • L{currentChar.lesson}</p>
+                <p className="text-sm" style={{ marginTop: '12px' }}>{currentChar.strokes} 笔画 • L{currentChar.lesson}</p>
               </div>
             )}
-            {!isFlipped && <p className="flashcard-hint">TAP TO REVEAL</p>}
+            {!isFlipped && <p className="flashcard-hint">轻点翻开</p>}
           </div>
 
           {relatedCompounds.length > 0 && (
             <div className="related-service-card card card-clickable" onClick={() => setShowCompound(!showCompound)} role="button" tabIndex={0}>
-              <p className="title-md">RELATED WORDS ({relatedCompounds.length})</p>
+              <p className="title-md">相关词 ({relatedCompounds.length})</p>
               {showCompound && (
                 <div className="animate-slide-up" style={{ marginTop: '12px' }}>
                   {relatedCompounds.map((c, i) => (
@@ -3509,13 +3666,13 @@
           )}
 
           <div className="nav-actions">
-            <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>← PREV</button>
-            <button className="btn btn-primary" onClick={handleNext}>{currentIndex === vocab.length - 1 ? 'FINISH' : 'NEXT →'}</button>
+            <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>← 上一张</button>
+            <button className="btn btn-primary" onClick={handleNext}>{currentIndex === vocab.length - 1 ? '完成' : '下一张 →'}</button>
           </div>
 
           {currentIndex === vocab.length - 1 && isFlipped && (
             <div className="floating-indicator">
-              <span style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '15px', fontWeight: 900 }}>🎉 SESSION COMPLETE!</span>
+              <span style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '15px', fontWeight: 900 }}>🎉 本轮完成</span>
             </div>
           )}
         </div>
@@ -3589,7 +3746,7 @@
                 .then(res => res.json())
                 .then(data => onComplete(data))
                 .catch(() => {
-                  setFeedback({ type: 'error', message: 'Character data not available' });
+                  setFeedback({ type: 'error', message: '暂时没有笔画数据' });
                 });
             }
           });
@@ -3618,14 +3775,14 @@
                 onCorrectStroke: (data) => {
                   setStrokesCompleted(data.strokeNum + 1);
                   if (data.strokeNum === 0) {
-                    setFeedback({ type: 'success', message: 'GOOD START!' });
+                    setFeedback({ type: 'success', message: '开头很好' });
                   }
                   setTimeout(() => setFeedback(null), 800);
                 },
                 onMistake: (data) => {
                   mistakesRef.current += 1;
                   setMistakes(prev => prev + 1);
-                  setFeedback({ type: 'error', message: 'TRY AGAIN' });
+                  setFeedback({ type: 'error', message: '再试一次' });
                   setTimeout(() => setFeedback(null), 800);
                 },
                 onComplete: (data) => {
@@ -3636,12 +3793,12 @@
                     totalMistakes: prev.totalMistakes + finalMistakes
                   }));
                   if (finalMistakes === 0) {
-                    setFeedback({ type: 'success', message: '🎉 PERFECT!' });
+                    setFeedback({ type: 'success', message: '🎉 完美' });
                     markCharacterMastered(currentChar.hanzi);
                   } else if (finalMistakes <= 2) {
-                    setFeedback({ type: 'success', message: '👍 WELL DONE!' });
+                    setFeedback({ type: 'success', message: '👍 写得不错' });
                   } else {
-                    setFeedback({ type: 'success', message: '✓ COMPLETED' });
+                    setFeedback({ type: 'success', message: '✓ 完成' });
                   }
                 }
               });
@@ -3678,13 +3835,13 @@
             writerRef.current.quiz({
               onCorrectStroke: (data) => {
                 setStrokesCompleted(data.strokeNum + 1);
-                setFeedback({ type: 'success', message: 'GOOD!' });
+                setFeedback({ type: 'success', message: '很好' });
                 setTimeout(() => setFeedback(null), 600);
               },
               onMistake: () => {
                 mistakesRef.current += 1;
                 setMistakes(prev => prev + 1);
-                setFeedback({ type: 'error', message: 'TRY AGAIN' });
+                setFeedback({ type: 'error', message: '再试一次' });
                 setTimeout(() => setFeedback(null), 600);
               },
               onComplete: () => {
@@ -3694,7 +3851,7 @@
                   completed: prev.completed + 1,
                   totalMistakes: prev.totalMistakes + finalMistakes
                 }));
-                setFeedback({ type: 'success', message: finalMistakes === 0 ? '🎉 PERFECT!' : '✓ DONE' });
+                setFeedback({ type: 'success', message: finalMistakes === 0 ? '🎉 完美' : '✓ 完成' });
               }
             });
           }
@@ -3744,9 +3901,16 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
-            <span className="text-sm" style={{ color: 'var(--accent-coral)' }}>{currentIndex + 1} / {vocab.length}</span>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
+            <span className="text-sm" style={{ color: 'var(--accent-coral)' }}>第 {currentIndex + 1} 字</span>
           </header>
+
+          <MiniAppHeader
+            icon="brush"
+            title="写字练习"
+            subtitle="先凭记忆写，再打开提示。笔顺会帮你慢慢修正。"
+            pill={selectedLesson ? `L${selectedLesson}` : '全部'}
+          />
 
           {/* Mode selector */}
           <div className="mini-app-segment draw-mode-selector">
@@ -3754,19 +3918,19 @@
               className={`draw-mode-btn ${drawMode === 'learn' ? 'active' : ''}`}
               onClick={() => setDrawMode('learn')}
             >
-              <AppIcon name="card" /> LEARN
+              <AppIcon name="card" /> 学
             </button>
             <button 
               className={`draw-mode-btn ${drawMode === 'practice' ? 'active' : ''}`}
               onClick={() => setDrawMode('practice')}
             >
-              <AppIcon name="brush" /> PRACTICE
+              <AppIcon name="brush" /> 练
             </button>
             <button 
               className={`draw-mode-btn ${drawMode === 'quiz' ? 'active' : ''}`}
               onClick={() => setDrawMode('quiz')}
             >
-              <AppIcon name="target" /> QUIZ
+              <AppIcon name="target" /> 测
             </button>
           </div>
 
@@ -3788,7 +3952,7 @@
             {isLoading && (
               <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                 <div style={{ color: '#07c160', animation: 'loadingPulse 1s ease-in-out infinite' }}><AppIcon name="brush" /></div>
-                <div className="text-sm">LOADING STROKES...</div>
+                <div className="text-sm">笔画准备中...</div>
               </div>
             )}
             <div ref={containerRef} style={{ touchAction: 'none', opacity: isLoading ? 0 : 1 }} />
@@ -3810,22 +3974,22 @@
           <div className="canvas-controls">
             {drawMode === 'learn' ? (
               <>
-                <button className="btn btn-secondary" onClick={handleAnimate}>▶ ANIMATE</button>
+                <button className="btn btn-secondary" onClick={handleAnimate}>▶ 看笔顺</button>
                 <button className="btn btn-primary" onClick={handleNext}>
-                  {currentIndex === vocab.length - 1 ? 'FINISH' : 'NEXT →'}
+                  {currentIndex === vocab.length - 1 ? '完成' : '下一字 →'}
                 </button>
               </>
             ) : (
               <>
                 <button className="btn btn-secondary" onClick={handleReset}>
-                  {isComplete ? '↺ RETRY' : '↺ RESET'}
+                  {isComplete ? '↺ 再写' : '↺ 重写'}
                 </button>
                 <button className="btn btn-secondary" onClick={() => setShowReference(prev => !prev)}>
-                  {showReference ? 'HIDE' : 'SHOW'}
+                  {showReference ? '隐藏' : '提示'}
                 </button>
                 {isComplete && (
                   <button className="btn btn-primary" onClick={handleNext}>
-                    {currentIndex === vocab.length - 1 ? 'FINISH' : 'NEXT →'}
+                    {currentIndex === vocab.length - 1 ? '完成' : '下一字 →'}
                   </button>
                 )}
               </>
@@ -3837,25 +4001,25 @@
             <div className="draw-stats">
               <div className="draw-stat">
                 <div className="draw-stat-value">{strokesCompleted}/{totalStrokes}</div>
-                <div className="draw-stat-label">Strokes</div>
+                <div className="draw-stat-label">笔画</div>
               </div>
               <div className="draw-stat">
                 <div className="draw-stat-value" style={{ color: mistakes > 0 ? 'var(--accent-coral)' : 'var(--accent-lime)' }}>{mistakes}</div>
-                <div className="draw-stat-label">Mistakes</div>
+                <div className="draw-stat-label">错笔</div>
               </div>
               <div className="draw-stat">
                 <div className="draw-stat-value">{charStats.completed}</div>
-                <div className="draw-stat-label">Completed</div>
+                <div className="draw-stat-label">完成</div>
               </div>
             </div>
           )}
 
           {/* Navigation */}
           <div className="nav-actions">
-            <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>← PREV</button>
+            <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>← 上一字</button>
             {(drawMode === 'learn' || !isComplete) && (
               <button className="btn btn-secondary" onClick={handleNext}>
-                SKIP →
+                跳过 →
               </button>
             )}
           </div>
@@ -3949,30 +4113,34 @@
         return (
           <div className="screen">
             <header className="header">
-              <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+              <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
               <div className="logo">汉字</div>
             </header>
-            <h1 className="title-xl">QUIZ MODE</h1>
-            <p className="text-sm" style={{ marginBottom: '24px' }}>CHOOSE QUIZ TYPE</p>
+            <MiniAppHeader
+              icon="target"
+              title="每日测验"
+              subtitle="先给自己一次机会，第二次再看答案。"
+              pill="练习"
+            />
             <div className="card card-clickable card-accent-lime quiz-mode-card" onClick={() => setQuizType('hanzi-to-pinyin')} role="button" tabIndex={0}>
               <span className="quiz-mode-icon"><AppIcon name="sound" /></span>
               <div>
-                <p className="title-lg">HANZI → PINYIN</p>
-                <p className="text-sm">SEE CHARACTER, GUESS SOUND</p>
+                <p className="title-lg">汉字 → 拼音</p>
+                <p className="text-sm">看汉字，猜读音</p>
               </div>
             </div>
             <div className="card card-clickable card-accent-cyan quiz-mode-card" onClick={() => setQuizType('pinyin-to-hanzi')} role="button" tabIndex={0}>
               <span className="quiz-mode-icon"><AppIcon name="target" /></span>
               <div>
-                <p className="title-lg">PINYIN → HANZI</p>
-                <p className="text-sm">SEE SOUND, GUESS CHARACTER</p>
+                <p className="title-lg">拼音 → 汉字</p>
+                <p className="text-sm">看拼音，选汉字</p>
               </div>
             </div>
             <div className="card card-clickable card-accent-coral quiz-mode-card" onClick={() => setQuizType('hanzi-to-meaning')} role="button" tabIndex={0}>
               <span className="quiz-mode-icon"><AppIcon name="book" /></span>
               <div>
-                <p className="title-lg">HANZI → MEANING</p>
-                <p className="text-sm">SEE CHARACTER, GUESS MEANING</p>
+                <p className="title-lg">汉字 → 意思</p>
+                <p className="text-sm">看汉字，猜英文意思</p>
               </div>
             </div>
           </div>
@@ -3984,19 +4152,19 @@
         return (
           <div className="screen">
             <header className="header">
-              <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+              <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
             </header>
             <div className="results-display">
               <div className="score-circle">
                 <div className="score-value">{pct}%</div>
-                <div className="score-label">SCORE</div>
+                <div className="score-label">得分</div>
               </div>
-              <h2 className="title-xl">{pct >= 80 ? '🎉 EXCELLENT!' : pct >= 60 ? '👍 GOOD JOB!' : '💪 KEEP GOING!'}</h2>
-              <p className="text-sm" style={{ marginTop: '12px' }}>{score} OUT OF {questions.length} CORRECT</p>
+              <h2 className="title-xl">{pct >= 80 ? '🎉 太棒了!' : pct >= 60 ? '👍 很不错!' : '💪 继续练!'}</h2>
+              <p className="text-sm" style={{ marginTop: '12px' }}>{score} / {questions.length} 答对</p>
             </div>
             <div className="nav-actions">
-              <button className="btn btn-secondary" onClick={() => setQuizType(null)}>CHANGE TYPE</button>
-              <button className="btn btn-primary" onClick={generateQuestions}>TRY AGAIN</button>
+              <button className="btn btn-secondary" onClick={() => setQuizType(null)}>换题型</button>
+              <button className="btn btn-primary" onClick={generateQuestions}>再测一次</button>
             </div>
           </div>
         );
@@ -4010,22 +4178,28 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
             <span className="text-sm" style={{ color: 'var(--accent-purple)' }}>{currentIndex + 1} / {questions.length}</span>
           </header>
+          <MiniAppHeader
+            icon="target"
+            title="每日测验"
+            subtitle="答错一次不会立刻公布答案，再想一次。"
+            pill={`${score} 分`}
+          />
           <div className="progress-bar">
             <div className="progress-fill" style={{ width: `${(currentIndex / questions.length) * 100}%` }} />
           </div>
           <div className="quiz-question quiz-pass-card">
             {q.type === 'pinyin-to-hanzi' ? (
               <>
-                <p className="text-sm">WHAT CHARACTER IS THIS?</p>
+                <p className="text-sm">这是哪个汉字？</p>
                 <div className="pinyin-display" style={{ fontSize: '42px', marginTop: '16px' }}>{q.char.pinyin}</div>
                 <p className="meaning-display">{q.char.meaning}</p>
               </>
             ) : (
               <>
-                <p className="text-sm">{q.type === 'hanzi-to-pinyin' ? 'WHAT IS THE PRONUNCIATION?' : 'WHAT DOES THIS MEAN?'}</p>
+                <p className="text-sm">{q.type === 'hanzi-to-pinyin' ? '这个字怎么读？' : '这个字是什么意思？'}</p>
                 <div className="hanzi-display hanzi-xl" style={{ color: 'var(--accent-lime)' }}>{q.char.hanzi}</div>
               </>
             )}
@@ -4049,25 +4223,25 @@
           {(attemptedAnswers.length > 0 || canContinue) && (
             <div className="quiz-feedback">
               {answeredCorrect ? (
-                <strong>CORRECT</strong>
+                <strong>答对了</strong>
               ) : revealedAnswer ? (
                 <>
-                  <div>Correct answer: <strong>{correctOption?.text}</strong></div>
+                  <div>正确答案: <strong>{correctOption?.text}</strong></div>
                   <div className="pinyin-display">{q.char.pinyin}</div>
                 </>
               ) : (
-                <strong>TRY ONCE MORE</strong>
+                <strong>再想一次</strong>
               )}
             </div>
           )}
           {canContinue && (
             <div className="nav-actions">
               <button className="btn btn-primary" onClick={handleNextQuestion}>
-                {currentIndex === questions.length - 1 ? 'FINISH' : 'NEXT â†’'}
+                {currentIndex === questions.length - 1 ? '完成' : '下一题 →'}
               </button>
             </div>
           )}
-          <p className="text-sm" style={{ textAlign: 'center', marginTop: '20px' }}>SCORE: {score} / {currentIndex + (canContinue ? 1 : 0)}</p>
+          <p className="text-sm" style={{ textAlign: 'center', marginTop: '20px' }}>得分: {score} / {currentIndex + (canContinue ? 1 : 0)}</p>
         </div>
       );
     }
@@ -4084,7 +4258,7 @@
       const recentScores = progress.quizScores.slice(-5).reverse();
 
       const handleReset = () => {
-        if (window.confirm('Reset all progress? This cannot be undone.')) {
+        if (window.confirm('确定要重置全部学习进度吗？此操作不能撤销。')) {
           localStorage.removeItem(STORAGE_KEY);
           window.location.reload();
         }
@@ -4117,7 +4291,7 @@
             
             // Validate structure
             if (!data.progress || data.appName !== 'hanzi-master') {
-              alert('Invalid backup file.');
+              alert('备份文件格式不正确。');
               return;
             }
             
@@ -4137,12 +4311,12 @@
             // Migrate old ID-based backups to hanzi-based
             imported = migrateProgress(imported);
             
-            if (window.confirm(`Import backup from ${new Date(data.exportDate).toLocaleDateString()}?\n\nThis will replace your current progress.`)) {
+            if (window.confirm(`导入 ${new Date(data.exportDate).toLocaleDateString()} 的备份？\n\n这会替换当前学习进度。`)) {
               localStorage.setItem(STORAGE_KEY, JSON.stringify(imported));
               window.location.reload();
             }
           } catch (err) {
-            alert('Failed to read backup file.');
+            alert('读取备份文件失败。');
           }
         };
         reader.readAsText(file);
@@ -4152,36 +4326,41 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← BACK</button>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
             <div className="logo">汉字</div>
           </header>
 
-          <h1 className="title-xl">STATISTICS</h1>
+          <MiniAppHeader
+            icon="wallet"
+            title="学习钱包"
+            subtitle="掌握的字、复习记录和连续学习都存在这里。"
+            pill={`${progress.masteredChars.length}/${VOCABULARY.length}`}
+          />
 
           <div className="stats-bar stats-wallet">
             <div className="stat-item">
               <div className="stat-value">{progress.masteredChars.length}</div>
-              <div className="stat-label">Mastered</div>
+              <div className="stat-label">已掌握</div>
             </div>
             <div className="stat-item">
               <div className="stat-value">{progress.totalReviews}</div>
-              <div className="stat-label">Reviews</div>
+              <div className="stat-label">复习</div>
             </div>
             <div className="stat-item">
               <div className="stat-value">{progress.streakDays}</div>
-              <div className="stat-label">Streak</div>
+              <div className="stat-label">连续</div>
             </div>
           </div>
 
           <div className="section-title">
-            <span className="text-sm">BY LESSON</span>
+            <span className="text-sm">按课程</span>
             <div className="section-line" />
           </div>
 
           {byLesson.map(({ lesson, mastered, total }) => (
             <div key={lesson} className="card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <p className="title-md">LESSON {lesson}</p>
+                <p className="title-md">第 {lesson} 课</p>
                 <span className="text-accent" style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '20px', fontWeight: 900 }}>{mastered}/{total}</span>
               </div>
               <div className="progress-bar" style={{ marginTop: '10px', marginBottom: '0' }}>
@@ -4193,7 +4372,7 @@
           {recentScores.length > 0 && (
             <>
               <div className="section-title">
-                <span className="text-sm">RECENT QUIZZES</span>
+                <span className="text-sm">最近测验</span>
                 <div className="section-line" />
               </div>
               {recentScores.map((q, i) => (
@@ -4208,7 +4387,7 @@
           )}
 
           <div className="section-title">
-            <span className="text-sm">ALL {VOCABULARY.length} CHARACTERS</span>
+            <span className="text-sm">全部 {VOCABULARY.length} 个汉字</span>
             <div className="section-line" />
           </div>
 
@@ -4221,22 +4400,22 @@
           </div>
 
           <div className="section-title" style={{ marginTop: '28px' }}>
-            <span className="text-sm">BACKUP</span>
+            <span className="text-sm">备份</span>
             <div className="section-line" />
           </div>
 
           <div className="backup-buttons">
             <button className="btn btn-secondary" onClick={handleExport}>
-              <span style={{ marginRight: '8px' }}>📤</span> EXPORT
+              <span style={{ marginRight: '8px' }}>📤</span> 导出
             </button>
             <label className="btn btn-secondary" style={{ cursor: 'pointer' }}>
-              <span style={{ marginRight: '8px' }}>📥</span> IMPORT
+              <span style={{ marginRight: '8px' }}>📥</span> 导入
               <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
             </label>
           </div>
 
           <div style={{ marginTop: '20px' }}>
-            <button className="btn btn-coral" onClick={handleReset}>RESET PROGRESS</button>
+            <button className="btn btn-coral" onClick={handleReset}>重置进度</button>
           </div>
         </div>
       );

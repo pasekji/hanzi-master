@@ -1,14 +1,15 @@
-# 汉字 MASTER
+# 汉字大师
 
-Neobrutalist Chinese character learning app for HSK1 (Lessons 12-15).
+Chinese superapp-inspired Hanzi learning mini-app for HSK1 (Lessons 12-15).
 
 ## Features
 - 📚 69 characters + 47 compound words
-- 🎴 Flashcards with related words
-- ✍️ Touch drawing practice
-- 🎯 3 quiz modes
+- 🎴 生词卡片 with related words
+- ✍️ 写字练习 with touch stroke practice
+- 🎯 每日测验 with 3 quiz modes
+- 🐼 Panda learning buddy and SVG mini-program visuals
 - 💾 Progress saved locally
-- 📱 Mobile-first design
+- 📱 Mobile-first WeChat/Alipay-inspired design
 
 ## Deploy to Render.com
 1. Push to GitHub
