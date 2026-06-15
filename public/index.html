@@ -470,6 +470,46 @@
       });
     };
 
+    const getTodayKey = () => new Date().toISOString().slice(0, 10);
+
+    const getDailyTrainingQueue = (vocab, progress, limit = 8) => {
+      const mastered = getKnownSet(progress.masteredChars);
+      const learning = getKnownSet(progress.learningChars);
+      const attempts = progress.drawingAttempts || {};
+      const queue = [];
+      const seen = new Set();
+      const addBucket = (items, reason) => {
+        items.forEach(char => {
+          if (queue.length >= limit || seen.has(char.hanzi)) return;
+          seen.add(char.hanzi);
+          queue.push({ ...char, dailyReason: reason });
+        });
+      };
+      const byPracticeNeed = (a, b) => {
+        const attemptDiff = (attempts[a.hanzi] || 0) - (attempts[b.hanzi] || 0);
+        return attemptDiff || a.lesson - b.lesson || a.id - b.id;
+      };
+      const learningChars = vocab
+        .filter(char => learning.has(char.hanzi) && !mastered.has(char.hanzi))
+        .sort(byPracticeNeed);
+      const newChars = vocab
+        .filter(char => !learning.has(char.hanzi) && !mastered.has(char.hanzi))
+        .sort((a, b) => a.lesson - b.lesson || a.id - b.id);
+      const reviewChars = vocab
+        .filter(char => mastered.has(char.hanzi))
+        .sort(byPracticeNeed);
+
+      addBucket(learningChars, '复习');
+      addBucket(newChars, '新字');
+      addBucket(reviewChars, '巩固');
+      return queue;
+    };
+
+    const getDailyTrainingSummary = (queue) => queue.reduce((summary, char) => {
+      summary[char.dailyReason] = (summary[char.dailyReason] || 0) + 1;
+      return summary;
+    }, {});
+
     const getSimilarDistractors = (char, vocab, count = 3) => {
       const sameGroup = SIMILAR_CHAR_GROUPS.find(group => group.includes(char.hanzi)) || [];
       const byGroup = sameGroup
@@ -1951,6 +1991,101 @@
         font-weight: 900;
       }
 
+      .daily-entry-card {
+        position: relative;
+        display: grid;
+        gap: 12px;
+        margin: 14px 0 16px;
+        padding: 14px;
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.96), rgba(232, 255, 243, 0.92));
+        border: 1px solid rgba(7, 193, 96, 0.12);
+        box-shadow: 0 14px 34px rgba(20, 49, 35, 0.09);
+        cursor: pointer;
+        overflow: hidden;
+      }
+
+      .daily-entry-card::after {
+        content: "练";
+        position: absolute;
+        right: -4px;
+        bottom: -24px;
+        color: rgba(7, 193, 96, 0.07);
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: 104px;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .daily-entry-main {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .daily-entry-icon {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        color: #fff;
+        background: linear-gradient(135deg, #07c160, #1677ff);
+        box-shadow: 0 10px 20px rgba(7, 193, 96, 0.18);
+      }
+
+      .daily-entry-kicker {
+        margin: 0 0 2px;
+        color: #07a653;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .daily-entry-title {
+        margin: 0;
+        color: #14251c;
+        font-size: 16px;
+        font-weight: 900;
+        line-height: 1.2;
+      }
+
+      .daily-entry-strip {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        gap: 6px;
+        overflow: hidden;
+      }
+
+      .daily-entry-char {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        border-radius: 8px;
+        background: #fff;
+        color: #07a653;
+        font-family: 'Noto Sans SC', sans-serif;
+        font-size: 22px;
+        font-weight: 900;
+        box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.08);
+      }
+
+      .daily-entry-meta {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        gap: 8px;
+        color: #687870;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
       .quick-lane {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2882,6 +3017,167 @@
         font-size: 13px;
       }
 
+      .daily-training-card {
+        padding: 14px;
+        margin-bottom: 14px;
+        border-radius: 8px;
+        background:
+          radial-gradient(circle at 88% 12%, rgba(22, 119, 255, 0.12), transparent 30%),
+          linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239, 255, 247, 0.96));
+        border: 1px solid rgba(24, 33, 43, 0.05);
+        box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);
+      }
+
+      .daily-training-hero {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .daily-training-title {
+        margin: 0 0 4px;
+        color: #14251c;
+        font-size: 16px;
+        font-weight: 900;
+      }
+
+      .daily-training-copy {
+        margin: 0;
+        color: #687870;
+        font-size: 12px;
+        line-height: 1.45;
+        font-weight: 700;
+      }
+
+      .daily-queue-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .daily-queue-char {
+        min-height: 72px;
+        display: grid;
+        place-items: center;
+        gap: 2px;
+        padding: 8px 4px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.9);
+        box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.08);
+      }
+
+      .daily-queue-char .hanzi-display {
+        color: #07a653;
+        font-size: 30px;
+        line-height: 1;
+      }
+
+      .daily-queue-char small {
+        color: #687870;
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .daily-reason-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+        color: #687870;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .daily-step-grid {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .daily-step-card {
+        position: relative;
+        min-height: 92px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+          "icon title"
+          "icon copy";
+        gap: 3px 12px;
+        align-items: center;
+        padding: 14px;
+        border: 0;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.9);
+        color: #1d2c35;
+        text-align: left;
+        box-shadow: 0 10px 24px rgba(20, 49, 35, 0.07);
+        overflow: hidden;
+      }
+
+      .daily-step-card.primary {
+        background:
+          linear-gradient(135deg, rgba(7, 193, 96, 0.96), rgba(22, 119, 255, 0.88));
+        color: #fff;
+        box-shadow: 0 16px 32px rgba(7, 193, 96, 0.18);
+      }
+
+      .daily-step-card:active {
+        transform: scale(0.985);
+      }
+
+      .daily-step-index {
+        position: absolute;
+        right: 12px;
+        top: 8px;
+        color: rgba(7, 193, 96, 0.14);
+        font-size: 48px;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .daily-step-card.primary .daily-step-index {
+        color: rgba(255,255,255,0.18);
+      }
+
+      .daily-step-icon {
+        grid-area: icon;
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: #e8fff3;
+        color: #07a653;
+      }
+
+      .daily-step-card.primary .daily-step-icon {
+        background: rgba(255,255,255,0.18);
+        color: #fff;
+      }
+
+      .daily-step-card strong {
+        grid-area: title;
+        position: relative;
+        z-index: 1;
+        font-size: 17px;
+        line-height: 1.1;
+      }
+
+      .daily-step-card span:last-child {
+        grid-area: copy;
+        position: relative;
+        z-index: 1;
+        color: #687870;
+        font-size: 12px;
+        line-height: 1.35;
+        font-weight: 700;
+      }
+
+      .daily-step-card.primary span:last-child {
+        color: rgba(255,255,255,0.84);
+      }
+
       .dual-label {
         display: block;
         line-height: 1.15;
@@ -2935,6 +3231,7 @@
       const [currentView, setCurrentView] = React.useState('home');
       const [progress, setProgress] = React.useState(loadProgress);
       const [selectedLesson, setSelectedLesson] = React.useState(null);
+      const [selectedQueue, setSelectedQueue] = React.useState(null);
 
       React.useEffect(() => {
         saveProgress(progress);
@@ -2976,24 +3273,25 @@
         });
       }, []);
 
-      const viewProps = { progress, setCurrentView, selectedLesson, setSelectedLesson, updateProgress, markCharacterLearned, markCharacterMastered };
+      const viewProps = { progress, setCurrentView, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered };
 
       return (
         <div className="app-container">
           <style>{styles}</style>
           {currentView === 'home' && <HomeView {...viewProps} />}
+          {currentView === 'daily' && <DailyTrainingView {...viewProps} />}
           {currentView === 'lessons' && <LessonsView {...viewProps} />}
           {currentView === 'learn' && <LearnView {...viewProps} />}
           {currentView === 'draw' && <DrawView {...viewProps} />}
           {currentView === 'quiz' && <QuizView {...viewProps} />}
           {currentView === 'stats' && <StatsView {...viewProps} />}
-          <BottomNav currentView={currentView} setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} />
+          <BottomNav currentView={currentView} setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} />
         </div>
       );
     }
 
-    function BottomNav({ currentView, setCurrentView, setSelectedLesson }) {
-      if (['learn', 'draw', 'quiz'].includes(currentView)) return null;
+    function BottomNav({ currentView, setCurrentView, setSelectedLesson, setSelectedQueue }) {
+      if (['learn', 'draw', 'quiz', 'daily'].includes(currentView)) return null;
 
       const items = [
         { view: 'home', icon: 'home', label: '首页' },
@@ -3011,6 +3309,7 @@
               className={`bottom-nav-item ${currentView === item.view ? 'active' : ''}`}
               onClick={() => {
                 if (item.resetLesson) setSelectedLesson(null);
+                setSelectedQueue(null);
                 setCurrentView(item.view);
               }}
             >
@@ -3188,18 +3487,18 @@
       );
     }
 
-    function IllustrationStrip({ setCurrentView, setSelectedLesson }) {
+    function IllustrationStrip({ setCurrentView, setSelectedLesson, setSelectedQueue }) {
       return (
         <div className="illustration-strip" aria-label="Study shortcuts">
-          <button className="story-sticker" onClick={() => setCurrentView('lessons')}>
+          <button className="story-sticker" onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }}>
             <LanternStickerSvg />
             <span className="story-sticker-title">课程地图</span>
           </button>
-          <button className="story-sticker" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }}>
+          <button className="story-sticker" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }}>
             <BrushStickerSvg />
             <span className="story-sticker-title">手写挑战</span>
           </button>
-          <button className="story-sticker" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }}>
+          <button className="story-sticker" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }}>
             <SealStickerSvg />
             <span className="story-sticker-title">今日通关</span>
           </button>
@@ -3230,13 +3529,103 @@
     }
 
     // ============================================
+    // DAILY TRAINING VIEW
+    // ============================================
+    function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue }) {
+      const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
+      const dailySummary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
+      const todayLabel = getTodayKey();
+      const openMode = (view) => {
+        setSelectedLesson(null);
+        setSelectedQueue({
+          id: `daily:${todayLabel}`,
+          label: '今日',
+          items: dailyQueue
+        });
+        setCurrentView(view);
+      };
+
+      return (
+        <div className="screen">
+          <header className="header">
+            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
+            <span className="text-sm" style={{ color: 'var(--accent-lime)' }}>{todayLabel}</span>
+          </header>
+
+          <MiniAppHeader
+            icon="gift"
+            title="今日训练"
+            subtitle="不是从头来。先复习会忘的字，再加一点新内容。"
+            pill={`${dailyQueue.length} 字`}
+          />
+
+          <div className="daily-training-card">
+            <div className="daily-training-hero">
+              <PandaBuddySvg />
+              <div>
+                <p className="daily-training-title">熊猫老师的今日清单</p>
+                <p className="daily-training-copy">这组字会优先放入卡片、写字和测验。</p>
+              </div>
+            </div>
+            <div className="daily-queue-grid">
+              {dailyQueue.map(char => (
+                <div key={char.hanzi} className="daily-queue-char">
+                  <span className="hanzi-display">{char.hanzi}</span>
+                  <small>{char.dailyReason}</small>
+                </div>
+              ))}
+            </div>
+            <div className="daily-reason-row">
+              <span>新字 {dailySummary['新字'] || 0}</span>
+              <span>复习 {dailySummary['复习'] || 0}</span>
+              <span>巩固 {dailySummary['巩固'] || 0}</span>
+            </div>
+          </div>
+
+          <div className="daily-step-grid">
+            <button className="daily-step-card" onClick={() => openMode('learn')}>
+              <span className="daily-step-index">1</span>
+              <span className="daily-step-icon"><AppIcon name="card" /></span>
+              <strong>先回忆</strong>
+              <span>看字前先想读音和意思</span>
+            </button>
+            <button className="daily-step-card primary" onClick={() => openMode('draw')}>
+              <span className="daily-step-index">2</span>
+              <span className="daily-step-icon"><AppIcon name="brush" /></span>
+              <strong>再默写</strong>
+              <span>默认隐藏字形，写错再开提示</span>
+            </button>
+            <button className="daily-step-card" onClick={() => openMode('quiz')}>
+              <span className="daily-step-index">3</span>
+              <span className="daily-step-icon"><AppIcon name="target" /></span>
+              <strong>最后小测</strong>
+              <span>用相似字干扰，答错再想一次</span>
+            </button>
+          </div>
+
+          <div className="nav-actions">
+            <button className="btn btn-secondary" onClick={() => setCurrentView('home')}>今天先这样</button>
+            <button className="btn btn-primary" onClick={() => openMode('learn')}>开始训练</button>
+          </div>
+        </div>
+      );
+    }
+
+    // ============================================
     // HOME VIEW
     // ============================================
-    function HomeView({ progress, setCurrentView, setSelectedLesson }) {
+    function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue }) {
       const masteredCount = progress.masteredChars.length;
       const learningCount = progress.learningChars.length;
       const totalChars = VOCABULARY.length;
       const progressPercent = Math.round((masteredCount / totalChars) * 100);
+      const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
+      const dailySummary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
+      const openDailyTraining = () => {
+        setSelectedLesson(null);
+        setSelectedQueue(null);
+        setCurrentView('daily');
+      };
 
       return (
         <div className="screen">
@@ -3273,22 +3662,42 @@
             </div>
           </div>
 
-          <IllustrationStrip setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} />
+          <div className="daily-entry-card" onClick={openDailyTraining} role="button" tabIndex={0}>
+            <div className="daily-entry-main">
+              <span className="daily-entry-icon"><AppIcon name="gift" /></span>
+              <div>
+                <p className="daily-entry-kicker">今日训练</p>
+                <p className="daily-entry-title">熊猫老师排好了 {dailyQueue.length} 个字</p>
+              </div>
+            </div>
+            <div className="daily-entry-strip">
+              {dailyQueue.slice(0, 6).map(char => (
+                <span key={char.hanzi} className="daily-entry-char">{char.hanzi}</span>
+              ))}
+            </div>
+            <div className="daily-entry-meta">
+              <span>新字 {dailySummary['新字'] || 0}</span>
+              <span>复习 {dailySummary['复习'] || 0}</span>
+              <span>巩固 {dailySummary['巩固'] || 0}</span>
+            </div>
+          </div>
+
+          <IllustrationStrip setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} />
 
           <div className="quick-lane">
-            <button className="quick-action" onClick={() => setCurrentView('lessons')}>
+            <button className="quick-action" onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }}>
               <span className="quick-action-icon"><AppIcon name="scan" /></span>
               <span className="quick-action-label">课程</span>
             </button>
-            <button className="quick-action" onClick={() => { setSelectedLesson(null); setCurrentView('learn'); }}>
+            <button className="quick-action" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }}>
               <span className="quick-action-icon"><AppIcon name="card" /></span>
               <span className="quick-action-label">卡片</span>
             </button>
-            <button className="quick-action" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }}>
+            <button className="quick-action" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }}>
               <span className="quick-action-icon"><AppIcon name="brush" /></span>
               <span className="quick-action-label">写字</span>
             </button>
-            <button className="quick-action" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }}>
+            <button className="quick-action" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }}>
               <span className="quick-action-icon"><AppIcon name="target" /></span>
               <span className="quick-action-label">测验</span>
             </button>
@@ -3300,14 +3709,14 @@
               <span>更多</span>
             </div>
             <div className="mini-program-grid">
-              <MiniProgramTile icon="book" label="生词" onClick={() => { setSelectedLesson(null); setCurrentView('learn'); }} />
-              <MiniProgramTile icon="brush" label="写字" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }} />
-              <MiniProgramTile icon="target" label="测验" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }} />
-              <MiniProgramTile icon="scan" label="课程" onClick={() => setCurrentView('lessons')} />
-              <MiniProgramTile icon="sound" label="拼音" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }} />
-              <MiniProgramTile icon="card" label="卡片" onClick={() => { setSelectedLesson(null); setCurrentView('learn'); }} />
-              <MiniProgramTile icon="wallet" label="进度" onClick={() => setCurrentView('stats')} />
-              <MiniProgramTile icon="gift" label="复习" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }} />
+              <MiniProgramTile icon="book" label="生词" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
+              <MiniProgramTile icon="brush" label="写字" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }} />
+              <MiniProgramTile icon="target" label="测验" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
+              <MiniProgramTile icon="scan" label="课程" onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }} />
+              <MiniProgramTile icon="sound" label="拼音" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
+              <MiniProgramTile icon="card" label="卡片" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
+              <MiniProgramTile icon="wallet" label="进度" onClick={() => { setSelectedQueue(null); setCurrentView('stats'); }} />
+              <MiniProgramTile icon="gift" label="复习" onClick={openDailyTraining} />
             </div>
           </div>
 
@@ -3363,7 +3772,7 @@
     // ============================================
     // LESSONS VIEW
     // ============================================
-    function LessonsView({ setCurrentView, setSelectedLesson, progress }) {
+    function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, progress }) {
       const lessons = [12, 13, 14, 15];
       const lessonTitles = {
         12: { title: '天气', chinese: 'Weather' },
@@ -3401,7 +3810,7 @@
             {lessons.map((num) => {
               const { mastered, total, percent } = getLessonProgress(num);
               return (
-                <div key={num} className="card card-clickable service-row" onClick={() => { setSelectedLesson(num); setCurrentView('learn'); }} role="button" tabIndex={0}>
+                <div key={num} className="card card-clickable service-row" onClick={() => { setSelectedQueue(null); setSelectedLesson(num); setCurrentView('learn'); }} role="button" tabIndex={0}>
                   <div className="lesson-card">
                     <div className="lesson-service-icon"><AppIcon name={num === 12 ? 'sound' : num === 13 ? 'brush' : num === 14 ? 'wallet' : 'book'} /></div>
                     <div className="lesson-number">{num}</div>
@@ -3428,8 +3837,8 @@
           </div>
 
           <div className="lessons-quick-actions" style={{ display: 'flex', gap: '12px' }}>
-            <button className="btn btn-secondary" onClick={() => { setSelectedLesson(null); setCurrentView('quiz'); }}>QUIZ ALL</button>
-            <button className="btn btn-primary" onClick={() => { setSelectedLesson(null); setCurrentView('draw'); }}>DRAW ALL</button>
+            <button className="btn btn-secondary" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }}>QUIZ ALL</button>
+            <button className="btn btn-primary" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }}>DRAW ALL</button>
           </div>
         </div>
       );
@@ -3438,10 +3847,11 @@
     // ============================================
     // LEARN VIEW
     // ============================================
-    function LearnView({ selectedLesson, progress, markCharacterLearned, updateProgress, setCurrentView }) {
-      const baseVocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
+    function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearned, updateProgress, setCurrentView }) {
+      const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
       const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
-      const positionKey = `learn:${selectedLesson || 'all'}`;
+      const positionKey = `learn:${selectedQueue?.id || selectedLesson || 'all'}`;
+      const scopePill = selectedQueue?.label || (selectedLesson ? `L${selectedLesson}` : '全部');
       const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
       const [isFlipped, setIsFlipped] = React.useState(false);
       const [showCompound, setShowCompound] = React.useState(false);
@@ -3483,7 +3893,7 @@
             icon="card"
             title="生词卡片"
             subtitle="先回忆，再翻开。把会认的字变成会用的字。"
-            pill={selectedLesson ? `L${selectedLesson}` : '全部'}
+            pill={scopePill}
           />
 
           <div className="mini-app-progress-card">
@@ -3541,10 +3951,11 @@
     // ============================================
     // DRAW VIEW
     // ============================================
-    function DrawView({ selectedLesson, progress, updateProgress, markCharacterMastered, setCurrentView }) {
-      const baseVocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
+    function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView }) {
+      const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
       const [vocab] = React.useState(() => getDrawQueue(baseVocab, progress));
-      const positionKey = `draw:${selectedLesson || 'all'}`;
+      const positionKey = `draw:${selectedQueue?.id || selectedLesson || 'all'}`;
+      const scopePill = selectedQueue?.label || (selectedLesson ? `L${selectedLesson}` : '全部');
       const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
       const [drawMode, setDrawMode] = React.useState('practice'); // learn, practice, quiz
       const [showReference, setShowReference] = React.useState(false);
@@ -3768,7 +4179,7 @@
             icon="brush"
             title="写字练习"
             subtitle="先凭记忆写，再打开提示。笔顺会帮你慢慢修正。"
-            pill={selectedLesson ? `L${selectedLesson}` : '全部'}
+            pill={scopePill}
           />
 
           {/* Mode selector */}
@@ -3889,10 +4300,11 @@
     // ============================================
     // QUIZ VIEW
     // ============================================
-    function QuizView({ selectedLesson, progress, updateProgress, markCharacterMastered, setCurrentView }) {
-      const baseVocab = React.useMemo(() => selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson]);
+    function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView }) {
+      const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
       const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
       const [initialMasteredChars] = React.useState(progress.masteredChars);
+      const scopePill = selectedQueue?.label || (selectedLesson ? `L${selectedLesson}` : '练习');
       const [questions, setQuestions] = React.useState([]);
       const [currentIndex, setCurrentIndex] = React.useState(0);
       const [attemptedAnswers, setAttemptedAnswers] = React.useState([]);
@@ -3976,11 +4388,11 @@
               <div className="logo">汉字</div>
             </header>
             <MiniAppHeader
-              icon="target"
-              title="每日测验"
-              subtitle="先给自己一次机会，第二次再看答案。"
-              pill="练习"
-            />
+            icon="target"
+            title="每日测验"
+            subtitle="先给自己一次机会，第二次再看答案。"
+            pill={scopePill}
+          />
             <div className="card card-clickable card-accent-lime quiz-mode-card" onClick={() => setQuizType('hanzi-to-pinyin')} role="button" tabIndex={0}>
               <span className="quiz-mode-icon"><AppIcon name="sound" /></span>
               <div>

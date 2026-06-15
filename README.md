@@ -4,6 +4,7 @@ Chinese superapp-inspired Hanzi learning mini-app for HSK1 (Lessons 12-15).
 
 ## Features
 - 📚 69 characters + 47 compound words
+- 🐼 今日训练 smart daily queue for review, new characters, and consolidation
 - 🎴 生词卡片 with related words
 - ✍️ 写字练习 with touch stroke practice
 - 🎯 每日测验 with 3 quiz modes
