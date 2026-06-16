@@ -17,8 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
   
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>汉</text></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='22' fill='%2307c160' width='100' height='100'/><text x='50' y='70' text-anchor='middle' font-size='62' fill='white'>汉</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='14' y1='12' x2='86' y2='88'><stop stop-color='%2307c160'/><stop offset='1' stop-color='%231677ff'/></linearGradient></defs><rect x='8' y='8' width='84' height='84' rx='24' fill='url(%23g)'/><rect x='25' y='23' width='50' height='50' rx='12' fill='none' stroke='white' stroke-width='5' opacity='.42'/><text x='50' y='66' text-anchor='middle' font-family='Noto Sans SC, Microsoft YaHei, sans-serif' font-size='48' font-weight='900' fill='white'>汉</text><circle cx='74' cy='25' r='6' fill='%23ffcf33'/></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='14' y1='12' x2='86' y2='88'><stop stop-color='%2307c160'/><stop offset='1' stop-color='%231677ff'/></linearGradient></defs><rect x='8' y='8' width='84' height='84' rx='24' fill='url(%23g)'/><rect x='25' y='23' width='50' height='50' rx='12' fill='none' stroke='white' stroke-width='5' opacity='.42'/><text x='50' y='66' text-anchor='middle' font-family='Noto Sans SC, Microsoft YaHei, sans-serif' font-size='48' font-weight='900' fill='white'>汉</text><circle cx='74' cy='25' r='6' fill='%23ffcf33'/></svg>">
   
   <style>
     /* ===== RESET & BASE ===== */
@@ -2187,7 +2187,7 @@
         background: transparent;
       }
 
-      .hanzi-mascot-svg {
+      .hanzi-logo-svg {
         width: 58px;
         height: 58px;
         filter: drop-shadow(0 12px 22px rgba(7, 193, 96, 0.22));
@@ -3756,18 +3756,18 @@
       return <svg {...common}><circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.14"/><path {...stroke} d="M8 12h8M12 8v8"/></svg>;
     }
 
-    function HanziMascotSvg() {
+    function HanziLogoSvg() {
       return (
-        <svg className="hanzi-mascot-svg" width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="10" y="12" width="72" height="68" rx="22" fill="url(#mascotGradient)" />
-          <text x="46" y="58" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="38" fontWeight="900" fill="white">汉</text>
-          <circle cx="34" cy="31" r="2.5" fill="#17382A" />
-          <circle cx="58" cy="31" r="2.5" fill="#17382A" />
-          <path d="M40 66c4 3 9 3 13 0" stroke="#17382A" strokeWidth="3" strokeLinecap="round" />
-          <path d="M17 31c-7-2-9-9-4-14 6 2 9 7 8 13" fill="#FFE7A8" />
-          <path d="M75 65c8 1 12 7 9 13-7 0-11-4-12-11" fill="#FFE7A8" />
+        <svg className="hanzi-logo-svg" width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="8" y="8" width="76" height="76" rx="22" fill="url(#hanziLogoGradient)" />
+          <rect x="13" y="13" width="66" height="66" rx="18" stroke="white" strokeWidth="1.5" opacity="0.18" />
+          <rect x="22" y="20" width="48" height="48" rx="12" stroke="white" strokeWidth="3.5" opacity="0.42" />
+          <path d="M26 34V24h10M56 24h10v10M66 56v10H56M36 66H26V56" stroke="white" strokeWidth="3" strokeLinecap="round" opacity="0.88" />
+          <text x="46" y="58" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="39" fontWeight="900" fill="white">汉</text>
+          <circle cx="68" cy="22" r="5.5" fill="#FFCF33" />
+          <path d="M31 72h30" stroke="#FFCF33" strokeWidth="4" strokeLinecap="round" opacity="0.86" />
           <defs>
-            <linearGradient id="mascotGradient" x1="10" y1="12" x2="82" y2="80" gradientUnits="userSpaceOnUse">
+            <linearGradient id="hanziLogoGradient" x1="8" y1="8" x2="84" y2="84" gradientUnits="userSpaceOnUse">
               <stop stopColor="#07C160" />
               <stop offset="1" stopColor="#1677FF" />
             </linearGradient>
@@ -4024,7 +4024,7 @@
         <div className="screen">
           <header className="super-topbar">
             <div className="brand-lockup">
-              <div className="brand-mark"><HanziMascotSvg /></div>
+              <div className="brand-mark"><HanziLogoSvg /></div>
               <div>
                 <h1 className="brand-title">Hanzi Master</h1>
                 <p className="brand-subtitle">{t('home.subtitle')}</p>
