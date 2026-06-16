@@ -223,10 +223,10 @@
   
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.26.10/babel.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
   
-  <script type="text/babel" data-type="module">
+  <script type="text/babel" data-presets="react">
     // ============================================
     // HSK1 VOCABULARY DATABASE - COMPLETE
     // ============================================
@@ -367,6 +367,316 @@
     // STORAGE
     // ============================================
     const STORAGE_KEY = 'hanzi_master_v3';
+    const LANGUAGE_KEY = 'hanzi_master_ui_language';
+
+    const UI_TEXT = {
+      zh: {
+        'lang.zh': '中文',
+        'lang.en': 'EN',
+        'nav.home': '首页',
+        'nav.cards': '卡片',
+        'nav.write': '写字',
+        'nav.quiz': '测验',
+        'nav.wallet': '钱包',
+        'common.back': '← 返回',
+        'common.all': '全部',
+        'common.today': '今日',
+        'common.done': '完成',
+        'common.nextCard': '下一张 →',
+        'common.prevCard': '← 上一张',
+        'common.nextChar': '下一字 →',
+        'common.prevChar': '← 上一字',
+        'common.skip': '跳过 →',
+        'common.hide': '隐藏',
+        'common.hint': '提示',
+        'common.reset': '↺ 重写',
+        'common.writeAgain': '↺ 再写',
+        'common.score': '得分',
+        'home.subtitle': '每日汉字小程序',
+        'home.search': '搜一搜 · 天气 / 写字 / 拼音',
+        'home.walletLabel': '学习钱包 · 汉字余额',
+        'home.masteredMeta': '{mastered} / {total} 已掌握',
+        'home.learningMeta': '{count} 学习中',
+        'home.dailyKicker': '今日训练',
+        'home.dailyTitle': '熊猫老师排好了 {count} 个字',
+        'home.myMiniPrograms': '我的小程序',
+        'home.more': '更多',
+        'home.coachTitle': '熊猫老师陪你练',
+        'home.coachNew': '从课程开始，像点开一个小程序一样跟熊猫老师学习。',
+        'home.coachReview': '先复习，再默写。熊猫老师帮你把会认的字变成会写的字。',
+        'home.taskTitle': '今日任务',
+        'home.taskNew': '从课程入口开始，解锁今天的写字练习。',
+        'home.taskReview': '先复习卡片，再进入默写练习。',
+        'home.account': '学习账户',
+        'home.walletTitle': '学习钱包',
+        'home.walletCopy': '查看进度、复习和连续学习',
+        'home.stat.mastered': '已掌握',
+        'home.stat.learning': '学习中',
+        'home.stat.reviews': '复习',
+        'daily.title': '今日训练',
+        'daily.subtitle': '不是从头来。先复习会忘的字，再加一点新内容。',
+        'daily.count': '{count} 字',
+        'daily.heroTitle': '熊猫老师的今日清单',
+        'daily.heroCopy': '这组字会优先放入卡片、写字和测验。',
+        'daily.start': '开始训练',
+        'daily.doneEnough': '今天先这样',
+        'daily.step1.title': '先回忆',
+        'daily.step1.copy': '看字前先想读音和意思',
+        'daily.step2.title': '再默写',
+        'daily.step2.copy': '默认隐藏字形，写错再开提示',
+        'daily.step3.title': '最后小测',
+        'daily.step3.copy': '用相似字干扰，答错再想一次',
+        'daily.reason.new': '新字',
+        'daily.reason.review': '复习',
+        'daily.reason.solidify': '巩固',
+        'stickers.lessons': '课程地图',
+        'stickers.write': '手写挑战',
+        'stickers.quiz': '今日通关',
+        'tiles.vocab': '生词',
+        'tiles.write': '写字',
+        'tiles.quiz': '测验',
+        'tiles.lessons': '课程',
+        'tiles.pinyin': '拼音',
+        'tiles.cards': '卡片',
+        'tiles.progress': '进度',
+        'tiles.review': '复习',
+        'lessons.title': '课程地图',
+        'lessons.subtitle': 'HSK 1 · 第 12-15 课',
+        'lessons.pill': '4 课',
+        'lessons.service': '课程服务',
+        'lessons.quick': '快捷练习',
+        'lessons.quizAll': 'QUIZ ALL',
+        'lessons.drawAll': 'DRAW ALL',
+        'learn.title': '生词卡片',
+        'learn.subtitle': '先回忆，再翻开。把会认的字变成会用的字。',
+        'learn.cardNumber': '第 {count} 张',
+        'learn.progress': '学习进度',
+        'learn.tap': '轻点翻开',
+        'learn.related': '相关词 ({count})',
+        'learn.strokesLine': '{strokes} 笔画 • L{lesson}',
+        'learn.roundDone': '🎉 本轮完成',
+        'draw.title': '写字练习',
+        'draw.subtitle': '先凭记忆写，再打开提示。笔顺会帮你慢慢修正。',
+        'draw.charNumber': '第 {count} 字',
+        'draw.mode.learn': '学',
+        'draw.mode.practice': '练',
+        'draw.mode.quiz': '测',
+        'draw.loading': '笔画准备中...',
+        'draw.animate': '▶ 看笔顺',
+        'draw.strokes': '笔画',
+        'draw.mistakes': '错笔',
+        'draw.completed': '完成',
+        'draw.feedback.noData': '暂时没有笔画数据',
+        'draw.feedback.start': '开头很好',
+        'draw.feedback.retry': '再试一次',
+        'draw.feedback.perfect': '🎉 完美',
+        'draw.feedback.good': '👍 写得不错',
+        'draw.feedback.done': '✓ 完成',
+        'draw.feedback.nice': '很好',
+        'quiz.title': '每日测验',
+        'quiz.subtitle': '先给自己一次机会，第二次再看答案。',
+        'quiz.subtitleActive': '答错一次不会立刻公布答案，再想一次。',
+        'quiz.mode.hanziPinyin': '汉字 → 拼音',
+        'quiz.mode.hanziPinyinCopy': '看汉字，猜读音',
+        'quiz.mode.pinyinHanzi': '拼音 → 汉字',
+        'quiz.mode.pinyinHanziCopy': '看拼音，选汉字',
+        'quiz.mode.hanziMeaning': '汉字 → 意思',
+        'quiz.mode.hanziMeaningCopy': '看汉字，猜英文意思',
+        'quiz.whichHanzi': '这是哪个汉字？',
+        'quiz.howRead': '这个字怎么读？',
+        'quiz.whatMeans': '这个字是什么意思？',
+        'quiz.correct': '答对了',
+        'quiz.correctAnswer': '正确答案: ',
+        'quiz.tryAgain': '再想一次',
+        'quiz.next': '下一题 →',
+        'quiz.changeMode': '换题型',
+        'quiz.again': '再测一次',
+        'quiz.resultGreat': '🎉 太棒了!',
+        'quiz.resultGood': '👍 很不错!',
+        'quiz.resultKeep': '💪 继续练!',
+        'quiz.scoreLine': '{score} / {total} 答对',
+        'quiz.scoreFooter': '得分: {score} / {total}',
+        'stats.title': '学习钱包',
+        'stats.subtitle': '掌握的字、复习记录和连续学习都存在这里。',
+        'stats.byLesson': '按课程',
+        'stats.lesson': '第 {lesson} 课',
+        'stats.recent': '最近测验',
+        'stats.allChars': '全部 {count} 个汉字',
+        'stats.streak': '连续',
+        'stats.backup': '备份',
+        'stats.export': '导出',
+        'stats.import': '导入',
+        'stats.reset': '重置进度',
+        'stats.confirmReset': '确定要重置全部学习进度吗？此操作不能撤销。',
+        'stats.invalidBackup': '备份文件格式不正确。',
+        'stats.confirmImport': '导入 {date} 的备份？\n\n这会替换当前学习进度。',
+        'stats.importOk': '进度导入成功',
+        'stats.importFail': '读取备份文件失败。'
+      },
+      en: {
+        'lang.zh': '中文',
+        'lang.en': 'EN',
+        'nav.home': 'Home',
+        'nav.cards': 'Cards',
+        'nav.write': 'Write',
+        'nav.quiz': 'Quiz',
+        'nav.wallet': 'Wallet',
+        'common.back': '← Back',
+        'common.all': 'All',
+        'common.today': 'Today',
+        'common.done': 'Done',
+        'common.nextCard': 'Next card →',
+        'common.prevCard': '← Previous',
+        'common.nextChar': 'Next char →',
+        'common.prevChar': '← Previous',
+        'common.skip': 'Skip →',
+        'common.hide': 'Hide',
+        'common.hint': 'Hint',
+        'common.reset': '↺ Rewrite',
+        'common.writeAgain': '↺ Again',
+        'common.score': 'Score',
+        'home.subtitle': 'Daily Hanzi mini app',
+        'home.search': 'Search · weather / writing / pinyin',
+        'home.walletLabel': 'Learning wallet · Hanzi balance',
+        'home.masteredMeta': '{mastered} / {total} mastered',
+        'home.learningMeta': '{count} learning',
+        'home.dailyKicker': 'Daily training',
+        'home.dailyTitle': 'Panda teacher picked {count} characters',
+        'home.myMiniPrograms': 'My mini programs',
+        'home.more': 'More',
+        'home.coachTitle': 'Panda teacher practices with you',
+        'home.coachNew': 'Start with a lesson and learn like opening a mini program.',
+        'home.coachReview': 'Review first, then write from memory. Turn recognition into writing.',
+        'home.taskTitle': "Today's task",
+        'home.taskNew': 'Start from the lesson map and unlock writing practice.',
+        'home.taskReview': 'Review cards first, then move into writing from memory.',
+        'home.account': 'Learning account',
+        'home.walletTitle': 'Learning wallet',
+        'home.walletCopy': 'See progress, reviews, and study streaks',
+        'home.stat.mastered': 'Mastered',
+        'home.stat.learning': 'Learning',
+        'home.stat.reviews': 'Reviews',
+        'daily.title': 'Daily training',
+        'daily.subtitle': 'Not from the top. Review fragile characters, then add a little new material.',
+        'daily.count': '{count} chars',
+        'daily.heroTitle': "Panda teacher's list",
+        'daily.heroCopy': 'This set is used first in cards, writing, and quiz.',
+        'daily.start': 'Start training',
+        'daily.doneEnough': 'Done for today',
+        'daily.step1.title': 'Recall first',
+        'daily.step1.copy': 'Think of pronunciation and meaning before opening the card',
+        'daily.step2.title': 'Write from memory',
+        'daily.step2.copy': 'Character is hidden by default; use hints after mistakes',
+        'daily.step3.title': 'Mini quiz',
+        'daily.step3.copy': 'Similar characters distract you; try again before the answer',
+        'daily.reason.new': 'New',
+        'daily.reason.review': 'Review',
+        'daily.reason.solidify': 'Solidify',
+        'stickers.lessons': 'Lesson map',
+        'stickers.write': 'Writing',
+        'stickers.quiz': 'Daily pass',
+        'tiles.vocab': 'Words',
+        'tiles.write': 'Write',
+        'tiles.quiz': 'Quiz',
+        'tiles.lessons': 'Lessons',
+        'tiles.pinyin': 'Pinyin',
+        'tiles.cards': 'Cards',
+        'tiles.progress': 'Progress',
+        'tiles.review': 'Review',
+        'lessons.title': 'Lesson map',
+        'lessons.subtitle': 'HSK 1 · Lessons 12-15',
+        'lessons.pill': '4 lessons',
+        'lessons.service': 'Lesson services',
+        'lessons.quick': 'Quick practice',
+        'lessons.quizAll': 'Quiz all',
+        'lessons.drawAll': 'Draw all',
+        'learn.title': 'Vocabulary cards',
+        'learn.subtitle': 'Recall first, then flip. Turn recognition into usable memory.',
+        'learn.cardNumber': 'Card {count}',
+        'learn.progress': 'Study progress',
+        'learn.tap': 'Tap to flip',
+        'learn.related': 'Related words ({count})',
+        'learn.strokesLine': '{strokes} strokes • L{lesson}',
+        'learn.roundDone': '🎉 Round complete',
+        'draw.title': 'Writing practice',
+        'draw.subtitle': 'Write from memory first, then open hints. Stroke order gently corrects you.',
+        'draw.charNumber': 'Character {count}',
+        'draw.mode.learn': 'Learn',
+        'draw.mode.practice': 'Practice',
+        'draw.mode.quiz': 'Test',
+        'draw.loading': 'Preparing strokes...',
+        'draw.animate': '▶ Stroke order',
+        'draw.strokes': 'Strokes',
+        'draw.mistakes': 'Misses',
+        'draw.completed': 'Done',
+        'draw.feedback.noData': 'Stroke data is unavailable',
+        'draw.feedback.start': 'Good start',
+        'draw.feedback.retry': 'Try again',
+        'draw.feedback.perfect': '🎉 Perfect',
+        'draw.feedback.good': '👍 Nice writing',
+        'draw.feedback.done': '✓ Complete',
+        'draw.feedback.nice': 'Nice',
+        'quiz.title': 'Daily quiz',
+        'quiz.subtitle': 'Give yourself one try; the answer appears after the second mistake.',
+        'quiz.subtitleActive': 'One mistake does not reveal the answer. Think once more.',
+        'quiz.mode.hanziPinyin': 'Hanzi → Pinyin',
+        'quiz.mode.hanziPinyinCopy': 'See the character, choose the pronunciation',
+        'quiz.mode.pinyinHanzi': 'Pinyin → Hanzi',
+        'quiz.mode.pinyinHanziCopy': 'See pinyin, choose the character',
+        'quiz.mode.hanziMeaning': 'Hanzi → Meaning',
+        'quiz.mode.hanziMeaningCopy': 'See the character, choose the English meaning',
+        'quiz.whichHanzi': 'Which character is this?',
+        'quiz.howRead': 'How is this character read?',
+        'quiz.whatMeans': 'What does this character mean?',
+        'quiz.correct': 'Correct',
+        'quiz.correctAnswer': 'Correct answer: ',
+        'quiz.tryAgain': 'Think once more',
+        'quiz.next': 'Next question →',
+        'quiz.changeMode': 'Change mode',
+        'quiz.again': 'Try again',
+        'quiz.resultGreat': '🎉 Excellent!',
+        'quiz.resultGood': '👍 Pretty good!',
+        'quiz.resultKeep': '💪 Keep practicing!',
+        'quiz.scoreLine': '{score} / {total} correct',
+        'quiz.scoreFooter': 'Score: {score} / {total}',
+        'stats.title': 'Learning wallet',
+        'stats.subtitle': 'Mastered characters, reviews, and streaks live here.',
+        'stats.byLesson': 'By lesson',
+        'stats.lesson': 'Lesson {lesson}',
+        'stats.recent': 'Recent quizzes',
+        'stats.allChars': 'All {count} characters',
+        'stats.streak': 'Streak',
+        'stats.backup': 'Backup',
+        'stats.export': 'Export',
+        'stats.import': 'Import',
+        'stats.reset': 'Reset progress',
+        'stats.confirmReset': 'Reset all learning progress? This cannot be undone.',
+        'stats.invalidBackup': 'This backup file has the wrong format.',
+        'stats.confirmImport': 'Import backup from {date}?\n\nThis will replace current learning progress.',
+        'stats.importOk': 'Progress imported',
+        'stats.importFail': 'Could not read the backup file.'
+      }
+    };
+
+    const formatUiText = (template, vars = {}) => Object.entries(vars).reduce(
+      (text, [key, value]) => text.replaceAll(`{${key}}`, value),
+      template
+    );
+
+    const translateUi = (language, key, vars) => {
+      const template = UI_TEXT[language]?.[key] || UI_TEXT.zh[key] || key;
+      return formatUiText(template, vars);
+    };
+
+    const loadLanguage = () => {
+      try {
+        const saved = localStorage.getItem(LANGUAGE_KEY);
+        if (saved === 'en' || saved === 'zh') return saved;
+      } catch (e) {
+        console.warn('Failed to load language:', e);
+      }
+      return 'zh';
+    };
 
     // Helper to migrate old ID-based progress to hanzi-based
     const migrateProgress = (data) => {
@@ -499,9 +809,9 @@
         .filter(char => mastered.has(char.hanzi))
         .sort(byPracticeNeed);
 
-      addBucket(learningChars, '复习');
-      addBucket(newChars, '新字');
-      addBucket(reviewChars, '巩固');
+      addBucket(learningChars, 'review');
+      addBucket(newChars, 'new');
+      addBucket(reviewChars, 'solidify');
       return queue;
     };
 
@@ -1287,6 +1597,7 @@
         width: 100%;
         max-width: 100%;
         overflow-x: hidden;
+        overflow-anchor: none;
       }
 
       .app-container {
@@ -1834,11 +2145,13 @@
       .app-container {
         position: relative;
         min-height: 100vh;
+        overflow-anchor: none;
       }
 
       .screen {
         padding-top: 22px;
         padding-bottom: calc(118px + env(safe-area-inset-bottom, 20px));
+        overflow-anchor: none;
       }
 
       .app-container::before {
@@ -1907,6 +2220,39 @@
         color: #9a6400;
         font-weight: 900;
         box-shadow: 0 8px 20px rgba(154, 100, 0, 0.08);
+      }
+
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      .language-toggle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+        min-height: 34px;
+        padding: 3px;
+        border: 1px solid rgba(7, 193, 96, 0.14);
+        border-radius: 8px;
+        background: rgba(255,255,255,0.82);
+        box-shadow: 0 8px 20px rgba(20, 49, 35, 0.07);
+      }
+
+      .language-toggle button {
+        min-width: 38px;
+        padding: 0 8px;
+        border-radius: 6px;
+        color: #687870;
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .language-toggle button.active {
+        background: #07c160;
+        color: #fff;
       }
 
       .wallet-card {
@@ -3232,10 +3578,35 @@
       const [progress, setProgress] = React.useState(loadProgress);
       const [selectedLesson, setSelectedLesson] = React.useState(null);
       const [selectedQueue, setSelectedQueue] = React.useState(null);
+      const [language, setLanguage] = React.useState(loadLanguage);
 
       React.useEffect(() => {
         saveProgress(progress);
       }, [progress]);
+
+      React.useLayoutEffect(() => {
+        const resetScroll = () => {
+          window.scrollTo({ top: 0, left: 0 });
+          if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        };
+        resetScroll();
+        const frame = requestAnimationFrame(resetScroll);
+        const timeout = window.setTimeout(resetScroll, 80);
+        return () => {
+          cancelAnimationFrame(frame);
+          window.clearTimeout(timeout);
+        };
+      }, [currentView]);
+
+      React.useEffect(() => {
+        try {
+          localStorage.setItem(LANGUAGE_KEY, language);
+        } catch (e) {
+          console.warn('Failed to save language:', e);
+        }
+      }, [language]);
 
       React.useEffect(() => {
         const today = new Date().toDateString();
@@ -3273,32 +3644,33 @@
         });
       }, []);
 
-      const viewProps = { progress, setCurrentView, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered };
+      const t = React.useCallback((key, vars) => translateUi(language, key, vars), [language]);
+      const viewProps = { progress, setCurrentView, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered, language, setLanguage, t };
 
       return (
         <div className="app-container">
           <style>{styles}</style>
-          {currentView === 'home' && <HomeView {...viewProps} />}
-          {currentView === 'daily' && <DailyTrainingView {...viewProps} />}
-          {currentView === 'lessons' && <LessonsView {...viewProps} />}
-          {currentView === 'learn' && <LearnView {...viewProps} />}
-          {currentView === 'draw' && <DrawView {...viewProps} />}
-          {currentView === 'quiz' && <QuizView {...viewProps} />}
-          {currentView === 'stats' && <StatsView {...viewProps} />}
-          <BottomNav currentView={currentView} setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} />
+          {currentView === 'home' && <HomeView key="home" {...viewProps} />}
+          {currentView === 'daily' && <DailyTrainingView key="daily" {...viewProps} />}
+          {currentView === 'lessons' && <LessonsView key="lessons" {...viewProps} />}
+          {currentView === 'learn' && <LearnView key="learn" {...viewProps} />}
+          {currentView === 'draw' && <DrawView key="draw" {...viewProps} />}
+          {currentView === 'quiz' && <QuizView key="quiz" {...viewProps} />}
+          {currentView === 'stats' && <StatsView key="stats" {...viewProps} />}
+          <BottomNav currentView={currentView} setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} t={t} />
         </div>
       );
     }
 
-    function BottomNav({ currentView, setCurrentView, setSelectedLesson, setSelectedQueue }) {
+    function BottomNav({ currentView, setCurrentView, setSelectedLesson, setSelectedQueue, t }) {
       if (['learn', 'draw', 'quiz', 'daily'].includes(currentView)) return null;
 
       const items = [
-        { view: 'home', icon: 'home', label: '首页' },
-        { view: 'learn', icon: 'card', label: '卡片', resetLesson: true },
-        { view: 'draw', icon: 'brush', label: '写字', resetLesson: true },
-        { view: 'quiz', icon: 'target', label: '测验', resetLesson: true },
-        { view: 'stats', icon: 'chart', label: '钱包' },
+        { view: 'home', icon: 'home', label: t('nav.home') },
+        { view: 'learn', icon: 'card', label: t('nav.cards'), resetLesson: true },
+        { view: 'draw', icon: 'brush', label: t('nav.write'), resetLesson: true },
+        { view: 'quiz', icon: 'target', label: t('nav.quiz'), resetLesson: true },
+        { view: 'stats', icon: 'chart', label: t('nav.wallet') },
       ];
 
       return (
@@ -3318,6 +3690,27 @@
             </button>
           ))}
         </nav>
+      );
+    }
+
+    function LanguageToggle({ language, setLanguage, t }) {
+      return (
+        <div className="language-toggle" aria-label="UI language">
+          <button
+            className={language === 'zh' ? 'active' : ''}
+            onClick={() => setLanguage('zh')}
+            aria-pressed={language === 'zh'}
+          >
+            {t('lang.zh')}
+          </button>
+          <button
+            className={language === 'en' ? 'active' : ''}
+            onClick={() => setLanguage('en')}
+            aria-pressed={language === 'en'}
+          >
+            {t('lang.en')}
+          </button>
+        </div>
       );
     }
 
@@ -3487,20 +3880,20 @@
       );
     }
 
-    function IllustrationStrip({ setCurrentView, setSelectedLesson, setSelectedQueue }) {
+    function IllustrationStrip({ setCurrentView, setSelectedLesson, setSelectedQueue, t }) {
       return (
         <div className="illustration-strip" aria-label="Study shortcuts">
           <button className="story-sticker" onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }}>
             <LanternStickerSvg />
-            <span className="story-sticker-title">课程地图</span>
+            <span className="story-sticker-title">{t('stickers.lessons')}</span>
           </button>
           <button className="story-sticker" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }}>
             <BrushStickerSvg />
-            <span className="story-sticker-title">手写挑战</span>
+            <span className="story-sticker-title">{t('stickers.write')}</span>
           </button>
           <button className="story-sticker" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }}>
             <SealStickerSvg />
-            <span className="story-sticker-title">今日通关</span>
+            <span className="story-sticker-title">{t('stickers.quiz')}</span>
           </button>
         </div>
       );
@@ -3531,7 +3924,7 @@
     // ============================================
     // DAILY TRAINING VIEW
     // ============================================
-    function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue }) {
+    function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, t }) {
       const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
       const dailySummary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
       const todayLabel = getTodayKey();
@@ -3539,7 +3932,7 @@
         setSelectedLesson(null);
         setSelectedQueue({
           id: `daily:${todayLabel}`,
-          label: '今日',
+          labelKey: 'common.today',
           items: dailyQueue
         });
         setCurrentView(view);
@@ -3548,37 +3941,37 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
             <span className="text-sm" style={{ color: 'var(--accent-lime)' }}>{todayLabel}</span>
           </header>
 
           <MiniAppHeader
             icon="gift"
-            title="今日训练"
-            subtitle="不是从头来。先复习会忘的字，再加一点新内容。"
-            pill={`${dailyQueue.length} 字`}
+            title={t('daily.title')}
+            subtitle={t('daily.subtitle')}
+            pill={t('daily.count', { count: dailyQueue.length })}
           />
 
           <div className="daily-training-card">
             <div className="daily-training-hero">
               <PandaBuddySvg />
               <div>
-                <p className="daily-training-title">熊猫老师的今日清单</p>
-                <p className="daily-training-copy">这组字会优先放入卡片、写字和测验。</p>
+                <p className="daily-training-title">{t('daily.heroTitle')}</p>
+                <p className="daily-training-copy">{t('daily.heroCopy')}</p>
               </div>
             </div>
             <div className="daily-queue-grid">
               {dailyQueue.map(char => (
                 <div key={char.hanzi} className="daily-queue-char">
                   <span className="hanzi-display">{char.hanzi}</span>
-                  <small>{char.dailyReason}</small>
+                  <small>{t(`daily.reason.${char.dailyReason}`)}</small>
                 </div>
               ))}
             </div>
             <div className="daily-reason-row">
-              <span>新字 {dailySummary['新字'] || 0}</span>
-              <span>复习 {dailySummary['复习'] || 0}</span>
-              <span>巩固 {dailySummary['巩固'] || 0}</span>
+              <span>{t('daily.reason.new')} {dailySummary.new || 0}</span>
+              <span>{t('daily.reason.review')} {dailySummary.review || 0}</span>
+              <span>{t('daily.reason.solidify')} {dailySummary.solidify || 0}</span>
             </div>
           </div>
 
@@ -3586,26 +3979,26 @@
             <button className="daily-step-card" onClick={() => openMode('learn')}>
               <span className="daily-step-index">1</span>
               <span className="daily-step-icon"><AppIcon name="card" /></span>
-              <strong>先回忆</strong>
-              <span>看字前先想读音和意思</span>
+              <strong>{t('daily.step1.title')}</strong>
+              <span>{t('daily.step1.copy')}</span>
             </button>
             <button className="daily-step-card primary" onClick={() => openMode('draw')}>
               <span className="daily-step-index">2</span>
               <span className="daily-step-icon"><AppIcon name="brush" /></span>
-              <strong>再默写</strong>
-              <span>默认隐藏字形，写错再开提示</span>
+              <strong>{t('daily.step2.title')}</strong>
+              <span>{t('daily.step2.copy')}</span>
             </button>
             <button className="daily-step-card" onClick={() => openMode('quiz')}>
               <span className="daily-step-index">3</span>
               <span className="daily-step-icon"><AppIcon name="target" /></span>
-              <strong>最后小测</strong>
-              <span>用相似字干扰，答错再想一次</span>
+              <strong>{t('daily.step3.title')}</strong>
+              <span>{t('daily.step3.copy')}</span>
             </button>
           </div>
 
           <div className="nav-actions">
-            <button className="btn btn-secondary" onClick={() => setCurrentView('home')}>今天先这样</button>
-            <button className="btn btn-primary" onClick={() => openMode('learn')}>开始训练</button>
+            <button className="btn btn-secondary" onClick={() => setCurrentView('home')}>{t('daily.doneEnough')}</button>
+            <button className="btn btn-primary" onClick={() => openMode('learn')}>{t('daily.start')}</button>
           </div>
         </div>
       );
@@ -3614,7 +4007,7 @@
     // ============================================
     // HOME VIEW
     // ============================================
-    function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue }) {
+    function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, language, setLanguage, t }) {
       const masteredCount = progress.masteredChars.length;
       const learningCount = progress.learningChars.length;
       const totalChars = VOCABULARY.length;
@@ -3634,30 +4027,33 @@
               <div className="brand-mark"><HanziMascotSvg /></div>
               <div>
                 <h1 className="brand-title">Hanzi Master</h1>
-                <p className="brand-subtitle">每日汉字小程序</p>
+                <p className="brand-subtitle">{t('home.subtitle')}</p>
               </div>
             </div>
-            {progress.streakDays > 0 && (
-              <div className="daily-chip">🔥 {progress.streakDays}</div>
-            )}
+            <div className="topbar-actions">
+              <LanguageToggle language={language} setLanguage={setLanguage} t={t} />
+              {progress.streakDays > 0 && (
+                <div className="daily-chip">🔥 {progress.streakDays}</div>
+              )}
+            </div>
           </header>
 
           <div className="super-searchbar">
             <AppIcon name="scan" />
-            <strong>搜一搜 · 天气 / 写字 / 拼音</strong>
+            <strong>{t('home.search')}</strong>
             <span className="super-search-action"><AppIcon name="sound" /></span>
           </div>
 
           <div className="wallet-card">
-            <p className="wallet-label">学习钱包 · 汉字余额</p>
+            <p className="wallet-label">{t('home.walletLabel')}</p>
             <div className="wallet-panda"><PandaBuddySvg /></div>
             <div className="wallet-score">{progressPercent}%</div>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: `${progressPercent}%` }} />
             </div>
             <div className="wallet-meta">
-              <span>{masteredCount} / {totalChars} 已掌握</span>
-              <span>{learningCount} 学习中</span>
+              <span>{t('home.masteredMeta', { mastered: masteredCount, total: totalChars })}</span>
+              <span>{t('home.learningMeta', { count: learningCount })}</span>
               <div className="wallet-seal">字</div>
             </div>
           </div>
@@ -3666,8 +4062,8 @@
             <div className="daily-entry-main">
               <span className="daily-entry-icon"><AppIcon name="gift" /></span>
               <div>
-                <p className="daily-entry-kicker">今日训练</p>
-                <p className="daily-entry-title">熊猫老师排好了 {dailyQueue.length} 个字</p>
+                <p className="daily-entry-kicker">{t('home.dailyKicker')}</p>
+                <p className="daily-entry-title">{t('home.dailyTitle', { count: dailyQueue.length })}</p>
               </div>
             </div>
             <div className="daily-entry-strip">
@@ -3676,62 +4072,62 @@
               ))}
             </div>
             <div className="daily-entry-meta">
-              <span>新字 {dailySummary['新字'] || 0}</span>
-              <span>复习 {dailySummary['复习'] || 0}</span>
-              <span>巩固 {dailySummary['巩固'] || 0}</span>
+              <span>{t('daily.reason.new')} {dailySummary.new || 0}</span>
+              <span>{t('daily.reason.review')} {dailySummary.review || 0}</span>
+              <span>{t('daily.reason.solidify')} {dailySummary.solidify || 0}</span>
             </div>
           </div>
 
-          <IllustrationStrip setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} />
+          <IllustrationStrip setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} t={t} />
 
           <div className="quick-lane">
             <button className="quick-action" onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }}>
               <span className="quick-action-icon"><AppIcon name="scan" /></span>
-              <span className="quick-action-label">课程</span>
+              <span className="quick-action-label">{t('tiles.lessons')}</span>
             </button>
             <button className="quick-action" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }}>
               <span className="quick-action-icon"><AppIcon name="card" /></span>
-              <span className="quick-action-label">卡片</span>
+              <span className="quick-action-label">{t('tiles.cards')}</span>
             </button>
             <button className="quick-action" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }}>
               <span className="quick-action-icon"><AppIcon name="brush" /></span>
-              <span className="quick-action-label">写字</span>
+              <span className="quick-action-label">{t('tiles.write')}</span>
             </button>
             <button className="quick-action" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }}>
               <span className="quick-action-icon"><AppIcon name="target" /></span>
-              <span className="quick-action-label">测验</span>
+              <span className="quick-action-label">{t('tiles.quiz')}</span>
             </button>
           </div>
 
           <div className="mini-program-panel">
             <div className="mini-program-head">
-              <span>我的小程序</span>
-              <span>更多</span>
+              <span>{t('home.myMiniPrograms')}</span>
+              <span>{t('home.more')}</span>
             </div>
             <div className="mini-program-grid">
-              <MiniProgramTile icon="book" label="生词" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
-              <MiniProgramTile icon="brush" label="写字" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }} />
-              <MiniProgramTile icon="target" label="测验" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
-              <MiniProgramTile icon="scan" label="课程" onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }} />
-              <MiniProgramTile icon="sound" label="拼音" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
-              <MiniProgramTile icon="card" label="卡片" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
-              <MiniProgramTile icon="wallet" label="进度" onClick={() => { setSelectedQueue(null); setCurrentView('stats'); }} />
-              <MiniProgramTile icon="gift" label="复习" onClick={openDailyTraining} />
+              <MiniProgramTile icon="book" label={t('tiles.vocab')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
+              <MiniProgramTile icon="brush" label={t('tiles.write')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }} />
+              <MiniProgramTile icon="target" label={t('tiles.quiz')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
+              <MiniProgramTile icon="scan" label={t('tiles.lessons')} onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }} />
+              <MiniProgramTile icon="sound" label={t('tiles.pinyin')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
+              <MiniProgramTile icon="card" label={t('tiles.cards')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
+              <MiniProgramTile icon="wallet" label={t('tiles.progress')} onClick={() => { setSelectedQueue(null); setCurrentView('stats'); }} />
+              <MiniProgramTile icon="gift" label={t('tiles.review')} onClick={openDailyTraining} />
             </div>
           </div>
 
           <div className="cute-coach-card">
             <PandaBuddySvg />
             <div>
-              <p className="coach-title">熊猫老师陪你练</p>
-              <p className="coach-copy">{learningCount > 0 ? '先复习，再默写。熊猫老师帮你把会认的字变成会写的字。' : '从课程开始，像点开一个小程序一样跟熊猫老师学习。'}</p>
+              <p className="coach-title">{t('home.coachTitle')}</p>
+              <p className="coach-copy">{learningCount > 0 ? t('home.coachReview') : t('home.coachNew')}</p>
             </div>
           </div>
 
           <div className="insight-panel">
             <div>
-              <p className="insight-title">今日任务</p>
-              <p className="insight-copy">{learningCount > 0 ? '先复习卡片，再进入默写练习。' : '从课程入口开始，解锁今天的写字练习。'}</p>
+              <p className="insight-title">{t('home.taskTitle')}</p>
+              <p className="insight-copy">{learningCount > 0 ? t('home.taskReview') : t('home.taskNew')}</p>
             </div>
             <div className="insight-character">{learningCount > 0 ? '练' : '学'}</div>
           </div>
@@ -3739,28 +4135,28 @@
           <div className="stats-bar home-metrics">
             <div className="stat-item">
               <div className="stat-value">{masteredCount}</div>
-              <div className="stat-label">已掌握</div>
+              <div className="stat-label">{t('home.stat.mastered')}</div>
             </div>
             <div className="stat-item">
               <div className="stat-value">{learningCount}</div>
-              <div className="stat-label">学习中</div>
+              <div className="stat-label">{t('home.stat.learning')}</div>
             </div>
             <div className="stat-item">
               <div className="stat-value">{progress.totalReviews}</div>
-              <div className="stat-label">复习</div>
+              <div className="stat-label">{t('home.stat.reviews')}</div>
             </div>
           </div>
 
           <div className="section-title">
-            <span className="text-sm">学习账户</span>
+            <span className="text-sm">{t('home.account')}</span>
             <div className="section-line" />
           </div>
 
           <div className="card card-clickable account-entry" onClick={() => setCurrentView('stats')} role="button" tabIndex={0}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <p className="title-md">学习钱包</p>
-                <p className="text-sm">查看进度、复习和连续学习</p>
+                <p className="title-md">{t('home.walletTitle')}</p>
+                <p className="text-sm">{t('home.walletCopy')}</p>
               </div>
               <span style={{ fontSize: '28px', color: 'var(--accent-lime)' }}>→</span>
             </div>
@@ -3772,7 +4168,7 @@
     // ============================================
     // LESSONS VIEW
     // ============================================
-    function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, progress }) {
+    function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, progress, t }) {
       const lessons = [12, 13, 14, 15];
       const lessonTitles = {
         12: { title: '天气', chinese: 'Weather' },
@@ -3790,20 +4186,20 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
             <div className="logo">汉字</div>
           </header>
 
           <MiniAppHeader
             icon="scan"
-            title="课程地图"
-            subtitle="HSK 1 · 第 12-15 课"
-            pill="4 课"
+            title={t('lessons.title')}
+            subtitle={t('lessons.subtitle')}
+            pill={t('lessons.pill')}
           />
 
           <div className="service-section">
             <div className="service-section-head">
-              <span>课程服务</span>
+              <span>{t('lessons.service')}</span>
               <span>HSK1</span>
             </div>
             <div className="service-list">
@@ -3832,13 +4228,13 @@
           </div>
 
           <div className="section-title">
-            <span className="text-sm">快捷练习</span>
+            <span className="text-sm">{t('lessons.quick')}</span>
             <div className="section-line" />
           </div>
 
           <div className="lessons-quick-actions" style={{ display: 'flex', gap: '12px' }}>
-            <button className="btn btn-secondary" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }}>QUIZ ALL</button>
-            <button className="btn btn-primary" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }}>DRAW ALL</button>
+            <button className="btn btn-secondary" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }}>{t('lessons.quizAll')}</button>
+            <button className="btn btn-primary" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }}>{t('lessons.drawAll')}</button>
           </div>
         </div>
       );
@@ -3847,11 +4243,11 @@
     // ============================================
     // LEARN VIEW
     // ============================================
-    function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearned, updateProgress, setCurrentView }) {
+    function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearned, updateProgress, setCurrentView, t }) {
       const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
       const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
       const positionKey = `learn:${selectedQueue?.id || selectedLesson || 'all'}`;
-      const scopePill = selectedQueue?.label || (selectedLesson ? `L${selectedLesson}` : '全部');
+      const scopePill = selectedQueue?.labelKey ? t(selectedQueue.labelKey) : (selectedLesson ? `L${selectedLesson}` : t('common.all'));
       const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
       const [isFlipped, setIsFlipped] = React.useState(false);
       const [showCompound, setShowCompound] = React.useState(false);
@@ -3885,19 +4281,19 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
-            <span className="text-sm" style={{ color: 'var(--accent-lime)' }}>第 {currentIndex + 1} 张</span>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
+            <span className="text-sm" style={{ color: 'var(--accent-lime)' }}>{t('learn.cardNumber', { count: currentIndex + 1 })}</span>
           </header>
 
           <MiniAppHeader
             icon="card"
-            title="生词卡片"
-            subtitle="先回忆，再翻开。把会认的字变成会用的字。"
+            title={t('learn.title')}
+            subtitle={t('learn.subtitle')}
             pill={scopePill}
           />
 
           <div className="mini-app-progress-card">
-            <p className="text-sm">学习进度</p>
+            <p className="text-sm">{t('learn.progress')}</p>
             <span className="mini-app-progress-count">{currentIndex + 1} / {vocab.length}</span>
           </div>
 
@@ -3911,15 +4307,15 @@
               <div className="animate-slide-up" style={{ textAlign: 'center' }}>
                 <div className="pinyin-display">{currentChar.pinyin}</div>
                 <div className="meaning-display">{currentChar.meaning}</div>
-                <p className="text-sm" style={{ marginTop: '12px' }}>{currentChar.strokes} 笔画 • L{currentChar.lesson}</p>
+                <p className="text-sm" style={{ marginTop: '12px' }}>{t('learn.strokesLine', { strokes: currentChar.strokes, lesson: currentChar.lesson })}</p>
               </div>
             )}
-            {!isFlipped && <p className="flashcard-hint">轻点翻开</p>}
+            {!isFlipped && <p className="flashcard-hint">{t('learn.tap')}</p>}
           </div>
 
           {relatedCompounds.length > 0 && (
             <div className="related-service-card card card-clickable" onClick={() => setShowCompound(!showCompound)} role="button" tabIndex={0}>
-              <p className="title-md">相关词 ({relatedCompounds.length})</p>
+              <p className="title-md">{t('learn.related', { count: relatedCompounds.length })}</p>
               {showCompound && (
                 <div className="animate-slide-up" style={{ marginTop: '12px' }}>
                   {relatedCompounds.map((c, i) => (
@@ -3935,13 +4331,13 @@
           )}
 
           <div className="nav-actions">
-            <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>← 上一张</button>
-            <button className="btn btn-primary" onClick={handleNext}>{currentIndex === vocab.length - 1 ? '完成' : '下一张 →'}</button>
+            <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>{t('common.prevCard')}</button>
+            <button className="btn btn-primary" onClick={handleNext}>{currentIndex === vocab.length - 1 ? t('common.done') : t('common.nextCard')}</button>
           </div>
 
           {currentIndex === vocab.length - 1 && isFlipped && (
             <div className="floating-indicator">
-              <span style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '15px', fontWeight: 900 }}>🎉 本轮完成</span>
+              <span style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '15px', fontWeight: 900 }}>{t('learn.roundDone')}</span>
             </div>
           )}
         </div>
@@ -3951,11 +4347,11 @@
     // ============================================
     // DRAW VIEW
     // ============================================
-    function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView }) {
+    function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView, t }) {
       const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
       const [vocab] = React.useState(() => getDrawQueue(baseVocab, progress));
       const positionKey = `draw:${selectedQueue?.id || selectedLesson || 'all'}`;
-      const scopePill = selectedQueue?.label || (selectedLesson ? `L${selectedLesson}` : '全部');
+      const scopePill = selectedQueue?.labelKey ? t(selectedQueue.labelKey) : (selectedLesson ? `L${selectedLesson}` : t('common.all'));
       const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
       const [drawMode, setDrawMode] = React.useState('practice'); // learn, practice, quiz
       const [showReference, setShowReference] = React.useState(false);
@@ -4016,7 +4412,7 @@
                 .then(res => res.json())
                 .then(data => onComplete(data))
                 .catch(() => {
-                  setFeedback({ type: 'error', message: '暂时没有笔画数据' });
+                  setFeedback({ type: 'error', message: t('draw.feedback.noData') });
                 });
             }
           });
@@ -4045,14 +4441,14 @@
                 onCorrectStroke: (data) => {
                   setStrokesCompleted(data.strokeNum + 1);
                   if (data.strokeNum === 0) {
-                    setFeedback({ type: 'success', message: '开头很好' });
+                    setFeedback({ type: 'success', message: t('draw.feedback.start') });
                   }
                   setTimeout(() => setFeedback(null), 800);
                 },
                 onMistake: (data) => {
                   mistakesRef.current += 1;
                   setMistakes(prev => prev + 1);
-                  setFeedback({ type: 'error', message: '再试一次' });
+                  setFeedback({ type: 'error', message: t('draw.feedback.retry') });
                   setTimeout(() => setFeedback(null), 800);
                 },
                 onComplete: (data) => {
@@ -4063,12 +4459,12 @@
                     totalMistakes: prev.totalMistakes + finalMistakes
                   }));
                   if (finalMistakes === 0) {
-                    setFeedback({ type: 'success', message: '🎉 完美' });
+                    setFeedback({ type: 'success', message: t('draw.feedback.perfect') });
                     markCharacterMastered(currentChar.hanzi);
                   } else if (finalMistakes <= 2) {
-                    setFeedback({ type: 'success', message: '👍 写得不错' });
+                    setFeedback({ type: 'success', message: t('draw.feedback.good') });
                   } else {
-                    setFeedback({ type: 'success', message: '✓ 完成' });
+                    setFeedback({ type: 'success', message: t('draw.feedback.done') });
                   }
                 }
               });
@@ -4083,7 +4479,7 @@
             writerRef.current = null;
           }
         };
-      }, [currentChar, drawMode, showReference]);
+      }, [currentChar, drawMode, showReference, t]);
 
       const handleAnimate = () => {
         if (writerRef.current) {
@@ -4105,13 +4501,13 @@
             writerRef.current.quiz({
               onCorrectStroke: (data) => {
                 setStrokesCompleted(data.strokeNum + 1);
-                setFeedback({ type: 'success', message: '很好' });
+                setFeedback({ type: 'success', message: t('draw.feedback.nice') });
                 setTimeout(() => setFeedback(null), 600);
               },
               onMistake: () => {
                 mistakesRef.current += 1;
                 setMistakes(prev => prev + 1);
-                setFeedback({ type: 'error', message: '再试一次' });
+                setFeedback({ type: 'error', message: t('draw.feedback.retry') });
                 setTimeout(() => setFeedback(null), 600);
               },
               onComplete: () => {
@@ -4121,7 +4517,7 @@
                   completed: prev.completed + 1,
                   totalMistakes: prev.totalMistakes + finalMistakes
                 }));
-                setFeedback({ type: 'success', message: finalMistakes === 0 ? '🎉 完美' : '✓ 完成' });
+                setFeedback({ type: 'success', message: finalMistakes === 0 ? t('draw.feedback.perfect') : t('draw.feedback.done') });
               }
             });
           }
@@ -4171,14 +4567,14 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
-            <span className="text-sm" style={{ color: 'var(--accent-coral)' }}>第 {currentIndex + 1} 字</span>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
+            <span className="text-sm" style={{ color: 'var(--accent-coral)' }}>{t('draw.charNumber', { count: currentIndex + 1 })}</span>
           </header>
 
           <MiniAppHeader
             icon="brush"
-            title="写字练习"
-            subtitle="先凭记忆写，再打开提示。笔顺会帮你慢慢修正。"
+            title={t('draw.title')}
+            subtitle={t('draw.subtitle')}
             pill={scopePill}
           />
 
@@ -4188,19 +4584,19 @@
               className={`draw-mode-btn ${drawMode === 'learn' ? 'active' : ''}`}
               onClick={() => setDrawMode('learn')}
             >
-              <AppIcon name="card" /> 学
+              <AppIcon name="card" /> {t('draw.mode.learn')}
             </button>
             <button 
               className={`draw-mode-btn ${drawMode === 'practice' ? 'active' : ''}`}
               onClick={() => setDrawMode('practice')}
             >
-              <AppIcon name="brush" /> 练
+              <AppIcon name="brush" /> {t('draw.mode.practice')}
             </button>
             <button 
               className={`draw-mode-btn ${drawMode === 'quiz' ? 'active' : ''}`}
               onClick={() => setDrawMode('quiz')}
             >
-              <AppIcon name="target" /> 测
+              <AppIcon name="target" /> {t('draw.mode.quiz')}
             </button>
           </div>
 
@@ -4222,7 +4618,7 @@
             {isLoading && (
               <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
                 <div style={{ color: '#07c160', animation: 'loadingPulse 1s ease-in-out infinite' }}><AppIcon name="brush" /></div>
-                <div className="text-sm">笔画准备中...</div>
+                <div className="text-sm">{t('draw.loading')}</div>
               </div>
             )}
             <div ref={containerRef} style={{ touchAction: 'none', opacity: isLoading ? 0 : 1 }} />
@@ -4244,22 +4640,22 @@
           <div className="canvas-controls">
             {drawMode === 'learn' ? (
               <>
-                <button className="btn btn-secondary" onClick={handleAnimate}>▶ 看笔顺</button>
+                <button className="btn btn-secondary" onClick={handleAnimate}>{t('draw.animate')}</button>
                 <button className="btn btn-primary" onClick={handleNext}>
-                  {currentIndex === vocab.length - 1 ? '完成' : '下一字 →'}
+                  {currentIndex === vocab.length - 1 ? t('common.done') : t('common.nextChar')}
                 </button>
               </>
             ) : (
               <>
                 <button className="btn btn-secondary" onClick={handleReset}>
-                  {isComplete ? '↺ 再写' : '↺ 重写'}
+                  {isComplete ? t('common.writeAgain') : t('common.reset')}
                 </button>
                 <button className="btn btn-secondary" onClick={() => setShowReference(prev => !prev)}>
-                  {showReference ? '隐藏' : '提示'}
+                  {showReference ? t('common.hide') : t('common.hint')}
                 </button>
                 {isComplete && (
                   <button className="btn btn-primary" onClick={handleNext}>
-                    {currentIndex === vocab.length - 1 ? '完成' : '下一字 →'}
+                    {currentIndex === vocab.length - 1 ? t('common.done') : t('common.nextChar')}
                   </button>
                 )}
               </>
@@ -4271,25 +4667,25 @@
             <div className="draw-stats">
               <div className="draw-stat">
                 <div className="draw-stat-value">{strokesCompleted}/{totalStrokes}</div>
-                <div className="draw-stat-label">笔画</div>
+                <div className="draw-stat-label">{t('draw.strokes')}</div>
               </div>
               <div className="draw-stat">
                 <div className="draw-stat-value" style={{ color: mistakes > 0 ? 'var(--accent-coral)' : 'var(--accent-lime)' }}>{mistakes}</div>
-                <div className="draw-stat-label">错笔</div>
+                <div className="draw-stat-label">{t('draw.mistakes')}</div>
               </div>
               <div className="draw-stat">
                 <div className="draw-stat-value">{charStats.completed}</div>
-                <div className="draw-stat-label">完成</div>
+                <div className="draw-stat-label">{t('draw.completed')}</div>
               </div>
             </div>
           )}
 
           {/* Navigation */}
           <div className="nav-actions">
-            <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>← 上一字</button>
+            <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>{t('common.prevChar')}</button>
             {(drawMode === 'learn' || !isComplete) && (
               <button className="btn btn-secondary" onClick={handleNext}>
-                跳过 →
+                {t('common.skip')}
               </button>
             )}
           </div>
@@ -4300,11 +4696,11 @@
     // ============================================
     // QUIZ VIEW
     // ============================================
-    function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView }) {
+    function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView, t }) {
       const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
       const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
       const [initialMasteredChars] = React.useState(progress.masteredChars);
-      const scopePill = selectedQueue?.label || (selectedLesson ? `L${selectedLesson}` : '练习');
+      const scopePill = selectedQueue?.labelKey ? t(selectedQueue.labelKey) : (selectedLesson ? `L${selectedLesson}` : t('nav.quiz'));
       const [questions, setQuestions] = React.useState([]);
       const [currentIndex, setCurrentIndex] = React.useState(0);
       const [attemptedAnswers, setAttemptedAnswers] = React.useState([]);
@@ -4384,34 +4780,34 @@
         return (
           <div className="screen">
             <header className="header">
-              <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
+              <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
               <div className="logo">汉字</div>
             </header>
             <MiniAppHeader
-            icon="target"
-            title="每日测验"
-            subtitle="先给自己一次机会，第二次再看答案。"
-            pill={scopePill}
-          />
+              icon="target"
+              title={t('quiz.title')}
+              subtitle={t('quiz.subtitle')}
+              pill={scopePill}
+            />
             <div className="card card-clickable card-accent-lime quiz-mode-card" onClick={() => setQuizType('hanzi-to-pinyin')} role="button" tabIndex={0}>
               <span className="quiz-mode-icon"><AppIcon name="sound" /></span>
               <div>
-                <p className="title-lg">汉字 → 拼音</p>
-                <p className="text-sm">看汉字，猜读音</p>
+                <p className="title-lg">{t('quiz.mode.hanziPinyin')}</p>
+                <p className="text-sm">{t('quiz.mode.hanziPinyinCopy')}</p>
               </div>
             </div>
             <div className="card card-clickable card-accent-cyan quiz-mode-card" onClick={() => setQuizType('pinyin-to-hanzi')} role="button" tabIndex={0}>
               <span className="quiz-mode-icon"><AppIcon name="target" /></span>
               <div>
-                <p className="title-lg">拼音 → 汉字</p>
-                <p className="text-sm">看拼音，选汉字</p>
+                <p className="title-lg">{t('quiz.mode.pinyinHanzi')}</p>
+                <p className="text-sm">{t('quiz.mode.pinyinHanziCopy')}</p>
               </div>
             </div>
             <div className="card card-clickable card-accent-coral quiz-mode-card" onClick={() => setQuizType('hanzi-to-meaning')} role="button" tabIndex={0}>
               <span className="quiz-mode-icon"><AppIcon name="book" /></span>
               <div>
-                <p className="title-lg">汉字 → 意思</p>
-                <p className="text-sm">看汉字，猜英文意思</p>
+                <p className="title-lg">{t('quiz.mode.hanziMeaning')}</p>
+                <p className="text-sm">{t('quiz.mode.hanziMeaningCopy')}</p>
               </div>
             </div>
           </div>
@@ -4423,19 +4819,19 @@
         return (
           <div className="screen">
             <header className="header">
-              <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
+              <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
             </header>
             <div className="results-display">
               <div className="score-circle">
                 <div className="score-value">{pct}%</div>
-                <div className="score-label">得分</div>
+                <div className="score-label">{t('common.score')}</div>
               </div>
-              <h2 className="title-xl">{pct >= 80 ? '🎉 太棒了!' : pct >= 60 ? '👍 很不错!' : '💪 继续练!'}</h2>
-              <p className="text-sm" style={{ marginTop: '12px' }}>{score} / {questions.length} 答对</p>
+              <h2 className="title-xl">{pct >= 80 ? t('quiz.resultGreat') : pct >= 60 ? t('quiz.resultGood') : t('quiz.resultKeep')}</h2>
+              <p className="text-sm" style={{ marginTop: '12px' }}>{t('quiz.scoreLine', { score, total: questions.length })}</p>
             </div>
             <div className="nav-actions">
-              <button className="btn btn-secondary" onClick={() => setQuizType(null)}>换题型</button>
-              <button className="btn btn-primary" onClick={generateQuestions}>再测一次</button>
+              <button className="btn btn-secondary" onClick={() => setQuizType(null)}>{t('quiz.changeMode')}</button>
+              <button className="btn btn-primary" onClick={generateQuestions}>{t('quiz.again')}</button>
             </div>
           </div>
         );
@@ -4449,14 +4845,14 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
             <span className="text-sm" style={{ color: 'var(--accent-purple)' }}>{currentIndex + 1} / {questions.length}</span>
           </header>
           <MiniAppHeader
             icon="target"
-            title="每日测验"
-            subtitle="答错一次不会立刻公布答案，再想一次。"
-            pill={`${score} 分`}
+            title={t('quiz.title')}
+            subtitle={t('quiz.subtitleActive')}
+            pill={t('quiz.scoreFooter', { score, total: questions.length })}
           />
           <div className="progress-bar">
             <div className="progress-fill" style={{ width: `${(currentIndex / questions.length) * 100}%` }} />
@@ -4464,13 +4860,13 @@
           <div className="quiz-question quiz-pass-card">
             {q.type === 'pinyin-to-hanzi' ? (
               <>
-                <p className="text-sm">这是哪个汉字？</p>
+                <p className="text-sm">{t('quiz.whichHanzi')}</p>
                 <div className="pinyin-display" style={{ fontSize: '42px', marginTop: '16px' }}>{q.char.pinyin}</div>
                 <p className="meaning-display">{q.char.meaning}</p>
               </>
             ) : (
               <>
-                <p className="text-sm">{q.type === 'hanzi-to-pinyin' ? '这个字怎么读？' : '这个字是什么意思？'}</p>
+                <p className="text-sm">{q.type === 'hanzi-to-pinyin' ? t('quiz.howRead') : t('quiz.whatMeans')}</p>
                 <div className="hanzi-display hanzi-xl" style={{ color: 'var(--accent-lime)' }}>{q.char.hanzi}</div>
               </>
             )}
@@ -4494,25 +4890,25 @@
           {(attemptedAnswers.length > 0 || canContinue) && (
             <div className="quiz-feedback">
               {answeredCorrect ? (
-                <strong>答对了</strong>
+                <strong>{t('quiz.correct')}</strong>
               ) : revealedAnswer ? (
                 <>
-                  <div>正确答案: <strong>{correctOption?.text}</strong></div>
+                  <div>{t('quiz.correctAnswer')}<strong>{correctOption?.text}</strong></div>
                   <div className="pinyin-display">{q.char.pinyin}</div>
                 </>
               ) : (
-                <strong>再想一次</strong>
+                <strong>{t('quiz.tryAgain')}</strong>
               )}
             </div>
           )}
           {canContinue && (
             <div className="nav-actions">
               <button className="btn btn-primary" onClick={handleNextQuestion}>
-                {currentIndex === questions.length - 1 ? '完成' : '下一题 →'}
+                {currentIndex === questions.length - 1 ? t('common.done') : t('quiz.next')}
               </button>
             </div>
           )}
-          <p className="text-sm" style={{ textAlign: 'center', marginTop: '20px' }}>得分: {score} / {currentIndex + (canContinue ? 1 : 0)}</p>
+          <p className="text-sm" style={{ textAlign: 'center', marginTop: '20px' }}>{t('quiz.scoreFooter', { score, total: currentIndex + (canContinue ? 1 : 0) })}</p>
         </div>
       );
     }
@@ -4520,7 +4916,7 @@
     // ============================================
     // STATS VIEW
     // ============================================
-    function StatsView({ progress, setCurrentView }) {
+    function StatsView({ progress, setCurrentView, t }) {
       const byLesson = [12, 13, 14, 15].map(l => ({
         lesson: l,
         mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.hanzi)).length,
@@ -4529,7 +4925,7 @@
       const recentScores = progress.quizScores.slice(-5).reverse();
 
       const handleReset = () => {
-        if (window.confirm('确定要重置全部学习进度吗？此操作不能撤销。')) {
+        if (window.confirm(t('stats.confirmReset'))) {
           localStorage.removeItem(STORAGE_KEY);
           window.location.reload();
         }
@@ -4562,7 +4958,7 @@
             
             // Validate structure
             if (!data.progress || data.appName !== 'hanzi-master') {
-              alert('备份文件格式不正确。');
+              alert(t('stats.invalidBackup'));
               return;
             }
             
@@ -4582,12 +4978,12 @@
             // Migrate old ID-based backups to hanzi-based
             imported = migrateProgress(imported);
             
-            if (window.confirm(`导入 ${new Date(data.exportDate).toLocaleDateString()} 的备份？\n\n这会替换当前学习进度。`)) {
+            if (window.confirm(t('stats.confirmImport', { date: new Date(data.exportDate).toLocaleDateString() }))) {
               localStorage.setItem(STORAGE_KEY, JSON.stringify(imported));
               window.location.reload();
             }
           } catch (err) {
-            alert('读取备份文件失败。');
+            alert(t('stats.importFail'));
           }
         };
         reader.readAsText(file);
@@ -4597,41 +4993,41 @@
       return (
         <div className="screen">
           <header className="header">
-            <button className="back-btn" onClick={() => setCurrentView('home')}>← 返回</button>
+            <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
             <div className="logo">汉字</div>
           </header>
 
           <MiniAppHeader
             icon="wallet"
-            title="学习钱包"
-            subtitle="掌握的字、复习记录和连续学习都存在这里。"
+            title={t('stats.title')}
+            subtitle={t('stats.subtitle')}
             pill={`${progress.masteredChars.length}/${VOCABULARY.length}`}
           />
 
           <div className="stats-bar stats-wallet">
             <div className="stat-item">
               <div className="stat-value">{progress.masteredChars.length}</div>
-              <div className="stat-label">已掌握</div>
+              <div className="stat-label">{t('home.stat.mastered')}</div>
             </div>
             <div className="stat-item">
               <div className="stat-value">{progress.totalReviews}</div>
-              <div className="stat-label">复习</div>
+              <div className="stat-label">{t('home.stat.reviews')}</div>
             </div>
             <div className="stat-item">
               <div className="stat-value">{progress.streakDays}</div>
-              <div className="stat-label">连续</div>
+              <div className="stat-label">{t('stats.streak')}</div>
             </div>
           </div>
 
           <div className="section-title">
-            <span className="text-sm">按课程</span>
+            <span className="text-sm">{t('stats.byLesson')}</span>
             <div className="section-line" />
           </div>
 
           {byLesson.map(({ lesson, mastered, total }) => (
             <div key={lesson} className="card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <p className="title-md">第 {lesson} 课</p>
+                <p className="title-md">{t('stats.lesson', { lesson })}</p>
                 <span className="text-accent" style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '20px', fontWeight: 900 }}>{mastered}/{total}</span>
               </div>
               <div className="progress-bar" style={{ marginTop: '10px', marginBottom: '0' }}>
@@ -4643,7 +5039,7 @@
           {recentScores.length > 0 && (
             <>
               <div className="section-title">
-                <span className="text-sm">最近测验</span>
+                <span className="text-sm">{t('stats.recent')}</span>
                 <div className="section-line" />
               </div>
               {recentScores.map((q, i) => (
@@ -4658,7 +5054,7 @@
           )}
 
           <div className="section-title">
-            <span className="text-sm">全部 {VOCABULARY.length} 个汉字</span>
+            <span className="text-sm">{t('stats.allChars', { count: VOCABULARY.length })}</span>
             <div className="section-line" />
           </div>
 
@@ -4671,22 +5067,22 @@
           </div>
 
           <div className="section-title" style={{ marginTop: '28px' }}>
-            <span className="text-sm">备份</span>
+            <span className="text-sm">{t('stats.backup')}</span>
             <div className="section-line" />
           </div>
 
           <div className="backup-buttons">
             <button className="btn btn-secondary" onClick={handleExport}>
-              <span style={{ marginRight: '8px' }}>📤</span> 导出
+              <span style={{ marginRight: '8px' }}>📤</span> {t('stats.export')}
             </button>
             <label className="btn btn-secondary" style={{ cursor: 'pointer' }}>
-              <span style={{ marginRight: '8px' }}>📥</span> 导入
+              <span style={{ marginRight: '8px' }}>📥</span> {t('stats.import')}
               <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
             </label>
           </div>
 
           <div style={{ marginTop: '20px' }}>
-            <button className="btn btn-coral" onClick={handleReset}>重置进度</button>
+            <button className="btn btn-coral" onClick={handleReset}>{t('stats.reset')}</button>
           </div>
         </div>
       );
