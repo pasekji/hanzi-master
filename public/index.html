@@ -11,11 +11,6 @@
   <title>汉字大师 | HSK1 小程序</title>
   <meta name="description" content="Learn Chinese characters with flashcards, drawing practice, and quizzes. HSK1 vocabulary from lessons 12-15.">
   
-  <!-- Preload fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
-  
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='16' y1='12' x2='84' y2='88'><stop stop-color='%2307c160'/><stop offset='1' stop-color='%231677ff'/></linearGradient></defs><rect x='8' y='8' width='84' height='84' rx='24' fill='url(%23g)'/><rect x='19' y='19' width='62' height='62' rx='17' fill='white' opacity='.12'/><text x='50' y='68' text-anchor='middle' font-family='Noto Sans SC, Microsoft YaHei, sans-serif' font-size='54' font-weight='900' fill='white'>字</text></svg>">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='16' y1='12' x2='84' y2='88'><stop stop-color='%2307c160'/><stop offset='1' stop-color='%231677ff'/></linearGradient></defs><rect x='8' y='8' width='84' height='84' rx='24' fill='url(%23g)'/><rect x='19' y='19' width='62' height='62' rx='17' fill='white' opacity='.12'/><text x='50' y='68' text-anchor='middle' font-family='Noto Sans SC, Microsoft YaHei, sans-serif' font-size='54' font-weight='900' fill='white'>字</text></svg>">
@@ -45,7 +40,7 @@
     body {
       background: #e8f7ef;
       color: #18212b;
-      font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+      font-family: 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.5;
@@ -85,7 +80,7 @@
       position: absolute;
       right: max(14px, 12vw);
       top: 16%;
-      font-family: 'Noto Sans SC', sans-serif;
+      font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
       font-size: clamp(120px, 34vw, 220px);
       font-weight: 900;
       color: rgba(7, 193, 96, 0.06);
@@ -224,9 +219,10 @@
     </div>
   </div>
   
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+  <script src="vendor/react.production.min.js"></script>
+  <script src="vendor/react-dom.production.min.js"></script>
+  <script src="vendor/hanzi-writer.min.js"></script>
+  <script src="vendor/hanzi-strokes.js"></script>
   
   <script src="app.js"></script>
 </body>

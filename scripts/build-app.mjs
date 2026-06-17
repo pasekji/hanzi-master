@@ -1,17 +1,12 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
-const BABEL_URL = 'https://unpkg.com/@babel/standalone@7.26.10/babel.min.js';
 const root = new URL('../', import.meta.url);
 const sourceUrl = new URL('src/app.jsx', root);
 const outputUrl = new URL('public/app.js', root);
+const babelUrl = new URL('scripts/vendor/babel.min.js', root);
 
-const response = await fetch(BABEL_URL);
-if (!response.ok) {
-  throw new Error(`Failed to download Babel standalone: ${response.status} ${response.statusText}`);
-}
-
-const babelCode = await response.text();
+const babelCode = await readFile(babelUrl, 'utf8');
 const sandbox = { console };
 sandbox.window = sandbox.self = sandbox.globalThis = sandbox;
 vm.runInNewContext(babelCode, sandbox, { filename: 'babel-standalone.js' });

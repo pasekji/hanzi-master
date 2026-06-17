@@ -11,6 +11,7 @@ Chinese superapp-inspired Hanzi learning mini-app for HSK1 (Lessons 12-15).
 - 🎯 每日测验 with 3 quiz modes
 - 🐼 Panda learning buddy and SVG mini-program visuals
 - 💾 Progress saved locally
+- 🔒 Local-only runtime: browser storage, vendored assets, no external APIs/CDNs
 - 📱 Mobile-first WeChat/Alipay-inspired design
 
 ## Deploy to Render.com

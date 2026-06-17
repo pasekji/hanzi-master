@@ -4418,28 +4418,21 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
         showHintAfterMisses: drawMode === 'practice' ? 2 : 3,
         highlightOnComplete: true,
         charDataLoader: (char, onComplete) => {
-          fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${char}.json`)
-            .then(res => res.json())
-            .then(data => onComplete(data))
-            .catch(() => {
-              setFeedback({ type: 'error', message: t('draw.feedback.noData') });
-            });
+          const strokeData = window.HANZI_STROKE_DATA?.[char];
+          if (strokeData) {
+            onComplete(strokeData);
+          } else {
+            setFeedback({ type: 'error', message: t('draw.feedback.noData') });
+          }
         }
       });
 
       writerRef.current = writer;
 
       // Get stroke count
-      fetch(`https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${currentChar.hanzi}.json`)
-        .then(res => res.json())
-        .then(data => {
-          setTotalStrokes(data.strokes.length);
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setTotalStrokes(currentChar.strokes);
-          setIsLoading(false);
-        });
+      const strokeData = window.HANZI_STROKE_DATA?.[currentChar.hanzi];
+      setTotalStrokes(strokeData?.strokes?.length || currentChar.strokes);
+      setIsLoading(false);
 
       // Start based on mode
       if (drawMode === 'learn') {
