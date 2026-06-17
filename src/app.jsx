@@ -139,11 +139,94 @@ const COMPOUNDS = [
 // ============================================
 const STORAGE_KEY = 'hanzi_master_v3';
 const LANGUAGE_KEY = 'hanzi_master_ui_language';
+const SOUND_KEY = 'hanzi_master_sound_enabled';
+
+const SOUND_PATTERNS = {
+  tap: [{ frequency: 520, start: 0, duration: 0.045, gain: 0.022, type: 'triangle' }],
+  select: [
+    { frequency: 520, start: 0, duration: 0.055, gain: 0.03, type: 'triangle' },
+    { frequency: 680, start: 0.045, duration: 0.07, gain: 0.026, type: 'sine' }
+  ],
+  stroke: [{ frequency: 640, start: 0, duration: 0.035, gain: 0.018, type: 'sine' }],
+  correct: [
+    { frequency: 660, start: 0, duration: 0.08, gain: 0.04, type: 'sine' },
+    { frequency: 880, start: 0.07, duration: 0.1, gain: 0.036, type: 'sine' }
+  ],
+  wrong: [
+    { frequency: 185, start: 0, duration: 0.09, gain: 0.035, type: 'triangle' },
+    { frequency: 135, start: 0.08, duration: 0.11, gain: 0.026, type: 'sine' }
+  ],
+  reveal: [
+    { frequency: 392, start: 0, duration: 0.07, gain: 0.026, type: 'sine' },
+    { frequency: 494, start: 0.07, duration: 0.09, gain: 0.03, type: 'sine' }
+  ],
+  complete: [
+    { frequency: 523, start: 0, duration: 0.08, gain: 0.036, type: 'sine' },
+    { frequency: 659, start: 0.07, duration: 0.09, gain: 0.034, type: 'sine' },
+    { frequency: 784, start: 0.15, duration: 0.14, gain: 0.032, type: 'sine' }
+  ]
+};
+
+let audioContext = null;
+
+function loadSoundEnabled() {
+  try {
+    const saved = localStorage.getItem(SOUND_KEY);
+    return saved === null ? true : saved === 'true';
+  } catch (e) {
+    return true;
+  }
+}
+
+function saveSoundEnabled(enabled) {
+  try {
+    localStorage.setItem(SOUND_KEY, String(enabled));
+  } catch (e) {
+    console.warn('Failed to save sound setting:', e);
+  }
+}
+
+function getAudioContext() {
+  if (typeof window === 'undefined') return null;
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) return null;
+  if (!audioContext) audioContext = new AudioContextClass();
+  return audioContext;
+}
+
+function playSoundEffect(name, enabled = true) {
+  if (!enabled) return;
+  const pattern = SOUND_PATTERNS[name] || SOUND_PATTERNS.tap;
+  const context = getAudioContext();
+  if (!context) return;
+  if (context.state === 'suspended') {
+    context.resume().catch(() => {});
+  }
+  const startAt = context.currentTime + 0.012;
+  pattern.forEach(note => {
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    const noteStart = startAt + note.start;
+    const noteEnd = noteStart + note.duration;
+    oscillator.type = note.type;
+    oscillator.frequency.setValueAtTime(note.frequency, noteStart);
+    gain.gain.setValueAtTime(0.0001, noteStart);
+    gain.gain.exponentialRampToValueAtTime(note.gain, noteStart + 0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001, noteEnd);
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+    oscillator.start(noteStart);
+    oscillator.stop(noteEnd + 0.02);
+  });
+}
 
 const UI_TEXT = {
   zh: {
     'lang.zh': '中文',
     'lang.en': 'EN',
+    'sound.on': '\u58f0\u97f3\u5f00',
+    'sound.off': '\u9759\u97f3',
+    'sound.label': '\u97f3\u6548',
     'nav.home': '首页',
     'nav.cards': '卡片',
     'nav.write': '写字',
@@ -287,6 +370,9 @@ const UI_TEXT = {
   en: {
     'lang.zh': '中文',
     'lang.en': 'EN',
+    'sound.on': 'Sound on',
+    'sound.off': 'Muted',
+    'sound.label': 'Sound effects',
     'nav.home': 'Home',
     'nav.cards': 'Cards',
     'nav.write': 'Write',
@@ -2039,6 +2125,34 @@ const styles = `
     color: #fff;
   }
 
+  .sound-toggle {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    border: 1px solid rgba(24, 33, 43, 0.06);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.82);
+    color: #687870;
+    box-shadow: 0 8px 20px rgba(20, 49, 35, 0.07);
+    transition: transform var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .sound-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .sound-toggle.active {
+    background: #07c160;
+    color: #fff;
+  }
+
+  .sound-toggle:active {
+    transform: scale(0.96);
+  }
+
   .wallet-card {
     position: relative;
     min-height: 188px;
@@ -3425,6 +3539,7 @@ function HanziMasterApp() {
   const [selectedLesson, setSelectedLesson] = React.useState(null);
   const [selectedQueue, setSelectedQueue] = React.useState(null);
   const [language, setLanguage] = React.useState(loadLanguage);
+  const [soundEnabled, setSoundEnabled] = React.useState(loadSoundEnabled);
 
   React.useEffect(() => {
     saveProgress(progress);
@@ -3453,6 +3568,10 @@ function HanziMasterApp() {
       console.warn('Failed to save language:', e);
     }
   }, [language]);
+
+  React.useEffect(() => {
+    saveSoundEnabled(soundEnabled);
+  }, [soundEnabled]);
 
   React.useEffect(() => {
     const today = new Date().toDateString();
@@ -3491,7 +3610,16 @@ function HanziMasterApp() {
   }, []);
 
   const t = React.useCallback((key, vars) => translateUi(language, key, vars), [language]);
-  const viewProps = { progress, setCurrentView, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered, language, setLanguage, t };
+  const playSound = React.useCallback((name) => playSoundEffect(name, soundEnabled), [soundEnabled]);
+  const setCurrentViewWithSound = React.useCallback((view) => {
+    if (typeof view !== 'function') {
+      if (view !== currentView) playSoundEffect('tap', soundEnabled);
+      setCurrentView(view);
+      return;
+    }
+    setCurrentView(prev => view(prev));
+  }, [currentView, soundEnabled]);
+  const viewProps = { progress, setCurrentView: setCurrentViewWithSound, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered, language, setLanguage, soundEnabled, setSoundEnabled, playSound, t };
 
   return (
     <div className="app-container">
@@ -3503,7 +3631,7 @@ function HanziMasterApp() {
       {currentView === 'draw' && <DrawView key="draw" {...viewProps} />}
       {currentView === 'quiz' && <QuizView key="quiz" {...viewProps} />}
       {currentView === 'stats' && <StatsView key="stats" {...viewProps} />}
-      <BottomNav currentView={currentView} setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} t={t} />
+      <BottomNav currentView={currentView} setCurrentView={setCurrentViewWithSound} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} t={t} />
     </div>
   );
 }
@@ -3539,24 +3667,48 @@ function BottomNav({ currentView, setCurrentView, setSelectedLesson, setSelected
   );
 }
 
-function LanguageToggle({ language, setLanguage, t }) {
+function LanguageToggle({ language, setLanguage, playSound, t }) {
   return (
     <div className="language-toggle" aria-label="UI language">
       <button
         className={language === 'zh' ? 'active' : ''}
-        onClick={() => setLanguage('zh')}
+        onClick={() => {
+          playSound?.('tap');
+          setLanguage('zh');
+        }}
         aria-pressed={language === 'zh'}
       >
         {t('lang.zh')}
       </button>
       <button
         className={language === 'en' ? 'active' : ''}
-        onClick={() => setLanguage('en')}
+        onClick={() => {
+          playSound?.('tap');
+          setLanguage('en');
+        }}
         aria-pressed={language === 'en'}
       >
         {t('lang.en')}
       </button>
     </div>
+  );
+}
+
+function SoundToggle({ soundEnabled, setSoundEnabled, t }) {
+  const label = soundEnabled ? t('sound.on') : t('sound.off');
+  return (
+    <button
+      className={`sound-toggle ${soundEnabled ? 'active' : ''}`}
+      onClick={() => {
+        playSoundEffect(soundEnabled ? 'tap' : 'correct', true);
+        setSoundEnabled(!soundEnabled);
+      }}
+      aria-label={label}
+      aria-pressed={soundEnabled}
+      title={t('sound.label')}
+    >
+      <AppIcon name={soundEnabled ? 'sound' : 'mute'} />
+    </button>
   );
 }
 
@@ -3592,6 +3744,9 @@ function AppIcon({ name }) {
   );
   if (name === 'sound') return (
     <svg {...common}><path {...stroke} d="M4 10v4h4l5 4V6l-5 4H4Z"/><path {...stroke} d="M16 9.5c1.1 1.3 1.1 3.7 0 5M18.5 7c2.2 2.7 2.2 7.3 0 10"/></svg>
+  );
+  if (name === 'mute') return (
+    <svg {...common}><path {...stroke} d="M4 10v4h4l5 4V6l-5 4H4Z"/><path {...stroke} d="M19 9l-5 5M14 9l5 5"/></svg>
   );
   if (name === 'gift') return (
     <svg {...common}><path {...stroke} d="M4 10h16v10H4V10Z"/><path {...stroke} d="M12 10v10M4 14h16M7 7c0-1.7 1.4-3 3-2l2 5H8a3 3 0 0 1-1-3ZM17 7c0-1.7-1.4-3-3-2l-2 5h4a3 3 0 0 0 1-3Z"/></svg>
@@ -3774,7 +3929,7 @@ function MiniAppHeader({ icon, title, subtitle, pill }) {
 // ============================================
 // DAILY TRAINING VIEW
 // ============================================
-function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, t }) {
+function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, playSound, t }) {
   const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
   const dailySummary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
   const todayLabel = getTodayKey();
@@ -3785,6 +3940,7 @@ function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSel
       labelKey: 'common.today',
       items: dailyQueue
     });
+    playSound('select');
     setCurrentView(view);
   };
 
@@ -3857,7 +4013,7 @@ function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSel
 // ============================================
 // HOME VIEW
 // ============================================
-function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, language, setLanguage, t }) {
+function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, language, setLanguage, soundEnabled, setSoundEnabled, playSound, t }) {
   const masteredCount = progress.masteredChars.length;
   const learningCount = progress.learningChars.length;
   const totalChars = VOCABULARY.length;
@@ -3867,6 +4023,7 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
   const openDailyTraining = () => {
     setSelectedLesson(null);
     setSelectedQueue(null);
+    playSound('select');
     setCurrentView('daily');
   };
 
@@ -3880,8 +4037,9 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
             <p className="brand-subtitle">{t('home.subtitle')}</p>
           </div>
         </div>
-        <div className="topbar-actions">
-          <LanguageToggle language={language} setLanguage={setLanguage} t={t} />
+      <div className="topbar-actions">
+          <LanguageToggle language={language} setLanguage={setLanguage} playSound={playSound} t={t} />
+          <SoundToggle soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} t={t} />
           {progress.streakDays > 0 && (
             <div className="daily-chip">🔥 {progress.streakDays}</div>
           )}
@@ -4093,7 +4251,7 @@ function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, prog
 // ============================================
 // LEARN VIEW
 // ============================================
-function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearned, updateProgress, setCurrentView, t }) {
+function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearned, updateProgress, setCurrentView, playSound, t }) {
   const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
   const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
   const positionKey = `learn:${selectedQueue?.id || selectedLesson || 'all'}`;
@@ -4106,6 +4264,7 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
   const relatedCompounds = React.useMemo(() => COMPOUNDS.filter(c => c.hanzi.includes(currentChar.hanzi)), [currentChar]);
 
   const handleNext = () => {
+    playSound(currentIndex === vocab.length - 1 ? 'complete' : 'tap');
     markCharacterLearned(currentChar.hanzi);
     setIsFlipped(false);
     setShowCompound(false);
@@ -4119,6 +4278,7 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
   };
 
   const handlePrev = () => {
+    playSound('tap');
     setIsFlipped(false);
     setShowCompound(false);
     if (currentIndex > 0) {
@@ -4151,7 +4311,7 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
         <div className="progress-fill" style={{ width: `${((currentIndex + 1) / vocab.length) * 100}%` }} />
       </div>
 
-      <div className="study-pass-card card card-accent-lime flashcard" onClick={() => setIsFlipped(!isFlipped)} role="button" tabIndex={0} aria-label="Flip card">
+      <div className="study-pass-card card card-accent-lime flashcard" onClick={() => { playSound('select'); setIsFlipped(!isFlipped); }} role="button" tabIndex={0} aria-label="Flip card">
         <div className="hanzi-display hanzi-hero" style={{ color: 'var(--accent-lime)' }}>{currentChar.hanzi}</div>
         {isFlipped && (
           <div className="animate-slide-up" style={{ textAlign: 'center' }}>
@@ -4164,7 +4324,7 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
       </div>
 
       {relatedCompounds.length > 0 && (
-        <div className="related-service-card card card-clickable" onClick={() => setShowCompound(!showCompound)} role="button" tabIndex={0}>
+        <div className="related-service-card card card-clickable" onClick={() => { playSound('reveal'); setShowCompound(!showCompound); }} role="button" tabIndex={0}>
           <p className="title-md">{t('learn.related', { count: relatedCompounds.length })}</p>
           {showCompound && (
             <div className="animate-slide-up" style={{ marginTop: '12px' }}>
@@ -4197,7 +4357,7 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
 // ============================================
 // DRAW VIEW
 // ============================================
-function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView, t }) {
+function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView, playSound, t }) {
   const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
   const [vocab] = React.useState(() => getDrawQueue(baseVocab, progress));
   const positionKey = `draw:${selectedQueue?.id || selectedLesson || 'all'}`;
@@ -4289,6 +4449,7 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
         setTimeout(() => {
           writer.quiz({
             onCorrectStroke: (data) => {
+              playSound('stroke');
               setStrokesCompleted(data.strokeNum + 1);
               if (data.strokeNum === 0) {
                 setFeedback({ type: 'success', message: t('draw.feedback.start') });
@@ -4296,12 +4457,14 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
               setTimeout(() => setFeedback(null), 800);
             },
             onMistake: (data) => {
+              playSound('wrong');
               mistakesRef.current += 1;
               setMistakes(prev => prev + 1);
               setFeedback({ type: 'error', message: t('draw.feedback.retry') });
               setTimeout(() => setFeedback(null), 800);
             },
             onComplete: (data) => {
+              playSound('complete');
               setIsComplete(true);
               const finalMistakes = mistakesRef.current;
               setCharStats(prev => ({
@@ -4329,15 +4492,17 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
         writerRef.current = null;
       }
     };
-  }, [currentChar, drawMode, showReference, t]);
+  }, [currentChar, drawMode, showReference, playSound, t]);
 
   const handleAnimate = () => {
     if (writerRef.current) {
+      playSound('reveal');
       writerRef.current.animateCharacter();
     }
   };
 
   const handleReset = () => {
+    playSound('tap');
     setStrokesCompleted(0);
     setMistakes(0);
     mistakesRef.current = 0;
@@ -4350,17 +4515,20 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
       } else {
         writerRef.current.quiz({
           onCorrectStroke: (data) => {
+            playSound('stroke');
             setStrokesCompleted(data.strokeNum + 1);
             setFeedback({ type: 'success', message: t('draw.feedback.nice') });
             setTimeout(() => setFeedback(null), 600);
           },
           onMistake: () => {
+            playSound('wrong');
             mistakesRef.current += 1;
             setMistakes(prev => prev + 1);
             setFeedback({ type: 'error', message: t('draw.feedback.retry') });
             setTimeout(() => setFeedback(null), 600);
           },
           onComplete: () => {
+            playSound('complete');
             setIsComplete(true);
             const finalMistakes = mistakesRef.current;
             setCharStats(prev => ({
@@ -4375,6 +4543,7 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
   };
 
   const handleNext = () => {
+    playSound(currentIndex < vocab.length - 1 ? 'tap' : 'complete');
     const nextIndex = currentIndex < vocab.length - 1 ? currentIndex + 1 : 0;
     updateProgress({
       drawingAttempts: {
@@ -4393,10 +4562,16 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
 
   const handlePrev = () => {
     if (currentIndex > 0) {
+      playSound('tap');
       const prevIndex = currentIndex - 1;
       updateProgress({ lastPositions: { ...(progress.lastPositions || {}), [positionKey]: prevIndex } });
       setCurrentIndex(prevIndex);
     }
+  };
+
+  const selectDrawMode = (mode) => {
+    if (mode !== drawMode) playSound('select');
+    setDrawMode(mode);
   };
 
   // Stroke dots for visual progress
@@ -4432,19 +4607,19 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
       <div className="mini-app-segment draw-mode-selector">
         <button
           className={`draw-mode-btn ${drawMode === 'learn' ? 'active' : ''}`}
-          onClick={() => setDrawMode('learn')}
+          onClick={() => selectDrawMode('learn')}
         >
           <AppIcon name="card" /> {t('draw.mode.learn')}
         </button>
         <button
           className={`draw-mode-btn ${drawMode === 'practice' ? 'active' : ''}`}
-          onClick={() => setDrawMode('practice')}
+          onClick={() => selectDrawMode('practice')}
         >
           <AppIcon name="brush" /> {t('draw.mode.practice')}
         </button>
         <button
           className={`draw-mode-btn ${drawMode === 'quiz' ? 'active' : ''}`}
-          onClick={() => setDrawMode('quiz')}
+          onClick={() => selectDrawMode('quiz')}
         >
           <AppIcon name="target" /> {t('draw.mode.quiz')}
         </button>
@@ -4500,7 +4675,7 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
             <button className="btn btn-secondary" onClick={handleReset}>
               {isComplete ? t('common.writeAgain') : t('common.reset')}
             </button>
-            <button className="btn btn-secondary" onClick={() => setShowReference(prev => !prev)}>
+            <button className="btn btn-secondary" onClick={() => { playSound('reveal'); setShowReference(prev => !prev); }}>
               {showReference ? t('common.hide') : t('common.hint')}
             </button>
             {isComplete && (
@@ -4546,7 +4721,7 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
 // ============================================
 // QUIZ VIEW
 // ============================================
-function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView, t }) {
+function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView, playSound, t }) {
   const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
   const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
   const [initialMasteredChars] = React.useState(progress.masteredChars);
@@ -4601,6 +4776,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
   const handleAnswer = (option) => {
     if (answeredCorrect || revealedAnswer || attemptedAnswers.some(a => a.text === option.text)) return;
     if (option.isCorrect) {
+      playSound('correct');
       const newScore = score + 1;
       setScore(newScore);
       setAnsweredCorrect(true);
@@ -4608,6 +4784,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
       return;
     }
     const nextAttempts = [...attemptedAnswers, option];
+    playSound(nextAttempts.length >= 2 ? 'reveal' : 'wrong');
     setAttemptedAnswers(nextAttempts);
     if (nextAttempts.length >= 2) {
       setRevealedAnswer(true);
@@ -4616,14 +4793,31 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
 
   const handleNextQuestion = () => {
     if (currentIndex < questions.length - 1) {
+      playSound('tap');
       setCurrentIndex(currentIndex + 1);
       setAttemptedAnswers([]);
       setAnsweredCorrect(false);
       setRevealedAnswer(false);
     } else {
+      playSound('complete');
       setIsComplete(true);
       updateProgress({ quizScores: [...progress.quizScores, { score, total: questions.length, date: new Date().toISOString() }] });
     }
+  };
+
+  const chooseQuizType = (type) => {
+    playSound('select');
+    setQuizType(type);
+  };
+
+  const restartQuiz = () => {
+    playSound('select');
+    generateQuestions();
+  };
+
+  const changeQuizMode = () => {
+    playSound('tap');
+    setQuizType(null);
   };
 
   if (!quizType) {
@@ -4639,21 +4833,21 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
           subtitle={t('quiz.subtitle')}
           pill={scopePill}
         />
-        <div className="card card-clickable card-accent-lime quiz-mode-card" onClick={() => setQuizType('hanzi-to-pinyin')} role="button" tabIndex={0}>
+      <div className="card card-clickable card-accent-lime quiz-mode-card" onClick={() => chooseQuizType('hanzi-to-pinyin')} role="button" tabIndex={0}>
           <span className="quiz-mode-icon"><AppIcon name="sound" /></span>
           <div>
             <p className="title-lg">{t('quiz.mode.hanziPinyin')}</p>
             <p className="text-sm">{t('quiz.mode.hanziPinyinCopy')}</p>
           </div>
         </div>
-        <div className="card card-clickable card-accent-cyan quiz-mode-card" onClick={() => setQuizType('pinyin-to-hanzi')} role="button" tabIndex={0}>
+      <div className="card card-clickable card-accent-cyan quiz-mode-card" onClick={() => chooseQuizType('pinyin-to-hanzi')} role="button" tabIndex={0}>
           <span className="quiz-mode-icon"><AppIcon name="target" /></span>
           <div>
             <p className="title-lg">{t('quiz.mode.pinyinHanzi')}</p>
             <p className="text-sm">{t('quiz.mode.pinyinHanziCopy')}</p>
           </div>
         </div>
-        <div className="card card-clickable card-accent-coral quiz-mode-card" onClick={() => setQuizType('hanzi-to-meaning')} role="button" tabIndex={0}>
+      <div className="card card-clickable card-accent-coral quiz-mode-card" onClick={() => chooseQuizType('hanzi-to-meaning')} role="button" tabIndex={0}>
           <span className="quiz-mode-icon"><AppIcon name="book" /></span>
           <div>
             <p className="title-lg">{t('quiz.mode.hanziMeaning')}</p>
@@ -4680,8 +4874,8 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
           <p className="text-sm" style={{ marginTop: '12px' }}>{t('quiz.scoreLine', { score, total: questions.length })}</p>
         </div>
         <div className="nav-actions">
-          <button className="btn btn-secondary" onClick={() => setQuizType(null)}>{t('quiz.changeMode')}</button>
-          <button className="btn btn-primary" onClick={generateQuestions}>{t('quiz.again')}</button>
+        <button className="btn btn-secondary" onClick={changeQuizMode}>{t('quiz.changeMode')}</button>
+        <button className="btn btn-primary" onClick={restartQuiz}>{t('quiz.again')}</button>
         </div>
       </div>
     );
