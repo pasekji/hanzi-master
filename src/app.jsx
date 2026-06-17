@@ -740,7 +740,7 @@ const styles = `
       radial-gradient(circle at 86% 12%, rgba(22, 119, 255, 0.14), transparent 24%),
       linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 42%, #f9faf8 100%);
     color: var(--text-primary);
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     overflow-x: hidden;
   }
 
@@ -783,7 +783,7 @@ const styles = `
     align-items: center;
     gap: 8px;
     color: #0d1f17;
-    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 30px;
     font-weight: 900;
     letter-spacing: 0;
@@ -797,7 +797,7 @@ const styles = `
     border-radius: var(--radius);
     background: rgba(255, 255, 255, 0.82);
     color: var(--text-primary);
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 14px;
     font-weight: 800;
     transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
@@ -856,7 +856,7 @@ const styles = `
   .title-md {
     margin: 0;
     color: #14251c;
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-weight: 900;
     line-height: 1.12;
     letter-spacing: 0;
@@ -914,7 +914,7 @@ const styles = `
   .draw-stat-value,
   .lesson-number,
   .score-value {
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-weight: 900;
     line-height: 1;
   }
@@ -942,7 +942,7 @@ const styles = `
     padding: 13px 18px;
     border: 1px solid transparent;
     border-radius: var(--radius);
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 15px;
     font-weight: 900;
     letter-spacing: 0;
@@ -976,7 +976,7 @@ const styles = `
   }
 
   .hanzi-display {
-    font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', 'SimSun', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'SimSun', sans-serif;
     font-weight: 900;
   }
 
@@ -1087,7 +1087,7 @@ const styles = `
     left: 50%;
     transform: translate(-50%, -50%);
     color: rgba(7, 193, 96, 0.1);
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: clamp(150px, 45vw, 200px);
     font-weight: 900;
     line-height: 1;
@@ -1120,7 +1120,7 @@ const styles = `
     border-radius: var(--radius);
     background: transparent;
     color: #65737d;
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 14px;
     font-weight: 900;
     letter-spacing: 0;
@@ -1214,7 +1214,7 @@ const styles = `
     background: #fff;
     color: var(--text-primary);
     box-shadow: 0 8px 18px rgba(20, 49, 35, 0.06);
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 15px;
     text-align: left;
     transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
@@ -1261,7 +1261,7 @@ const styles = `
   .pinyin-display {
     margin-top: 12px;
     color: var(--accent-cyan);
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: clamp(22px, 6vw, 28px);
     font-weight: 700;
   }
@@ -1269,7 +1269,7 @@ const styles = `
   .meaning-display {
     margin-top: 8px;
     color: var(--text-secondary);
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: clamp(16px, 4.5vw, 20px);
   }
 
@@ -1314,7 +1314,7 @@ const styles = `
     border-radius: 6px;
     background: #edf3ef;
     color: #1d2c35;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: clamp(16px, 4.5vw, 20px);
     font-weight: 700;
     transition: transform var(--transition-fast);
@@ -1463,7 +1463,7 @@ const styles = `
       radial-gradient(circle at 86% 12%, rgba(22, 119, 255, 0.14), transparent 24%),
       linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 42%, #f9faf8 100%);
     color: var(--text-primary);
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
@@ -1498,7 +1498,7 @@ const styles = `
     top: 76px;
     right: max(12px, calc((100vw - 460px) / 2 - 24px));
     z-index: 0;
-    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 116px;
     font-weight: 900;
     color: rgba(7, 193, 96, 0.06);
@@ -1552,7 +1552,7 @@ const styles = `
     background: rgba(255, 255, 255, 0.82);
     color: var(--text-primary);
     border-color: rgba(7, 193, 96, 0.2);
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 14px;
     font-weight: 800;
   }
@@ -1623,7 +1623,7 @@ const styles = `
   }
 
   .title-hero {
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 44px;
     letter-spacing: 0;
     background: linear-gradient(135deg, #07c160 0%, #1677ff 100%);
@@ -1633,13 +1633,13 @@ const styles = `
   }
 
   .title-xl {
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 32px;
     letter-spacing: 0;
   }
 
   .title-lg {
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 22px;
     letter-spacing: 0;
   }
@@ -1690,7 +1690,7 @@ const styles = `
   .stat-value,
   .lesson-number,
   .score-value {
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 34px;
   }
 
@@ -1721,7 +1721,7 @@ const styles = `
   }
 
   .menu-label {
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 13px;
     font-weight: 900;
     color: #1d2c35;
@@ -1730,7 +1730,7 @@ const styles = `
   .btn {
     min-height: 50px;
     border: none;
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-size: 15px;
     font-weight: 900;
   }
@@ -1756,7 +1756,7 @@ const styles = `
   }
 
   .hanzi-display {
-    font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', 'SimSun', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'SimSun', sans-serif;
   }
 
   .hanzi-hero {
@@ -1804,7 +1804,7 @@ const styles = `
   .draw-mode-btn {
     border: none;
     background: transparent;
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     font-weight: 900;
     color: #65737d;
     display: flex;
@@ -1872,7 +1872,7 @@ const styles = `
   .quiz-option {
     padding: 15px 16px;
     background: #fff;
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
     box-shadow: 0 8px 18px rgba(20, 49, 35, 0.06);
   }
 
@@ -1914,7 +1914,7 @@ const styles = `
     background: #fff7e6;
     color: #9a6400;
     border: 1px solid #ffe2a8;
-    font-family: 'Noto Sans SC', 'Segoe UI', Arial, sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;
   }
 
   .floating-indicator {
@@ -1945,7 +1945,7 @@ const styles = `
     border-radius: 18px;
     background: linear-gradient(135deg, #07c160, #1677ff);
     color: #fff;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 34px;
     font-weight: 900;
     box-shadow: 0 10px 18px rgba(7, 193, 96, 0.24);
@@ -2172,7 +2172,7 @@ const styles = `
     position: absolute;
     right: -10px;
     top: -28px;
-    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 180px;
     font-weight: 900;
     color: rgba(255,255,255,0.11);
@@ -2230,7 +2230,7 @@ const styles = `
     border: 1px solid rgba(255,255,255,0.36);
     border-radius: 8px;
     color: #fff;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 24px;
     font-weight: 900;
   }
@@ -2256,7 +2256,7 @@ const styles = `
     right: -4px;
     bottom: -24px;
     color: rgba(7, 193, 96, 0.07);
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 104px;
     font-weight: 900;
     line-height: 1;
@@ -2314,7 +2314,7 @@ const styles = `
     border-radius: 8px;
     background: #fff;
     color: #07a653;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 22px;
     font-weight: 900;
     box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.08);
@@ -2424,7 +2424,7 @@ const styles = `
     border-radius: 8px;
     background: #121f18;
     color: #07c160;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 32px;
     font-weight: 900;
     animation: characterBlink 4.2s ease-in-out infinite;
@@ -2560,7 +2560,7 @@ const styles = `
     border-radius: 8px;
     background: #e8fff3;
     color: #07a653;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 12px;
     font-weight: 900;
   }
@@ -2775,7 +2775,7 @@ const styles = `
     position: absolute;
     right: 18px;
     bottom: 14px;
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 64px;
     color: rgba(7, 193, 96, 0.06);
     font-weight: 900;
@@ -2802,7 +2802,7 @@ const styles = `
     right: 18px;
     top: 50%;
     transform: translateY(-50%);
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;
     font-size: 54px;
     font-weight: 900;
     color: rgba(7, 193, 96, 0.08);
@@ -3762,7 +3762,7 @@ function HanziLogoSvg() {
     <svg className="hanzi-logo-svg" width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <rect x="8" y="8" width="76" height="76" rx="22" fill="url(#hanziLogoGradient)" />
       <rect x="18" y="18" width="56" height="56" rx="16" fill="white" opacity="0.12" />
-      <text x="46" y="61" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="47" fontWeight="900" fill="white">字</text>
+      <text x="46" y="61" textAnchor="middle" fontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fontSize="47" fontWeight="900" fill="white">字</text>
       <defs>
         <linearGradient id="hanziLogoGradient" x1="8" y1="8" x2="84" y2="84" gradientUnits="userSpaceOnUse">
           <stop stopColor="#07C160" />
@@ -3786,7 +3786,7 @@ function CoachSvg() {
     <svg className="coach-mini-svg" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <rect x="16" y="12" width="58" height="64" rx="20" fill="#E8FFF3"/>
       <rect x="21" y="17" width="48" height="48" rx="16" fill="url(#coachGradient)"/>
-      <text x="45" y="50" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="30" fontWeight="900" fill="white">学</text>
+      <text x="45" y="50" textAnchor="middle" fontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fontSize="30" fontWeight="900" fill="white">学</text>
       <circle cx="34" cy="33" r="2.4" fill="#17382A"/>
       <circle cx="56" cy="33" r="2.4" fill="#17382A"/>
       <path d="M38 56c4 3 10 3 14 0" stroke="#17382A" strokeWidth="3" strokeLinecap="round"/>
@@ -3817,7 +3817,7 @@ function PandaBuddySvg() {
       <path d="M39 58c4 3 8 3 12 0" stroke="#17382A" strokeWidth="3" strokeLinecap="round"/>
       <rect x="31" y="62" width="28" height="13" rx="6" fill="url(#pandaBookGradient)"/>
       <path d="M38 66h14M38 70h10" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-      <text x="69" y="66" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="16" fontWeight="900" fill="#07C160">学</text>
+      <text x="69" y="66" textAnchor="middle" fontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fontSize="16" fontWeight="900" fill="#07C160">学</text>
       <defs>
         <linearGradient id="pandaBookGradient" x1="31" y1="62" x2="59" y2="75" gradientUnits="userSpaceOnUse">
           <stop stopColor="#07C160"/>
@@ -3835,7 +3835,7 @@ function LanternStickerSvg() {
       <rect x="31" y="12" width="28" height="8" rx="4" fill="#FFCF33"/>
       <rect x="24" y="18" width="42" height="38" rx="17" fill="url(#lanternGradient)"/>
       <path d="M34 21c-4 9-4 22 0 32M56 21c4 9 4 22 0 32" stroke="#FFE5A3" strokeWidth="3" strokeLinecap="round"/>
-      <text x="45" y="44" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="21" fontWeight="900" fill="white">课</text>
+      <text x="45" y="44" textAnchor="middle" fontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fontSize="21" fontWeight="900" fill="white">课</text>
       <rect x="33" y="55" width="24" height="7" rx="3.5" fill="#FFCF33"/>
       <path d="M45 62v6" stroke="#17382A" strokeWidth="3" strokeLinecap="round"/>
       <defs>
@@ -3872,7 +3872,7 @@ function SealStickerSvg() {
     <svg className="story-sticker-svg" width="90" height="72" viewBox="0 0 90 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <rect x="24" y="12" width="42" height="42" rx="12" fill="url(#sealGradient)"/>
       <rect x="31" y="19" width="28" height="28" rx="7" stroke="white" strokeWidth="3"/>
-      <text x="45" y="40" textAnchor="middle" fontFamily="Noto Sans SC, Microsoft YaHei, sans-serif" fontSize="21" fontWeight="900" fill="white">会</text>
+      <text x="45" y="40" textAnchor="middle" fontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fontSize="21" fontWeight="900" fill="white">会</text>
       <path d="M28 57h34" stroke="#17382A" strokeWidth="4" strokeLinecap="round"/>
       <path d="M36 63h18" stroke="#07C160" strokeWidth="4" strokeLinecap="round"/>
       <defs>
@@ -4347,7 +4347,7 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
 
       {currentIndex === vocab.length - 1 && isFlipped && (
         <div className="floating-indicator">
-          <span style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '15px', fontWeight: 900 }}>{t('learn.roundDone')}</span>
+          <span style={{ fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif", fontSize: '15px', fontWeight: 900 }}>{t('learn.roundDone')}</span>
         </div>
       )}
     </div>
@@ -4917,7 +4917,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
               key={i}
               className={`quiz-option ${showCorrect ? 'correct' : ''} ${wasTried ? 'incorrect disabled' : ''} ${canContinue ? 'disabled' : ''}`}
               onClick={() => handleAnswer(opt)}
-              style={q.type === 'pinyin-to-hanzi' ? { fontFamily: "'Noto Sans SC', sans-serif", fontSize: '32px', textAlign: 'center', justifyContent: 'center' } : {}}
+              style={q.type === 'pinyin-to-hanzi' ? { fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif", fontSize: '32px', textAlign: 'center', justifyContent: 'center' } : {}}
             >
               {opt.text}
             </button>
@@ -5065,7 +5065,7 @@ function StatsView({ progress, setCurrentView, t }) {
         <div key={lesson} className="card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <p className="title-md">{t('stats.lesson', { lesson })}</p>
-            <span className="text-accent" style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '20px', fontWeight: 900 }}>{mastered}/{total}</span>
+            <span className="text-accent" style={{ fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif", fontSize: '20px', fontWeight: 900 }}>{mastered}/{total}</span>
           </div>
           <div className="progress-bar" style={{ marginTop: '10px', marginBottom: '0' }}>
             <div className="progress-fill" style={{ width: `${(mastered / total) * 100}%` }} />
@@ -5083,7 +5083,7 @@ function StatsView({ progress, setCurrentView, t }) {
             <div key={i} className="card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '13px' }}>{new Date(q.date).toLocaleDateString()}</span>
-                <span className="text-accent" style={{ fontFamily: "'Noto Sans SC', 'Segoe UI', Arial, sans-serif", fontSize: '22px', fontWeight: 900 }}>{Math.round((q.score / q.total) * 100)}%</span>
+                <span className="text-accent" style={{ fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif", fontSize: '22px', fontWeight: 900 }}>{Math.round((q.score / q.total) * 100)}%</span>
               </div>
             </div>
           ))}
