@@ -722,6 +722,7 @@ const COMPOUNDS = [{
 const STORAGE_KEY = 'hanzi_master_v3';
 const LANGUAGE_KEY = 'hanzi_master_ui_language';
 const SOUND_KEY = 'hanzi_master_sound_enabled';
+const AMBIENCE_KEY = 'hanzi_master_ambience_enabled';
 const SOUND_PATTERNS = {
   tap: [{
     frequency: 520,
@@ -810,6 +811,7 @@ const SOUND_PATTERNS = {
   }]
 };
 let audioContext = null;
+let ambienceNodes = null;
 function loadSoundEnabled() {
   try {
     const saved = localStorage.getItem(SOUND_KEY);
@@ -823,6 +825,20 @@ function saveSoundEnabled(enabled) {
     localStorage.setItem(SOUND_KEY, String(enabled));
   } catch (e) {
     console.warn('Failed to save sound setting:', e);
+  }
+}
+function loadAmbienceEnabled() {
+  try {
+    return localStorage.getItem(AMBIENCE_KEY) === 'true';
+  } catch (e) {
+    return false;
+  }
+}
+function saveAmbienceEnabled(enabled) {
+  try {
+    localStorage.setItem(AMBIENCE_KEY, String(enabled));
+  } catch (e) {
+    console.warn('Failed to save ambience setting:', e);
   }
 }
 function getAudioContext() {
@@ -857,6 +873,111 @@ function playSoundEffect(name, enabled = true) {
     oscillator.stop(noteEnd + 0.02);
   });
 }
+function createAmbienceNoiseBuffer(context) {
+  const duration = 2.4;
+  const buffer = context.createBuffer(1, Math.floor(context.sampleRate * duration), context.sampleRate);
+  const data = buffer.getChannelData(0);
+  let last = 0;
+  for (let i = 0; i < data.length; i += 1) {
+    last = (last + (Math.random() * 2 - 1) * 0.018) / 1.018;
+    data[i] = last * 0.5;
+  }
+  return buffer;
+}
+function scheduleAmbiencePluck() {
+  if (!ambienceNodes) return;
+  const {
+    context,
+    pluckBus
+  } = ambienceNodes;
+  const motif = [392, 523.25, 587.33, 440];
+  const startAt = context.currentTime + 0.04;
+  motif.forEach((frequency, index) => {
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    const noteStart = startAt + index * 0.18;
+    oscillator.type = index % 2 ? 'sine' : 'triangle';
+    oscillator.frequency.setValueAtTime(frequency, noteStart);
+    gain.gain.setValueAtTime(0.0001, noteStart);
+    gain.gain.exponentialRampToValueAtTime(index === 1 ? 0.018 : 0.012, noteStart + 0.026);
+    gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + 0.85);
+    oscillator.connect(gain);
+    gain.connect(pluckBus);
+    oscillator.start(noteStart);
+    oscillator.stop(noteStart + 0.92);
+  });
+}
+function startAmbienceLoop() {
+  const context = getAudioContext();
+  if (!context) return false;
+  if (context.state === 'suspended') {
+    context.resume().catch(() => {});
+  }
+  if (ambienceNodes) return true;
+  const now = context.currentTime;
+  const master = context.createGain();
+  const noiseFilter = context.createBiquadFilter();
+  const noiseGain = context.createGain();
+  const noise = context.createBufferSource();
+  const droneBus = context.createGain();
+  const pluckBus = context.createGain();
+  const drones = [196, 246.94, 329.63].map((frequency, index) => {
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(frequency, now);
+    oscillator.detune.setValueAtTime(index === 1 ? 4 : -3, now);
+    gain.gain.setValueAtTime(index === 0 ? 0.008 : 0.005, now);
+    oscillator.connect(gain);
+    gain.connect(droneBus);
+    oscillator.start(now);
+    return oscillator;
+  });
+  noise.buffer = createAmbienceNoiseBuffer(context);
+  noise.loop = true;
+  noiseFilter.type = 'lowpass';
+  noiseFilter.frequency.setValueAtTime(760, now);
+  noiseFilter.Q.setValueAtTime(0.45, now);
+  noiseGain.gain.setValueAtTime(0.015, now);
+  droneBus.gain.setValueAtTime(0.42, now);
+  pluckBus.gain.setValueAtTime(0.28, now);
+  master.gain.setValueAtTime(0.0001, now);
+  master.gain.exponentialRampToValueAtTime(0.085, now + 1.2);
+  noise.connect(noiseFilter);
+  noiseFilter.connect(noiseGain);
+  noiseGain.connect(master);
+  droneBus.connect(master);
+  pluckBus.connect(master);
+  master.connect(context.destination);
+  noise.start(now);
+  ambienceNodes = {
+    context,
+    master,
+    noise,
+    drones,
+    pluckBus,
+    timer: window.setInterval(scheduleAmbiencePluck, 5200)
+  };
+  scheduleAmbiencePluck();
+  return true;
+}
+function stopAmbienceLoop() {
+  if (!ambienceNodes) return;
+  const nodes = ambienceNodes;
+  ambienceNodes = null;
+  window.clearInterval(nodes.timer);
+  const now = nodes.context.currentTime;
+  nodes.master.gain.cancelScheduledValues(now);
+  nodes.master.gain.setValueAtTime(Math.max(nodes.master.gain.value, 0.0001), now);
+  nodes.master.gain.exponentialRampToValueAtTime(0.0001, now + 0.55);
+  window.setTimeout(() => {
+    try {
+      nodes.noise.stop();
+      nodes.drones.forEach(oscillator => oscillator.stop());
+      nodes.master.disconnect();
+    } catch (e) {}
+  }, 650);
+}
 const UI_TEXT = {
   zh: {
     'lang.zh': '中文',
@@ -864,6 +985,9 @@ const UI_TEXT = {
     'sound.on': '\u58f0\u97f3\u5f00',
     'sound.off': '\u9759\u97f3',
     'sound.label': '\u97f3\u6548',
+    'ambience.on': '\u8336\u5ba4\u58f0\u5f00',
+    'ambience.off': '\u8336\u5ba4\u58f0\u5173',
+    'ambience.label': '\u8336\u5ba4\u80cc\u666f\u58f0',
     'nav.home': '首页',
     'nav.cards': '卡片',
     'nav.write': '写字',
@@ -1010,6 +1134,9 @@ const UI_TEXT = {
     'sound.on': 'Sound on',
     'sound.off': 'Muted',
     'sound.label': 'Sound effects',
+    'ambience.on': 'Tea ambience on',
+    'ambience.off': 'Tea ambience off',
+    'ambience.label': 'Focus ambience',
     'nav.home': 'Home',
     'nav.cards': 'Cards',
     'nav.write': 'Write',
@@ -2622,6 +2749,7 @@ const styles = `
     display: flex;
     align-items: center;
     gap: 10px;
+    min-width: 0;
   }
 
   .brand-mark {
@@ -2659,12 +2787,18 @@ const styles = `
     line-height: 1;
     font-weight: 900;
     color: #14251c;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .brand-subtitle {
     margin: 4px 0 0;
     color: #6c7a73;
     font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .daily-chip {
@@ -2738,8 +2872,42 @@ const styles = `
     color: #fff;
   }
 
+  .ambience-toggle {
+    color: #9a6400;
+  }
+
+  .ambience-toggle.active {
+    background: #d99a18;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(217, 154, 24, 0.2);
+  }
+
   .sound-toggle:active {
     transform: scale(0.96);
+  }
+
+  @media (max-width: 380px) {
+    .super-topbar {
+      gap: 8px;
+    }
+
+    .topbar-actions {
+      gap: 6px;
+    }
+
+    .language-toggle button {
+      min-width: 32px;
+      padding: 0 6px;
+    }
+
+    .sound-toggle {
+      width: 32px;
+      height: 32px;
+    }
+
+    .daily-chip {
+      padding: 0 8px;
+    }
   }
 
   .wallet-card {
@@ -4125,6 +4293,7 @@ function HanziMasterApp() {
   const [selectedQueue, setSelectedQueue] = React.useState(null);
   const [language, setLanguage] = React.useState(loadLanguage);
   const [soundEnabled, setSoundEnabled] = React.useState(loadSoundEnabled);
+  const [ambienceEnabled, setAmbienceEnabled] = React.useState(loadAmbienceEnabled);
   React.useEffect(() => {
     saveProgress(progress);
   }, [progress]);
@@ -4156,6 +4325,26 @@ function HanziMasterApp() {
   React.useEffect(() => {
     saveSoundEnabled(soundEnabled);
   }, [soundEnabled]);
+  React.useEffect(() => {
+    saveAmbienceEnabled(ambienceEnabled);
+    if (!ambienceEnabled) {
+      stopAmbienceLoop();
+      return undefined;
+    }
+    startAmbienceLoop();
+    const unlockAmbience = () => startAmbienceLoop();
+    window.addEventListener('pointerdown', unlockAmbience, {
+      once: true
+    });
+    window.addEventListener('keydown', unlockAmbience, {
+      once: true
+    });
+    return () => {
+      window.removeEventListener('pointerdown', unlockAmbience);
+      window.removeEventListener('keydown', unlockAmbience);
+    };
+  }, [ambienceEnabled]);
+  React.useEffect(() => () => stopAmbienceLoop(), []);
   React.useEffect(() => {
     const today = new Date().toDateString();
     if (progress.lastStudyDate !== today) {
@@ -4222,6 +4411,8 @@ function HanziMasterApp() {
     setLanguage,
     soundEnabled,
     setSoundEnabled,
+    ambienceEnabled,
+    setAmbienceEnabled,
     playSound,
     t
   };
@@ -4342,6 +4533,32 @@ function SoundToggle({
     name: soundEnabled ? 'sound' : 'mute'
   }));
 }
+function AmbienceToggle({
+  ambienceEnabled,
+  setAmbienceEnabled,
+  t
+}) {
+  const label = ambienceEnabled ? t('ambience.on') : t('ambience.off');
+  return React.createElement("button", {
+    className: `sound-toggle ambience-toggle ${ambienceEnabled ? 'active' : ''}`,
+    onClick: () => {
+      const next = !ambienceEnabled;
+      if (next) {
+        playSoundEffect('reveal', true);
+        startAmbienceLoop();
+      } else {
+        playSoundEffect('tap', true);
+        stopAmbienceLoop();
+      }
+      setAmbienceEnabled(next);
+    },
+    "aria-label": label,
+    "aria-pressed": ambienceEnabled,
+    title: t('ambience.label')
+  }, React.createElement(AppIcon, {
+    name: "tea"
+  }));
+}
 function AppIcon({
   name
 }) {
@@ -4420,6 +4637,15 @@ function AppIcon({
     d: "M4 10v4h4l5 4V6l-5 4H4Z"
   })), React.createElement("path", _extends({}, stroke, {
     d: "M19 9l-5 5M14 9l5 5"
+  })));
+  if (name === 'tea') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
+    d: "M6 10h11v3.5A4.5 4.5 0 0 1 12.5 18h-2A4.5 4.5 0 0 1 6 13.5V10Z"
+  })), React.createElement("path", _extends({}, stroke, {
+    d: "M17 11h1.2a1.8 1.8 0 0 1 0 3.6H17"
+  })), React.createElement("path", _extends({}, stroke, {
+    d: "M8 21h8"
+  })), React.createElement("path", _extends({}, stroke, {
+    d: "M9 7c-.7-.9-.7-1.8 0-2.7M12 7c-.7-.9-.7-1.8 0-2.7M15 7c-.7-.9-.7-1.8 0-2.7"
   })));
   if (name === 'gift') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
     d: "M4 10h16v10H4V10Z"
@@ -5010,6 +5236,8 @@ function HomeView({
   setLanguage,
   soundEnabled,
   setSoundEnabled,
+  ambienceEnabled,
+  setAmbienceEnabled,
   playSound,
   t
 }) {
@@ -5047,6 +5275,10 @@ function HomeView({
   }), React.createElement(SoundToggle, {
     soundEnabled: soundEnabled,
     setSoundEnabled: setSoundEnabled,
+    t: t
+  }), React.createElement(AmbienceToggle, {
+    ambienceEnabled: ambienceEnabled,
+    setAmbienceEnabled: setAmbienceEnabled,
     t: t
   }), progress.streakDays > 0 && React.createElement("div", {
     className: "daily-chip"
