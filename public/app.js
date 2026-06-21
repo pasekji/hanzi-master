@@ -1440,7 +1440,7 @@ const loadLanguage = () => {
   } catch (e) {
     console.warn('Failed to load language:', e);
   }
-  return 'zh';
+  return 'en';
 };
 const migrateProgress = data => {
   if (data.masteredChars.length > 0 && typeof data.masteredChars[0] === 'string') {

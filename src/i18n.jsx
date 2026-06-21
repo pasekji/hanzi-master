@@ -376,5 +376,5 @@ const loadLanguage = () => {
   } catch (e) {
     console.warn('Failed to load language:', e);
   }
-  return 'zh';
+  return 'en';
 };
