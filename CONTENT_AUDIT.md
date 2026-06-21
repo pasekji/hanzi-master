@@ -10,12 +10,12 @@ Source folder: `C:/Users/jirip/Downloads/cinstina`
 - HSK2 sources: 18 files. Text extraction found lessons 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 13, and 15.
 - Book 3 sources: `L8.pptx`, `L12.pptx`, and `L14.pptx` identify themselves as book 3 material and should not be mixed into HSK2.
 - General character/stroke sources: `Chinese character.pdf`, stroke-practice DOCX files, and the stroke explanation PPT.
-- `print.pdf` extracted no usable text in the current pass, so it likely needs OCR or visual review.
+- `print.pdf` is a decorative library image with no learning text to OCR.
 
 ## Current App Coverage
 
 - Writing practice still uses the original local HSK1 lessons 12-15 set: 69 single-character cards and 47 related compounds.
-- Imported material banks now add 256 local cards: 150 HSK1 word-bank cards, 96 first-pass HSK2 lesson cards, and 10 Book 3 preview cards.
+- Imported material banks now add 284 local cards: 150 HSK1 word-bank cards, 96 first-pass HSK2 lesson cards, 10 Book 3 preview cards, and 28 basic stroke cards read visually from the DOCX worksheets.
 - Imported cards have hanzi, pinyin, English meaning, example sentence, and source metadata.
 - The app now exposes the HSK1 Word Bank from the home mini-program grid and exposes all material banks from the lesson map.
 - Runtime remains local-only: browser storage, vendored libraries, no external APIs or CDNs.
@@ -26,7 +26,7 @@ Source folder: `C:/Users/jirip/Downloads/cinstina`
 - HSK1 lesson dialogues, grammar explanations, drills, and pronunciation sections.
 - Full HSK2 dialogues and grammar explanations. A first structured HSK2 card layer is imported, but not every source slide is represented.
 - Full Book 3 lessons from `L8.pptx`, `L12.pptx`, and `L14.pptx`. A small preview card layer is imported separately so it is not mixed into HSK2.
-- Visual-only stroke worksheets and `print.pdf` scan content.
+- Remaining visual-only worksheet pages are mostly blank repetition grids; their labeled stroke overview has been imported.
 
 ## Organization Notes
 
@@ -52,3 +52,4 @@ Source folder: `C:/Users/jirip/Downloads/cinstina`
 - HSK2 Lesson 13: 7 cards.
 - HSK2 Lesson 15: 7 cards.
 - Book 3 preview: 10 cards.
+- Basic strokes: 28 cards.

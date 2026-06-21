@@ -4109,5 +4109,296 @@ window.HANZI_MATERIAL_COLLECTIONS = [
         "source": "L8.pptx / L12.pptx / L14.pptx"
       }
     ]
+  },
+  {
+    "id": "basic-strokes",
+    "level": "Basics",
+    "labelZh": "????",
+    "labelEn": "Basic strokes",
+    "chipZh": "??",
+    "chipEn": "Strokes",
+    "sourceFile": "Stroke practice DOCX worksheets",
+    "items": [
+      {
+        "id": 11001,
+        "kind": "word",
+        "hanzi": "?",
+        "pinyin": "di?n",
+        "meaning": "dot stroke",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11002,
+        "kind": "word",
+        "hanzi": "?",
+        "pinyin": "h?ng",
+        "meaning": "horizontal stroke",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11003,
+        "kind": "word",
+        "hanzi": "?",
+        "pinyin": "pi?",
+        "meaning": "left-falling stroke",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11004,
+        "kind": "word",
+        "hanzi": "?",
+        "pinyin": "n?",
+        "meaning": "right-falling stroke",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11005,
+        "kind": "word",
+        "hanzi": "?",
+        "pinyin": "sh?",
+        "meaning": "vertical stroke",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11006,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "sh? g?u",
+        "meaning": "vertical hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11007,
+        "kind": "word",
+        "hanzi": "?",
+        "pinyin": "t?",
+        "meaning": "rising stroke",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11008,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "sh? t?",
+        "meaning": "vertical stroke with rising ending",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11009,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "h?ng zh?",
+        "meaning": "horizontal bend",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11010,
+        "kind": "word",
+        "hanzi": "???",
+        "pinyin": "h?ng zh? g?u",
+        "meaning": "horizontal bend with hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11011,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "h?ng g?u",
+        "meaning": "horizontal hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11012,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "h?ng pi?",
+        "meaning": "horizontal left-falling stroke",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11013,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "sh? w?n",
+        "meaning": "vertical curve",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11014,
+        "kind": "word",
+        "hanzi": "???",
+        "pinyin": "sh? w?n g?u",
+        "meaning": "vertical curve with hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11015,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "xi? g?u",
+        "meaning": "slanting hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11016,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "w? g?u",
+        "meaning": "lying hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11017,
+        "kind": "word",
+        "hanzi": "????",
+        "pinyin": "h?ng zh? w?n g?u",
+        "meaning": "horizontal bend curve hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11018,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "w?n g?u",
+        "meaning": "curved hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11019,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "pi? di?n",
+        "meaning": "left-falling dot",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11020,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "pi? zh?",
+        "meaning": "left-falling bend",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11021,
+        "kind": "word",
+        "hanzi": "??",
+        "pinyin": "sh? zh?",
+        "meaning": "vertical bend",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11022,
+        "kind": "word",
+        "hanzi": "???",
+        "pinyin": "h?ng zh? w?n",
+        "meaning": "horizontal bend curve",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11023,
+        "kind": "word",
+        "hanzi": "????",
+        "pinyin": "h?ng zh? zh? pi?",
+        "meaning": "horizontal bend bend left-falling stroke",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11024,
+        "kind": "word",
+        "hanzi": "????",
+        "pinyin": "h?ng zh? zh? g?u",
+        "meaning": "horizontal bend bend hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11025,
+        "kind": "word",
+        "hanzi": "???",
+        "pinyin": "h?ng zh? t?",
+        "meaning": "horizontal bend rising stroke",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11026,
+        "kind": "word",
+        "hanzi": "????",
+        "pinyin": "h?ng pi? w?n g?u",
+        "meaning": "horizontal left-falling curve hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11027,
+        "kind": "word",
+        "hanzi": "???",
+        "pinyin": "sh? zh? pi?",
+        "meaning": "vertical bend left-falling stroke",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      },
+      {
+        "id": 11028,
+        "kind": "word",
+        "hanzi": "????",
+        "pinyin": "sh? zh? zh? g?u",
+        "meaning": "vertical bend bend hook",
+        "example": "From the stroke practice worksheet.",
+        "source": "Stroke practice DOCX worksheets",
+        "sourceFile": "Stroke practice worksheets"
+      }
+    ]
   }
 ];
