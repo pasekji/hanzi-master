@@ -134,6 +134,35 @@ const COMPOUNDS = [
   { hanzi: '新年', pinyin: 'xīnnián', meaning: 'new year', lesson: 15 },
 ];
 
+const MATERIAL_WORD_ITEMS = (
+  typeof window !== 'undefined' && Array.isArray(window.HANZI_MATERIAL_WORDS)
+    ? window.HANZI_MATERIAL_WORDS
+    : []
+).map((item, index) => ({
+  id: item.id || 9000 + index,
+  kind: 'word',
+  hanzi: item.hanzi,
+  pinyin: item.pinyin,
+  meaning: item.meaning,
+  example: item.example,
+  source: item.source || 'HSK1 Word Bank',
+  sourceFile: item.sourceFile,
+}));
+
+const getMaterialWordQueue = () => ({
+  id: 'hsk1-word-bank',
+  labelKey: 'queue.hsk1Words',
+  items: MATERIAL_WORD_ITEMS,
+});
+
+const STUDY_CATALOG = (() => {
+  const byHanzi = new Map();
+  [...VOCABULARY, ...MATERIAL_WORD_ITEMS].forEach(item => {
+    if (item?.hanzi && !byHanzi.has(item.hanzi)) byHanzi.set(item.hanzi, item);
+  });
+  return Array.from(byHanzi.values());
+})();
+
 // ============================================
 // STORAGE
 // ============================================
@@ -360,6 +389,7 @@ const UI_TEXT = {
     'ambience.on': '\u8336\u5ba4\u58f0\u5f00',
     'ambience.off': '\u8336\u5ba4\u58f0\u5173',
     'ambience.label': '\u8336\u5ba4\u80cc\u666f\u58f0',
+    'queue.hsk1Words': 'HSK1 \u8bcd\u5e93',
     'nav.home': '首页',
     'nav.cards': '卡片',
     'nav.write': '写字',
@@ -441,6 +471,7 @@ const UI_TEXT = {
     'learn.tap': '轻点翻开',
     'learn.related': '相关词 ({count})',
     'learn.strokesLine': '{strokes} 笔画 • L{lesson}',
+    'learn.wordLine': '\u8bcd\u8bed • {source}',
     'learn.roundDone': '🎉 本轮完成',
     'draw.title': '写字练习',
     'draw.subtitle': '先凭记忆写，再打开提示。笔顺会帮你慢慢修正。',
@@ -509,6 +540,7 @@ const UI_TEXT = {
     'ambience.on': 'Tea ambience on',
     'ambience.off': 'Tea ambience off',
     'ambience.label': 'Focus ambience',
+    'queue.hsk1Words': 'HSK1 Word Bank',
     'nav.home': 'Home',
     'nav.cards': 'Cards',
     'nav.write': 'Write',
@@ -590,6 +622,7 @@ const UI_TEXT = {
     'learn.tap': 'Tap to flip',
     'learn.related': 'Related words ({count})',
     'learn.strokesLine': '{strokes} strokes • L{lesson}',
+    'learn.wordLine': 'Word • {source}',
     'learn.roundDone': '🎉 Round complete',
     'draw.title': 'Writing practice',
     'draw.subtitle': 'Write from memory first, then open hints. Stroke order gently corrects you.',
@@ -1131,6 +1164,13 @@ const styles = `
     text-align: center;
   }
 
+  .hanzi-word {
+    max-width: 100%;
+    font-size: clamp(46px, 14vw, 88px);
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+
   .hanzi-lg { font-size: clamp(48px, 14vw, 64px); line-height: 1; }
   .hanzi-md { font-size: clamp(28px, 8vw, 36px); line-height: 1; }
 
@@ -1392,6 +1432,14 @@ const styles = `
     color: var(--text-secondary);
     font-size: 12px;
     animation: hintPulse 2s ease-in-out infinite;
+  }
+
+  .material-example {
+    max-width: min(100%, 520px);
+    margin: 14px auto 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.55;
   }
 
   .pinyin-display {
@@ -1903,6 +1951,10 @@ const styles = `
 
   .hanzi-xl {
     font-size: 78px;
+  }
+
+  .hanzi-word {
+    font-size: 80px;
   }
 
   .pinyin-display {
@@ -4238,9 +4290,10 @@ function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSel
 // HOME VIEW
 // ============================================
 function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, language, setLanguage, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, t }) {
-  const masteredCount = progress.masteredChars.length;
-  const learningCount = progress.learningChars.length;
-  const totalChars = VOCABULARY.length;
+  const catalogSet = React.useMemo(() => new Set(STUDY_CATALOG.map(item => item.hanzi)), []);
+  const masteredCount = React.useMemo(() => new Set(progress.masteredChars.filter(hanzi => catalogSet.has(hanzi))).size, [catalogSet, progress.masteredChars]);
+  const learningCount = React.useMemo(() => new Set(progress.learningChars.filter(hanzi => catalogSet.has(hanzi))).size, [catalogSet, progress.learningChars]);
+  const totalChars = STUDY_CATALOG.length || VOCABULARY.length;
   const progressPercent = Math.round((masteredCount / totalChars) * 100);
   const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
   const dailySummary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
@@ -4249,6 +4302,13 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
     setSelectedQueue(null);
     playSound('select');
     setCurrentView('daily');
+  };
+
+  const openMaterialWordBank = (view = 'learn') => {
+    setSelectedLesson(null);
+    setSelectedQueue(getMaterialWordQueue());
+    playSound('select');
+    setCurrentView(view);
   };
 
   return (
@@ -4338,11 +4398,11 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
           <span>{t('home.more')}</span>
         </div>
         <div className="mini-program-grid">
-          <MiniProgramTile icon="book" label={t('tiles.vocab')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
+          <MiniProgramTile icon="book" label={t('tiles.vocab')} onClick={() => openMaterialWordBank('learn')} />
           <MiniProgramTile icon="brush" label={t('tiles.write')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }} />
           <MiniProgramTile icon="target" label={t('tiles.quiz')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
           <MiniProgramTile icon="scan" label={t('tiles.lessons')} onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }} />
-          <MiniProgramTile icon="sound" label={t('tiles.pinyin')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
+          <MiniProgramTile icon="sound" label={t('tiles.pinyin')} onClick={() => openMaterialWordBank('quiz')} />
           <MiniProgramTile icon="card" label={t('tiles.cards')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
           <MiniProgramTile icon="wallet" label={t('tiles.progress')} onClick={() => { setSelectedQueue(null); setCurrentView('stats'); }} />
           <MiniProgramTile icon="gift" label={t('tiles.review')} onClick={openDailyTraining} />
@@ -4486,7 +4546,10 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
   const [showCompound, setShowCompound] = React.useState(false);
 
   const currentChar = vocab[currentIndex];
-  const relatedCompounds = React.useMemo(() => COMPOUNDS.filter(c => c.hanzi.includes(currentChar.hanzi)), [currentChar]);
+  const isWordItem = currentChar.kind === 'word';
+  const relatedCompounds = React.useMemo(() => (
+    isWordItem ? [] : COMPOUNDS.filter(c => c.hanzi.includes(currentChar.hanzi))
+  ), [currentChar, isWordItem]);
 
   const handleNext = () => {
     playSound(currentIndex === vocab.length - 1 ? 'complete' : 'tap');
@@ -4537,12 +4600,19 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
       </div>
 
       <div className="study-pass-card card card-accent-lime flashcard" onClick={() => { playSound('select'); setIsFlipped(!isFlipped); }} role="button" tabIndex={0} aria-label="Flip card">
-        <div className="hanzi-display hanzi-hero" style={{ color: 'var(--accent-lime)' }}>{currentChar.hanzi}</div>
+        <div className={`hanzi-display hanzi-hero ${isWordItem ? 'hanzi-word' : ''}`} style={{ color: 'var(--accent-lime)' }}>{currentChar.hanzi}</div>
         {isFlipped && (
           <div className="animate-slide-up" style={{ textAlign: 'center' }}>
             <div className="pinyin-display">{currentChar.pinyin}</div>
             <div className="meaning-display">{currentChar.meaning}</div>
-            <p className="text-sm" style={{ marginTop: '12px' }}>{t('learn.strokesLine', { strokes: currentChar.strokes, lesson: currentChar.lesson })}</p>
+            <p className="text-sm" style={{ marginTop: '12px' }}>
+              {isWordItem
+                ? t('learn.wordLine', { source: currentChar.source || 'HSK1' })
+                : t('learn.strokesLine', { strokes: currentChar.strokes, lesson: currentChar.lesson })}
+            </p>
+            {currentChar.example && (
+              <p className="material-example">{currentChar.example}</p>
+            )}
           </div>
         )}
         {!isFlipped && <p className="flashcard-hint">{t('learn.tap')}</p>}
@@ -5103,6 +5173,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
   if (!q) return null;
   const canContinue = answeredCorrect || revealedAnswer;
   const correctOption = q.options.find(opt => opt.isCorrect);
+  const isWordQuestion = q.char.kind === 'word';
 
   return (
     <div className="screen">
@@ -5129,7 +5200,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
         ) : (
           <>
             <p className="text-sm">{q.type === 'hanzi-to-pinyin' ? t('quiz.howRead') : t('quiz.whatMeans')}</p>
-            <div className="hanzi-display hanzi-xl" style={{ color: 'var(--accent-lime)' }}>{q.char.hanzi}</div>
+            <div className={`hanzi-display hanzi-xl ${isWordQuestion ? 'hanzi-word' : ''}`} style={{ color: 'var(--accent-lime)' }}>{q.char.hanzi}</div>
           </>
         )}
       </div>
@@ -5142,7 +5213,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
               key={i}
               className={`quiz-option ${showCorrect ? 'correct' : ''} ${wasTried ? 'incorrect disabled' : ''} ${canContinue ? 'disabled' : ''}`}
               onClick={() => handleAnswer(opt)}
-              style={q.type === 'pinyin-to-hanzi' ? { fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif", fontSize: '32px', textAlign: 'center', justifyContent: 'center' } : {}}
+              style={q.type === 'pinyin-to-hanzi' ? { fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif", fontSize: opt.text.length > 2 ? '24px' : '32px', textAlign: 'center', justifyContent: 'center' } : {}}
             >
               {opt.text}
             </button>
