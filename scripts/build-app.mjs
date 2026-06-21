@@ -2,22 +2,42 @@ import { readFile, writeFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
 const root = new URL('../', import.meta.url);
-const sourceUrl = new URL('src/app.jsx', root);
 const outputUrl = new URL('public/app.js', root);
 const babelUrl = new URL('scripts/vendor/babel.min.js', root);
+const stylesUrl = new URL('src/styles.css', root);
+const sourceFiles = [
+  'src/data.jsx',
+  'src/audio.jsx',
+  'src/i18n.jsx',
+  'src/progress.jsx',
+  'src/app.jsx',
+  'src/components.jsx',
+  'src/screens.jsx',
+  'src/mount.jsx',
+];
 
 const babelCode = await readFile(babelUrl, 'utf8');
 const sandbox = { console };
 sandbox.window = sandbox.self = sandbox.globalThis = sandbox;
 vm.runInNewContext(babelCode, sandbox, { filename: 'babel-standalone.js' });
 
-const source = await readFile(sourceUrl, 'utf8');
+const styles = await readFile(stylesUrl, 'utf8');
+const sourceChunks = [];
+for (const sourceFile of sourceFiles) {
+  sourceChunks.push(await readFile(new URL(sourceFile, root), 'utf8'));
+}
+const source = [
+  '// Built from local source modules by scripts/build-app.mjs.',
+  ...sourceChunks.slice(0, 4),
+  `const styles = ${JSON.stringify(styles)};`,
+  ...sourceChunks.slice(4),
+].join('\n\n');
 const result = sandbox.Babel.transform(source, {
   presets: [['react', { runtime: 'classic' }]],
   comments: false,
   compact: false,
   sourceType: 'script',
-  filename: 'src/app.jsx',
+  filename: 'src/main.jsx',
 });
 
 await writeFile(outputUrl, `${result.code}\n`, 'utf8');

@@ -23,9 +23,23 @@ Chinese superapp-inspired Hanzi learning mini-app for local HSK1 writing practic
 ## Local Development
 ```bash
 npm install
+npm run build
 npm start
 # Open http://localhost:3000
 ```
+
+## Source Layout
+- `src/data.jsx`: base lesson data and material-bank queue helpers
+- `src/audio.jsx`: sound effects, ambience, and sound setting storage
+- `src/i18n.jsx`: Chinese/English UI text and language storage
+- `src/progress.jsx`: progress migration, queue logic, and quiz distractors
+- `src/styles.css`: app UI system injected into the React shell at build time
+- `src/app.jsx`: top-level React app shell and view routing
+- `src/components.jsx`: shared SVGs, icons, toggles, and mini-program components
+- `src/screens.jsx`: Home, lessons, learn, draw, quiz, and stats screens
+- `src/mount.jsx`: React mount point
+
+`npm run build` concatenates these local files with `scripts/build-app.mjs` and writes `public/app.js`.
 
 ## Content
 - Lesson 12: Weather (天气)
