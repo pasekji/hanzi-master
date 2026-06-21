@@ -777,6 +777,12 @@ const getQueueDisplayChip = (queue, t) => {
   const language = loadLanguage();
   return language === 'zh' ? queue.chipZh || queue.chipEn || queue.level || t('lessons.wordBankChip') : queue.chipEn || queue.chipZh || queue.level || t('lessons.wordBankChip');
 };
+const getMaterialLevelLabel = level => {
+  const language = loadLanguage();
+  if (level === 'Basics') return language === 'zh' ? '\u57fa\u7840' : 'Basics';
+  if (level === 'Book3') return language === 'zh' ? '\u7b2c3\u518c' : 'Book 3';
+  return level || (language === 'zh' ? '\u6750\u6599' : 'Materials');
+};
 const getMaterialCollectionQueue = collection => ({
   id: collection.id,
   level: collection.level,
@@ -3612,6 +3618,29 @@ const styles = `
     gap: 10px;
   }
 
+  .material-group {
+    display: grid;
+    gap: 8px;
+  }
+
+  .material-group + .material-group {
+    margin-top: 12px;
+  }
+
+  .material-group-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 4px;
+    color: #54645c;
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .material-group-head span:last-child {
+    color: #91a099;
+  }
+
   .service-row {
     margin-bottom: 0;
     box-shadow: none;
@@ -5661,6 +5690,25 @@ function LessonsView({
     }
   };
   const materialQueues = getMaterialCollectionQueues();
+  const materialGroups = React.useMemo(() => {
+    const order = ['HSK1', 'HSK2', 'Basics', 'Book3'];
+    const groups = new Map();
+    materialQueues.forEach(queue => {
+      const level = queue.level || 'Material';
+      if (!groups.has(level)) groups.set(level, []);
+      groups.get(level).push(queue);
+    });
+    return Array.from(groups.entries()).map(([level, queues]) => ({
+      level,
+      queues,
+      cards: queues.reduce((total, queue) => total + (queue.items?.length || 0), 0)
+    })).sort((a, b) => {
+      const ai = order.includes(a.level) ? order.indexOf(a.level) : order.length;
+      const bi = order.includes(b.level) ? order.indexOf(b.level) : order.length;
+      return ai - bi || a.level.localeCompare(b.level);
+    });
+  }, [materialQueues]);
+  const materialCardCount = materialQueues.reduce((total, queue) => total + (queue.items?.length || 0), 0);
   const getLessonProgress = num => {
     const chars = VOCABULARY.filter(v => v.lesson === num);
     const mastered = chars.filter(v => progress.masteredChars.includes(v.hanzi)).length;
@@ -5747,9 +5795,14 @@ function LessonsView({
     className: "service-section"
   }, React.createElement("div", {
     className: "service-section-head"
-  }, React.createElement("span", null, t('lessons.materialBanks')), React.createElement("span", null, materialQueues.length)), React.createElement("div", {
+  }, React.createElement("span", null, t('lessons.materialBanks')), React.createElement("span", null, materialQueues.length, " \u2022 ", materialCardCount)), React.createElement("div", {
     className: "service-list"
-  }, materialQueues.map(queue => {
+  }, materialGroups.map(group => React.createElement("div", {
+    className: "material-group",
+    key: group.level
+  }, React.createElement("div", {
+    className: "material-group-head"
+  }, React.createElement("span", null, getMaterialLevelLabel(group.level)), React.createElement("span", null, group.queues.length, " \u2022 ", group.cards)), group.queues.map(queue => {
     const queueProgress = getQueueProgress(queue);
     return React.createElement("div", {
       key: queue.id,
@@ -5766,7 +5819,7 @@ function LessonsView({
     }, React.createElement("div", {
       className: "lesson-service-icon"
     }, React.createElement(AppIcon, {
-      name: queue.level === 'Book3' ? 'scan' : 'book'
+      name: queue.level === 'Book3' ? 'scan' : queue.level === 'Basics' ? 'brush' : 'book'
     })), React.createElement("div", {
       className: "lesson-number"
     }, queueProgress.total), React.createElement("div", {
@@ -5791,7 +5844,7 @@ function LessonsView({
         width: `${queueProgress.percent}%`
       }
     })))));
-  }))), React.createElement("div", {
+  }))))), React.createElement("div", {
     className: "section-title"
   }, React.createElement("span", {
     className: "text-sm"

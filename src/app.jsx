@@ -212,6 +212,13 @@ const getQueueDisplayChip = (queue, t) => {
     : (queue.chipEn || queue.chipZh || queue.level || t('lessons.wordBankChip'));
 };
 
+const getMaterialLevelLabel = (level) => {
+  const language = loadLanguage();
+  if (level === 'Basics') return language === 'zh' ? '\u57fa\u7840' : 'Basics';
+  if (level === 'Book3') return language === 'zh' ? '\u7b2c3\u518c' : 'Book 3';
+  return level || (language === 'zh' ? '\u6750\u6599' : 'Materials');
+};
+
 const getMaterialCollectionQueue = (collection) => ({
   id: collection.id,
   level: collection.level,
@@ -3052,6 +3059,29 @@ const styles = `
     gap: 10px;
   }
 
+  .material-group {
+    display: grid;
+    gap: 8px;
+  }
+
+  .material-group + .material-group {
+    margin-top: 12px;
+  }
+
+  .material-group-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 4px;
+    color: #54645c;
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .material-group-head span:last-child {
+    color: #91a099;
+  }
+
   .service-row {
     margin-bottom: 0;
     box-shadow: none;
@@ -4300,7 +4330,6 @@ function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSel
     playSound('select');
     setCurrentView(view);
   };
-
   return (
     <div className="screen">
       <header className="header">
@@ -4551,6 +4580,27 @@ function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, prog
     15: { title: '是...的', chinese: 'Structure' }
   };
   const materialQueues = getMaterialCollectionQueues();
+  const materialGroups = React.useMemo(() => {
+    const order = ['HSK1', 'HSK2', 'Basics', 'Book3'];
+    const groups = new Map();
+    materialQueues.forEach(queue => {
+      const level = queue.level || 'Material';
+      if (!groups.has(level)) groups.set(level, []);
+      groups.get(level).push(queue);
+    });
+    return Array.from(groups.entries())
+      .map(([level, queues]) => ({
+        level,
+        queues,
+        cards: queues.reduce((total, queue) => total + (queue.items?.length || 0), 0),
+      }))
+      .sort((a, b) => {
+        const ai = order.includes(a.level) ? order.indexOf(a.level) : order.length;
+        const bi = order.includes(b.level) ? order.indexOf(b.level) : order.length;
+        return ai - bi || a.level.localeCompare(b.level);
+      });
+  }, [materialQueues]);
+  const materialCardCount = materialQueues.reduce((total, queue) => total + (queue.items?.length || 0), 0);
 
   const getLessonProgress = (num) => {
     const chars = VOCABULARY.filter(v => v.lesson === num);
@@ -4611,36 +4661,44 @@ function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, prog
         <div className="service-section">
           <div className="service-section-head">
             <span>{t('lessons.materialBanks')}</span>
-            <span>{materialQueues.length}</span>
+            <span>{materialQueues.length} • {materialCardCount}</span>
           </div>
           <div className="service-list">
-            {materialQueues.map((queue) => {
-              const queueProgress = getQueueProgress(queue);
-              return (
-                <div
-                  key={queue.id}
-                  className="card card-clickable service-row"
-                  onClick={() => { setSelectedLesson(null); setSelectedQueue(queue); setCurrentView('learn'); }}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <div className="lesson-card">
-                    <div className="lesson-service-icon"><AppIcon name={queue.level === 'Book3' ? 'scan' : 'book'} /></div>
-                    <div className="lesson-number">{queueProgress.total}</div>
-                    <div className="lesson-info">
-                      <div className="lesson-title-line">
-                        <p className="title-md">{getQueueDisplayLabel(queue, t)}</p>
-                        <span className="lesson-chinese-chip">{getQueueDisplayChip(queue, t)}</span>
-                      </div>
-                      <p className="text-sm">{queueProgress.mastered}/{queueProgress.total} • {queueProgress.percent}%</p>
-                      <div className="progress-bar" style={{ marginTop: '8px', marginBottom: '0' }}>
-                        <div className="progress-fill" style={{ width: `${queueProgress.percent}%` }} />
+            {materialGroups.map((group) => (
+              <div className="material-group" key={group.level}>
+                <div className="material-group-head">
+                  <span>{getMaterialLevelLabel(group.level)}</span>
+                  <span>{group.queues.length} • {group.cards}</span>
+                </div>
+                {group.queues.map((queue) => {
+                  const queueProgress = getQueueProgress(queue);
+                  return (
+                    <div
+                      key={queue.id}
+                      className="card card-clickable service-row"
+                      onClick={() => { setSelectedLesson(null); setSelectedQueue(queue); setCurrentView('learn'); }}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <div className="lesson-card">
+                        <div className="lesson-service-icon"><AppIcon name={queue.level === 'Book3' ? 'scan' : queue.level === 'Basics' ? 'brush' : 'book'} /></div>
+                        <div className="lesson-number">{queueProgress.total}</div>
+                        <div className="lesson-info">
+                          <div className="lesson-title-line">
+                            <p className="title-md">{getQueueDisplayLabel(queue, t)}</p>
+                            <span className="lesson-chinese-chip">{getQueueDisplayChip(queue, t)}</span>
+                          </div>
+                          <p className="text-sm">{queueProgress.mastered}/{queueProgress.total} • {queueProgress.percent}%</p>
+                          <div className="progress-bar" style={{ marginTop: '8px', marginBottom: '0' }}>
+                            <div className="progress-fill" style={{ width: `${queueProgress.percent}%` }} />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
       )}
