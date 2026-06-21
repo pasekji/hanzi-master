@@ -1,7 +1,7 @@
 {
   "name": "hanzi-master",
   "version": "3.0.0",
-  "description": "Chinese superapp-inspired Hanzi learning app with local HSK1 writing lessons and word bank",
+  "description": "Chinese superapp-inspired Hanzi learning app with local writing lessons and material banks",
   "type": "module",
   "main": "server.js",
   "scripts": {

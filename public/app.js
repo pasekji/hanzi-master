@@ -729,14 +729,76 @@ const MATERIAL_WORD_ITEMS = (typeof window !== 'undefined' && Array.isArray(wind
   source: item.source || 'HSK1 Word Bank',
   sourceFile: item.sourceFile
 }));
-const getMaterialWordQueue = () => ({
-  id: 'hsk1-word-bank',
-  labelKey: 'queue.hsk1Words',
-  items: MATERIAL_WORD_ITEMS
+const normalizeMaterialItem = (item, index, collection = {}) => ({
+  id: item.id || (collection.baseId || 9000) + index,
+  kind: item.kind || 'word',
+  hanzi: item.hanzi,
+  pinyin: item.pinyin,
+  meaning: item.meaning,
+  example: item.example,
+  source: item.source || collection.sourceFile || collection.labelEn || 'Course material',
+  sourceFile: item.sourceFile || collection.sourceFile
 });
+const MATERIAL_COLLECTIONS = (() => {
+  const rawCollections = typeof window !== 'undefined' && Array.isArray(window.HANZI_MATERIAL_COLLECTIONS) ? window.HANZI_MATERIAL_COLLECTIONS : [];
+  if (rawCollections.length > 0) {
+    return rawCollections.map((collection, index) => ({
+      id: collection.id || `material-${index + 1}`,
+      level: collection.level || 'Material',
+      labelKey: collection.id === 'hsk1-word-bank' ? 'queue.hsk1Words' : collection.labelKey,
+      labelZh: collection.labelZh,
+      labelEn: collection.labelEn,
+      chipZh: collection.chipZh,
+      chipEn: collection.chipEn,
+      sourceFile: collection.sourceFile,
+      items: (collection.items || []).map((item, itemIndex) => normalizeMaterialItem(item, itemIndex, collection))
+    })).filter(collection => collection.items.length > 0);
+  }
+  return [{
+    id: 'hsk1-word-bank',
+    level: 'HSK1',
+    labelKey: 'queue.hsk1Words',
+    labelZh: 'HSK1 词语',
+    labelEn: 'HSK1 Word Bank',
+    chipZh: '词库',
+    chipEn: 'Word bank',
+    items: MATERIAL_WORD_ITEMS
+  }].filter(collection => collection.items.length > 0);
+})();
+const MATERIAL_COLLECTION_ITEMS = MATERIAL_COLLECTIONS.flatMap(collection => collection.items);
+const getQueueDisplayLabel = (queue, t) => {
+  if (!queue) return '';
+  if (queue.labelKey) return t(queue.labelKey);
+  const language = loadLanguage();
+  return language === 'zh' ? queue.labelZh || queue.labelEn || queue.id : queue.labelEn || queue.labelZh || queue.id;
+};
+const getQueueDisplayChip = (queue, t) => {
+  if (!queue) return '';
+  const language = loadLanguage();
+  return language === 'zh' ? queue.chipZh || queue.chipEn || queue.level || t('lessons.wordBankChip') : queue.chipEn || queue.chipZh || queue.level || t('lessons.wordBankChip');
+};
+const getMaterialCollectionQueue = collection => ({
+  id: collection.id,
+  level: collection.level,
+  labelKey: collection.labelKey,
+  labelZh: collection.labelZh,
+  labelEn: collection.labelEn,
+  chipZh: collection.chipZh,
+  chipEn: collection.chipEn,
+  items: collection.items
+});
+const getMaterialCollectionQueues = () => MATERIAL_COLLECTIONS.map(getMaterialCollectionQueue);
+const getMaterialWordQueue = () => {
+  const collection = MATERIAL_COLLECTIONS.find(item => item.id === 'hsk1-word-bank') || MATERIAL_COLLECTIONS[0];
+  return collection ? getMaterialCollectionQueue(collection) : {
+    id: 'empty-materials',
+    labelKey: 'queue.hsk1Words',
+    items: []
+  };
+};
 const STUDY_CATALOG = (() => {
   const byHanzi = new Map();
-  [...VOCABULARY, ...MATERIAL_WORD_ITEMS].forEach(item => {
+  [...VOCABULARY, ...MATERIAL_COLLECTION_ITEMS].forEach(item => {
     if (item?.hanzi && !byHanzi.has(item.hanzi)) byHanzi.set(item.hanzi, item);
   });
   return Array.from(byHanzi.values());
@@ -5598,7 +5660,7 @@ function LessonsView({
       chinese: 'Structure'
     }
   };
-  const materialWordQueue = getMaterialWordQueue();
+  const materialQueues = getMaterialCollectionQueues();
   const getLessonProgress = num => {
     const chars = VOCABULARY.filter(v => v.lesson === num);
     const mastered = chars.filter(v => progress.masteredChars.includes(v.hanzi)).length;
@@ -5617,7 +5679,6 @@ function LessonsView({
       percent: items.length ? Math.round(mastered / items.length * 100) : 0
     };
   };
-  const wordBankProgress = getQueueProgress(materialWordQueue);
   return React.createElement("div", {
     className: "screen"
   }, React.createElement("header", {
@@ -5682,51 +5743,55 @@ function LessonsView({
         width: `${percent}%`
       }
     })))));
-  }))), materialWordQueue.items.length > 0 && React.createElement("div", {
+  }))), materialQueues.length > 0 && React.createElement("div", {
     className: "service-section"
   }, React.createElement("div", {
     className: "service-section-head"
-  }, React.createElement("span", null, t('lessons.materialBanks')), React.createElement("span", null, "HSK1")), React.createElement("div", {
+  }, React.createElement("span", null, t('lessons.materialBanks')), React.createElement("span", null, materialQueues.length)), React.createElement("div", {
     className: "service-list"
-  }, React.createElement("div", {
-    className: "card card-clickable service-row",
-    onClick: () => {
-      setSelectedLesson(null);
-      setSelectedQueue(materialWordQueue);
-      setCurrentView('learn');
-    },
-    role: "button",
-    tabIndex: 0
-  }, React.createElement("div", {
-    className: "lesson-card"
-  }, React.createElement("div", {
-    className: "lesson-service-icon"
-  }, React.createElement(AppIcon, {
-    name: "book"
-  })), React.createElement("div", {
-    className: "lesson-number"
-  }, wordBankProgress.total), React.createElement("div", {
-    className: "lesson-info"
-  }, React.createElement("div", {
-    className: "lesson-title-line"
-  }, React.createElement("p", {
-    className: "title-md"
-  }, t('lessons.hsk1WordBankTitle')), React.createElement("span", {
-    className: "lesson-chinese-chip"
-  }, t('lessons.wordBankChip'))), React.createElement("p", {
-    className: "text-sm"
-  }, wordBankProgress.mastered, "/", wordBankProgress.total, " \u2022 ", wordBankProgress.percent, "%"), React.createElement("div", {
-    className: "progress-bar",
-    style: {
-      marginTop: '8px',
-      marginBottom: '0'
-    }
-  }, React.createElement("div", {
-    className: "progress-fill",
-    style: {
-      width: `${wordBankProgress.percent}%`
-    }
-  }))))))), React.createElement("div", {
+  }, materialQueues.map(queue => {
+    const queueProgress = getQueueProgress(queue);
+    return React.createElement("div", {
+      key: queue.id,
+      className: "card card-clickable service-row",
+      onClick: () => {
+        setSelectedLesson(null);
+        setSelectedQueue(queue);
+        setCurrentView('learn');
+      },
+      role: "button",
+      tabIndex: 0
+    }, React.createElement("div", {
+      className: "lesson-card"
+    }, React.createElement("div", {
+      className: "lesson-service-icon"
+    }, React.createElement(AppIcon, {
+      name: queue.level === 'Book3' ? 'scan' : 'book'
+    })), React.createElement("div", {
+      className: "lesson-number"
+    }, queueProgress.total), React.createElement("div", {
+      className: "lesson-info"
+    }, React.createElement("div", {
+      className: "lesson-title-line"
+    }, React.createElement("p", {
+      className: "title-md"
+    }, getQueueDisplayLabel(queue, t)), React.createElement("span", {
+      className: "lesson-chinese-chip"
+    }, getQueueDisplayChip(queue, t))), React.createElement("p", {
+      className: "text-sm"
+    }, queueProgress.mastered, "/", queueProgress.total, " \u2022 ", queueProgress.percent, "%"), React.createElement("div", {
+      className: "progress-bar",
+      style: {
+        marginTop: '8px',
+        marginBottom: '0'
+      }
+    }, React.createElement("div", {
+      className: "progress-fill",
+      style: {
+        width: `${queueProgress.percent}%`
+      }
+    })))));
+  }))), React.createElement("div", {
     className: "section-title"
   }, React.createElement("span", {
     className: "text-sm"
@@ -5767,7 +5832,7 @@ function LearnView({
   const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson, selectedQueue]);
   const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
   const positionKey = `learn:${selectedQueue?.id || selectedLesson || 'all'}`;
-  const scopePill = selectedQueue?.labelKey ? t(selectedQueue.labelKey) : selectedLesson ? `L${selectedLesson}` : t('common.all');
+  const scopePill = selectedQueue ? getQueueDisplayLabel(selectedQueue, t) : selectedLesson ? `L${selectedLesson}` : t('common.all');
   const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
   const [isFlipped, setIsFlipped] = React.useState(false);
   const [showCompound, setShowCompound] = React.useState(false);
@@ -5949,7 +6014,7 @@ function DrawView({
   const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson, selectedQueue]);
   const [vocab] = React.useState(() => getDrawQueue(baseVocab, progress));
   const positionKey = `draw:${selectedQueue?.id || selectedLesson || 'all'}`;
-  const scopePill = selectedQueue?.labelKey ? t(selectedQueue.labelKey) : selectedLesson ? `L${selectedLesson}` : t('common.all');
+  const scopePill = selectedQueue ? getQueueDisplayLabel(selectedQueue, t) : selectedLesson ? `L${selectedLesson}` : t('common.all');
   const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
   const [drawMode, setDrawMode] = React.useState('practice');
   const [showReference, setShowReference] = React.useState(false);
@@ -6354,7 +6419,7 @@ function QuizView({
   const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson, selectedQueue]);
   const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
   const [initialMasteredChars] = React.useState(progress.masteredChars);
-  const scopePill = selectedQueue?.labelKey ? t(selectedQueue.labelKey) : selectedLesson ? `L${selectedLesson}` : t('nav.quiz');
+  const scopePill = selectedQueue ? getQueueDisplayLabel(selectedQueue, t) : selectedLesson ? `L${selectedLesson}` : t('nav.quiz');
   const [questions, setQuestions] = React.useState([]);
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [attemptedAnswers, setAttemptedAnswers] = React.useState([]);
