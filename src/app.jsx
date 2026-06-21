@@ -1,6 +1,24 @@
 // ============================================
 // MAIN APP
 // ============================================
+const TUTORIAL_STORAGE_KEY = 'hanzi_master_tutorial_seen';
+
+const loadTutorialSeen = () => {
+  try {
+    return localStorage.getItem(TUTORIAL_STORAGE_KEY) === 'true';
+  } catch (e) {
+    return false;
+  }
+};
+
+const saveTutorialSeen = () => {
+  try {
+    localStorage.setItem(TUTORIAL_STORAGE_KEY, 'true');
+  } catch (e) {
+    console.warn('Failed to save tutorial state:', e);
+  }
+};
+
 function HanziMasterApp() {
   const [currentView, setCurrentView] = React.useState('home');
   const [progress, setProgress] = React.useState(loadProgress);
@@ -9,6 +27,7 @@ function HanziMasterApp() {
   const [language, setLanguage] = React.useState(loadLanguage);
   const [soundEnabled, setSoundEnabled] = React.useState(loadSoundEnabled);
   const [ambienceEnabled, setAmbienceEnabled] = React.useState(loadAmbienceEnabled);
+  const [tutorialOpen, setTutorialOpen] = React.useState(() => !loadTutorialSeen());
 
   React.useEffect(() => {
     saveProgress(progress);
@@ -98,6 +117,15 @@ function HanziMasterApp() {
 
   const t = React.useCallback((key, vars) => translateUi(language, key, vars), [language]);
   const playSound = React.useCallback((name) => playSoundEffect(name, soundEnabled), [soundEnabled]);
+  const openTutorial = React.useCallback(() => {
+    playSoundEffect('reveal', soundEnabled);
+    setTutorialOpen(true);
+  }, [soundEnabled]);
+  const closeTutorial = React.useCallback(() => {
+    saveTutorialSeen();
+    playSoundEffect('tap', soundEnabled);
+    setTutorialOpen(false);
+  }, [soundEnabled]);
   const setCurrentViewWithSound = React.useCallback((view) => {
     if (typeof view !== 'function') {
       if (view !== currentView) playSoundEffect('tap', soundEnabled);
@@ -106,7 +134,7 @@ function HanziMasterApp() {
     }
     setCurrentView(prev => view(prev));
   }, [currentView, soundEnabled]);
-  const viewProps = { progress, setCurrentView: setCurrentViewWithSound, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered, language, setLanguage, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, t };
+  const viewProps = { progress, setCurrentView: setCurrentViewWithSound, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered, language, setLanguage, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, openTutorial, t };
 
   return (
     <div className="app-container">
@@ -119,6 +147,15 @@ function HanziMasterApp() {
       {currentView === 'quiz' && <QuizView key="quiz" {...viewProps} />}
       {currentView === 'stats' && <StatsView key="stats" {...viewProps} />}
       <BottomNav currentView={currentView} setCurrentView={setCurrentViewWithSound} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} t={t} />
+      <TutorialOverlay
+        open={tutorialOpen}
+        onClose={closeTutorial}
+        setCurrentView={setCurrentViewWithSound}
+        setSelectedLesson={setSelectedLesson}
+        setSelectedQueue={setSelectedQueue}
+        playSound={playSound}
+        t={t}
+      />
     </div>
   );
 }

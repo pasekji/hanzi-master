@@ -29,6 +29,94 @@ function BottomNav({ currentView, setCurrentView, setSelectedLesson, setSelected
   );
 }
 
+const TUTORIAL_STEPS = [
+  { icon: 'gift', view: 'daily', titleKey: 'tutorial.step.daily.title', bodyKey: 'tutorial.step.daily.body', actionKey: 'tutorial.step.daily.action' },
+  { icon: 'card', view: 'learn', titleKey: 'tutorial.step.cards.title', bodyKey: 'tutorial.step.cards.body', actionKey: 'tutorial.step.cards.action' },
+  { icon: 'brush', view: 'draw', titleKey: 'tutorial.step.write.title', bodyKey: 'tutorial.step.write.body', actionKey: 'tutorial.step.write.action' },
+  { icon: 'target', view: 'quiz', titleKey: 'tutorial.step.quiz.title', bodyKey: 'tutorial.step.quiz.body', actionKey: 'tutorial.step.quiz.action' },
+  { icon: 'wallet', view: 'stats', titleKey: 'tutorial.step.wallet.title', bodyKey: 'tutorial.step.wallet.body', actionKey: 'tutorial.step.wallet.action' },
+];
+
+function TutorialOverlay({ open, onClose, setCurrentView, setSelectedLesson, setSelectedQueue, playSound, t }) {
+  const [stepIndex, setStepIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    if (open) setStepIndex(0);
+  }, [open]);
+
+  if (!open) return null;
+
+  const step = TUTORIAL_STEPS[stepIndex];
+  const isFirst = stepIndex === 0;
+  const isLast = stepIndex === TUTORIAL_STEPS.length - 1;
+  const progress = Math.round(((stepIndex + 1) / TUTORIAL_STEPS.length) * 100);
+
+  const goToStep = (nextIndex) => {
+    playSound?.('tap');
+    setStepIndex(Math.max(0, Math.min(TUTORIAL_STEPS.length - 1, nextIndex)));
+  };
+
+  const openStepView = () => {
+    playSound?.('select');
+    setSelectedLesson(null);
+    setSelectedQueue(null);
+    setCurrentView(step.view);
+    onClose();
+  };
+
+  return (
+    <div className="tutorial-backdrop" role="dialog" aria-modal="true" aria-label={t('tutorial.title')}>
+      <div className="tutorial-card">
+        <button className="tutorial-close" onClick={onClose} aria-label={t('tutorial.close')}>x</button>
+        <div className="tutorial-hero">
+          <div className="tutorial-panda"><PandaBuddySvg /></div>
+          <div className="tutorial-copy-block">
+            <div className="tutorial-kicker">
+              <span>{t('tutorial.badge')}</span>
+              <span>{t('tutorial.stepCount', { current: stepIndex + 1, total: TUTORIAL_STEPS.length })}</span>
+            </div>
+            <h2>{t('tutorial.title')}</h2>
+            <p>{t('tutorial.intro')}</p>
+          </div>
+        </div>
+
+        <div className="tutorial-progress">
+          <div className="tutorial-progress-fill" style={{ width: `${progress}%` }} />
+        </div>
+
+        <div className="tutorial-step-card">
+          <span className="tutorial-step-icon"><AppIcon name={step.icon} /></span>
+          <div>
+            <h3>{t(step.titleKey)}</h3>
+            <p>{t(step.bodyKey)}</p>
+          </div>
+        </div>
+
+        <div className="tutorial-dots" aria-hidden="true">
+          {TUTORIAL_STEPS.map((item, index) => (
+            <span key={item.titleKey} className={index === stepIndex ? 'active' : ''} />
+          ))}
+        </div>
+
+        <button className="tutorial-open-step" onClick={openStepView}>
+          <AppIcon name={step.icon} />
+          <span>{t(step.actionKey)}</span>
+        </button>
+
+        <div className="tutorial-actions">
+          <button className="tutorial-quiet" onClick={onClose}>{t('tutorial.skip')}</button>
+          <div className="tutorial-action-pair">
+            <button className="tutorial-secondary" onClick={() => goToStep(stepIndex - 1)} disabled={isFirst}>{t('tutorial.back')}</button>
+            <button className="tutorial-primary" onClick={() => (isLast ? onClose() : goToStep(stepIndex + 1))}>
+              {isLast ? t('tutorial.done') : t('tutorial.next')}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function LanguageToggle({ language, setLanguage, playSound, t }) {
   return (
     <div className="language-toggle" aria-label="UI language">
@@ -143,6 +231,9 @@ function AppIcon({ name }) {
   );
   if (name === 'wallet') return (
     <svg {...common}><path {...stroke} d="M5 7.5h13a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7.5a2 2 0 0 1 2-2h11"/><path {...stroke} d="M17 13h3"/><path {...stroke} d="M6 5.5 16 3v4.5"/></svg>
+  );
+  if (name === 'help') return (
+    <svg {...common}><circle {...stroke} cx="12" cy="12" r="8"/><path {...stroke} d="M9.8 9.3a2.4 2.4 0 0 1 4.5 1.2c0 1.8-2.3 2-2.3 3.7"/><path {...stroke} d="M12 17h.01"/></svg>
   );
   return <svg {...common}><circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.14"/><path {...stroke} d="M8 12h8M12 8v8"/></svg>;
 }
@@ -315,4 +406,3 @@ function MiniAppHeader({ icon, title, subtitle, pill }) {
     </div>
   );
 }
-

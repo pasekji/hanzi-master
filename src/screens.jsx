@@ -84,7 +84,7 @@ function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSel
 // ============================================
 // HOME VIEW
 // ============================================
-function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, language, setLanguage, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, t }) {
+function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, language, setLanguage, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, openTutorial, t }) {
   const catalogSet = React.useMemo(() => new Set(STUDY_CATALOG.map(item => item.hanzi)), []);
   const masteredCount = React.useMemo(() => new Set(progress.masteredChars.filter(hanzi => catalogSet.has(hanzi))).size, [catalogSet, progress.masteredChars]);
   const learningCount = React.useMemo(() => new Set(progress.learningChars.filter(hanzi => catalogSet.has(hanzi))).size, [catalogSet, progress.learningChars]);
@@ -117,6 +117,9 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
           </div>
         </div>
         <div className="topbar-actions">
+          <button className="guide-toggle" onClick={openTutorial} aria-label={t('tutorial.open')} title={t('tutorial.open')}>
+            <AppIcon name="help" />
+          </button>
           <LanguageToggle language={language} setLanguage={setLanguage} playSound={playSound} t={t} />
           <SoundToggle soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} t={t} />
           <AmbienceToggle ambienceEnabled={ambienceEnabled} setAmbienceEnabled={setAmbienceEnabled} t={t} />
@@ -209,6 +212,10 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
         <div>
           <p className="coach-title">{t('home.coachTitle')}</p>
           <p className="coach-copy">{learningCount > 0 ? t('home.coachReview') : t('home.coachNew')}</p>
+          <button className="coach-guide-link" onClick={openTutorial}>
+            <AppIcon name="help" />
+            <span>{t('tutorial.open')}</span>
+          </button>
         </div>
       </div>
 
@@ -1288,4 +1295,3 @@ function StatsView({ progress, setCurrentView, t }) {
     </div>
   );
 }
-
