@@ -461,6 +461,9 @@ const UI_TEXT = {
     'lessons.subtitle': 'HSK 1 · 第 12-15 课',
     'lessons.pill': '4 课',
     'lessons.service': '课程服务',
+    'lessons.materialBanks': '\u6750\u6599\u8bcd\u5e93',
+    'lessons.hsk1WordBankTitle': 'HSK1 \u8bcd\u8bed',
+    'lessons.wordBankChip': '\u8bcd\u5e93',
     'lessons.quick': '快捷练习',
     'lessons.quizAll': 'QUIZ ALL',
     'lessons.drawAll': 'DRAW ALL',
@@ -612,6 +615,9 @@ const UI_TEXT = {
     'lessons.subtitle': 'HSK 1 · Lessons 12-15',
     'lessons.pill': '4 lessons',
     'lessons.service': 'Lesson services',
+    'lessons.materialBanks': 'Material banks',
+    'lessons.hsk1WordBankTitle': 'HSK1 Words',
+    'lessons.wordBankChip': 'Word bank',
     'lessons.quick': 'Quick practice',
     'lessons.quizAll': 'Quiz all',
     'lessons.drawAll': 'Draw all',
@@ -4469,12 +4475,19 @@ function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, prog
     14: { title: '买东西', chinese: 'Shopping' },
     15: { title: '是...的', chinese: 'Structure' }
   };
+  const materialWordQueue = getMaterialWordQueue();
 
   const getLessonProgress = (num) => {
     const chars = VOCABULARY.filter(v => v.lesson === num);
     const mastered = chars.filter(v => progress.masteredChars.includes(v.hanzi)).length;
     return { mastered, total: chars.length, percent: Math.round((mastered / chars.length) * 100) };
   };
+  const getQueueProgress = (queue) => {
+    const items = queue.items || [];
+    const mastered = items.filter(v => progress.masteredChars.includes(v.hanzi)).length;
+    return { mastered, total: items.length, percent: items.length ? Math.round((mastered / items.length) * 100) : 0 };
+  };
+  const wordBankProgress = getQueueProgress(materialWordQueue);
 
   return (
     <div className="screen">
@@ -4519,6 +4532,38 @@ function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, prog
         })}
         </div>
       </div>
+
+      {materialWordQueue.items.length > 0 && (
+        <div className="service-section">
+          <div className="service-section-head">
+            <span>{t('lessons.materialBanks')}</span>
+            <span>HSK1</span>
+          </div>
+          <div className="service-list">
+            <div
+              className="card card-clickable service-row"
+              onClick={() => { setSelectedLesson(null); setSelectedQueue(materialWordQueue); setCurrentView('learn'); }}
+              role="button"
+              tabIndex={0}
+            >
+              <div className="lesson-card">
+                <div className="lesson-service-icon"><AppIcon name="book" /></div>
+                <div className="lesson-number">{wordBankProgress.total}</div>
+                <div className="lesson-info">
+                  <div className="lesson-title-line">
+                    <p className="title-md">{t('lessons.hsk1WordBankTitle')}</p>
+                    <span className="lesson-chinese-chip">{t('lessons.wordBankChip')}</span>
+                  </div>
+                  <p className="text-sm">{wordBankProgress.mastered}/{wordBankProgress.total} • {wordBankProgress.percent}%</p>
+                  <div className="progress-bar" style={{ marginTop: '8px', marginBottom: '0' }}>
+                    <div className="progress-fill" style={{ width: `${wordBankProgress.percent}%` }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="section-title">
         <span className="text-sm">{t('lessons.quick')}</span>

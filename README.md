@@ -1,9 +1,9 @@
 # 汉字大师
 
-Chinese superapp-inspired Hanzi learning mini-app for HSK1 (Lessons 12-15).
+Chinese superapp-inspired Hanzi learning mini-app for local HSK1 writing practice and word-bank review.
 
 ## Features
-- 📚 69 characters + 47 compound words
+- 📚 69 writing characters + 47 compound words + 150 HSK1 word-bank cards
 - 🐼 今日训练 smart daily queue for review, new characters, and consolidation
 - 🌐 中文 / English UI language switch
 - 🎴 生词卡片 with related words
@@ -32,3 +32,5 @@ npm start
 - Lesson 13: Actions (正在进行)
 - Lesson 14: Shopping (买东西)
 - Lesson 15: Structure (是...的)
+- HSK1 Word Bank: 150 cards with pinyin, English meaning, and examples from the source materials
+- See `CONTENT_AUDIT.md` for the full source-material inventory and remaining import plan
