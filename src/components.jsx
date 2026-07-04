@@ -235,6 +235,9 @@ function AppIcon({ name }) {
   if (name === 'help') return (
     <svg {...common}><circle {...stroke} cx="12" cy="12" r="8"/><path {...stroke} d="M9.8 9.3a2.4 2.4 0 0 1 4.5 1.2c0 1.8-2.3 2-2.3 3.7"/><path {...stroke} d="M12 17h.01"/></svg>
   );
+  if (name === 'download') return (
+    <svg {...common}><path {...stroke} d="M12 3v12M7.5 10.5 12 15l4.5-4.5"/><path {...stroke} d="M5 20h14"/></svg>
+  );
   return <svg {...common}><circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.14"/><path {...stroke} d="M8 12h8M12 8v8"/></svg>;
 }
 

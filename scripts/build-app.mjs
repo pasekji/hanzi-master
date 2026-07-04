@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import vm from 'node:vm';
+import { createOfflineZip } from './create-offline-zip.mjs';
 
 const root = new URL('../', import.meta.url);
 const outputUrl = new URL('public/app.js', root);
@@ -42,3 +43,6 @@ const result = sandbox.Babel.transform(source, {
 
 await writeFile(outputUrl, `${result.code}\n`, 'utf8');
 console.log(`Built ${outputUrl.pathname}`);
+
+const offlinePackage = await createOfflineZip(root);
+console.log(`Built ${offlinePackage.outputUrl.pathname} (${offlinePackage.entries} files, ${offlinePackage.size} bytes)`);

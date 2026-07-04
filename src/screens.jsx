@@ -1125,6 +1125,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
 // STATS VIEW
 // ============================================
 function StatsView({ progress, setCurrentView, t }) {
+  const isOfflineCopy = window.location.protocol === 'file:';
   const byLesson = [12, 13, 14, 15].map(l => ({
     lesson: l,
     mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.hanzi)).length,
@@ -1287,6 +1288,31 @@ function StatsView({ progress, setCurrentView, t }) {
           <span style={{ marginRight: '8px' }}>📥</span> {t('stats.import')}
           <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
         </label>
+      </div>
+
+      <div className="section-title" style={{ marginTop: '28px' }}>
+        <span className="text-sm">{t('stats.offline')}</span>
+        <div className="section-line" />
+      </div>
+
+      <div className="offline-pack-card">
+        <span className="offline-pack-icon"><AppIcon name="download" /></span>
+        <div className="offline-pack-copy">
+          <p className="title-md">{t('stats.offlineTitle')}</p>
+          <p className="text-sm">{t('stats.offlineHint')}</p>
+        </div>
+        {isOfflineCopy ? (
+          <span className="offline-ready-pill">{t('stats.offlineReady')}</span>
+        ) : (
+          <a
+            className="btn btn-primary offline-download-button"
+            href="hanzi-master-offline.zip"
+            download="hanzi-master-offline.zip"
+          >
+            <AppIcon name="download" />
+            <span>{t('stats.offlineDownload')}</span>
+          </a>
+        )}
       </div>
 
       <div style={{ marginTop: '20px' }}>
