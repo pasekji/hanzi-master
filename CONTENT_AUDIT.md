@@ -1,6 +1,6 @@
 # Content Audit
 
-Date: 2026-06-21
+Date: 2026-07-05
 Source folder: `C:/Users/jirip/Downloads/cinstina`
 
 ## Source Inventory
@@ -17,6 +17,8 @@ Source folder: `C:/Users/jirip/Downloads/cinstina`
 - Writing practice still uses the original local HSK1 lessons 12-15 set: 69 single-character cards and 47 related compounds.
 - Imported material banks now add 284 local cards: 150 HSK1 word-bank cards, 96 first-pass HSK2 lesson cards, 10 Book 3 preview cards, and 28 basic stroke cards read visually from the DOCX worksheets.
 - Imported cards have hanzi, pinyin, English meaning, example sentence, and source metadata.
+- 134 damaged placeholder records from the initial HSK2, Book 3, and stroke extraction were repaired against the source PPTX text layers and standard stroke names.
+- The hidden `/secret` route consolidates 333 deduplicated vocabulary entries plus numbers, time/date forms, measure words, question words, tone changes, and 16 core grammar patterns.
 - The app now exposes the HSK1 Word Bank from the home mini-program grid and exposes all material banks from the lesson map.
 - Runtime remains local-only: browser storage, vendored libraries, no external APIs or CDNs.
 

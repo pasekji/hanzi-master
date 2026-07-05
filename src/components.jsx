@@ -1,5 +1,5 @@
 function BottomNav({ currentView, setCurrentView, setSelectedLesson, setSelectedQueue, t }) {
-  if (['learn', 'draw', 'quiz', 'daily'].includes(currentView)) return null;
+  if (['learn', 'draw', 'quiz', 'daily', 'secret'].includes(currentView)) return null;
 
   const items = [
     { view: 'home', icon: 'home', label: t('nav.home') },
@@ -237,6 +237,9 @@ function AppIcon({ name }) {
   );
   if (name === 'download') return (
     <svg {...common}><path {...stroke} d="M12 3v12M7.5 10.5 12 15l4.5-4.5"/><path {...stroke} d="M5 20h14"/></svg>
+  );
+  if (name === 'print') return (
+    <svg {...common}><path {...stroke} d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path {...stroke} d="M7 14h10v7H7z"/><path {...stroke} d="M17 11h.01"/></svg>
   );
   return <svg {...common}><circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.14"/><path {...stroke} d="M8 12h8M12 8v8"/></svg>;
 }

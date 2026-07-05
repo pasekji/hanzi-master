@@ -7,6 +7,7 @@ const outputUrl = new URL('public/app.js', root);
 const babelUrl = new URL('scripts/vendor/babel.min.js', root);
 const stylesUrl = new URL('src/styles.css', root);
 const sourceFiles = [
+  'src/material-repairs.jsx',
   'src/data.jsx',
   'src/audio.jsx',
   'src/i18n.jsx',
@@ -14,6 +15,7 @@ const sourceFiles = [
   'src/app.jsx',
   'src/components.jsx',
   'src/screens.jsx',
+  'src/secret.jsx',
   'src/mount.jsx',
 ];
 
@@ -27,11 +29,12 @@ const sourceChunks = [];
 for (const sourceFile of sourceFiles) {
   sourceChunks.push(await readFile(new URL(sourceFile, root), 'utf8'));
 }
+const styleInsertionIndex = sourceFiles.indexOf('src/progress.jsx') + 1;
 const source = [
   '// Built from local source modules by scripts/build-app.mjs.',
-  ...sourceChunks.slice(0, 4),
+  ...sourceChunks.slice(0, styleInsertionIndex),
   `const styles = ${JSON.stringify(styles)};`,
-  ...sourceChunks.slice(4),
+  ...sourceChunks.slice(styleInsertionIndex),
 ].join('\n\n');
 const result = sandbox.Babel.transform(source, {
   presets: [['react', { runtime: 'classic' }]],

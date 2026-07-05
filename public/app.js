@@ -1,4 +1,754 @@
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+const MATERIAL_COLLECTION_REPAIRS = {
+  'hsk1-word-bank': {
+    labelZh: 'HSK1 词汇',
+    chipZh: '词库'
+  },
+  'hsk2-lesson-1': {
+    labelZh: 'HSK2 L1 九月去北京旅游最好',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-2': {
+    labelZh: 'HSK2 L2 我每天六点起床',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-3': {
+    labelZh: 'HSK2 L3 左边那个红色的是我的',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-4': {
+    labelZh: 'HSK2 L4 这个工作是他帮我介绍的',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-5': {
+    labelZh: 'HSK2 L5 就买这件吧',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-6': {
+    labelZh: 'HSK2 L6 你怎么不吃了',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-7': {
+    labelZh: 'HSK2 L7 你家离公司远吗',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-9': {
+    labelZh: 'HSK2 L9 题太多，我没做完',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-10': {
+    labelZh: 'HSK2 L10 别找了，手机在桌子上呢',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-11': {
+    labelZh: 'HSK2 L11 他比我大三岁',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-13': {
+    labelZh: 'HSK2 L13 门开着呢',
+    chipZh: '材料'
+  },
+  'hsk2-lesson-15': {
+    labelZh: 'HSK2 L15 新年就要到了',
+    chipZh: '材料'
+  },
+  'book3-preview': {
+    labelZh: '第3册预习材料',
+    chipZh: '预习'
+  },
+  'basic-strokes': {
+    labelZh: '基本笔画',
+    chipZh: '笔画'
+  }
+};
+const MATERIAL_ITEM_REPAIRS = {
+  10001: {
+    hanzi: '足球',
+    pinyin: 'zúqiú',
+    example: '我喜欢踢足球。'
+  },
+  10002: {
+    hanzi: '踢足球',
+    pinyin: 'tī zúqiú',
+    example: '下午我们一起去踢足球吧。'
+  },
+  10003: {
+    hanzi: '猫',
+    pinyin: 'māo',
+    example: '桌子下面有一只猫。'
+  },
+  10004: {
+    hanzi: '眼睛',
+    pinyin: 'yǎnjing',
+    example: '它的眼睛很漂亮。'
+  },
+  10005: {
+    hanzi: '旅游',
+    pinyin: 'lǚyóu',
+    example: '九月去北京旅游最好。'
+  },
+  10006: {
+    hanzi: '运动',
+    pinyin: 'yùndòng',
+    example: '你喜欢什么运动？'
+  },
+  10007: {
+    hanzi: '椅子',
+    pinyin: 'yǐzi',
+    example: '我们买几把新椅子吧。'
+  },
+  10008: {
+    hanzi: '最',
+    pinyin: 'zuì',
+    example: '我最喜欢吃米饭。'
+  },
+  10009: {
+    hanzi: '每',
+    pinyin: 'měi',
+    example: '每个人都来了。'
+  },
+  10010: {
+    hanzi: '每天',
+    pinyin: 'měitiān',
+    example: '我每天六点起床。'
+  },
+  10011: {
+    hanzi: '早上',
+    pinyin: 'zǎoshang',
+    example: '我早上去跑步。'
+  },
+  10012: {
+    hanzi: '起床',
+    pinyin: 'qǐchuáng',
+    example: '我每天六点半起床。'
+  },
+  10013: {
+    hanzi: '跑步',
+    pinyin: 'pǎobù',
+    example: '他每天早上跑步。'
+  },
+  10014: {
+    hanzi: '吃药',
+    pinyin: 'chī yào',
+    example: '生病了要按时吃药。'
+  },
+  10015: {
+    hanzi: '生病',
+    pinyin: 'shēngbìng',
+    example: '他生病住院了。'
+  },
+  10016: {
+    hanzi: '休息',
+    pinyin: 'xiūxi',
+    example: '你应该好好休息。'
+  },
+  10017: {
+    hanzi: '出院',
+    pinyin: 'chūyuàn',
+    example: '医生说我明天可以出院。'
+  },
+  10018: {
+    hanzi: '忙',
+    pinyin: 'máng',
+    example: '我今天很忙。'
+  },
+  10019: {
+    hanzi: '报纸',
+    pinyin: 'bàozhǐ',
+    example: '他每天早上看报纸。'
+  },
+  10020: {
+    hanzi: '手表',
+    pinyin: 'shǒubiǎo',
+    example: '我用手表看时间。'
+  },
+  10021: {
+    hanzi: '牛奶',
+    pinyin: 'niúnǎi',
+    example: '早餐我喝一杯牛奶。'
+  },
+  10022: {
+    hanzi: '房间',
+    pinyin: 'fángjiān',
+    example: '这个房间很干净。'
+  },
+  10023: {
+    hanzi: '丈夫',
+    pinyin: 'zhàngfu',
+    example: '她的丈夫是医生。'
+  },
+  10024: {
+    hanzi: '红色',
+    pinyin: 'hóngsè',
+    example: '左边那个红色的是我的。'
+  },
+  10025: {
+    hanzi: '送',
+    pinyin: 'sòng',
+    example: '这块手表是朋友送给我的。'
+  },
+  10026: {
+    hanzi: '旁边',
+    pinyin: 'pángbiān',
+    example: '牛奶在报纸旁边。'
+  },
+  10027: {
+    hanzi: '一下',
+    pinyin: 'yíxià',
+    example: '你看一下这个房间。'
+  },
+  10028: {
+    hanzi: '真',
+    pinyin: 'zhēn',
+    example: '这个房间真漂亮。'
+  },
+  10029: {
+    hanzi: '给',
+    pinyin: 'gěi',
+    example: '请给我打电话。'
+  },
+  10030: {
+    hanzi: '接',
+    pinyin: 'jiē',
+    example: '我去机场接朋友。'
+  },
+  10031: {
+    hanzi: '问',
+    pinyin: 'wèn',
+    example: '我想问你一个问题。'
+  },
+  10032: {
+    hanzi: '问题',
+    pinyin: 'wèntí',
+    example: '这个问题不难。'
+  },
+  10033: {
+    hanzi: '生日',
+    pinyin: 'shēngrì',
+    example: '今天是我的生日。'
+  },
+  10034: {
+    hanzi: '晚上',
+    pinyin: 'wǎnshang',
+    example: '我们晚上出去吃饭。'
+  },
+  10035: {
+    hanzi: '工作',
+    pinyin: 'gōngzuò',
+    example: '这个工作是朋友介绍的。'
+  },
+  10036: {
+    hanzi: '介绍',
+    pinyin: 'jièshào',
+    example: '他给我介绍了一份工作。'
+  },
+  10037: {
+    hanzi: '是……的',
+    pinyin: 'shì...de',
+    example: '这个工作是他帮我介绍的。'
+  },
+  10038: {
+    hanzi: '咖啡',
+    pinyin: 'kāfēi',
+    example: '我想喝一杯咖啡。'
+  },
+  10039: {
+    hanzi: '鱼',
+    pinyin: 'yú',
+    example: '我们今天去吃鱼。'
+  },
+  10040: {
+    hanzi: '考试',
+    pinyin: 'kǎoshì',
+    example: '明天有汉语考试。'
+  },
+  10041: {
+    hanzi: '衣服',
+    pinyin: 'yīfu',
+    example: '这件衣服很漂亮。'
+  },
+  10042: {
+    hanzi: '打球',
+    pinyin: 'dǎ qiú',
+    example: '下课以后我们去打球。'
+  },
+  10043: {
+    hanzi: '件',
+    pinyin: 'jiàn',
+    example: '就买这件衣服吧。'
+  },
+  10044: {
+    hanzi: '就',
+    pinyin: 'jiù',
+    example: '我就买这件。'
+  },
+  10045: {
+    hanzi: '吧',
+    pinyin: 'ba',
+    example: '我们休息一下吧。'
+  },
+  10046: {
+    hanzi: '为什么',
+    pinyin: 'wèishénme',
+    example: '你为什么不吃饭？'
+  },
+  10047: {
+    hanzi: '怎么',
+    pinyin: 'zěnme',
+    example: '你怎么不吃了？'
+  },
+  10048: {
+    hanzi: '喝牛奶',
+    pinyin: 'hē niúnǎi',
+    example: '她早餐喜欢喝牛奶。'
+  },
+  10049: {
+    hanzi: '看报纸',
+    pinyin: 'kàn bàozhǐ',
+    example: '爸爸正在看报纸。'
+  },
+  10050: {
+    hanzi: '打篮球',
+    pinyin: 'dǎ lánqiú',
+    example: '他们正在打篮球。'
+  },
+  10051: {
+    hanzi: '正在',
+    pinyin: 'zhèngzài',
+    example: '我正在学习汉语。'
+  },
+  10052: {
+    hanzi: '少',
+    pinyin: 'shǎo',
+    example: '你吃得太少了。'
+  },
+  10053: {
+    hanzi: '商店',
+    pinyin: 'shāngdiàn',
+    example: '我去商店买东西。'
+  },
+  10054: {
+    hanzi: '机场',
+    pinyin: 'jīchǎng',
+    example: '我去机场接朋友。'
+  },
+  10055: {
+    hanzi: '路',
+    pinyin: 'lù',
+    example: '我在去机场的路上。'
+  },
+  10056: {
+    hanzi: '教室',
+    pinyin: 'jiàoshì',
+    example: '老师在教室里。'
+  },
+  10057: {
+    hanzi: '时间',
+    pinyin: 'shíjiān',
+    example: '现在没有时间。'
+  },
+  10058: {
+    hanzi: '离',
+    pinyin: 'lí',
+    example: '我家离公司很近。'
+  },
+  10059: {
+    hanzi: '公司',
+    pinyin: 'gōngsī',
+    example: '他在公司上班。'
+  },
+  10060: {
+    hanzi: '远',
+    pinyin: 'yuǎn',
+    example: '你家离公司远吗？'
+  },
+  10061: {
+    hanzi: '唱歌',
+    pinyin: 'chànggē',
+    example: '她很喜欢唱歌。'
+  },
+  10062: {
+    hanzi: '上班',
+    pinyin: 'shàngbān',
+    example: '他每天八点去上班。'
+  },
+  10063: {
+    hanzi: '对',
+    pinyin: 'duì',
+    example: '这个答案是对的。'
+  },
+  10064: {
+    hanzi: '错',
+    pinyin: 'cuò',
+    example: '这道题做错了。'
+  },
+  10065: {
+    hanzi: '问题',
+    pinyin: 'wèntí',
+    example: '题太多，我没做完。'
+  },
+  10066: {
+    hanzi: '第一',
+    pinyin: 'dìyī',
+    example: '这是第一个问题。'
+  },
+  10067: {
+    hanzi: '跳舞',
+    pinyin: 'tiàowǔ',
+    example: '她正在学习跳舞。'
+  },
+  10068: {
+    hanzi: '多',
+    pinyin: 'duō',
+    example: '今天的问题太多了。'
+  },
+  10069: {
+    hanzi: '完',
+    pinyin: 'wán',
+    example: '作业我已经做完了。'
+  },
+  10070: {
+    hanzi: '鸡蛋',
+    pinyin: 'jīdàn',
+    example: '早饭我吃两个鸡蛋。'
+  },
+  10071: {
+    hanzi: '西瓜',
+    pinyin: 'xīguā',
+    example: '桌子上有一个西瓜。'
+  },
+  10072: {
+    hanzi: '手机',
+    pinyin: 'shǒujī',
+    example: '手机在桌子上呢。'
+  },
+  10073: {
+    hanzi: '准备',
+    pinyin: 'zhǔnbèi',
+    example: '妈妈正在准备午饭。'
+  },
+  10074: {
+    hanzi: '午饭',
+    pinyin: 'wǔfàn',
+    example: '我们十二点吃午饭。'
+  },
+  10075: {
+    hanzi: '别',
+    pinyin: 'bié',
+    example: '别找了，手机在这里。'
+  },
+  10076: {
+    hanzi: '找',
+    pinyin: 'zhǎo',
+    example: '我在找我的手机。'
+  },
+  10077: {
+    hanzi: '说话',
+    pinyin: 'shuōhuà',
+    example: '上课的时候别说话。'
+  },
+  10078: {
+    hanzi: '女',
+    pinyin: 'nǚ',
+    example: '那个女孩是我妹妹。'
+  },
+  10079: {
+    hanzi: '男',
+    pinyin: 'nán',
+    example: '那个男人是我老师。'
+  },
+  10080: {
+    hanzi: '比',
+    pinyin: 'bǐ',
+    example: '他比我大三岁。'
+  },
+  10081: {
+    hanzi: '岁',
+    pinyin: 'suì',
+    example: '我今年二十岁。'
+  },
+  10082: {
+    hanzi: '孩子',
+    pinyin: 'háizi',
+    example: '那个孩子在学习说话。'
+  },
+  10083: {
+    hanzi: '手',
+    pinyin: 'shǒu',
+    example: '他手里拿着一个苹果。'
+  },
+  10084: {
+    hanzi: '铅笔',
+    pinyin: 'qiānbǐ',
+    example: '桌子上有一支铅笔。'
+  },
+  10085: {
+    hanzi: '宾馆',
+    pinyin: 'bīnguǎn',
+    example: '我们住在这家宾馆。'
+  },
+  10086: {
+    hanzi: '拿',
+    pinyin: 'ná',
+    example: '她手里拿着一把伞。'
+  },
+  10087: {
+    hanzi: '路口',
+    pinyin: 'lùkǒu',
+    example: '我在前面的路口等你。'
+  },
+  10088: {
+    hanzi: '门',
+    pinyin: 'mén',
+    example: '门开着呢。'
+  },
+  10089: {
+    hanzi: '着',
+    pinyin: 'zhe',
+    example: '桌子上放着一本书。'
+  },
+  10090: {
+    hanzi: '票',
+    pinyin: 'piào',
+    example: '我买了两张火车票。'
+  },
+  10091: {
+    hanzi: '新年',
+    pinyin: 'xīnnián',
+    example: '祝你新年快乐！'
+  },
+  10092: {
+    hanzi: '帮助',
+    pinyin: 'bāngzhù',
+    example: '谢谢你帮助我。'
+  },
+  10093: {
+    hanzi: '阴',
+    pinyin: 'yīn',
+    example: '今天是阴天。'
+  },
+  10094: {
+    hanzi: '火车站',
+    pinyin: 'huǒchēzhàn',
+    example: '我在火车站等你。'
+  },
+  10095: {
+    hanzi: '就要',
+    pinyin: 'jiùyào',
+    example: '新年就要到了。'
+  },
+  10096: {
+    hanzi: '快要',
+    pinyin: 'kuàiyào',
+    example: '火车快要开了。'
+  },
+  10097: {
+    hanzi: '黑',
+    pinyin: 'hēi',
+    example: '天快黑了。'
+  },
+  10098: {
+    hanzi: '白',
+    pinyin: 'bái',
+    example: '我喜欢黑白照片。'
+  },
+  10099: {
+    hanzi: '服务员',
+    pinyin: 'fúwùyuán',
+    example: '服务员，请买单。'
+  },
+  10100: {
+    hanzi: '等',
+    pinyin: 'děng',
+    example: '请等我一会儿。'
+  },
+  10101: {
+    hanzi: '妻子',
+    pinyin: 'qīzi',
+    example: '他的妻子很漂亮。'
+  },
+  10102: {
+    hanzi: '下雪',
+    pinyin: 'xiàxuě',
+    example: '外面正在下雪。'
+  },
+  10103: {
+    hanzi: '房子',
+    pinyin: 'fángzi',
+    example: '他们买了一套新房子。'
+  },
+  10104: {
+    hanzi: '电影院',
+    pinyin: 'diànyǐngyuàn',
+    example: '我们去电影院看电影。'
+  },
+  10105: {
+    hanzi: '晴',
+    pinyin: 'qíng',
+    example: '明天是晴天。'
+  },
+  10106: {
+    hanzi: '玩儿',
+    pinyin: 'wánr',
+    example: '孩子们在外面玩儿。'
+  },
+  11001: {
+    hanzi: '点',
+    pinyin: 'diǎn',
+    example: '基本笔画：丶'
+  },
+  11002: {
+    hanzi: '横',
+    pinyin: 'héng',
+    example: '基本笔画：一'
+  },
+  11003: {
+    hanzi: '撇',
+    pinyin: 'piě',
+    example: '基本笔画：丿'
+  },
+  11004: {
+    hanzi: '捺',
+    pinyin: 'nà',
+    example: '基本笔画：㇏'
+  },
+  11005: {
+    hanzi: '竖',
+    pinyin: 'shù',
+    example: '基本笔画：丨'
+  },
+  11006: {
+    hanzi: '竖钩',
+    pinyin: 'shùgōu',
+    example: '复合笔画：亅'
+  },
+  11007: {
+    hanzi: '提',
+    pinyin: 'tí',
+    example: '基本笔画：㇀'
+  },
+  11008: {
+    hanzi: '竖提',
+    pinyin: 'shùtí',
+    example: '复合笔画：㇙'
+  },
+  11009: {
+    hanzi: '横折',
+    pinyin: 'héngzhé',
+    example: '复合笔画：𠃍'
+  },
+  11010: {
+    hanzi: '横折钩',
+    pinyin: 'héngzhégōu',
+    example: '复合笔画：𠃌'
+  },
+  11011: {
+    hanzi: '横钩',
+    pinyin: 'hénggōu',
+    example: '复合笔画：乛'
+  },
+  11012: {
+    hanzi: '横撇',
+    pinyin: 'héngpiě',
+    example: '复合笔画：㇇'
+  },
+  11013: {
+    hanzi: '竖弯',
+    pinyin: 'shùwān',
+    example: '复合笔画：㇄'
+  },
+  11014: {
+    hanzi: '竖弯钩',
+    pinyin: 'shùwāngōu',
+    example: '复合笔画：乚'
+  },
+  11015: {
+    hanzi: '斜钩',
+    pinyin: 'xiégōu',
+    example: '复合笔画：㇂'
+  },
+  11016: {
+    hanzi: '卧钩',
+    pinyin: 'wògōu',
+    example: '复合笔画：㇃'
+  },
+  11017: {
+    hanzi: '横折弯钩',
+    pinyin: 'héngzhéwāngōu',
+    example: '复合笔画：乙'
+  },
+  11018: {
+    hanzi: '弯钩',
+    pinyin: 'wāngōu',
+    example: '复合笔画：㇁'
+  },
+  11019: {
+    hanzi: '撇点',
+    pinyin: 'piědiǎn',
+    example: '复合笔画：𡿨'
+  },
+  11020: {
+    hanzi: '撇折',
+    pinyin: 'piězhé',
+    example: '复合笔画：㇜'
+  },
+  11021: {
+    hanzi: '竖折',
+    pinyin: 'shùzhé',
+    example: '复合笔画：㇗'
+  },
+  11022: {
+    hanzi: '横折弯',
+    pinyin: 'héngzhéwān',
+    example: '复合笔画：㇍'
+  },
+  11023: {
+    hanzi: '横折折撇',
+    pinyin: 'héngzhézhépiě',
+    example: '复合笔画：㇋'
+  },
+  11024: {
+    hanzi: '横折折钩',
+    pinyin: 'héngzhézhégōu',
+    example: '复合笔画：㇌'
+  },
+  11025: {
+    hanzi: '横折提',
+    pinyin: 'héngzhétí',
+    example: '复合笔画：㇊'
+  },
+  11026: {
+    hanzi: '横撇弯钩',
+    pinyin: 'héngpiěwāngōu',
+    example: '复合笔画：㇌'
+  },
+  11027: {
+    hanzi: '竖折撇',
+    pinyin: 'shùzhépiě',
+    example: '复合笔画：ㄣ'
+  },
+  11028: {
+    hanzi: '竖折折钩',
+    pinyin: 'shùzhézhégōu',
+    example: '复合笔画：㇞'
+  }
+};
+const repairMaterialItem = item => {
+  const repair = MATERIAL_ITEM_REPAIRS[item?.id];
+  if (!repair) return item;
+  return {
+    ...item,
+    ...repair
+  };
+};
+const repairMaterialCollection = collection => {
+  const repair = MATERIAL_COLLECTION_REPAIRS[collection?.id] || {};
+  return {
+    ...collection,
+    ...repair,
+    items: (collection.items || []).map(repairMaterialItem)
+  };
+};
 const VOCABULARY = [{
   id: 1,
   hanzi: '天',
@@ -742,7 +1492,7 @@ const normalizeMaterialItem = (item, index, collection = {}) => ({
 const MATERIAL_COLLECTIONS = (() => {
   const rawCollections = typeof window !== 'undefined' && Array.isArray(window.HANZI_MATERIAL_COLLECTIONS) ? window.HANZI_MATERIAL_COLLECTIONS : [];
   if (rawCollections.length > 0) {
-    return rawCollections.map((collection, index) => ({
+    return rawCollections.map(repairMaterialCollection).map((collection, index) => ({
       id: collection.id || `material-${index + 1}`,
       level: collection.level || 'Material',
       labelKey: collection.id === 'hsk1-word-bank' ? 'queue.hsk1Words' : collection.labelKey,
@@ -1251,7 +2001,34 @@ const UI_TEXT = {
     'stats.invalidBackup': '备份文件格式不正确。',
     'stats.confirmImport': '导入 {date} 的备份？\n\n这会替换当前学习进度。',
     'stats.importOk': '进度导入成功',
-    'stats.importFail': '读取备份文件失败。'
+    'stats.importFail': '读取备份文件失败。',
+    'secret.back': '返回主页',
+    'secret.print': '打印',
+    'secret.badge': '私藏总表 · 完整版',
+    'secret.title': '汉语综合速查表',
+    'secret.subtitle': '数字、时间、语法、量词和全部课程词汇，集中在一个页面。',
+    'secret.uniqueWords': '不重复词条',
+    'secret.collections': '资料集合',
+    'secret.patterns': '语法结构',
+    'secret.numberForms': '数字形式',
+    'secret.contents': '目录',
+    'secret.numbers': '数字',
+    'secret.numbersHint': '基础数字、位值和二 / 两的区别',
+    'secret.time': '时间与日期',
+    'secret.timeHint': '年、月、日期、星期、时间、年龄和金额',
+    'secret.essentials': '基础速查',
+    'secret.essentialsHint': '量词、疑问词和声调变化',
+    'secret.measureWords': '常用量词',
+    'secret.questions': '疑问词',
+    'secret.grammar': '核心语法',
+    'secret.grammarHint': 'HSK1、HSK2 与课堂资料中的高频结构',
+    'secret.vocabulary': '完整词汇',
+    'secret.vocabularyHint': '所有资料集合去重后汇总',
+    'secret.search': '搜索汉字、拼音或英文释义',
+    'secret.all': '全部',
+    'secret.results': '{count} 个词条',
+    'secret.empty': '没有符合条件的词条。',
+    'secret.footer': '浏览器本地运行 · 无外部 API'
   },
   en: {
     'lang.zh': '中文',
@@ -1435,7 +2212,34 @@ const UI_TEXT = {
     'stats.invalidBackup': 'This backup file has the wrong format.',
     'stats.confirmImport': 'Import backup from {date}?\n\nThis will replace current learning progress.',
     'stats.importOk': 'Progress imported',
-    'stats.importFail': 'Could not read the backup file.'
+    'stats.importFail': 'Could not read the backup file.',
+    'secret.back': 'Back home',
+    'secret.print': 'Print',
+    'secret.badge': 'SECRET · COMPLETE',
+    'secret.title': 'Chinese master cheat sheet',
+    'secret.subtitle': 'Numbers, time, grammar, measure words, and every course vocabulary item in one place.',
+    'secret.uniqueWords': 'unique entries',
+    'secret.collections': 'source collections',
+    'secret.patterns': 'grammar patterns',
+    'secret.numberForms': 'number forms',
+    'secret.contents': 'Contents',
+    'secret.numbers': 'Numbers',
+    'secret.numbersHint': 'Core numbers, place values, and 二 vs. 两',
+    'secret.time': 'Time & dates',
+    'secret.timeHint': 'Years, months, dates, weekdays, clock time, age, and money',
+    'secret.essentials': 'Essentials',
+    'secret.essentialsHint': 'Measure words, question words, and tone changes',
+    'secret.measureWords': 'Measure words',
+    'secret.questions': 'Question words',
+    'secret.grammar': 'Core grammar',
+    'secret.grammarHint': 'High-frequency patterns from HSK1, HSK2, and the supplied lessons',
+    'secret.vocabulary': 'Complete vocabulary',
+    'secret.vocabularyHint': 'Deduplicated across every source collection',
+    'secret.search': 'Search hanzi, pinyin, or English meaning',
+    'secret.all': 'All',
+    'secret.results': '{count} entries',
+    'secret.empty': 'No entries match this filter.',
+    'secret.footer': 'Browser-local · no external APIs'
   }
 };
 const formatUiText = (template, vars = {}) => Object.entries(vars).reduce((text, [key, value]) => text.replaceAll(`{${key}}`, value), template);
@@ -1571,8 +2375,12 @@ const getSimilarDistractors = (char, vocab, count = 3) => {
   });
   return [...byGroup, ...byShape].slice(0, count);
 };
-const styles = "  /* ===== MINI-PROGRAM BASE SYSTEM ===== */\n  :root {\n    --bg-primary: #f5f7f6;\n    --bg-secondary: #eef7f3;\n    --bg-card: #ffffff;\n    --accent-lime: #07c160;\n    --accent-coral: #f24848;\n    --accent-cyan: #1677ff;\n    --accent-purple: #d99a18;\n    --text-primary: #18212b;\n    --text-secondary: #697780;\n    --border-width: 1px;\n    --border-color: #dce7e2;\n    --radius: 8px;\n    --shadow-offset: 0px;\n    --transition-fast: 0.18s ease;\n    --transition-bounce: 0.38s cubic-bezier(0.2, 0.9, 0.2, 1.2);\n  }\n\n  body {\n    background: linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 38%, #f7f8fb 100%);\n    color: var(--text-primary);\n    overflow-x: hidden;\n  }\n\n  html,\n  body,\n  #root {\n    width: 100%;\n    max-width: 100%;\n    overflow-x: hidden;\n  }\n\n  .app-container {\n    position: relative;\n    min-height: 100vh;\n    min-height: 100dvh;\n    width: 100%;\n    max-width: 100vw;\n    background:\n      radial-gradient(circle at 18% 8%, rgba(7, 193, 96, 0.16), transparent 28%),\n      radial-gradient(circle at 86% 12%, rgba(22, 119, 255, 0.14), transparent 24%),\n      linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 42%, #f9faf8 100%);\n    color: var(--text-primary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    overflow-x: hidden;\n  }\n\n  .screen {\n    width: min(calc(100vw - 24px), 460px);\n    max-width: 460px;\n    min-height: 100vh;\n    min-height: 100dvh;\n    margin: 0 auto;\n    padding: 18px;\n    padding-bottom: calc(92px + env(safe-area-inset-bottom, 20px));\n    box-sizing: border-box;\n  }\n\n  .screen *,\n  .app-bottom-nav,\n  .app-bottom-nav * {\n    box-sizing: border-box;\n  }\n\n  @media (min-width: 768px) {\n    .screen {\n      max-width: 480px;\n      padding: 24px;\n      padding-bottom: 110px;\n    }\n  }\n\n  .header {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    padding: 10px 0 14px;\n    margin-bottom: 10px;\n  }\n\n  .logo {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    color: #0d1f17;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 30px;\n    font-weight: 900;\n    letter-spacing: 0;\n    user-select: none;\n  }\n\n  .back-btn {\n    min-height: 40px;\n    padding: 9px 14px;\n    border: 1px solid rgba(7, 193, 96, 0.2);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.82);\n    color: var(--text-primary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 800;\n    transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);\n    white-space: nowrap;\n  }\n\n  .card {\n    position: relative;\n    margin-bottom: 14px;\n    padding: 18px;\n    overflow: hidden;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.94);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);\n  }\n\n  .card-clickable {\n    cursor: pointer;\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .card-clickable:active,\n  .btn:active,\n  .back-btn:active {\n    transform: scale(0.985);\n    box-shadow: 0 5px 14px rgba(20, 49, 35, 0.08);\n  }\n\n  @media (hover: hover) {\n    .card-clickable:hover {\n      transform: translateY(-2px);\n      box-shadow: 0 14px 34px rgba(20, 49, 35, 0.12);\n    }\n\n    .btn-secondary:hover,\n    .back-btn:hover {\n      background: #ecfff5;\n      color: #06783d;\n    }\n  }\n\n  .card-accent-lime,\n  .card-accent-cyan,\n  .card-accent-coral,\n  .card-accent-purple {\n    border-color: rgba(24, 33, 43, 0.08);\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.1);\n  }\n\n  .title-hero,\n  .title-xl,\n  .title-lg,\n  .title-md {\n    margin: 0;\n    color: #14251c;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-weight: 900;\n    line-height: 1.12;\n    letter-spacing: 0;\n  }\n\n  .title-hero {\n    font-size: clamp(38px, 12vw, 50px);\n    background: linear-gradient(135deg, #07c160 0%, #1677ff 100%);\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n    background-clip: text;\n  }\n\n  .title-xl { font-size: clamp(28px, 8vw, 36px); }\n  .title-lg { font-size: clamp(20px, 5.6vw, 26px); }\n  .title-md { font-size: 15px; }\n\n  .text-sm {\n    margin: 0;\n    color: var(--text-secondary);\n    font-size: 12px;\n    line-height: 1.45;\n    letter-spacing: 0;\n  }\n\n  .text-accent { color: var(--accent-lime); }\n\n  .stats-bar,\n  .draw-stats {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n    gap: 8px;\n    margin-bottom: 24px;\n  }\n\n  .stat-item,\n  .draw-stat {\n    padding: 12px 8px;\n    text-align: center;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.76);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .stat-value,\n  .draw-stat-value,\n  .score-value,\n  .lesson-number,\n  .text-accent {\n    color: var(--accent-lime);\n  }\n\n  .stat-value,\n  .draw-stat-value,\n  .lesson-number,\n  .score-value {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-weight: 900;\n    line-height: 1;\n  }\n\n  .stat-value,\n  .lesson-number { font-size: 34px; }\n  .draw-stat-value { font-size: 24px; }\n\n  .stat-label,\n  .draw-stat-label,\n  .score-label {\n    margin-top: 4px;\n    color: var(--text-secondary);\n    font-size: 10px;\n    line-height: 1.3;\n    letter-spacing: 0;\n  }\n\n  .btn {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    width: 100%;\n    min-height: 50px;\n    padding: 13px 18px;\n    border: 1px solid transparent;\n    border-radius: var(--radius);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 15px;\n    font-weight: 900;\n    letter-spacing: 0;\n    text-decoration: none;\n    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .btn-primary {\n    background: linear-gradient(135deg, #07c160, #0aa75a);\n    color: #fff;\n    box-shadow: 0 10px 22px rgba(7, 193, 96, 0.24);\n  }\n\n  .btn-secondary {\n    background: #ffffff;\n    color: #1677ff;\n    border-color: rgba(22, 119, 255, 0.16);\n  }\n\n  .btn-coral {\n    background: #fff1f0;\n    color: #cf2b2b;\n    border-color: #ffd2cf;\n  }\n\n  .btn:disabled {\n    opacity: 0.45;\n    cursor: not-allowed;\n  }\n\n  .hanzi-display {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'SimSun', sans-serif;\n    font-weight: 900;\n  }\n\n  .hanzi-hero {\n    padding: 16px;\n    font-size: clamp(96px, 28vw, 128px);\n    line-height: 1;\n    text-align: center;\n    animation: hanziFloat 5s ease-in-out infinite;\n  }\n\n  .hanzi-xl {\n    padding: 12px;\n    font-size: clamp(60px, 18vw, 84px);\n    line-height: 1;\n    text-align: center;\n  }\n\n  .hanzi-word {\n    max-width: 100%;\n    font-size: clamp(46px, 14vw, 88px);\n    line-height: 1.05;\n    overflow-wrap: anywhere;\n  }\n\n  .hanzi-lg { font-size: clamp(48px, 14vw, 64px); line-height: 1; }\n  .hanzi-md { font-size: clamp(28px, 8vw, 36px); line-height: 1; }\n\n  .progress-bar {\n    width: 100%;\n    height: 8px;\n    margin: 16px 0;\n    overflow: hidden;\n    border-radius: 999px;\n    background: #e3ebe7;\n  }\n\n  .progress-fill {\n    height: 100%;\n    border-radius: 999px;\n    background: linear-gradient(90deg, #07c160, #1677ff);\n    transition: width 0.4s ease-out;\n  }\n\n  .menu-grid {\n    display: grid;\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n    gap: 10px;\n  }\n\n  .menu-item {\n    min-height: 112px;\n    padding: 16px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 10px;\n  }\n\n  .menu-icon {\n    width: 52px;\n    height: 52px;\n    display: grid;\n    place-items: center;\n    border-radius: 16px;\n    background: linear-gradient(135deg, rgba(7, 193, 96, 0.14), rgba(22, 119, 255, 0.14));\n    font-size: 28px;\n  }\n\n  .menu-label {\n    font-size: 13px;\n    font-weight: 900;\n  }\n\n  .streak-badge {\n    display: inline-flex;\n    align-items: center;\n    gap: 6px;\n    padding: 8px 14px;\n    border: 1px solid #ffe2a8;\n    border-radius: var(--radius);\n    background: #fff7e6;\n    color: #9a6400;\n    font-size: 15px;\n    font-weight: 900;\n  }\n\n  .canvas-container,\n  .hanzi-writer-container {\n    position: relative;\n    width: 100%;\n    aspect-ratio: 1;\n    margin: 16px 0;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: #fff;\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n    touch-action: none;\n    -webkit-touch-callout: none;\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .drawing-canvas {\n    width: 100%;\n    height: 100%;\n    display: block;\n    touch-action: none;\n  }\n\n  .canvas-guide {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    color: rgba(7, 193, 96, 0.1);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: clamp(150px, 45vw, 200px);\n    font-weight: 900;\n    line-height: 1;\n    pointer-events: none;\n    user-select: none;\n  }\n\n  .canvas-controls,\n  .nav-actions {\n    display: flex;\n    gap: 10px;\n  }\n\n  .canvas-controls .btn,\n  .nav-actions .btn {\n    flex: 1;\n  }\n\n  .draw-mode-selector {\n    display: flex;\n    gap: 8px;\n    margin-bottom: 16px;\n  }\n\n  .draw-mode-btn {\n    flex: 1;\n    min-height: 46px;\n    padding: 10px 8px;\n    border: 0;\n    border-radius: var(--radius);\n    background: transparent;\n    color: #65737d;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 900;\n    letter-spacing: 0;\n    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);\n  }\n\n  .draw-mode-btn.active {\n    background: #07c160;\n    color: #fff;\n    box-shadow: 0 7px 16px rgba(7, 193, 96, 0.2);\n  }\n\n  .hanzi-writer-container {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n\n  .hanzi-writer-container svg {\n    width: 100% !important;\n    height: 100% !important;\n  }\n\n  .stroke-counter {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 12px;\n    margin: 12px 0;\n    font-size: 14px;\n  }\n\n  .stroke-dot {\n    width: 12px;\n    height: 12px;\n    border-radius: 50%;\n    background: #d8e6df;\n    transition: all 0.2s ease;\n  }\n\n  .stroke-dot.completed { background: #07c160; }\n  .stroke-dot.current { background: #1677ff; transform: scale(1.3); }\n  .stroke-dot.error { background: #f24848; }\n\n  .draw-feedback {\n    position: absolute;\n    left: 12px;\n    right: 12px;\n    bottom: 12px;\n    z-index: 5;\n    padding: 12px;\n    border: 1px solid;\n    border-radius: var(--radius);\n    text-align: center;\n    font-size: 15px;\n    font-weight: 900;\n    pointer-events: none;\n    animation: feedbackPop 0.3s ease-out;\n  }\n\n  .draw-feedback.success {\n    background: #e8fff3;\n    color: #087541;\n    border-color: #b7f1d2;\n  }\n\n  .draw-feedback.error {\n    background: #fff1f0;\n    color: #cf2b2b;\n    border-color: #ffd2cf;\n  }\n\n  .quiz-question {\n    margin: 10px 0 14px;\n    padding: 24px 16px;\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.78);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n    text-align: center;\n  }\n\n  .quiz-options {\n    display: grid;\n    gap: 12px;\n  }\n\n  .quiz-option {\n    padding: 15px 16px;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: #fff;\n    color: var(--text-primary);\n    box-shadow: 0 8px 18px rgba(20, 49, 35, 0.06);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 15px;\n    text-align: left;\n    transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .quiz-option:active:not(.disabled) { transform: scale(0.985); }\n  .quiz-option.correct { background: #e8fff3; color: #087541; border-color: #b7f1d2; animation: correctPop 0.35s ease-out; }\n  .quiz-option.incorrect { background: #fff1f0; color: #cf2b2b; border-color: #ffd2cf; animation: incorrectShake 0.35s ease-out; }\n  .quiz-option.disabled { pointer-events: none; cursor: default; }\n\n  .quiz-feedback {\n    margin-top: 16px;\n    padding: 14px;\n    border: 1px solid rgba(22, 119, 255, 0.16);\n    border-radius: var(--radius);\n    background: #f0f7ff;\n    color: #17344d;\n    font-size: 13px;\n  }\n\n  .quiz-feedback strong { color: var(--accent-lime); }\n  .quiz-feedback .pinyin-display { margin-top: 6px; font-size: 22px; }\n\n  .flashcard {\n    min-height: 280px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    cursor: pointer;\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .flashcard-hint {\n    margin-top: 16px;\n    color: var(--text-secondary);\n    font-size: 12px;\n    animation: hintPulse 2s ease-in-out infinite;\n  }\n\n  .material-example {\n    max-width: min(100%, 520px);\n    margin: 14px auto 0;\n    color: var(--text-secondary);\n    font-size: 14px;\n    line-height: 1.55;\n  }\n\n  .pinyin-display {\n    margin-top: 12px;\n    color: var(--accent-cyan);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: clamp(22px, 6vw, 28px);\n    font-weight: 700;\n  }\n\n  .meaning-display {\n    margin-top: 8px;\n    color: var(--text-secondary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: clamp(16px, 4.5vw, 20px);\n  }\n\n  .nav-actions { margin-top: 20px; }\n\n  .results-display {\n    padding: 32px 0;\n    text-align: center;\n  }\n\n  .score-circle {\n    width: clamp(140px, 40vw, 170px);\n    height: clamp(140px, 40vw, 170px);\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    margin: 0 auto 24px;\n    border: 6px solid var(--accent-lime);\n    border-radius: 50%;\n    box-shadow: 0 0 30px rgba(7, 193, 96, 0.18);\n  }\n\n  .score-value { font-size: clamp(48px, 14vw, 60px); }\n\n  .char-grid {\n    display: grid;\n    grid-template-columns: repeat(5, minmax(0, 1fr));\n    gap: 6px;\n    margin-top: 16px;\n  }\n\n  @media (min-width: 400px) {\n    .char-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }\n  }\n\n  .char-item {\n    aspect-ratio: 1;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    border-radius: 6px;\n    background: #edf3ef;\n    color: #1d2c35;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: clamp(16px, 4.5vw, 20px);\n    font-weight: 700;\n    transition: transform var(--transition-fast);\n  }\n\n  .char-item.mastered { background: #07c160; color: #fff; }\n  .char-item.learning { background: #1677ff; color: #fff; }\n\n  .backup-buttons {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 12px;\n  }\n\n  .backup-buttons .btn {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n\n  .offline-pack-card {\n    display: grid;\n    grid-template-columns: auto minmax(0, 1fr);\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    border: 1px solid rgba(7, 193, 96, 0.1);\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(232, 255, 243, 0.94));\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);\n  }\n\n  .offline-pack-icon {\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    color: #fff;\n    box-shadow: 0 10px 22px rgba(7, 193, 96, 0.18);\n  }\n\n  .offline-pack-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .offline-pack-copy {\n    min-width: 0;\n  }\n\n  .offline-pack-copy .text-sm {\n    margin-top: 4px;\n  }\n\n  .offline-download-button,\n  .offline-ready-pill {\n    grid-column: 1 / -1;\n  }\n\n  .offline-download-button {\n    gap: 8px;\n    text-decoration: none;\n  }\n\n  .offline-download-button svg {\n    width: 19px;\n    height: 19px;\n  }\n\n  .offline-ready-pill {\n    min-height: 42px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #078447;\n    font-size: 13px;\n    font-weight: 900;\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.14);\n  }\n\n  .section-title {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    margin: 28px 0 16px;\n  }\n\n  .section-line {\n    flex: 1;\n    height: 1px;\n    background: linear-gradient(90deg, rgba(7, 193, 96, 0.35), transparent);\n  }\n\n  .lesson-card {\n    display: flex;\n    align-items: center;\n    gap: 16px;\n  }\n\n  .lesson-number {\n    min-width: 70px;\n    text-align: center;\n  }\n\n  .lesson-info {\n    flex: 1;\n    min-width: 0;\n  }\n\n  .floating-indicator {\n    position: fixed;\n    left: 50%;\n    bottom: calc(24px + env(safe-area-inset-bottom, 0px));\n    z-index: 100;\n    transform: translateX(-50%);\n    padding: 14px 28px;\n    border: 1px solid rgba(7, 193, 96, 0.2);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.96);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n    animation: floatIn 0.4s cubic-bezier(0.2, 0.9, 0.2, 1.2);\n  }\n\n  @keyframes hanziFloat {\n    0%, 100% { transform: translateY(0) rotate(-1deg); }\n    50% { transform: translateY(-8px) rotate(1deg); }\n  }\n\n  @keyframes feedbackPop {\n    0% { transform: scale(0.9); opacity: 0; }\n    100% { transform: scale(1); opacity: 1; }\n  }\n\n  @keyframes correctPop {\n    0% { transform: scale(1); }\n    50% { transform: scale(1.03); }\n    100% { transform: scale(1); }\n  }\n\n  @keyframes incorrectShake {\n    0%, 100% { transform: translateX(0); }\n    20% { transform: translateX(-8px); }\n    40% { transform: translateX(8px); }\n    60% { transform: translateX(-4px); }\n    80% { transform: translateX(4px); }\n  }\n\n  @keyframes hintPulse {\n    0%, 100% { opacity: 1; }\n    50% { opacity: 0.4; }\n  }\n\n  @keyframes floatIn {\n    0% { transform: translateX(-50%) translateY(80px); opacity: 0; }\n    100% { transform: translateX(-50%) translateY(0); opacity: 1; }\n  }\n\n  /* ===== UTILITY ANIMATIONS ===== */\n  @keyframes slideUp {\n    from { opacity: 0; transform: translateY(20px); }\n    to { opacity: 1; transform: translateY(0); }\n  }\n\n  .animate-slide-up {\n    animation: slideUp 0.35s ease-out;\n  }\n\n  /* ===== CHINESE SUPER-APP THEME ===== */\n  :root {\n    --bg-primary: #f5f7f6;\n    --bg-secondary: #eef7f3;\n    --bg-card: #ffffff;\n    --accent-lime: #07c160;\n    --accent-coral: #f24848;\n    --accent-cyan: #1677ff;\n    --accent-purple: #d99a18;\n    --text-primary: #18212b;\n    --text-secondary: #697780;\n    --border-width: 1px;\n    --border-color: #dce7e2;\n    --radius: 8px;\n    --shadow-offset: 0px;\n    --transition-fast: 0.18s ease;\n    --transition-bounce: 0.38s cubic-bezier(0.2, 0.9, 0.2, 1.2);\n  }\n\n  body {\n    background:\n      linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 36%, #f7f8fb 100%);\n    color: var(--text-primary);\n    overflow-x: hidden;\n  }\n\n  html,\n  body,\n  #root {\n    width: 100%;\n    max-width: 100%;\n    overflow-x: hidden;\n    overflow-anchor: none;\n  }\n\n  .app-container {\n    background:\n      radial-gradient(circle at 18% 8%, rgba(7, 193, 96, 0.16), transparent 28%),\n      radial-gradient(circle at 86% 12%, rgba(22, 119, 255, 0.14), transparent 24%),\n      linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 42%, #f9faf8 100%);\n    color: var(--text-primary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n    max-width: 100vw;\n  }\n\n  .screen {\n    width: min(calc(100vw - 24px), 460px);\n    box-sizing: border-box;\n    max-width: 460px;\n    margin: 0 auto;\n    padding: 18px;\n    padding-bottom: calc(92px + env(safe-area-inset-bottom, 20px));\n  }\n\n  .screen *,\n  .app-bottom-nav,\n  .app-bottom-nav * {\n    box-sizing: border-box;\n  }\n\n  @media (min-width: 768px) {\n    .screen {\n      max-width: 480px;\n      padding: 24px;\n      padding-bottom: 110px;\n    }\n  }\n\n  .screen::before {\n    content: \"汉\";\n    position: fixed;\n    top: 76px;\n    right: max(12px, calc((100vw - 460px) / 2 - 24px));\n    z-index: 0;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 116px;\n    font-weight: 900;\n    color: rgba(7, 193, 96, 0.06);\n    animation: characterDrift 7s ease-in-out infinite;\n    pointer-events: none;\n  }\n\n  .screen > * {\n    position: relative;\n    z-index: 1;\n  }\n\n  .header {\n    padding: 10px 0 14px;\n    margin-bottom: 10px;\n  }\n\n  .logo {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    color: #0d1f17;\n    font-size: 30px;\n    letter-spacing: 0;\n    text-shadow: none;\n    transform: none;\n  }\n\n  .logo::after {\n    content: \"Master\";\n    padding: 4px 9px;\n    border-radius: 999px;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    color: #fff;\n    font-family: 'Segoe UI', Arial, sans-serif;\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  .streak-badge,\n  .back-btn,\n  .btn,\n  .draw-mode-btn,\n  .quiz-option {\n    border-radius: var(--radius);\n    letter-spacing: 0;\n    box-shadow: none;\n  }\n\n  .back-btn {\n    background: rgba(255, 255, 255, 0.82);\n    color: var(--text-primary);\n    border-color: rgba(7, 193, 96, 0.2);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 800;\n  }\n\n  .card,\n  .stat-item,\n  .draw-stat,\n  .hanzi-writer-container,\n  .canvas-container,\n  .quiz-option,\n  .floating-indicator {\n    border-color: rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .card {\n    background: rgba(255, 255, 255, 0.94);\n    padding: 18px;\n    margin-bottom: 14px;\n    overflow: hidden;\n  }\n\n  .card::before {\n    content: \"\";\n    position: absolute;\n    inset: 0 0 auto 0;\n    height: 3px;\n    background: linear-gradient(90deg, #07c160, #1677ff, #d99a18);\n    opacity: 0;\n    transition: opacity var(--transition-fast);\n  }\n\n  .card-clickable:hover::before,\n  .card-accent-lime::before,\n  .card-accent-cyan::before,\n  .card-accent-coral::before,\n  .card-accent-purple::before {\n    opacity: 1;\n  }\n\n  .card-clickable:active,\n  .btn:active,\n  .back-btn:active {\n    transform: scale(0.985);\n    box-shadow: 0 5px 14px rgba(20, 49, 35, 0.08);\n  }\n\n  @media (hover: hover) {\n    .card-clickable:hover {\n      transform: translateY(-2px);\n      box-shadow: 0 14px 34px rgba(20, 49, 35, 0.12);\n    }\n\n    .btn-secondary:hover,\n    .back-btn:hover {\n      background: #ecfff5;\n      color: #06783d;\n    }\n  }\n\n  .card-accent-lime,\n  .card-accent-cyan,\n  .card-accent-coral,\n  .card-accent-purple {\n    border-color: rgba(24, 33, 43, 0.08);\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.1);\n  }\n\n  .title-hero {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 44px;\n    letter-spacing: 0;\n    background: linear-gradient(135deg, #07c160 0%, #1677ff 100%);\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n    background-clip: text;\n  }\n\n  .title-xl {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 32px;\n    letter-spacing: 0;\n  }\n\n  .title-lg {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 22px;\n    letter-spacing: 0;\n  }\n\n  .title-md,\n  .menu-label,\n  .stat-label,\n  .draw-stat-label,\n  .score-label,\n  .text-sm {\n    letter-spacing: 0;\n  }\n\n  .text-sm {\n    font-size: 12px;\n    color: var(--text-secondary);\n  }\n\n  .progress-bar {\n    height: 8px;\n    border: none;\n    border-radius: 999px;\n    background: #e3ebe7;\n  }\n\n  .progress-fill {\n    border-radius: 999px;\n    background: linear-gradient(90deg, #07c160, #1677ff);\n  }\n\n  .stats-bar {\n    gap: 8px;\n  }\n\n  .stat-item {\n    background: rgba(255, 255, 255, 0.76);\n    padding: 12px 8px;\n  }\n\n  .stat-value,\n  .draw-stat-value,\n  .score-value,\n  .lesson-number,\n  .text-accent {\n    color: #07c160;\n  }\n\n  .stat-value,\n  .lesson-number,\n  .score-value {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 34px;\n  }\n\n  .menu-grid {\n    grid-template-columns: repeat(2, 1fr);\n    gap: 10px;\n  }\n\n  .menu-item {\n    min-height: 112px;\n    padding: 16px;\n    flex-direction: column;\n    justify-content: center;\n    gap: 10px;\n    background:\n      linear-gradient(180deg, rgba(255,255,255,0.94), rgba(250,253,252,0.94));\n  }\n\n  .menu-icon {\n    width: 52px;\n    height: 52px;\n    display: grid;\n    place-items: center;\n    border-radius: 16px;\n    background: linear-gradient(135deg, rgba(7, 193, 96, 0.14), rgba(22, 119, 255, 0.14));\n    font-size: 28px;\n    animation: iconBreathe 4s ease-in-out infinite;\n  }\n\n  .menu-label {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 13px;\n    font-weight: 900;\n    color: #1d2c35;\n  }\n\n  .btn {\n    min-height: 50px;\n    border: none;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 15px;\n    font-weight: 900;\n  }\n\n  .btn-primary {\n    background: linear-gradient(135deg, #07c160, #0aa75a);\n    color: #fff;\n    box-shadow: 0 10px 22px rgba(7, 193, 96, 0.24);\n  }\n\n  .btn-secondary {\n    background: #ffffff;\n    color: #1677ff;\n    border: 1px solid rgba(22, 119, 255, 0.16);\n  }\n\n  .btn-coral,\n  .quiz-option.incorrect,\n  .draw-feedback.error {\n    background: #fff1f0;\n    color: #cf2b2b;\n    border-color: #ffd2cf;\n  }\n\n  .hanzi-display {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'SimSun', sans-serif;\n  }\n\n  .hanzi-hero {\n    font-size: 116px;\n    color: #07c160;\n    animation: hanziFloat 5s ease-in-out infinite;\n  }\n\n  .hanzi-xl {\n    font-size: 78px;\n  }\n\n  .hanzi-word {\n    font-size: 80px;\n  }\n\n  .pinyin-display {\n    color: #1677ff;\n  }\n\n  .meaning-display {\n    color: #5b6973;\n  }\n\n  .section-title {\n    margin: 24px 0 12px;\n  }\n\n  .section-line {\n    height: 1px;\n    background: linear-gradient(90deg, rgba(7, 193, 96, 0.35), transparent);\n  }\n\n  .lesson-card {\n    gap: 14px;\n  }\n\n  .lesson-number {\n    min-width: 58px;\n  }\n\n  .draw-mode-selector {\n    padding: 4px;\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.74);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.06);\n  }\n\n  .draw-mode-btn {\n    border: none;\n    background: transparent;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-weight: 900;\n    color: #65737d;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 6px;\n  }\n\n  .draw-mode-btn svg {\n    width: 18px;\n    height: 18px;\n  }\n\n  .hanzi-writer-container .text-sm + svg,\n  .hanzi-writer-container svg:first-child {\n    max-width: 100%;\n  }\n\n  .hanzi-writer-container > div[style*=\"position: absolute\"] svg {\n    width: 46px;\n    height: 46px;\n  }\n\n  .draw-mode-btn.active {\n    background: #07c160;\n    color: #fff;\n    box-shadow: 0 7px 16px rgba(7, 193, 96, 0.2);\n  }\n\n  .hanzi-writer-container {\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.04), rgba(22, 119, 255, 0.04)),\n      #fff;\n  }\n\n  .stroke-dot {\n    border: none;\n    background: #d8e6df;\n  }\n\n  .stroke-dot.completed,\n  .draw-feedback.success,\n  .quiz-option.correct {\n    background: #e8fff3;\n    color: #087541;\n    border-color: #b7f1d2;\n  }\n\n  .stroke-dot.current {\n    background: #1677ff;\n  }\n\n  .draw-stat {\n    background: rgba(255, 255, 255, 0.76);\n  }\n\n  .quiz-question {\n    margin: 10px 0 14px;\n    padding: 24px 16px;\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.78);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .quiz-option {\n    padding: 15px 16px;\n    background: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    box-shadow: 0 8px 18px rgba(20, 49, 35, 0.06);\n  }\n\n  .quiz-feedback {\n    border-radius: var(--radius);\n    border-color: rgba(22, 119, 255, 0.16);\n    background: #f0f7ff;\n    color: #17344d;\n  }\n\n  .flashcard {\n    min-height: 310px;\n    background:\n      radial-gradient(circle at 50% 24%, rgba(7, 193, 96, 0.13), transparent 35%),\n      #fff;\n  }\n\n  .flashcard-hint {\n    color: #84929a;\n  }\n\n  .char-item {\n    border: none;\n    border-radius: 6px;\n    background: #edf3ef;\n  }\n\n  .char-item.mastered {\n    background: #07c160;\n    color: #fff;\n  }\n\n  .char-item.learning {\n    background: #1677ff;\n    color: #fff;\n  }\n\n  .streak-badge {\n    background: #fff7e6;\n    color: #9a6400;\n    border: 1px solid #ffe2a8;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n  }\n\n  .floating-indicator {\n    background: rgba(255, 255, 255, 0.96);\n    border-color: rgba(7, 193, 96, 0.2);\n  }\n\n  .app-mascot {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    margin-bottom: 14px;\n    border-radius: var(--radius);\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.12), rgba(22, 119, 255, 0.1)),\n      rgba(255, 255, 255, 0.82);\n    box-shadow: 0 10px 24px rgba(20, 49, 35, 0.08);\n    animation: slideUp 0.35s ease-out;\n  }\n\n  .app-mascot-face {\n    width: 58px;\n    height: 58px;\n    display: grid;\n    place-items: center;\n    border-radius: 18px;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    color: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 34px;\n    font-weight: 900;\n    box-shadow: 0 10px 18px rgba(7, 193, 96, 0.24);\n    animation: mascotPulse 3.4s ease-in-out infinite;\n  }\n\n  .app-mascot-title {\n    margin: 0 0 2px;\n    font-size: 15px;\n    font-weight: 900;\n    color: #1d2c35;\n  }\n\n  .app-mascot-subtitle {\n    margin: 0;\n    font-size: 12px;\n    color: #5f6e77;\n  }\n\n  @keyframes characterDrift {\n    0%, 100% { transform: translateY(0) rotate(-5deg); }\n    50% { transform: translateY(18px) rotate(3deg); }\n  }\n\n  @keyframes iconBreathe {\n    0%, 100% { transform: translateY(0) scale(1); }\n    50% { transform: translateY(-3px) scale(1.04); }\n  }\n\n  @keyframes mascotPulse {\n    0%, 100% { transform: scale(1); }\n    50% { transform: scale(1.05); }\n  }\n\n  @media (prefers-reduced-motion: reduce) {\n    *, *::before, *::after {\n      animation-duration: 0.001ms !important;\n      animation-iteration-count: 1 !important;\n      transition-duration: 0.001ms !important;\n    }\n  }\n\n  /* ===== UTILITY ANIMATIONS ===== */\n  @keyframes slideUp {\n    from { opacity: 0; transform: translateY(20px); }\n    to { opacity: 1; transform: translateY(0); }\n  }\n\n  .animate-slide-up {\n    animation: slideUp 0.35s ease-out;\n  }\n\n  /* ===== FULL PRODUCT REDESIGN ===== */\n  .app-container {\n    position: relative;\n    min-height: 100vh;\n    overflow-anchor: none;\n  }\n\n  .screen {\n    padding-top: 22px;\n    padding-bottom: calc(118px + env(safe-area-inset-bottom, 20px));\n    overflow-anchor: none;\n  }\n\n  .app-container::before {\n    content: \"\";\n    position: fixed;\n    inset: 0;\n    background:\n      linear-gradient(180deg, rgba(7, 193, 96, 0.12), transparent 220px),\n      repeating-linear-gradient(135deg, rgba(7, 193, 96, 0.025) 0 1px, transparent 1px 18px);\n    pointer-events: none;\n  }\n\n  .super-topbar {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    margin-bottom: 14px;\n  }\n\n  .brand-lockup {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    min-width: 0;\n  }\n\n  .brand-lockup > div {\n    min-width: 0;\n  }\n\n  .brand-mark {\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: transparent;\n  }\n\n  .hanzi-logo-svg {\n    width: 58px;\n    height: 58px;\n    filter: drop-shadow(0 12px 22px rgba(7, 193, 96, 0.22));\n  }\n\n  .header-logo-mark {\n    width: 40px;\n    height: 40px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n  }\n\n  .header-logo-mark .hanzi-logo-svg {\n    width: 42px;\n    height: 42px;\n    filter: drop-shadow(0 8px 14px rgba(7, 193, 96, 0.18));\n  }\n\n  .brand-title {\n    margin: 0;\n    font-size: 20px;\n    line-height: 1;\n    font-weight: 900;\n    color: #14251c;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .brand-subtitle {\n    margin: 4px 0 0;\n    color: #6c7a73;\n    font-size: 12px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .daily-chip {\n    display: flex;\n    align-items: center;\n    gap: 6px;\n    min-height: 34px;\n    padding: 0 11px;\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.86);\n    border: 1px solid rgba(217, 154, 24, 0.22);\n    color: #9a6400;\n    font-weight: 900;\n    box-shadow: 0 8px 20px rgba(154, 100, 0, 0.08);\n  }\n\n  .topbar-actions {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    flex-shrink: 0;\n  }\n\n  .language-toggle {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 2px;\n    min-height: 34px;\n    padding: 3px;\n    border: 1px solid rgba(7, 193, 96, 0.14);\n    border-radius: 8px;\n    background: rgba(255,255,255,0.82);\n    box-shadow: 0 8px 20px rgba(20, 49, 35, 0.07);\n  }\n\n  .language-toggle button {\n    min-width: 38px;\n    padding: 0 8px;\n    border-radius: 6px;\n    color: #687870;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .language-toggle button.active {\n    background: #07c160;\n    color: #fff;\n  }\n\n  .guide-toggle,\n  .sound-toggle {\n    width: 34px;\n    height: 34px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255,255,255,0.82);\n    color: #687870;\n    box-shadow: 0 8px 20px rgba(20, 49, 35, 0.07);\n    transition: transform var(--transition-fast), color var(--transition-fast), background var(--transition-fast);\n  }\n\n  .guide-toggle {\n    color: #07a653;\n    background: #e8fff3;\n    border-color: rgba(7, 193, 96, 0.16);\n  }\n\n  .guide-toggle svg,\n  .sound-toggle svg {\n    width: 18px;\n    height: 18px;\n  }\n\n  .sound-toggle.active {\n    background: #07c160;\n    color: #fff;\n  }\n\n  .ambience-toggle {\n    color: #9a6400;\n  }\n\n  .ambience-toggle.active {\n    background: #d99a18;\n    color: #fff;\n    box-shadow: 0 10px 24px rgba(217, 154, 24, 0.2);\n  }\n\n  .guide-toggle:active,\n  .sound-toggle:active {\n    transform: scale(0.96);\n  }\n\n  @media (max-width: 380px) {\n    .super-topbar {\n      gap: 8px;\n    }\n\n    .topbar-actions {\n      gap: 6px;\n    }\n\n    .language-toggle button {\n      min-width: 32px;\n      padding: 0 6px;\n    }\n\n    .guide-toggle,\n    .sound-toggle {\n      width: 32px;\n      height: 32px;\n    }\n\n    .daily-chip {\n      padding: 0 8px;\n    }\n  }\n\n  @media (max-width: 520px) {\n    .super-topbar {\n      gap: 8px;\n    }\n\n    .brand-lockup {\n      gap: 7px;\n      flex: 1 1 auto;\n      max-width: calc(100% - 162px);\n    }\n\n    .brand-mark {\n      width: 38px;\n      height: 38px;\n      flex: 0 0 auto;\n    }\n\n    .hanzi-logo-svg {\n      width: 48px;\n      height: 48px;\n    }\n\n    .brand-title {\n      max-width: 114px;\n      font-size: 15px;\n    }\n\n    .brand-subtitle {\n      display: none;\n    }\n\n    .topbar-actions {\n      gap: 5px;\n    }\n\n    .language-toggle {\n      min-height: 28px;\n      padding: 2px;\n    }\n\n    .language-toggle button {\n      min-width: 27px;\n      padding: 0 5px;\n      font-size: 10px;\n    }\n\n    .guide-toggle,\n    .sound-toggle {\n      width: 28px;\n      height: 28px;\n    }\n\n    .guide-toggle svg,\n    .sound-toggle svg {\n      width: 16px;\n      height: 16px;\n    }\n\n    .super-topbar .daily-chip {\n      display: none;\n    }\n  }\n\n  .wallet-card {\n    position: relative;\n    min-height: 188px;\n    padding: 20px;\n    border-radius: 8px;\n    overflow: hidden;\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.96), rgba(22, 119, 255, 0.88)),\n      #07c160;\n    color: #fff;\n    box-shadow: 0 18px 40px rgba(7, 193, 96, 0.24);\n    animation: walletEnter 0.48s ease-out;\n  }\n\n  .wallet-card::before {\n    content: \"学\";\n    position: absolute;\n    right: -10px;\n    top: -28px;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 180px;\n    font-weight: 900;\n    color: rgba(255,255,255,0.11);\n    line-height: 1;\n  }\n\n  .wallet-card::after {\n    content: \"\";\n    position: absolute;\n    left: 20px;\n    right: 20px;\n    bottom: 18px;\n    height: 1px;\n    background: rgba(255,255,255,0.28);\n  }\n\n  .wallet-label {\n    margin: 0;\n    color: rgba(255,255,255,0.78);\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  .wallet-score {\n    margin: 8px 0 16px;\n    font-size: 56px;\n    line-height: 0.9;\n    font-weight: 900;\n    letter-spacing: -1px;\n  }\n\n  .wallet-card .progress-bar {\n    background: rgba(255,255,255,0.25);\n  }\n\n  .wallet-card .progress-fill {\n    background: #fff;\n  }\n\n  .wallet-meta {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    margin-top: 12px;\n    color: rgba(255,255,255,0.86);\n    font-size: 12px;\n  }\n\n  .wallet-seal {\n    display: grid;\n    place-items: center;\n    width: 44px;\n    height: 44px;\n    border: 1px solid rgba(255,255,255,0.36);\n    border-radius: 8px;\n    color: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 24px;\n    font-weight: 900;\n  }\n\n  .daily-entry-card {\n    position: relative;\n    display: grid;\n    gap: 12px;\n    margin: 14px 0 16px;\n    padding: 14px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.96), rgba(232, 255, 243, 0.92));\n    border: 1px solid rgba(7, 193, 96, 0.12);\n    box-shadow: 0 14px 34px rgba(20, 49, 35, 0.09);\n    cursor: pointer;\n    overflow: hidden;\n  }\n\n  .daily-entry-card::after {\n    content: \"练\";\n    position: absolute;\n    right: -4px;\n    bottom: -24px;\n    color: rgba(7, 193, 96, 0.07);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 104px;\n    font-weight: 900;\n    line-height: 1;\n  }\n\n  .daily-entry-main {\n    position: relative;\n    z-index: 1;\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 10px;\n    align-items: center;\n  }\n\n  .daily-entry-icon {\n    width: 42px;\n    height: 42px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    color: #fff;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    box-shadow: 0 10px 20px rgba(7, 193, 96, 0.18);\n  }\n\n  .daily-entry-kicker {\n    margin: 0 0 2px;\n    color: #07a653;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .daily-entry-title {\n    margin: 0;\n    color: #14251c;\n    font-size: 16px;\n    font-weight: 900;\n    line-height: 1.2;\n  }\n\n  .daily-entry-strip {\n    position: relative;\n    z-index: 1;\n    display: flex;\n    gap: 6px;\n    overflow: hidden;\n  }\n\n  .daily-entry-char {\n    width: 36px;\n    height: 36px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n    border-radius: 8px;\n    background: #fff;\n    color: #07a653;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 22px;\n    font-weight: 900;\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.08);\n  }\n\n  .daily-entry-meta {\n    position: relative;\n    z-index: 1;\n    display: flex;\n    gap: 8px;\n    color: #687870;\n    font-size: 11px;\n    font-weight: 800;\n  }\n\n  .quick-lane {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 8px;\n    margin: 14px 0 20px;\n  }\n\n  .quick-action {\n    min-width: 0;\n    min-height: 82px;\n    padding: 0 4px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 8px;\n    border: 0;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.92);\n    color: #1c2b34;\n    box-shadow: 0 10px 26px rgba(20, 49, 35, 0.08);\n    font-weight: 900;\n    transition: transform 0.18s ease, box-shadow 0.18s ease;\n  }\n\n  .quick-action:active {\n    transform: translateY(2px) scale(0.98);\n  }\n\n  .quick-action-icon {\n    width: 38px;\n    height: 38px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n  }\n\n  .quick-action-icon svg,\n  .bottom-nav-icon svg {\n    width: 22px;\n    height: 22px;\n  }\n\n  .quick-action:nth-child(2) .quick-action-icon {\n    background: #eef5ff;\n  }\n\n  .quick-action:nth-child(3) .quick-action-icon {\n    background: #fff4e0;\n  }\n\n  .quick-action:nth-child(4) .quick-action-icon {\n    background: #fff0f0;\n  }\n\n  .quick-action-label {\n    font-size: 11px;\n  }\n\n  .insight-panel {\n    display: grid;\n    grid-template-columns: 1fr auto;\n    gap: 12px;\n    align-items: center;\n    padding: 16px;\n    margin-bottom: 18px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.96), rgba(240, 255, 248, 0.96));\n    box-shadow: 0 12px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .insight-title {\n    margin: 0 0 4px;\n    font-weight: 900;\n    color: #152820;\n  }\n\n  .insight-copy {\n    margin: 0;\n    color: #66756e;\n    font-size: 12px;\n  }\n\n  .insight-character {\n    width: 54px;\n    height: 54px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #121f18;\n    color: #07c160;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 32px;\n    font-weight: 900;\n    animation: characterBlink 4.2s ease-in-out infinite;\n  }\n\n  .app-bottom-nav {\n    position: fixed;\n    left: 50%;\n    bottom: calc(12px + env(safe-area-inset-bottom, 0px));\n    z-index: 200;\n    width: min(440px, calc(100vw - 24px));\n    max-width: calc(100vw - 24px);\n    display: grid;\n    grid-template-columns: repeat(5, 1fr);\n    gap: 4px;\n    padding: 8px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.92);\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    box-shadow: 0 18px 50px rgba(20, 49, 35, 0.18);\n    transform: translateX(-50%);\n    backdrop-filter: blur(16px);\n  }\n\n  .bottom-nav-item {\n    min-width: 0;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 3px;\n    padding: 7px 2px;\n    border: 0;\n    border-radius: 8px;\n    background: transparent;\n    color: #728078;\n    font-size: 10px;\n    font-weight: 900;\n  }\n\n  .bottom-nav-item.active {\n    background: #e8fff3;\n    color: #07a653;\n  }\n\n  .bottom-nav-icon {\n    font-size: 18px;\n    line-height: 1;\n  }\n\n  .menu-grid {\n    display: none;\n  }\n\n  .stats-bar {\n    margin-top: 12px;\n  }\n\n  .card {\n    border: none;\n  }\n\n  .section-title {\n    margin-top: 22px;\n  }\n\n  .header {\n    min-height: 54px;\n    padding: 0;\n    margin-bottom: 14px;\n  }\n\n  .header .logo {\n    font-size: 24px;\n  }\n\n  .header .logo::after {\n    content: \"学\";\n    width: 22px;\n    height: 22px;\n    padding: 0;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    font-size: 12px;\n  }\n\n  .screen > .title-xl {\n    margin-top: 4px;\n  }\n\n  .lesson-card {\n    min-height: 82px;\n  }\n\n  .lesson-number {\n    width: 54px;\n    height: 54px;\n    min-width: 54px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    font-size: 24px;\n  }\n\n  .lesson-info .title-md {\n    font-size: 15px;\n  }\n\n  .lesson-title-line {\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    gap: 4px;\n    min-width: 0;\n  }\n\n  .lesson-title-line .title-md {\n    min-width: 0;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .lesson-chinese-chip {\n    flex: 0 0 auto;\n    max-width: 74px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    padding: 3px 7px;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .flashcard.card {\n    border: 0;\n  }\n\n  .flashcard::before {\n    opacity: 1;\n    height: 0;\n  }\n\n  .flashcard .hanzi-display {\n    color: #07c160 !important;\n  }\n\n  .card[style*=\"text-align: center\"] {\n    background: rgba(255,255,255,0.9);\n  }\n\n  .hanzi-writer-container {\n    border: 1px solid rgba(24, 33, 43, 0.08);\n  }\n\n  .canvas-controls,\n  .nav-actions,\n  .backup-buttons {\n    gap: 10px;\n  }\n\n  .results-display {\n    border-radius: 8px;\n    background: rgba(255,255,255,0.78);\n    box-shadow: 0 12px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .score-circle {\n    border-color: #07c160;\n    box-shadow: 0 0 0 8px rgba(7,193,96,0.08);\n  }\n\n  .char-grid {\n    gap: 8px;\n  }\n\n  .floating-indicator {\n    bottom: calc(98px + env(safe-area-inset-bottom, 0px));\n  }\n\n  .lessons-quick-actions {\n    display: none !important;\n  }\n\n  @keyframes walletEnter {\n    from { opacity: 0; transform: translateY(18px) scale(0.98); }\n    to { opacity: 1; transform: translateY(0) scale(1); }\n  }\n\n  @keyframes characterBlink {\n    0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(7,193,96,0); }\n    50% { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(7,193,96,0.18); }\n  }\n\n  /* ===== DEEP SUPER-APP POLISH ===== */\n  .wallet-card {\n    min-height: 206px;\n    background:\n      radial-gradient(circle at 78% 30%, rgba(255, 255, 255, 0.22), transparent 28%),\n      linear-gradient(135deg, #06b85b 0%, #12c8a1 48%, #1777ff 100%);\n  }\n\n  .wallet-card .progress-bar {\n    height: 7px;\n    margin-top: 22px;\n  }\n\n  .wallet-meta {\n    position: relative;\n    z-index: 1;\n  }\n\n  .wallet-seal {\n    background: rgba(255,255,255,0.12);\n    backdrop-filter: blur(10px);\n  }\n\n  .wallet-brand-mark {\n    position: absolute;\n    z-index: 1;\n    right: 14px;\n    top: 14px;\n    width: 70px;\n    height: 70px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.16);\n    backdrop-filter: blur(10px);\n  }\n\n  .wallet-brand-mark .hanzi-logo-svg {\n    width: 58px;\n    height: 58px;\n    filter: drop-shadow(0 8px 12px rgba(15, 40, 30, 0.18));\n  }\n\n  @media (max-width: 380px) {\n    .wallet-brand-mark {\n      width: 58px;\n      height: 58px;\n      right: 12px;\n      top: 12px;\n    }\n\n    .wallet-brand-mark .hanzi-logo-svg {\n      width: 50px;\n      height: 50px;\n    }\n  }\n\n  .quick-lane {\n    padding: 8px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.64);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.04);\n  }\n\n  .quick-action {\n    min-height: 88px;\n    box-shadow: none;\n  }\n\n  .quick-action-icon {\n    position: relative;\n  }\n\n  .quick-action-icon::after {\n    content: \"\";\n    position: absolute;\n    right: -2px;\n    top: -2px;\n    width: 8px;\n    height: 8px;\n    border-radius: 50%;\n    background: #ffcf33;\n    box-shadow: 0 0 0 2px #fff;\n  }\n\n  .home-metrics .stat-item {\n    background: linear-gradient(180deg, #fff, #f8fffb);\n  }\n\n  .account-entry {\n    display: block;\n    background:\n      linear-gradient(90deg, rgba(255,255,255,0.96), rgba(241, 250, 246, 0.96));\n  }\n\n  .service-section {\n    padding: 10px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.58);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.04);\n  }\n\n  .service-section-head {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 4px 4px 12px;\n    color: #708078;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .service-list {\n    display: grid;\n    gap: 10px;\n  }\n\n  .material-group {\n    display: grid;\n    gap: 8px;\n  }\n\n  .material-group + .material-group {\n    margin-top: 12px;\n  }\n\n  .material-group-head {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 2px 4px;\n    color: #54645c;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .material-group-head span:last-child {\n    color: #91a099;\n  }\n\n  .service-row {\n    margin-bottom: 0;\n    box-shadow: none;\n    background: #fff;\n  }\n\n  .service-row::after {\n    content: \"›\";\n    position: absolute;\n    right: 16px;\n    top: 50%;\n    transform: translateY(-50%);\n    color: #a6b4ad;\n    font-size: 28px;\n    line-height: 1;\n  }\n\n  .service-row .lesson-info {\n    padding-right: 20px;\n  }\n\n  .study-pass-card {\n    min-height: 336px;\n    background:\n      radial-gradient(circle at 50% 18%, rgba(7, 193, 96, 0.18), transparent 38%),\n      linear-gradient(180deg, #fff, #fafffc);\n  }\n\n  .study-pass-card::after {\n    content: \"记\";\n    position: absolute;\n    right: 18px;\n    bottom: 14px;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 64px;\n    color: rgba(7, 193, 96, 0.06);\n    font-weight: 900;\n  }\n\n  .related-service-card {\n    background: #fff;\n  }\n\n  .mini-app-segment {\n    background: rgba(255,255,255,0.78);\n    border: 1px solid rgba(24, 33, 43, 0.06);\n  }\n\n  .draw-prompt-card {\n    display: block;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241, 250, 246, 0.98));\n  }\n\n  .draw-prompt-card::after {\n    content: \"写\";\n    position: absolute;\n    right: 18px;\n    top: 50%;\n    transform: translateY(-50%);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 54px;\n    font-weight: 900;\n    color: rgba(7, 193, 96, 0.08);\n  }\n\n  .writer-mini-program {\n    background:\n      linear-gradient(45deg, transparent calc(50% - 1px), rgba(7,193,96,0.12) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),\n      linear-gradient(-45deg, transparent calc(50% - 1px), rgba(22,119,255,0.1) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),\n      repeating-linear-gradient(0deg, transparent 0 39px, rgba(7,193,96,0.1) 39px 40px),\n      repeating-linear-gradient(90deg, transparent 0 39px, rgba(7,193,96,0.1) 39px 40px),\n      linear-gradient(180deg, #ffffff, #f8fdfb);\n    box-shadow:\n      inset 0 0 0 1px rgba(7, 193, 96, 0.08),\n      0 10px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .quiz-pass-card {\n    background:\n      radial-gradient(circle at 50% 20%, rgba(7, 193, 96, 0.1), transparent 36%),\n      #fff;\n  }\n\n  .quiz-mode-card {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 14px;\n    align-items: center;\n    padding: 16px;\n    margin-bottom: 12px;\n    background: #fff;\n  }\n\n  .quiz-mode-icon {\n    width: 50px;\n    height: 50px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n  }\n\n  .quiz-mode-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .quiz-mode-card:nth-of-type(2) .quiz-mode-icon {\n    background: #eef5ff;\n    color: #1677ff;\n  }\n\n  .quiz-mode-card:nth-of-type(3) .quiz-mode-icon {\n    background: #fff4e0;\n    color: #c77600;\n  }\n\n  .quiz-option {\n    border-radius: 8px;\n    position: relative;\n  }\n\n  .quiz-option::after {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    top: 10px;\n    bottom: 10px;\n    width: 3px;\n    border-radius: 999px;\n    background: rgba(7, 193, 96, 0.28);\n  }\n\n  .stats-wallet {\n    padding: 8px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.6);\n  }\n\n  .stats-wallet .stat-item {\n    background: #fff;\n    box-shadow: none;\n  }\n\n  .char-grid {\n    padding: 10px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.62);\n  }\n\n  .char-item {\n    box-shadow: inset 0 0 0 1px rgba(24,33,43,0.04);\n  }\n\n  .app-bottom-nav {\n    background:\n      linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,252,250,0.96));\n  }\n\n  .bottom-nav-item.active .bottom-nav-icon {\n    animation: tabPop 0.28s ease-out;\n  }\n\n  /* ===== SUPER-APP ROUND TWO ===== */\n  .super-searchbar {\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    align-items: center;\n    gap: 10px;\n    min-height: 42px;\n    padding: 0 12px;\n    margin: 0 0 12px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.88);\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    box-shadow: 0 10px 24px rgba(20, 49, 35, 0.07);\n    color: #718078;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .super-searchbar svg {\n    width: 18px;\n    height: 18px;\n    color: #07a653;\n  }\n\n  .super-searchbar strong {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    color: #1d2c35;\n    font-size: 13px;\n  }\n\n  .super-search-action {\n    display: grid;\n    place-items: center;\n    width: 26px;\n    height: 26px;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n  }\n\n  .mini-program-panel {\n    padding: 12px;\n    margin: 0 0 16px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.72);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.04), 0 12px 28px rgba(20, 49, 35, 0.06);\n  }\n\n  .mini-program-head {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    margin-bottom: 10px;\n    color: #687870;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .mini-program-grid {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 10px 8px;\n  }\n\n  .mini-program-tile {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    gap: 7px;\n    min-width: 0;\n    padding: 6px 2px;\n    border: 0;\n    background: transparent;\n    color: #213129;\n    font: inherit;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .mini-program-tile:active {\n    transform: scale(0.96);\n  }\n\n  .mini-program-icon {\n    width: 42px;\n    height: 42px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    color: #fff;\n    box-shadow: 0 8px 18px rgba(20, 49, 35, 0.1);\n    position: relative;\n    overflow: hidden;\n  }\n\n  .mini-program-icon::before {\n    content: \"\";\n    position: absolute;\n    inset: 4px auto auto 5px;\n    width: 12px;\n    height: 5px;\n    border-radius: 999px;\n    background: rgba(255,255,255,0.36);\n  }\n\n  .mini-program-icon svg {\n    width: 22px;\n    height: 22px;\n    position: relative;\n    z-index: 1;\n  }\n\n  .mini-program-name {\n    max-width: 100%;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .mini-program-tile:nth-child(1) .mini-program-icon { background: linear-gradient(135deg, #07c160, #18d58b); }\n  .mini-program-tile:nth-child(2) .mini-program-icon { background: linear-gradient(135deg, #1677ff, #28b8ff); }\n  .mini-program-tile:nth-child(3) .mini-program-icon { background: linear-gradient(135deg, #ff9f1c, #ffd166); }\n  .mini-program-tile:nth-child(4) .mini-program-icon { background: linear-gradient(135deg, #ff4d4f, #ff8a80); }\n  .mini-program-tile:nth-child(5) .mini-program-icon { background: linear-gradient(135deg, #2f3542, #57606f); }\n  .mini-program-tile:nth-child(6) .mini-program-icon { background: linear-gradient(135deg, #00a6a6, #00d2d3); }\n  .mini-program-tile:nth-child(7) .mini-program-icon { background: linear-gradient(135deg, #8e44ad, #c56cf0); }\n  .mini-program-tile:nth-child(8) .mini-program-icon { background: linear-gradient(135deg, #d99a18, #f6c343); }\n\n  .illustration-strip {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n    gap: 8px;\n    margin: 14px 0 16px;\n  }\n\n  .story-sticker {\n    min-width: 0;\n    min-height: 132px;\n    padding: 10px 6px 9px;\n    border: 0;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.86);\n    box-shadow: 0 10px 24px rgba(20, 49, 35, 0.07);\n    color: #1d2c35;\n    overflow: hidden;\n    position: relative;\n  }\n\n  .story-sticker::after {\n    content: \"\";\n    position: absolute;\n    inset: auto 0 0 auto;\n    width: 36px;\n    height: 36px;\n    border-radius: 50%;\n    background: rgba(7, 193, 96, 0.08);\n  }\n\n  .story-sticker:active {\n    transform: scale(0.97);\n  }\n\n  .story-sticker-svg {\n    display: block;\n    width: 74px;\n    max-width: 100%;\n    height: 60px;\n    margin: 0 auto 5px;\n    filter: drop-shadow(0 8px 12px rgba(20, 49, 35, 0.11));\n    animation: stickerBob 4.4s ease-in-out infinite;\n  }\n\n  .story-sticker:nth-child(2) .story-sticker-svg {\n    animation-delay: -1.2s;\n  }\n\n  .story-sticker:nth-child(3) .story-sticker-svg {\n    animation-delay: -2.1s;\n  }\n\n  .story-sticker-title {\n    display: block;\n    position: relative;\n    z-index: 1;\n    overflow: hidden;\n    text-align: center;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .cute-coach-card {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    margin-bottom: 16px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(235, 255, 246, 0.96));\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);\n  }\n\n  .coach-mini-svg,\n  .panda-buddy-svg {\n    width: 66px;\n    height: 66px;\n    filter: drop-shadow(0 10px 18px rgba(7, 193, 96, 0.18));\n  }\n\n  .coach-title {\n    margin: 0 0 4px;\n    color: #14251c;\n    font-size: 15px;\n    font-weight: 900;\n  }\n\n  .coach-copy {\n    margin: 0;\n    color: #66756e;\n    font-size: 12px;\n    line-height: 1.45;\n  }\n\n  .coach-guide-link {\n    display: inline-flex;\n    align-items: center;\n    gap: 6px;\n    min-height: 30px;\n    margin-top: 10px;\n    padding: 0 10px;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n    font-size: 12px;\n    font-weight: 900;\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.12);\n  }\n\n  .coach-guide-link svg {\n    width: 16px;\n    height: 16px;\n  }\n\n  .coach-guide-link:active {\n    transform: scale(0.97);\n  }\n\n  .tutorial-backdrop {\n    position: fixed;\n    inset: 0;\n    z-index: 300;\n    display: grid;\n    place-items: center;\n    padding: max(18px, env(safe-area-inset-top, 0px)) 18px max(18px, env(safe-area-inset-bottom, 0px));\n    background: rgba(17, 31, 24, 0.34);\n    backdrop-filter: blur(14px);\n  }\n\n  .tutorial-card {\n    position: relative;\n    width: min(calc(100vw - 48px), 360px);\n    max-height: min(760px, calc(100vh - 36px));\n    box-sizing: border-box;\n    overflow: auto;\n    padding: 16px;\n    border-radius: 8px;\n    background:\n      radial-gradient(circle at 88% 6%, rgba(22, 119, 255, 0.12), transparent 26%),\n      linear-gradient(180deg, rgba(255,255,255,0.98), rgba(243, 255, 249, 0.98));\n    border: 1px solid rgba(255,255,255,0.72);\n    box-shadow: 0 24px 70px rgba(9, 35, 23, 0.28);\n    animation: tutorialIn 0.28s ease-out;\n  }\n\n  .tutorial-close {\n    position: absolute;\n    top: 12px;\n    right: 12px;\n    z-index: 2;\n    width: 32px;\n    height: 32px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.84);\n    color: #687870;\n    font-size: 14px;\n    font-weight: 900;\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.06);\n  }\n\n  .tutorial-hero {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    padding-right: 34px;\n  }\n\n  .tutorial-panda {\n    width: 78px;\n    height: 78px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.12);\n  }\n\n  .tutorial-panda .panda-buddy-svg {\n    width: 74px;\n    height: 74px;\n  }\n\n  .tutorial-copy-block {\n    min-width: 0;\n  }\n\n  .tutorial-kicker {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 8px;\n    margin-bottom: 6px;\n    color: #07a653;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .tutorial-kicker span:last-child {\n    color: #90a098;\n  }\n\n  .tutorial-copy-block h2 {\n    margin: 0;\n    color: #14251c;\n    font-size: 21px;\n    line-height: 1.1;\n    font-weight: 900;\n  }\n\n  .tutorial-copy-block p {\n    margin: 7px 0 0;\n    color: #687870;\n    font-size: 12px;\n    line-height: 1.45;\n    font-weight: 700;\n  }\n\n  .tutorial-progress {\n    height: 7px;\n    margin: 15px 0;\n    overflow: hidden;\n    border-radius: 999px;\n    background: #dfece6;\n  }\n\n  .tutorial-progress-fill {\n    height: 100%;\n    border-radius: 999px;\n    background: linear-gradient(90deg, #07c160, #1677ff);\n    transition: width 0.25s ease;\n  }\n\n  .tutorial-step-card {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    min-height: 112px;\n    padding: 14px;\n    border-radius: 8px;\n    background: #fff;\n    box-shadow: 0 12px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .tutorial-step-icon {\n    width: 50px;\n    height: 50px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    color: #fff;\n    box-shadow: 0 12px 22px rgba(7, 193, 96, 0.18);\n  }\n\n  .tutorial-step-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .tutorial-step-card h3 {\n    margin: 0;\n    color: #14251c;\n    font-size: 17px;\n    line-height: 1.16;\n    font-weight: 900;\n  }\n\n  .tutorial-step-card p {\n    margin: 6px 0 0;\n    color: #687870;\n    font-size: 12px;\n    line-height: 1.45;\n    font-weight: 700;\n  }\n\n  .tutorial-dots {\n    display: flex;\n    justify-content: center;\n    gap: 6px;\n    margin: 14px 0;\n  }\n\n  .tutorial-dots span {\n    width: 7px;\n    height: 7px;\n    border-radius: 999px;\n    background: #cddbd4;\n    transition: width 0.2s ease, background 0.2s ease;\n  }\n\n  .tutorial-dots span.active {\n    width: 22px;\n    background: #07c160;\n  }\n\n  .tutorial-open-step {\n    width: 100%;\n    min-height: 48px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 8px;\n    margin-bottom: 12px;\n    border-radius: 8px;\n    background: linear-gradient(135deg, #07c160, #0aa75a);\n    color: #fff;\n    font-size: 14px;\n    font-weight: 900;\n    box-shadow: 0 12px 24px rgba(7, 193, 96, 0.22);\n  }\n\n  .tutorial-open-step svg {\n    width: 18px;\n    height: 18px;\n  }\n\n  .tutorial-actions {\n    display: flex;\n    align-items: stretch;\n    flex-direction: column;\n    justify-content: space-between;\n    gap: 10px;\n  }\n\n  .tutorial-action-pair {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 8px;\n    min-width: 0;\n    width: 100%;\n  }\n\n  .tutorial-quiet,\n  .tutorial-secondary,\n  .tutorial-primary {\n    min-height: 38px;\n    padding: 0 12px;\n    border-radius: 8px;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .tutorial-quiet {\n    color: #687870;\n  }\n\n  .tutorial-secondary {\n    background: #fff;\n    color: #1677ff;\n    box-shadow: inset 0 0 0 1px rgba(22, 119, 255, 0.14);\n  }\n\n  .tutorial-secondary:disabled {\n    opacity: 0.4;\n  }\n\n  .tutorial-primary {\n    background: #e8fff3;\n    color: #07a653;\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.14);\n  }\n\n  .tutorial-quiet {\n    justify-self: start;\n  }\n\n  @media (max-width: 600px) {\n    .tutorial-card {\n      justify-self: start;\n    }\n  }\n\n  @keyframes tutorialIn {\n    from { opacity: 0; transform: translateY(12px) scale(0.98); }\n    to { opacity: 1; transform: translateY(0) scale(1); }\n  }\n\n  .lesson-service-icon {\n    width: 46px;\n    height: 46px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n    border-radius: 8px;\n    background: #f0fff6;\n    color: #07a653;\n  }\n\n  .lesson-service-icon svg {\n    width: 22px;\n    height: 22px;\n  }\n\n  .service-row:nth-child(2n) .lesson-service-icon {\n    background: #eff6ff;\n    color: #1677ff;\n  }\n\n  .service-row:nth-child(3n) .lesson-service-icon {\n    background: #fff6e6;\n    color: #c77600;\n  }\n\n  @keyframes coachFloat {\n    0%, 100% { transform: translateY(0) rotate(-1deg); }\n    50% { transform: translateY(-5px) rotate(1deg); }\n  }\n\n  @keyframes stickerBob {\n    0%, 100% { transform: translateY(0) rotate(-1deg); }\n    50% { transform: translateY(-4px) rotate(1deg); }\n  }\n\n  @keyframes tabPop {\n    0% { transform: translateY(0) scale(1); }\n    50% { transform: translateY(-3px) scale(1.08); }\n    100% { transform: translateY(0) scale(1); }\n  }\n\n  /* ===== MINI-PROGRAM SYSTEM ===== */\n  .mini-app-hero {\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    margin: 0 0 14px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239, 255, 247, 0.96));\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);\n    border: 1px solid rgba(24, 33, 43, 0.05);\n  }\n\n  .mini-app-hero-icon {\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    color: #fff;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    box-shadow: 0 10px 20px rgba(7, 193, 96, 0.2);\n  }\n\n  .mini-app-hero-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .mini-app-title {\n    margin: 0;\n    color: #14251c;\n    font-size: 19px;\n    line-height: 1.08;\n    font-weight: 900;\n  }\n\n  .mini-app-subtitle {\n    margin: 4px 0 0;\n    color: #687870;\n    font-size: 12px;\n    line-height: 1.35;\n    font-weight: 700;\n  }\n\n  .mini-app-pill {\n    display: grid;\n    place-items: center;\n    min-width: 42px;\n    min-height: 30px;\n    padding: 0 9px;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n    font-size: 12px;\n    font-weight: 900;\n    white-space: nowrap;\n  }\n\n  .mini-app-progress-card {\n    display: grid;\n    grid-template-columns: 1fr auto;\n    gap: 10px;\n    align-items: center;\n    margin: 0 0 12px;\n    padding: 12px 14px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.78);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.05);\n  }\n\n  .mini-app-progress-card .text-sm {\n    margin: 0;\n  }\n\n  .mini-app-progress-count {\n    color: #07c160;\n    font-weight: 900;\n    font-size: 13px;\n  }\n\n  .daily-training-card {\n    padding: 14px;\n    margin-bottom: 14px;\n    border-radius: 8px;\n    background:\n      radial-gradient(circle at 88% 12%, rgba(22, 119, 255, 0.12), transparent 30%),\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239, 255, 247, 0.96));\n    border: 1px solid rgba(24, 33, 43, 0.05);\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);\n  }\n\n  .daily-training-hero {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    margin-bottom: 12px;\n  }\n\n  .daily-training-title {\n    margin: 0 0 4px;\n    color: #14251c;\n    font-size: 16px;\n    font-weight: 900;\n  }\n\n  .daily-training-copy {\n    margin: 0;\n    color: #687870;\n    font-size: 12px;\n    line-height: 1.45;\n    font-weight: 700;\n  }\n\n  .daily-queue-grid {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 8px;\n  }\n\n  .daily-queue-char {\n    min-height: 72px;\n    display: grid;\n    place-items: center;\n    gap: 2px;\n    padding: 8px 4px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.9);\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.08);\n  }\n\n  .daily-queue-char .hanzi-display {\n    color: #07a653;\n    font-size: 30px;\n    line-height: 1;\n  }\n\n  .daily-queue-char small {\n    color: #687870;\n    font-size: 10px;\n    font-weight: 900;\n  }\n\n  .daily-reason-row {\n    display: flex;\n    gap: 8px;\n    margin-top: 12px;\n    color: #687870;\n    font-size: 11px;\n    font-weight: 800;\n  }\n\n  .daily-step-grid {\n    display: grid;\n    gap: 10px;\n    margin-bottom: 14px;\n  }\n\n  .daily-step-card {\n    position: relative;\n    min-height: 92px;\n    display: grid;\n    grid-template-columns: auto 1fr;\n    grid-template-areas:\n      \"icon title\"\n      \"icon copy\";\n    gap: 3px 12px;\n    align-items: center;\n    padding: 14px;\n    border: 0;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.9);\n    color: #1d2c35;\n    text-align: left;\n    box-shadow: 0 10px 24px rgba(20, 49, 35, 0.07);\n    overflow: hidden;\n  }\n\n  .daily-step-card.primary {\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.96), rgba(22, 119, 255, 0.88));\n    color: #fff;\n    box-shadow: 0 16px 32px rgba(7, 193, 96, 0.18);\n  }\n\n  .daily-step-card:active {\n    transform: scale(0.985);\n  }\n\n  .daily-step-index {\n    position: absolute;\n    right: 12px;\n    top: 8px;\n    color: rgba(7, 193, 96, 0.14);\n    font-size: 48px;\n    font-weight: 900;\n    line-height: 1;\n  }\n\n  .daily-step-card.primary .daily-step-index {\n    color: rgba(255,255,255,0.18);\n  }\n\n  .daily-step-icon {\n    grid-area: icon;\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n  }\n\n  .daily-step-card.primary .daily-step-icon {\n    background: rgba(255,255,255,0.18);\n    color: #fff;\n  }\n\n  .daily-step-card strong {\n    grid-area: title;\n    position: relative;\n    z-index: 1;\n    font-size: 17px;\n    line-height: 1.1;\n  }\n\n  .daily-step-card span:last-child {\n    grid-area: copy;\n    position: relative;\n    z-index: 1;\n    color: #687870;\n    font-size: 12px;\n    line-height: 1.35;\n    font-weight: 700;\n  }\n\n  .daily-step-card.primary span:last-child {\n    color: rgba(255,255,255,0.84);\n  }\n\n  .dual-label {\n    display: block;\n    line-height: 1.15;\n  }\n\n  .dual-label strong {\n    display: block;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .dual-label span {\n    display: block;\n    margin-top: 1px;\n    font-size: 10px;\n    color: #728078;\n    font-weight: 800;\n  }\n\n  .section-title-cn {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 10px;\n    margin: 20px 0 10px;\n    color: #687870;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .section-title-cn span:first-child {\n    color: #14251c;\n  }\n\n  @media (min-width: 980px) {\n    .home-screen {\n      width: min(calc(100vw - 72px), 920px);\n      max-width: 920px;\n      display: grid;\n      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);\n      gap: 18px;\n      align-items: start;\n      padding-bottom: 124px;\n    }\n\n    .home-screen .super-topbar,\n    .home-screen .super-searchbar,\n    .home-screen .illustration-strip,\n    .home-screen .quick-lane,\n    .home-screen .mini-program-panel,\n    .home-screen .home-metrics,\n    .home-screen .section-title,\n    .home-screen .account-entry {\n      grid-column: 1 / -1;\n    }\n\n    .home-screen .super-topbar,\n    .home-screen .super-searchbar,\n    .home-screen .wallet-card,\n    .home-screen .daily-entry-card,\n    .home-screen .illustration-strip,\n    .home-screen .quick-lane,\n    .home-screen .mini-program-panel,\n    .home-screen .cute-coach-card,\n    .home-screen .insight-panel,\n    .home-screen .home-metrics,\n    .home-screen .account-entry {\n      margin-bottom: 0;\n    }\n\n    .home-screen .wallet-card {\n      min-height: 248px;\n    }\n\n    .home-screen .daily-entry-card {\n      align-self: stretch;\n      min-height: 248px;\n    }\n\n    .home-screen .illustration-strip {\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n    }\n\n    .home-screen .quick-lane {\n      grid-template-columns: repeat(4, minmax(0, 1fr));\n    }\n\n    .home-screen .mini-program-grid {\n      grid-template-columns: repeat(8, minmax(0, 1fr));\n    }\n\n    .home-screen .cute-coach-card,\n    .home-screen .insight-panel {\n      min-height: 132px;\n    }\n  }\n\n  @media (max-width: 380px) {\n    .mini-app-hero {\n      grid-template-columns: auto 1fr;\n    }\n\n    .mini-app-pill {\n      grid-column: 1 / -1;\n      justify-self: start;\n    }\n\n    .tutorial-card {\n      padding: 14px;\n    }\n\n    .tutorial-hero {\n      grid-template-columns: 1fr;\n      padding-right: 34px;\n    }\n\n    .tutorial-panda {\n      width: 66px;\n      height: 66px;\n    }\n\n    .tutorial-panda .panda-buddy-svg {\n      width: 64px;\n      height: 64px;\n    }\n\n    .tutorial-actions {\n      align-items: stretch;\n      flex-direction: column;\n    }\n\n    .tutorial-action-pair {\n      display: grid;\n      grid-template-columns: 1fr 1fr;\n      width: 100%;\n    }\n  }\n";
+const styles = "  /* ===== MINI-PROGRAM BASE SYSTEM ===== */\n  :root {\n    --bg-primary: #f5f7f6;\n    --bg-secondary: #eef7f3;\n    --bg-card: #ffffff;\n    --accent-lime: #07c160;\n    --accent-coral: #f24848;\n    --accent-cyan: #1677ff;\n    --accent-purple: #d99a18;\n    --text-primary: #18212b;\n    --text-secondary: #697780;\n    --border-width: 1px;\n    --border-color: #dce7e2;\n    --radius: 8px;\n    --shadow-offset: 0px;\n    --transition-fast: 0.18s ease;\n    --transition-bounce: 0.38s cubic-bezier(0.2, 0.9, 0.2, 1.2);\n  }\n\n  body {\n    background: linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 38%, #f7f8fb 100%);\n    color: var(--text-primary);\n    overflow-x: hidden;\n  }\n\n  html,\n  body,\n  #root {\n    width: 100%;\n    max-width: 100%;\n    overflow-x: hidden;\n  }\n\n  .app-container {\n    position: relative;\n    min-height: 100vh;\n    min-height: 100dvh;\n    width: 100%;\n    max-width: 100vw;\n    background:\n      radial-gradient(circle at 18% 8%, rgba(7, 193, 96, 0.16), transparent 28%),\n      radial-gradient(circle at 86% 12%, rgba(22, 119, 255, 0.14), transparent 24%),\n      linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 42%, #f9faf8 100%);\n    color: var(--text-primary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    overflow-x: hidden;\n  }\n\n  .screen {\n    width: min(calc(100vw - 24px), 460px);\n    max-width: 460px;\n    min-height: 100vh;\n    min-height: 100dvh;\n    margin: 0 auto;\n    padding: 18px;\n    padding-bottom: calc(92px + env(safe-area-inset-bottom, 20px));\n    box-sizing: border-box;\n  }\n\n  .screen *,\n  .app-bottom-nav,\n  .app-bottom-nav * {\n    box-sizing: border-box;\n  }\n\n  @media (min-width: 768px) {\n    .screen {\n      max-width: 480px;\n      padding: 24px;\n      padding-bottom: 110px;\n    }\n  }\n\n  .header {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    padding: 10px 0 14px;\n    margin-bottom: 10px;\n  }\n\n  .logo {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    color: #0d1f17;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 30px;\n    font-weight: 900;\n    letter-spacing: 0;\n    user-select: none;\n  }\n\n  .back-btn {\n    min-height: 40px;\n    padding: 9px 14px;\n    border: 1px solid rgba(7, 193, 96, 0.2);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.82);\n    color: var(--text-primary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 800;\n    transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);\n    white-space: nowrap;\n  }\n\n  .card {\n    position: relative;\n    margin-bottom: 14px;\n    padding: 18px;\n    overflow: hidden;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.94);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);\n  }\n\n  .card-clickable {\n    cursor: pointer;\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .card-clickable:active,\n  .btn:active,\n  .back-btn:active {\n    transform: scale(0.985);\n    box-shadow: 0 5px 14px rgba(20, 49, 35, 0.08);\n  }\n\n  @media (hover: hover) {\n    .card-clickable:hover {\n      transform: translateY(-2px);\n      box-shadow: 0 14px 34px rgba(20, 49, 35, 0.12);\n    }\n\n    .btn-secondary:hover,\n    .back-btn:hover {\n      background: #ecfff5;\n      color: #06783d;\n    }\n  }\n\n  .card-accent-lime,\n  .card-accent-cyan,\n  .card-accent-coral,\n  .card-accent-purple {\n    border-color: rgba(24, 33, 43, 0.08);\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.1);\n  }\n\n  .title-hero,\n  .title-xl,\n  .title-lg,\n  .title-md {\n    margin: 0;\n    color: #14251c;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-weight: 900;\n    line-height: 1.12;\n    letter-spacing: 0;\n  }\n\n  .title-hero {\n    font-size: clamp(38px, 12vw, 50px);\n    background: linear-gradient(135deg, #07c160 0%, #1677ff 100%);\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n    background-clip: text;\n  }\n\n  .title-xl { font-size: clamp(28px, 8vw, 36px); }\n  .title-lg { font-size: clamp(20px, 5.6vw, 26px); }\n  .title-md { font-size: 15px; }\n\n  .text-sm {\n    margin: 0;\n    color: var(--text-secondary);\n    font-size: 12px;\n    line-height: 1.45;\n    letter-spacing: 0;\n  }\n\n  .text-accent { color: var(--accent-lime); }\n\n  .stats-bar,\n  .draw-stats {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n    gap: 8px;\n    margin-bottom: 24px;\n  }\n\n  .stat-item,\n  .draw-stat {\n    padding: 12px 8px;\n    text-align: center;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.76);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .stat-value,\n  .draw-stat-value,\n  .score-value,\n  .lesson-number,\n  .text-accent {\n    color: var(--accent-lime);\n  }\n\n  .stat-value,\n  .draw-stat-value,\n  .lesson-number,\n  .score-value {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-weight: 900;\n    line-height: 1;\n  }\n\n  .stat-value,\n  .lesson-number { font-size: 34px; }\n  .draw-stat-value { font-size: 24px; }\n\n  .stat-label,\n  .draw-stat-label,\n  .score-label {\n    margin-top: 4px;\n    color: var(--text-secondary);\n    font-size: 10px;\n    line-height: 1.3;\n    letter-spacing: 0;\n  }\n\n  .btn {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    width: 100%;\n    min-height: 50px;\n    padding: 13px 18px;\n    border: 1px solid transparent;\n    border-radius: var(--radius);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 15px;\n    font-weight: 900;\n    letter-spacing: 0;\n    text-decoration: none;\n    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .btn-primary {\n    background: linear-gradient(135deg, #07c160, #0aa75a);\n    color: #fff;\n    box-shadow: 0 10px 22px rgba(7, 193, 96, 0.24);\n  }\n\n  .btn-secondary {\n    background: #ffffff;\n    color: #1677ff;\n    border-color: rgba(22, 119, 255, 0.16);\n  }\n\n  .btn-coral {\n    background: #fff1f0;\n    color: #cf2b2b;\n    border-color: #ffd2cf;\n  }\n\n  .btn:disabled {\n    opacity: 0.45;\n    cursor: not-allowed;\n  }\n\n  .hanzi-display {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'SimSun', sans-serif;\n    font-weight: 900;\n  }\n\n  .hanzi-hero {\n    padding: 16px;\n    font-size: clamp(96px, 28vw, 128px);\n    line-height: 1;\n    text-align: center;\n    animation: hanziFloat 5s ease-in-out infinite;\n  }\n\n  .hanzi-xl {\n    padding: 12px;\n    font-size: clamp(60px, 18vw, 84px);\n    line-height: 1;\n    text-align: center;\n  }\n\n  .hanzi-word {\n    max-width: 100%;\n    font-size: clamp(46px, 14vw, 88px);\n    line-height: 1.05;\n    overflow-wrap: anywhere;\n  }\n\n  .hanzi-lg { font-size: clamp(48px, 14vw, 64px); line-height: 1; }\n  .hanzi-md { font-size: clamp(28px, 8vw, 36px); line-height: 1; }\n\n  .progress-bar {\n    width: 100%;\n    height: 8px;\n    margin: 16px 0;\n    overflow: hidden;\n    border-radius: 999px;\n    background: #e3ebe7;\n  }\n\n  .progress-fill {\n    height: 100%;\n    border-radius: 999px;\n    background: linear-gradient(90deg, #07c160, #1677ff);\n    transition: width 0.4s ease-out;\n  }\n\n  .menu-grid {\n    display: grid;\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n    gap: 10px;\n  }\n\n  .menu-item {\n    min-height: 112px;\n    padding: 16px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 10px;\n  }\n\n  .menu-icon {\n    width: 52px;\n    height: 52px;\n    display: grid;\n    place-items: center;\n    border-radius: 16px;\n    background: linear-gradient(135deg, rgba(7, 193, 96, 0.14), rgba(22, 119, 255, 0.14));\n    font-size: 28px;\n  }\n\n  .menu-label {\n    font-size: 13px;\n    font-weight: 900;\n  }\n\n  .streak-badge {\n    display: inline-flex;\n    align-items: center;\n    gap: 6px;\n    padding: 8px 14px;\n    border: 1px solid #ffe2a8;\n    border-radius: var(--radius);\n    background: #fff7e6;\n    color: #9a6400;\n    font-size: 15px;\n    font-weight: 900;\n  }\n\n  .canvas-container,\n  .hanzi-writer-container {\n    position: relative;\n    width: 100%;\n    aspect-ratio: 1;\n    margin: 16px 0;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: #fff;\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n    touch-action: none;\n    -webkit-touch-callout: none;\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .drawing-canvas {\n    width: 100%;\n    height: 100%;\n    display: block;\n    touch-action: none;\n  }\n\n  .canvas-guide {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    color: rgba(7, 193, 96, 0.1);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: clamp(150px, 45vw, 200px);\n    font-weight: 900;\n    line-height: 1;\n    pointer-events: none;\n    user-select: none;\n  }\n\n  .canvas-controls,\n  .nav-actions {\n    display: flex;\n    gap: 10px;\n  }\n\n  .canvas-controls .btn,\n  .nav-actions .btn {\n    flex: 1;\n  }\n\n  .draw-mode-selector {\n    display: flex;\n    gap: 8px;\n    margin-bottom: 16px;\n  }\n\n  .draw-mode-btn {\n    flex: 1;\n    min-height: 46px;\n    padding: 10px 8px;\n    border: 0;\n    border-radius: var(--radius);\n    background: transparent;\n    color: #65737d;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 900;\n    letter-spacing: 0;\n    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);\n  }\n\n  .draw-mode-btn.active {\n    background: #07c160;\n    color: #fff;\n    box-shadow: 0 7px 16px rgba(7, 193, 96, 0.2);\n  }\n\n  .hanzi-writer-container {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n\n  .hanzi-writer-container svg {\n    width: 100% !important;\n    height: 100% !important;\n  }\n\n  .stroke-counter {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 12px;\n    margin: 12px 0;\n    font-size: 14px;\n  }\n\n  .stroke-dot {\n    width: 12px;\n    height: 12px;\n    border-radius: 50%;\n    background: #d8e6df;\n    transition: all 0.2s ease;\n  }\n\n  .stroke-dot.completed { background: #07c160; }\n  .stroke-dot.current { background: #1677ff; transform: scale(1.3); }\n  .stroke-dot.error { background: #f24848; }\n\n  .draw-feedback {\n    position: absolute;\n    left: 12px;\n    right: 12px;\n    bottom: 12px;\n    z-index: 5;\n    padding: 12px;\n    border: 1px solid;\n    border-radius: var(--radius);\n    text-align: center;\n    font-size: 15px;\n    font-weight: 900;\n    pointer-events: none;\n    animation: feedbackPop 0.3s ease-out;\n  }\n\n  .draw-feedback.success {\n    background: #e8fff3;\n    color: #087541;\n    border-color: #b7f1d2;\n  }\n\n  .draw-feedback.error {\n    background: #fff1f0;\n    color: #cf2b2b;\n    border-color: #ffd2cf;\n  }\n\n  .quiz-question {\n    margin: 10px 0 14px;\n    padding: 24px 16px;\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.78);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n    text-align: center;\n  }\n\n  .quiz-options {\n    display: grid;\n    gap: 12px;\n  }\n\n  .quiz-option {\n    padding: 15px 16px;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: #fff;\n    color: var(--text-primary);\n    box-shadow: 0 8px 18px rgba(20, 49, 35, 0.06);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 15px;\n    text-align: left;\n    transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .quiz-option:active:not(.disabled) { transform: scale(0.985); }\n  .quiz-option.correct { background: #e8fff3; color: #087541; border-color: #b7f1d2; animation: correctPop 0.35s ease-out; }\n  .quiz-option.incorrect { background: #fff1f0; color: #cf2b2b; border-color: #ffd2cf; animation: incorrectShake 0.35s ease-out; }\n  .quiz-option.disabled { pointer-events: none; cursor: default; }\n\n  .quiz-feedback {\n    margin-top: 16px;\n    padding: 14px;\n    border: 1px solid rgba(22, 119, 255, 0.16);\n    border-radius: var(--radius);\n    background: #f0f7ff;\n    color: #17344d;\n    font-size: 13px;\n  }\n\n  .quiz-feedback strong { color: var(--accent-lime); }\n  .quiz-feedback .pinyin-display { margin-top: 6px; font-size: 22px; }\n\n  .flashcard {\n    min-height: 280px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    cursor: pointer;\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .flashcard-hint {\n    margin-top: 16px;\n    color: var(--text-secondary);\n    font-size: 12px;\n    animation: hintPulse 2s ease-in-out infinite;\n  }\n\n  .material-example {\n    max-width: min(100%, 520px);\n    margin: 14px auto 0;\n    color: var(--text-secondary);\n    font-size: 14px;\n    line-height: 1.55;\n  }\n\n  .pinyin-display {\n    margin-top: 12px;\n    color: var(--accent-cyan);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: clamp(22px, 6vw, 28px);\n    font-weight: 700;\n  }\n\n  .meaning-display {\n    margin-top: 8px;\n    color: var(--text-secondary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: clamp(16px, 4.5vw, 20px);\n  }\n\n  .nav-actions { margin-top: 20px; }\n\n  .results-display {\n    padding: 32px 0;\n    text-align: center;\n  }\n\n  .score-circle {\n    width: clamp(140px, 40vw, 170px);\n    height: clamp(140px, 40vw, 170px);\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    margin: 0 auto 24px;\n    border: 6px solid var(--accent-lime);\n    border-radius: 50%;\n    box-shadow: 0 0 30px rgba(7, 193, 96, 0.18);\n  }\n\n  .score-value { font-size: clamp(48px, 14vw, 60px); }\n\n  .char-grid {\n    display: grid;\n    grid-template-columns: repeat(5, minmax(0, 1fr));\n    gap: 6px;\n    margin-top: 16px;\n  }\n\n  @media (min-width: 400px) {\n    .char-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }\n  }\n\n  .char-item {\n    aspect-ratio: 1;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    border-radius: 6px;\n    background: #edf3ef;\n    color: #1d2c35;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: clamp(16px, 4.5vw, 20px);\n    font-weight: 700;\n    transition: transform var(--transition-fast);\n  }\n\n  .char-item.mastered { background: #07c160; color: #fff; }\n  .char-item.learning { background: #1677ff; color: #fff; }\n\n  .backup-buttons {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 12px;\n  }\n\n  .backup-buttons .btn {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n\n  .offline-pack-card {\n    display: grid;\n    grid-template-columns: auto minmax(0, 1fr);\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    border: 1px solid rgba(7, 193, 96, 0.1);\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(232, 255, 243, 0.94));\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);\n  }\n\n  .offline-pack-icon {\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    color: #fff;\n    box-shadow: 0 10px 22px rgba(7, 193, 96, 0.18);\n  }\n\n  .offline-pack-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .offline-pack-copy {\n    min-width: 0;\n  }\n\n  .offline-pack-copy .text-sm {\n    margin-top: 4px;\n  }\n\n  .offline-download-button,\n  .offline-ready-pill {\n    grid-column: 1 / -1;\n  }\n\n  .offline-download-button {\n    gap: 8px;\n    text-decoration: none;\n  }\n\n  .offline-download-button svg {\n    width: 19px;\n    height: 19px;\n  }\n\n  .offline-ready-pill {\n    min-height: 42px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #078447;\n    font-size: 13px;\n    font-weight: 900;\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.14);\n  }\n\n  .section-title {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    margin: 28px 0 16px;\n  }\n\n  .section-line {\n    flex: 1;\n    height: 1px;\n    background: linear-gradient(90deg, rgba(7, 193, 96, 0.35), transparent);\n  }\n\n  .lesson-card {\n    display: flex;\n    align-items: center;\n    gap: 16px;\n  }\n\n  .lesson-number {\n    min-width: 70px;\n    text-align: center;\n  }\n\n  .lesson-info {\n    flex: 1;\n    min-width: 0;\n  }\n\n  .floating-indicator {\n    position: fixed;\n    left: 50%;\n    bottom: calc(24px + env(safe-area-inset-bottom, 0px));\n    z-index: 100;\n    transform: translateX(-50%);\n    padding: 14px 28px;\n    border: 1px solid rgba(7, 193, 96, 0.2);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.96);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n    animation: floatIn 0.4s cubic-bezier(0.2, 0.9, 0.2, 1.2);\n  }\n\n  @keyframes hanziFloat {\n    0%, 100% { transform: translateY(0) rotate(-1deg); }\n    50% { transform: translateY(-8px) rotate(1deg); }\n  }\n\n  @keyframes feedbackPop {\n    0% { transform: scale(0.9); opacity: 0; }\n    100% { transform: scale(1); opacity: 1; }\n  }\n\n  @keyframes correctPop {\n    0% { transform: scale(1); }\n    50% { transform: scale(1.03); }\n    100% { transform: scale(1); }\n  }\n\n  @keyframes incorrectShake {\n    0%, 100% { transform: translateX(0); }\n    20% { transform: translateX(-8px); }\n    40% { transform: translateX(8px); }\n    60% { transform: translateX(-4px); }\n    80% { transform: translateX(4px); }\n  }\n\n  @keyframes hintPulse {\n    0%, 100% { opacity: 1; }\n    50% { opacity: 0.4; }\n  }\n\n  @keyframes floatIn {\n    0% { transform: translateX(-50%) translateY(80px); opacity: 0; }\n    100% { transform: translateX(-50%) translateY(0); opacity: 1; }\n  }\n\n  /* ===== UTILITY ANIMATIONS ===== */\n  @keyframes slideUp {\n    from { opacity: 0; transform: translateY(20px); }\n    to { opacity: 1; transform: translateY(0); }\n  }\n\n  .animate-slide-up {\n    animation: slideUp 0.35s ease-out;\n  }\n\n  /* ===== CHINESE SUPER-APP THEME ===== */\n  :root {\n    --bg-primary: #f5f7f6;\n    --bg-secondary: #eef7f3;\n    --bg-card: #ffffff;\n    --accent-lime: #07c160;\n    --accent-coral: #f24848;\n    --accent-cyan: #1677ff;\n    --accent-purple: #d99a18;\n    --text-primary: #18212b;\n    --text-secondary: #697780;\n    --border-width: 1px;\n    --border-color: #dce7e2;\n    --radius: 8px;\n    --shadow-offset: 0px;\n    --transition-fast: 0.18s ease;\n    --transition-bounce: 0.38s cubic-bezier(0.2, 0.9, 0.2, 1.2);\n  }\n\n  body {\n    background:\n      linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 36%, #f7f8fb 100%);\n    color: var(--text-primary);\n    overflow-x: hidden;\n  }\n\n  html,\n  body,\n  #root {\n    width: 100%;\n    max-width: 100%;\n    overflow-x: hidden;\n    overflow-anchor: none;\n  }\n\n  .app-container {\n    background:\n      radial-gradient(circle at 18% 8%, rgba(7, 193, 96, 0.16), transparent 28%),\n      radial-gradient(circle at 86% 12%, rgba(22, 119, 255, 0.14), transparent 24%),\n      linear-gradient(180deg, #e8f7ef 0%, #f5f7f6 42%, #f9faf8 100%);\n    color: var(--text-primary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n    max-width: 100vw;\n  }\n\n  .screen {\n    width: min(calc(100vw - 24px), 460px);\n    box-sizing: border-box;\n    max-width: 460px;\n    margin: 0 auto;\n    padding: 18px;\n    padding-bottom: calc(92px + env(safe-area-inset-bottom, 20px));\n  }\n\n  .screen *,\n  .app-bottom-nav,\n  .app-bottom-nav * {\n    box-sizing: border-box;\n  }\n\n  @media (min-width: 768px) {\n    .screen {\n      max-width: 480px;\n      padding: 24px;\n      padding-bottom: 110px;\n    }\n  }\n\n  .screen::before {\n    content: \"汉\";\n    position: fixed;\n    top: 76px;\n    right: max(12px, calc((100vw - 460px) / 2 - 24px));\n    z-index: 0;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 116px;\n    font-weight: 900;\n    color: rgba(7, 193, 96, 0.06);\n    animation: characterDrift 7s ease-in-out infinite;\n    pointer-events: none;\n  }\n\n  .screen > * {\n    position: relative;\n    z-index: 1;\n  }\n\n  .header {\n    padding: 10px 0 14px;\n    margin-bottom: 10px;\n  }\n\n  .logo {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    color: #0d1f17;\n    font-size: 30px;\n    letter-spacing: 0;\n    text-shadow: none;\n    transform: none;\n  }\n\n  .logo::after {\n    content: \"Master\";\n    padding: 4px 9px;\n    border-radius: 999px;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    color: #fff;\n    font-family: 'Segoe UI', Arial, sans-serif;\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  .streak-badge,\n  .back-btn,\n  .btn,\n  .draw-mode-btn,\n  .quiz-option {\n    border-radius: var(--radius);\n    letter-spacing: 0;\n    box-shadow: none;\n  }\n\n  .back-btn {\n    background: rgba(255, 255, 255, 0.82);\n    color: var(--text-primary);\n    border-color: rgba(7, 193, 96, 0.2);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 800;\n  }\n\n  .card,\n  .stat-item,\n  .draw-stat,\n  .hanzi-writer-container,\n  .canvas-container,\n  .quiz-option,\n  .floating-indicator {\n    border-color: rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .card {\n    background: rgba(255, 255, 255, 0.94);\n    padding: 18px;\n    margin-bottom: 14px;\n    overflow: hidden;\n  }\n\n  .card::before {\n    content: \"\";\n    position: absolute;\n    inset: 0 0 auto 0;\n    height: 3px;\n    background: linear-gradient(90deg, #07c160, #1677ff, #d99a18);\n    opacity: 0;\n    transition: opacity var(--transition-fast);\n  }\n\n  .card-clickable:hover::before,\n  .card-accent-lime::before,\n  .card-accent-cyan::before,\n  .card-accent-coral::before,\n  .card-accent-purple::before {\n    opacity: 1;\n  }\n\n  .card-clickable:active,\n  .btn:active,\n  .back-btn:active {\n    transform: scale(0.985);\n    box-shadow: 0 5px 14px rgba(20, 49, 35, 0.08);\n  }\n\n  @media (hover: hover) {\n    .card-clickable:hover {\n      transform: translateY(-2px);\n      box-shadow: 0 14px 34px rgba(20, 49, 35, 0.12);\n    }\n\n    .btn-secondary:hover,\n    .back-btn:hover {\n      background: #ecfff5;\n      color: #06783d;\n    }\n  }\n\n  .card-accent-lime,\n  .card-accent-cyan,\n  .card-accent-coral,\n  .card-accent-purple {\n    border-color: rgba(24, 33, 43, 0.08);\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.1);\n  }\n\n  .title-hero {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 44px;\n    letter-spacing: 0;\n    background: linear-gradient(135deg, #07c160 0%, #1677ff 100%);\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n    background-clip: text;\n  }\n\n  .title-xl {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 32px;\n    letter-spacing: 0;\n  }\n\n  .title-lg {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 22px;\n    letter-spacing: 0;\n  }\n\n  .title-md,\n  .menu-label,\n  .stat-label,\n  .draw-stat-label,\n  .score-label,\n  .text-sm {\n    letter-spacing: 0;\n  }\n\n  .text-sm {\n    font-size: 12px;\n    color: var(--text-secondary);\n  }\n\n  .progress-bar {\n    height: 8px;\n    border: none;\n    border-radius: 999px;\n    background: #e3ebe7;\n  }\n\n  .progress-fill {\n    border-radius: 999px;\n    background: linear-gradient(90deg, #07c160, #1677ff);\n  }\n\n  .stats-bar {\n    gap: 8px;\n  }\n\n  .stat-item {\n    background: rgba(255, 255, 255, 0.76);\n    padding: 12px 8px;\n  }\n\n  .stat-value,\n  .draw-stat-value,\n  .score-value,\n  .lesson-number,\n  .text-accent {\n    color: #07c160;\n  }\n\n  .stat-value,\n  .lesson-number,\n  .score-value {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 34px;\n  }\n\n  .menu-grid {\n    grid-template-columns: repeat(2, 1fr);\n    gap: 10px;\n  }\n\n  .menu-item {\n    min-height: 112px;\n    padding: 16px;\n    flex-direction: column;\n    justify-content: center;\n    gap: 10px;\n    background:\n      linear-gradient(180deg, rgba(255,255,255,0.94), rgba(250,253,252,0.94));\n  }\n\n  .menu-icon {\n    width: 52px;\n    height: 52px;\n    display: grid;\n    place-items: center;\n    border-radius: 16px;\n    background: linear-gradient(135deg, rgba(7, 193, 96, 0.14), rgba(22, 119, 255, 0.14));\n    font-size: 28px;\n    animation: iconBreathe 4s ease-in-out infinite;\n  }\n\n  .menu-label {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 13px;\n    font-weight: 900;\n    color: #1d2c35;\n  }\n\n  .btn {\n    min-height: 50px;\n    border: none;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 15px;\n    font-weight: 900;\n  }\n\n  .btn-primary {\n    background: linear-gradient(135deg, #07c160, #0aa75a);\n    color: #fff;\n    box-shadow: 0 10px 22px rgba(7, 193, 96, 0.24);\n  }\n\n  .btn-secondary {\n    background: #ffffff;\n    color: #1677ff;\n    border: 1px solid rgba(22, 119, 255, 0.16);\n  }\n\n  .btn-coral,\n  .quiz-option.incorrect,\n  .draw-feedback.error {\n    background: #fff1f0;\n    color: #cf2b2b;\n    border-color: #ffd2cf;\n  }\n\n  .hanzi-display {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'SimSun', sans-serif;\n  }\n\n  .hanzi-hero {\n    font-size: 116px;\n    color: #07c160;\n    animation: hanziFloat 5s ease-in-out infinite;\n  }\n\n  .hanzi-xl {\n    font-size: 78px;\n  }\n\n  .hanzi-word {\n    font-size: 80px;\n  }\n\n  .pinyin-display {\n    color: #1677ff;\n  }\n\n  .meaning-display {\n    color: #5b6973;\n  }\n\n  .section-title {\n    margin: 24px 0 12px;\n  }\n\n  .section-line {\n    height: 1px;\n    background: linear-gradient(90deg, rgba(7, 193, 96, 0.35), transparent);\n  }\n\n  .lesson-card {\n    gap: 14px;\n  }\n\n  .lesson-number {\n    min-width: 58px;\n  }\n\n  .draw-mode-selector {\n    padding: 4px;\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.74);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.06);\n  }\n\n  .draw-mode-btn {\n    border: none;\n    background: transparent;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-weight: 900;\n    color: #65737d;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 6px;\n  }\n\n  .draw-mode-btn svg {\n    width: 18px;\n    height: 18px;\n  }\n\n  .hanzi-writer-container .text-sm + svg,\n  .hanzi-writer-container svg:first-child {\n    max-width: 100%;\n  }\n\n  .hanzi-writer-container > div[style*=\"position: absolute\"] svg {\n    width: 46px;\n    height: 46px;\n  }\n\n  .draw-mode-btn.active {\n    background: #07c160;\n    color: #fff;\n    box-shadow: 0 7px 16px rgba(7, 193, 96, 0.2);\n  }\n\n  .hanzi-writer-container {\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.04), rgba(22, 119, 255, 0.04)),\n      #fff;\n  }\n\n  .stroke-dot {\n    border: none;\n    background: #d8e6df;\n  }\n\n  .stroke-dot.completed,\n  .draw-feedback.success,\n  .quiz-option.correct {\n    background: #e8fff3;\n    color: #087541;\n    border-color: #b7f1d2;\n  }\n\n  .stroke-dot.current {\n    background: #1677ff;\n  }\n\n  .draw-stat {\n    background: rgba(255, 255, 255, 0.76);\n  }\n\n  .quiz-question {\n    margin: 10px 0 14px;\n    padding: 24px 16px;\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.78);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .quiz-option {\n    padding: 15px 16px;\n    background: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    box-shadow: 0 8px 18px rgba(20, 49, 35, 0.06);\n  }\n\n  .quiz-feedback {\n    border-radius: var(--radius);\n    border-color: rgba(22, 119, 255, 0.16);\n    background: #f0f7ff;\n    color: #17344d;\n  }\n\n  .flashcard {\n    min-height: 310px;\n    background:\n      radial-gradient(circle at 50% 24%, rgba(7, 193, 96, 0.13), transparent 35%),\n      #fff;\n  }\n\n  .flashcard-hint {\n    color: #84929a;\n  }\n\n  .char-item {\n    border: none;\n    border-radius: 6px;\n    background: #edf3ef;\n  }\n\n  .char-item.mastered {\n    background: #07c160;\n    color: #fff;\n  }\n\n  .char-item.learning {\n    background: #1677ff;\n    color: #fff;\n  }\n\n  .streak-badge {\n    background: #fff7e6;\n    color: #9a6400;\n    border: 1px solid #ffe2a8;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n  }\n\n  .floating-indicator {\n    background: rgba(255, 255, 255, 0.96);\n    border-color: rgba(7, 193, 96, 0.2);\n  }\n\n  .app-mascot {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    margin-bottom: 14px;\n    border-radius: var(--radius);\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.12), rgba(22, 119, 255, 0.1)),\n      rgba(255, 255, 255, 0.82);\n    box-shadow: 0 10px 24px rgba(20, 49, 35, 0.08);\n    animation: slideUp 0.35s ease-out;\n  }\n\n  .app-mascot-face {\n    width: 58px;\n    height: 58px;\n    display: grid;\n    place-items: center;\n    border-radius: 18px;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    color: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 34px;\n    font-weight: 900;\n    box-shadow: 0 10px 18px rgba(7, 193, 96, 0.24);\n    animation: mascotPulse 3.4s ease-in-out infinite;\n  }\n\n  .app-mascot-title {\n    margin: 0 0 2px;\n    font-size: 15px;\n    font-weight: 900;\n    color: #1d2c35;\n  }\n\n  .app-mascot-subtitle {\n    margin: 0;\n    font-size: 12px;\n    color: #5f6e77;\n  }\n\n  @keyframes characterDrift {\n    0%, 100% { transform: translateY(0) rotate(-5deg); }\n    50% { transform: translateY(18px) rotate(3deg); }\n  }\n\n  @keyframes iconBreathe {\n    0%, 100% { transform: translateY(0) scale(1); }\n    50% { transform: translateY(-3px) scale(1.04); }\n  }\n\n  @keyframes mascotPulse {\n    0%, 100% { transform: scale(1); }\n    50% { transform: scale(1.05); }\n  }\n\n  @media (prefers-reduced-motion: reduce) {\n    *, *::before, *::after {\n      animation-duration: 0.001ms !important;\n      animation-iteration-count: 1 !important;\n      transition-duration: 0.001ms !important;\n    }\n  }\n\n  /* ===== UTILITY ANIMATIONS ===== */\n  @keyframes slideUp {\n    from { opacity: 0; transform: translateY(20px); }\n    to { opacity: 1; transform: translateY(0); }\n  }\n\n  .animate-slide-up {\n    animation: slideUp 0.35s ease-out;\n  }\n\n  /* ===== FULL PRODUCT REDESIGN ===== */\n  .app-container {\n    position: relative;\n    min-height: 100vh;\n    overflow-anchor: none;\n  }\n\n  .screen {\n    padding-top: 22px;\n    padding-bottom: calc(118px + env(safe-area-inset-bottom, 20px));\n    overflow-anchor: none;\n  }\n\n  .app-container::before {\n    content: \"\";\n    position: fixed;\n    inset: 0;\n    background:\n      linear-gradient(180deg, rgba(7, 193, 96, 0.12), transparent 220px),\n      repeating-linear-gradient(135deg, rgba(7, 193, 96, 0.025) 0 1px, transparent 1px 18px);\n    pointer-events: none;\n  }\n\n  .super-topbar {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    margin-bottom: 14px;\n  }\n\n  .brand-lockup {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    min-width: 0;\n  }\n\n  .brand-lockup > div {\n    min-width: 0;\n  }\n\n  .brand-mark {\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: transparent;\n  }\n\n  .hanzi-logo-svg {\n    width: 58px;\n    height: 58px;\n    filter: drop-shadow(0 12px 22px rgba(7, 193, 96, 0.22));\n  }\n\n  .header-logo-mark {\n    width: 40px;\n    height: 40px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n  }\n\n  .header-logo-mark .hanzi-logo-svg {\n    width: 42px;\n    height: 42px;\n    filter: drop-shadow(0 8px 14px rgba(7, 193, 96, 0.18));\n  }\n\n  .brand-title {\n    margin: 0;\n    font-size: 20px;\n    line-height: 1;\n    font-weight: 900;\n    color: #14251c;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .brand-subtitle {\n    margin: 4px 0 0;\n    color: #6c7a73;\n    font-size: 12px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .daily-chip {\n    display: flex;\n    align-items: center;\n    gap: 6px;\n    min-height: 34px;\n    padding: 0 11px;\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.86);\n    border: 1px solid rgba(217, 154, 24, 0.22);\n    color: #9a6400;\n    font-weight: 900;\n    box-shadow: 0 8px 20px rgba(154, 100, 0, 0.08);\n  }\n\n  .topbar-actions {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    flex-shrink: 0;\n  }\n\n  .language-toggle {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 2px;\n    min-height: 34px;\n    padding: 3px;\n    border: 1px solid rgba(7, 193, 96, 0.14);\n    border-radius: 8px;\n    background: rgba(255,255,255,0.82);\n    box-shadow: 0 8px 20px rgba(20, 49, 35, 0.07);\n  }\n\n  .language-toggle button {\n    min-width: 38px;\n    padding: 0 8px;\n    border-radius: 6px;\n    color: #687870;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .language-toggle button.active {\n    background: #07c160;\n    color: #fff;\n  }\n\n  .guide-toggle,\n  .sound-toggle {\n    width: 34px;\n    height: 34px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255,255,255,0.82);\n    color: #687870;\n    box-shadow: 0 8px 20px rgba(20, 49, 35, 0.07);\n    transition: transform var(--transition-fast), color var(--transition-fast), background var(--transition-fast);\n  }\n\n  .guide-toggle {\n    color: #07a653;\n    background: #e8fff3;\n    border-color: rgba(7, 193, 96, 0.16);\n  }\n\n  .guide-toggle svg,\n  .sound-toggle svg {\n    width: 18px;\n    height: 18px;\n  }\n\n  .sound-toggle.active {\n    background: #07c160;\n    color: #fff;\n  }\n\n  .ambience-toggle {\n    color: #9a6400;\n  }\n\n  .ambience-toggle.active {\n    background: #d99a18;\n    color: #fff;\n    box-shadow: 0 10px 24px rgba(217, 154, 24, 0.2);\n  }\n\n  .guide-toggle:active,\n  .sound-toggle:active {\n    transform: scale(0.96);\n  }\n\n  @media (max-width: 380px) {\n    .super-topbar {\n      gap: 8px;\n    }\n\n    .topbar-actions {\n      gap: 6px;\n    }\n\n    .language-toggle button {\n      min-width: 32px;\n      padding: 0 6px;\n    }\n\n    .guide-toggle,\n    .sound-toggle {\n      width: 32px;\n      height: 32px;\n    }\n\n    .daily-chip {\n      padding: 0 8px;\n    }\n  }\n\n  /* ===== SECRET CONSOLIDATED CHEAT SHEET ===== */\n  .secret-screen {\n    width: min(calc(100vw - 24px), 1120px);\n    max-width: 1120px;\n    padding-top: 14px;\n    color: #17251e;\n  }\n\n  .secret-topbar {\n    position: sticky;\n    top: 0;\n    z-index: 40;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    min-height: 58px;\n    padding: 8px 0;\n    background: rgba(232, 247, 239, 0.9);\n    backdrop-filter: blur(16px);\n  }\n\n  .secret-topbar-actions {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n  }\n\n  .secret-print-button {\n    min-height: 34px;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    gap: 7px;\n    padding: 0 12px;\n    border: 1px solid rgba(22, 119, 255, 0.14);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.88);\n    color: #1665c1;\n    font-size: 12px;\n    font-weight: 900;\n    box-shadow: 0 8px 20px rgba(20, 49, 35, 0.07);\n  }\n\n  .secret-print-button svg {\n    width: 17px;\n    height: 17px;\n  }\n\n  .secret-hero {\n    min-height: 220px;\n    display: grid;\n    grid-template-columns: minmax(0, 1fr) auto;\n    gap: 28px;\n    align-items: center;\n    padding: 30px;\n    overflow: hidden;\n    border-radius: 8px;\n    color: #fff;\n    background:\n      linear-gradient(135deg, #079858 0%, #07c160 45%, #1677ff 100%);\n    box-shadow: 0 20px 48px rgba(9, 81, 48, 0.2);\n  }\n\n  .secret-kicker {\n    margin: 0 0 10px;\n    color: rgba(255, 255, 255, 0.82);\n    font-size: 11px;\n    font-weight: 900;\n    text-transform: uppercase;\n  }\n\n  .secret-hero h1 {\n    max-width: 760px;\n    margin: 0;\n    color: #fff;\n    font-size: 34px;\n    line-height: 1.05;\n    font-weight: 900;\n  }\n\n  .secret-hero p:last-child {\n    max-width: 680px;\n    margin: 12px 0 0;\n    color: rgba(255, 255, 255, 0.86);\n    font-size: 14px;\n    line-height: 1.55;\n    font-weight: 700;\n  }\n\n  .secret-hero-seal {\n    width: 114px;\n    height: 114px;\n    display: grid;\n    place-items: center;\n    border: 2px solid rgba(255, 255, 255, 0.48);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.12);\n    color: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 66px;\n    font-weight: 900;\n    box-shadow: inset 0 0 0 8px rgba(255, 255, 255, 0.07);\n  }\n\n  .secret-summary-strip {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    margin: 14px 0;\n    overflow: hidden;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.88);\n    box-shadow: 0 12px 28px rgba(20, 49, 35, 0.07);\n  }\n\n  .secret-summary-strip > div {\n    min-width: 0;\n    display: flex;\n    align-items: baseline;\n    gap: 8px;\n    padding: 15px 16px;\n    border-right: 1px solid #edf2ef;\n  }\n\n  .secret-summary-strip > div:last-child {\n    border-right: 0;\n  }\n\n  .secret-summary-strip strong {\n    color: #07a653;\n    font-size: 24px;\n    line-height: 1;\n  }\n\n  .secret-summary-strip span {\n    color: #6d7a73;\n    font-size: 11px;\n    font-weight: 800;\n  }\n\n  .secret-jump-nav {\n    position: sticky;\n    top: 58px;\n    z-index: 35;\n    display: grid;\n    grid-template-columns: repeat(5, minmax(0, 1fr));\n    gap: 6px;\n    padding: 7px;\n    margin-bottom: 22px;\n    border: 1px solid rgba(24, 33, 43, 0.05);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.92);\n    box-shadow: 0 10px 28px rgba(20, 49, 35, 0.08);\n    backdrop-filter: blur(16px);\n    scrollbar-width: none;\n  }\n\n  .secret-jump-nav::-webkit-scrollbar {\n    display: none;\n  }\n\n  .secret-jump-nav a {\n    min-height: 34px;\n    display: grid;\n    place-items: center;\n    padding: 6px 8px;\n    border-radius: 6px;\n    color: #65736c;\n    font-size: 11px;\n    font-weight: 900;\n    text-align: center;\n    text-decoration: none;\n  }\n\n  .secret-jump-nav a:hover {\n    background: #e8fff3;\n    color: #078447;\n  }\n\n  .secret-section {\n    padding: 22px 0 30px;\n    scroll-margin-top: 122px;\n  }\n\n  .secret-section + .secret-section {\n    border-top: 1px solid rgba(24, 33, 43, 0.07);\n  }\n\n  .secret-section-heading {\n    display: flex;\n    align-items: flex-end;\n    justify-content: space-between;\n    gap: 18px;\n    margin-bottom: 16px;\n  }\n\n  .secret-section-heading > div {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n  }\n\n  .secret-section-heading > div > span {\n    width: 34px;\n    height: 34px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #14251c;\n    color: #fff;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .secret-section:nth-of-type(2) .secret-section-heading > div > span { background: #1677ff; }\n  .secret-section:nth-of-type(3) .secret-section-heading > div > span { background: #d99a18; }\n  .secret-section:nth-of-type(4) .secret-section-heading > div > span { background: #f24848; }\n  .secret-section:nth-of-type(5) .secret-section-heading > div > span { background: #07a653; }\n\n  .secret-section-heading h2 {\n    margin: 0;\n    color: #14251c;\n    font-size: 22px;\n    line-height: 1.1;\n    font-weight: 900;\n  }\n\n  .secret-section-heading > p {\n    max-width: 520px;\n    margin: 0;\n    color: #748078;\n    font-size: 12px;\n    line-height: 1.4;\n    text-align: right;\n  }\n\n  .secret-number-grid {\n    display: grid;\n    grid-template-columns: repeat(6, minmax(0, 1fr));\n    gap: 8px;\n  }\n\n  .secret-number-item {\n    min-width: 0;\n    min-height: 100px;\n    display: grid;\n    grid-template-columns: auto 1fr;\n    grid-template-areas:\n      \"arabic hanzi\"\n      \"pinyin pinyin\";\n    gap: 5px 8px;\n    align-items: center;\n    padding: 12px;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.9);\n    box-shadow: 0 8px 22px rgba(20, 49, 35, 0.06);\n  }\n\n  .secret-number-item > span {\n    grid-area: arabic;\n    color: #1677ff;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .secret-number-item strong {\n    grid-area: hanzi;\n    min-width: 0;\n    color: #14251c;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 27px;\n    line-height: 1;\n    text-align: right;\n    overflow-wrap: anywhere;\n  }\n\n  .secret-number-item small {\n    grid-area: pinyin;\n    color: #687870;\n    font-size: 11px;\n    line-height: 1.25;\n  }\n\n  .secret-rule-band {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    margin-top: 10px;\n    padding: 13px 15px;\n    border-radius: 8px;\n    background: #eff6ff;\n    color: #24415c;\n    font-size: 12px;\n    line-height: 1.45;\n  }\n\n  .secret-rule-band strong {\n    flex: 0 0 auto;\n    color: #1665c1;\n  }\n\n  .secret-pattern-grid {\n    display: grid;\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n    gap: 10px;\n  }\n\n  .secret-pattern-card {\n    min-width: 0;\n    padding: 15px;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.9);\n    box-shadow: 0 9px 24px rgba(20, 49, 35, 0.06);\n  }\n\n  .secret-pattern-label {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 8px;\n    margin-bottom: 12px;\n  }\n\n  .secret-pattern-label > span {\n    color: #1677ff;\n    font-size: 11px;\n    font-weight: 900;\n    text-transform: uppercase;\n  }\n\n  .secret-pattern-label code {\n    padding: 4px 7px;\n    border-radius: 5px;\n    background: #eef4f1;\n    color: #53635b;\n    font-family: inherit;\n    font-size: 10px;\n    font-weight: 800;\n  }\n\n  .secret-pattern-card > strong {\n    display: block;\n    color: #14251c;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 22px;\n    line-height: 1.2;\n  }\n\n  .secret-pattern-card > em {\n    display: block;\n    margin-top: 5px;\n    color: #07a653;\n    font-size: 12px;\n    font-style: normal;\n    font-weight: 800;\n  }\n\n  .secret-pattern-card > p {\n    margin: 6px 0 0;\n    color: #6c7972;\n    font-size: 12px;\n  }\n\n  .secret-reference-grid {\n    display: grid;\n    grid-template-columns: 1.15fr 0.85fr;\n    gap: 12px;\n  }\n\n  .secret-reference-block {\n    min-width: 0;\n    padding: 16px;\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.86);\n    box-shadow: 0 10px 26px rgba(20, 49, 35, 0.06);\n  }\n\n  .secret-reference-block h3 {\n    margin: 0 0 12px;\n    color: #14251c;\n    font-size: 15px;\n    font-weight: 900;\n  }\n\n  .secret-compact-list {\n    display: grid;\n    gap: 0;\n  }\n\n  .secret-compact-list > div {\n    min-width: 0;\n    display: grid;\n    grid-template-columns: 34px 72px minmax(0, 1fr) auto;\n    gap: 8px;\n    align-items: center;\n    min-height: 40px;\n    padding: 6px 0;\n    border-bottom: 1px solid #edf2ef;\n  }\n\n  .secret-compact-list > div:last-child {\n    border-bottom: 0;\n  }\n\n  .secret-compact-list strong {\n    color: #07a653;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 19px;\n  }\n\n  .secret-compact-list em {\n    color: #1677ff;\n    font-size: 11px;\n    font-style: normal;\n    font-weight: 800;\n  }\n\n  .secret-compact-list span {\n    min-width: 0;\n    color: #586860;\n    font-size: 11px;\n    line-height: 1.3;\n  }\n\n  .secret-compact-list code {\n    color: #8b6417;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 12px;\n  }\n\n  .question-list > div {\n    grid-template-columns: minmax(72px, auto) 100px minmax(0, 1fr);\n  }\n\n  .secret-tone-grid {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 8px;\n    margin-top: 12px;\n  }\n\n  .secret-tone-grid article {\n    padding: 13px;\n    border-radius: 8px;\n    background: #fff8e9;\n    box-shadow: inset 0 0 0 1px rgba(217, 154, 24, 0.12);\n  }\n\n  .secret-tone-grid strong {\n    color: #9a6400;\n    font-size: 12px;\n  }\n\n  .secret-tone-grid p {\n    margin: 6px 0 0;\n    color: #695d43;\n    font-size: 11px;\n    line-height: 1.45;\n  }\n\n  .secret-grammar-list {\n    display: grid;\n    gap: 8px;\n  }\n\n  .secret-grammar-row {\n    min-width: 0;\n    display: grid;\n    grid-template-columns: 38px minmax(230px, 0.82fr) minmax(300px, 1.18fr);\n    gap: 14px;\n    align-items: center;\n    padding: 14px;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.9);\n    box-shadow: 0 8px 22px rgba(20, 49, 35, 0.05);\n  }\n\n  .secret-grammar-index {\n    color: #c8d4ce;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .secret-grammar-rule {\n    min-width: 0;\n  }\n\n  .secret-grammar-rule code {\n    display: inline-block;\n    max-width: 100%;\n    margin-bottom: 5px;\n    padding: 5px 8px;\n    border-radius: 6px;\n    background: #fff0ef;\n    color: #c73535;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 13px;\n    font-weight: 900;\n    overflow-wrap: anywhere;\n  }\n\n  .secret-grammar-rule strong {\n    display: block;\n    color: #14251c;\n    font-size: 12px;\n  }\n\n  .secret-grammar-rule p {\n    margin: 4px 0 0;\n    color: #6e7a74;\n    font-size: 11px;\n    line-height: 1.4;\n  }\n\n  .secret-grammar-example {\n    min-width: 0;\n    padding-left: 14px;\n    border-left: 2px solid #d8eee2;\n  }\n\n  .secret-grammar-example strong {\n    display: block;\n    color: #14251c;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 18px;\n    line-height: 1.25;\n  }\n\n  .secret-grammar-example em {\n    display: block;\n    margin-top: 4px;\n    color: #07a653;\n    font-size: 11px;\n    font-style: normal;\n    font-weight: 800;\n  }\n\n  .secret-grammar-example span {\n    display: block;\n    margin-top: 3px;\n    color: #697770;\n    font-size: 11px;\n  }\n\n  .secret-vocab-tools {\n    display: grid;\n    grid-template-columns: minmax(260px, 1fr) auto;\n    gap: 10px;\n    align-items: center;\n    margin-bottom: 10px;\n  }\n\n  .secret-search {\n    min-width: 0;\n    min-height: 44px;\n    display: flex;\n    align-items: center;\n    gap: 9px;\n    padding: 0 13px;\n    border: 1px solid rgba(7, 193, 96, 0.14);\n    border-radius: 8px;\n    background: #fff;\n    color: #07a653;\n    box-shadow: 0 8px 22px rgba(20, 49, 35, 0.05);\n  }\n\n  .secret-search svg {\n    width: 18px;\n    height: 18px;\n    flex: 0 0 auto;\n  }\n\n  .secret-search input {\n    min-width: 0;\n    width: 100%;\n    border: 0;\n    outline: 0;\n    background: transparent;\n    color: #18251f;\n    font: inherit;\n    font-size: 13px;\n  }\n\n  .secret-search input::placeholder {\n    color: #8a9690;\n  }\n\n  .secret-level-filter {\n    display: flex;\n    gap: 4px;\n    padding: 4px;\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.86);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.05);\n    scrollbar-width: none;\n  }\n\n  .secret-level-filter::-webkit-scrollbar {\n    display: none;\n  }\n\n  .secret-level-filter button {\n    min-height: 34px;\n    padding: 0 10px;\n    border-radius: 6px;\n    color: #68766f;\n    font-size: 10px;\n    font-weight: 900;\n  }\n\n  .secret-level-filter button.active {\n    background: #07c160;\n    color: #fff;\n    box-shadow: 0 6px 14px rgba(7, 193, 96, 0.18);\n  }\n\n  .secret-result-count {\n    margin: 0 0 10px;\n    color: #78847e;\n    font-size: 11px;\n    font-weight: 800;\n  }\n\n  .secret-word-grid {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n    gap: 8px;\n  }\n\n  .secret-word-row {\n    position: relative;\n    min-width: 0;\n    min-height: 142px;\n    display: flex;\n    flex-direction: column;\n    padding: 13px;\n    overflow: hidden;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.9);\n    box-shadow: 0 7px 20px rgba(20, 49, 35, 0.05);\n  }\n\n  .secret-word-main {\n    min-width: 0;\n    display: flex;\n    align-items: baseline;\n    justify-content: space-between;\n    gap: 8px;\n  }\n\n  .secret-word-main strong {\n    min-width: 0;\n    color: #14251c;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 22px;\n    line-height: 1.15;\n    overflow-wrap: anywhere;\n  }\n\n  .secret-word-main em {\n    flex: 0 1 auto;\n    color: #1677ff;\n    font-size: 11px;\n    font-style: normal;\n    font-weight: 800;\n    text-align: right;\n    overflow-wrap: anywhere;\n  }\n\n  .secret-word-row > p {\n    margin: 7px 0 0;\n    color: #596860;\n    font-size: 11px;\n    line-height: 1.35;\n  }\n\n  .secret-word-row > small {\n    display: block;\n    margin-top: 7px;\n    color: #7a867f;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 11px;\n    line-height: 1.35;\n  }\n\n  .secret-source-tags {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 4px;\n    margin-top: auto;\n    padding-top: 9px;\n  }\n\n  .secret-source-tags span {\n    padding: 3px 6px;\n    border-radius: 5px;\n    background: #e8fff3;\n    color: #078447;\n    font-size: 9px;\n    font-weight: 900;\n  }\n\n  .secret-empty {\n    min-height: 130px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.82);\n    color: #78847e;\n    font-size: 13px;\n  }\n\n  .secret-footer {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 10px;\n    padding: 28px 0 6px;\n    color: #637169;\n  }\n\n  .secret-footer .hanzi-logo-svg {\n    width: 44px;\n    height: 44px;\n    filter: none;\n  }\n\n  .secret-footer strong,\n  .secret-footer span {\n    display: block;\n  }\n\n  .secret-footer strong {\n    color: #14251c;\n    font-size: 12px;\n  }\n\n  .secret-footer span {\n    margin-top: 2px;\n    font-size: 10px;\n  }\n\n  @media (max-width: 900px) {\n    .secret-number-grid {\n      grid-template-columns: repeat(4, minmax(0, 1fr));\n    }\n\n    .secret-tone-grid {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n\n    .secret-word-grid {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n  }\n\n  @media (max-width: 680px) {\n    .secret-screen {\n      width: min(calc(100vw - 16px), 560px);\n      padding-left: 8px;\n      padding-right: 8px;\n    }\n\n    .secret-topbar {\n      min-height: 54px;\n    }\n\n    .secret-topbar .language-toggle button {\n      min-width: 31px;\n      padding: 0 5px;\n    }\n\n    .secret-print-button {\n      width: 34px;\n      padding: 0;\n    }\n\n    .secret-print-button span {\n      display: none;\n    }\n\n    .secret-hero {\n      min-height: 190px;\n      gap: 16px;\n      padding: 22px;\n    }\n\n    .secret-hero h1 {\n      font-size: 27px;\n    }\n\n    .secret-hero p:last-child {\n      font-size: 12px;\n    }\n\n    .secret-hero-seal {\n      width: 74px;\n      height: 74px;\n      font-size: 43px;\n    }\n\n    .secret-summary-strip {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n\n    .secret-summary-strip > div:nth-child(2) {\n      border-right: 0;\n    }\n\n    .secret-summary-strip > div:nth-child(-n+2) {\n      border-bottom: 1px solid #edf2ef;\n    }\n\n    .secret-jump-nav {\n      top: 54px;\n      grid-template-columns: repeat(5, minmax(68px, 1fr));\n      overflow-x: auto;\n    }\n\n    .secret-section {\n      scroll-margin-top: 116px;\n    }\n\n    .secret-section-heading {\n      display: block;\n    }\n\n    .secret-section-heading > p {\n      margin-top: 8px;\n      text-align: left;\n    }\n\n    .secret-number-grid {\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n    }\n\n    .secret-pattern-grid,\n    .secret-reference-grid,\n    .secret-word-grid {\n      grid-template-columns: 1fr;\n    }\n\n    .secret-compact-list > div {\n      grid-template-columns: 32px 68px minmax(0, 1fr);\n    }\n\n    .secret-compact-list code {\n      grid-column: 2 / -1;\n    }\n\n    .question-list > div {\n      grid-template-columns: minmax(72px, auto) 92px minmax(0, 1fr);\n    }\n\n    .secret-grammar-row {\n      grid-template-columns: 30px minmax(0, 1fr);\n      align-items: start;\n    }\n\n    .secret-grammar-example {\n      grid-column: 2;\n      padding: 10px 0 0;\n      border-top: 1px solid #e3eee8;\n      border-left: 0;\n    }\n\n    .secret-vocab-tools {\n      grid-template-columns: 1fr;\n    }\n\n    .secret-level-filter {\n      overflow-x: auto;\n    }\n\n    .secret-level-filter button {\n      flex: 1 0 auto;\n    }\n\n    .secret-word-row {\n      min-height: 126px;\n    }\n  }\n\n  @media (max-width: 390px) {\n    .secret-hero {\n      grid-template-columns: 1fr;\n    }\n\n    .secret-hero-seal {\n      display: none;\n    }\n\n    .secret-number-grid {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n\n    .secret-rule-band {\n      display: block;\n    }\n\n    .secret-rule-band span {\n      display: block;\n      margin-top: 5px;\n    }\n\n    .secret-tone-grid {\n      grid-template-columns: 1fr;\n    }\n\n    .question-list > div {\n      grid-template-columns: minmax(70px, auto) minmax(0, 1fr);\n    }\n\n    .question-list span {\n      grid-column: 1 / -1;\n    }\n  }\n\n  @media print {\n    @page {\n      size: A4;\n      margin: 11mm;\n    }\n\n    html,\n    body,\n    #root,\n    .app-container {\n      width: auto !important;\n      height: auto !important;\n      min-height: 0 !important;\n      overflow: visible !important;\n      background: #fff !important;\n    }\n\n    .app-container::before,\n    .secret-topbar,\n    .secret-jump-nav,\n    .secret-vocab-tools,\n    .secret-result-count {\n      display: none !important;\n    }\n\n    .secret-screen {\n      width: 100% !important;\n      max-width: none !important;\n      min-height: 0 !important;\n      padding: 0 !important;\n      color: #111 !important;\n    }\n\n    .secret-hero {\n      min-height: 0;\n      padding: 16px;\n      color: #111;\n      background: #fff !important;\n      border: 2px solid #111;\n      box-shadow: none;\n      break-inside: avoid;\n    }\n\n    .secret-hero h1,\n    .secret-hero p,\n    .secret-kicker {\n      color: #111 !important;\n    }\n\n    .secret-hero-seal {\n      color: #111;\n      border-color: #111;\n      box-shadow: none;\n    }\n\n    .secret-summary-strip,\n    .secret-number-item,\n    .secret-pattern-card,\n    .secret-reference-block,\n    .secret-grammar-row,\n    .secret-word-row {\n      background: #fff !important;\n      box-shadow: none !important;\n    }\n\n    .secret-summary-strip {\n      break-inside: avoid;\n    }\n\n    .secret-section {\n      padding: 14px 0;\n    }\n\n    .secret-section-heading {\n      break-after: avoid;\n    }\n\n    .secret-number-grid {\n      grid-template-columns: repeat(6, minmax(0, 1fr));\n    }\n\n    .secret-pattern-grid {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n\n    .secret-tone-grid {\n      grid-template-columns: repeat(4, minmax(0, 1fr));\n    }\n\n    .secret-word-grid {\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n    }\n\n    .secret-number-item,\n    .secret-pattern-card,\n    .secret-grammar-row,\n    .secret-word-row,\n    .secret-tone-grid article {\n      break-inside: avoid;\n    }\n\n    .secret-word-row {\n      min-height: 0;\n    }\n\n    .secret-footer {\n      break-inside: avoid;\n    }\n  }\n\n  @media (max-width: 520px) {\n    .super-topbar {\n      gap: 8px;\n    }\n\n    .brand-lockup {\n      gap: 7px;\n      flex: 1 1 auto;\n      max-width: calc(100% - 162px);\n    }\n\n    .brand-mark {\n      width: 38px;\n      height: 38px;\n      flex: 0 0 auto;\n    }\n\n    .hanzi-logo-svg {\n      width: 48px;\n      height: 48px;\n    }\n\n    .brand-title {\n      max-width: 114px;\n      font-size: 15px;\n    }\n\n    .brand-subtitle {\n      display: none;\n    }\n\n    .topbar-actions {\n      gap: 5px;\n    }\n\n    .language-toggle {\n      min-height: 28px;\n      padding: 2px;\n    }\n\n    .language-toggle button {\n      min-width: 27px;\n      padding: 0 5px;\n      font-size: 10px;\n    }\n\n    .guide-toggle,\n    .sound-toggle {\n      width: 28px;\n      height: 28px;\n    }\n\n    .guide-toggle svg,\n    .sound-toggle svg {\n      width: 16px;\n      height: 16px;\n    }\n\n    .super-topbar .daily-chip {\n      display: none;\n    }\n  }\n\n  .wallet-card {\n    position: relative;\n    min-height: 188px;\n    padding: 20px;\n    border-radius: 8px;\n    overflow: hidden;\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.96), rgba(22, 119, 255, 0.88)),\n      #07c160;\n    color: #fff;\n    box-shadow: 0 18px 40px rgba(7, 193, 96, 0.24);\n    animation: walletEnter 0.48s ease-out;\n  }\n\n  .wallet-card::before {\n    content: \"学\";\n    position: absolute;\n    right: -10px;\n    top: -28px;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 180px;\n    font-weight: 900;\n    color: rgba(255,255,255,0.11);\n    line-height: 1;\n  }\n\n  .wallet-card::after {\n    content: \"\";\n    position: absolute;\n    left: 20px;\n    right: 20px;\n    bottom: 18px;\n    height: 1px;\n    background: rgba(255,255,255,0.28);\n  }\n\n  .wallet-label {\n    margin: 0;\n    color: rgba(255,255,255,0.78);\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  .wallet-score {\n    margin: 8px 0 16px;\n    font-size: 56px;\n    line-height: 0.9;\n    font-weight: 900;\n    letter-spacing: -1px;\n  }\n\n  .wallet-card .progress-bar {\n    background: rgba(255,255,255,0.25);\n  }\n\n  .wallet-card .progress-fill {\n    background: #fff;\n  }\n\n  .wallet-meta {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    margin-top: 12px;\n    color: rgba(255,255,255,0.86);\n    font-size: 12px;\n  }\n\n  .wallet-seal {\n    display: grid;\n    place-items: center;\n    width: 44px;\n    height: 44px;\n    border: 1px solid rgba(255,255,255,0.36);\n    border-radius: 8px;\n    color: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 24px;\n    font-weight: 900;\n  }\n\n  .daily-entry-card {\n    position: relative;\n    display: grid;\n    gap: 12px;\n    margin: 14px 0 16px;\n    padding: 14px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.96), rgba(232, 255, 243, 0.92));\n    border: 1px solid rgba(7, 193, 96, 0.12);\n    box-shadow: 0 14px 34px rgba(20, 49, 35, 0.09);\n    cursor: pointer;\n    overflow: hidden;\n  }\n\n  .daily-entry-card::after {\n    content: \"练\";\n    position: absolute;\n    right: -4px;\n    bottom: -24px;\n    color: rgba(7, 193, 96, 0.07);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 104px;\n    font-weight: 900;\n    line-height: 1;\n  }\n\n  .daily-entry-main {\n    position: relative;\n    z-index: 1;\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 10px;\n    align-items: center;\n  }\n\n  .daily-entry-icon {\n    width: 42px;\n    height: 42px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    color: #fff;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    box-shadow: 0 10px 20px rgba(7, 193, 96, 0.18);\n  }\n\n  .daily-entry-kicker {\n    margin: 0 0 2px;\n    color: #07a653;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .daily-entry-title {\n    margin: 0;\n    color: #14251c;\n    font-size: 16px;\n    font-weight: 900;\n    line-height: 1.2;\n  }\n\n  .daily-entry-strip {\n    position: relative;\n    z-index: 1;\n    display: flex;\n    gap: 6px;\n    overflow: hidden;\n  }\n\n  .daily-entry-char {\n    width: 36px;\n    height: 36px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n    border-radius: 8px;\n    background: #fff;\n    color: #07a653;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 22px;\n    font-weight: 900;\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.08);\n  }\n\n  .daily-entry-meta {\n    position: relative;\n    z-index: 1;\n    display: flex;\n    gap: 8px;\n    color: #687870;\n    font-size: 11px;\n    font-weight: 800;\n  }\n\n  .quick-lane {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 8px;\n    margin: 14px 0 20px;\n  }\n\n  .quick-action {\n    min-width: 0;\n    min-height: 82px;\n    padding: 0 4px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 8px;\n    border: 0;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.92);\n    color: #1c2b34;\n    box-shadow: 0 10px 26px rgba(20, 49, 35, 0.08);\n    font-weight: 900;\n    transition: transform 0.18s ease, box-shadow 0.18s ease;\n  }\n\n  .quick-action:active {\n    transform: translateY(2px) scale(0.98);\n  }\n\n  .quick-action-icon {\n    width: 38px;\n    height: 38px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n  }\n\n  .quick-action-icon svg,\n  .bottom-nav-icon svg {\n    width: 22px;\n    height: 22px;\n  }\n\n  .quick-action:nth-child(2) .quick-action-icon {\n    background: #eef5ff;\n  }\n\n  .quick-action:nth-child(3) .quick-action-icon {\n    background: #fff4e0;\n  }\n\n  .quick-action:nth-child(4) .quick-action-icon {\n    background: #fff0f0;\n  }\n\n  .quick-action-label {\n    font-size: 11px;\n  }\n\n  .insight-panel {\n    display: grid;\n    grid-template-columns: 1fr auto;\n    gap: 12px;\n    align-items: center;\n    padding: 16px;\n    margin-bottom: 18px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.96), rgba(240, 255, 248, 0.96));\n    box-shadow: 0 12px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .insight-title {\n    margin: 0 0 4px;\n    font-weight: 900;\n    color: #152820;\n  }\n\n  .insight-copy {\n    margin: 0;\n    color: #66756e;\n    font-size: 12px;\n  }\n\n  .insight-character {\n    width: 54px;\n    height: 54px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #121f18;\n    color: #07c160;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 32px;\n    font-weight: 900;\n    animation: characterBlink 4.2s ease-in-out infinite;\n  }\n\n  .app-bottom-nav {\n    position: fixed;\n    left: 50%;\n    bottom: calc(12px + env(safe-area-inset-bottom, 0px));\n    z-index: 200;\n    width: min(440px, calc(100vw - 24px));\n    max-width: calc(100vw - 24px);\n    display: grid;\n    grid-template-columns: repeat(5, 1fr);\n    gap: 4px;\n    padding: 8px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.92);\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    box-shadow: 0 18px 50px rgba(20, 49, 35, 0.18);\n    transform: translateX(-50%);\n    backdrop-filter: blur(16px);\n  }\n\n  .bottom-nav-item {\n    min-width: 0;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 3px;\n    padding: 7px 2px;\n    border: 0;\n    border-radius: 8px;\n    background: transparent;\n    color: #728078;\n    font-size: 10px;\n    font-weight: 900;\n  }\n\n  .bottom-nav-item.active {\n    background: #e8fff3;\n    color: #07a653;\n  }\n\n  .bottom-nav-icon {\n    font-size: 18px;\n    line-height: 1;\n  }\n\n  .menu-grid {\n    display: none;\n  }\n\n  .stats-bar {\n    margin-top: 12px;\n  }\n\n  .card {\n    border: none;\n  }\n\n  .section-title {\n    margin-top: 22px;\n  }\n\n  .header {\n    min-height: 54px;\n    padding: 0;\n    margin-bottom: 14px;\n  }\n\n  .header .logo {\n    font-size: 24px;\n  }\n\n  .header .logo::after {\n    content: \"学\";\n    width: 22px;\n    height: 22px;\n    padding: 0;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    font-size: 12px;\n  }\n\n  .screen > .title-xl {\n    margin-top: 4px;\n  }\n\n  .lesson-card {\n    min-height: 82px;\n  }\n\n  .lesson-number {\n    width: 54px;\n    height: 54px;\n    min-width: 54px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    font-size: 24px;\n  }\n\n  .lesson-info .title-md {\n    font-size: 15px;\n  }\n\n  .lesson-title-line {\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    gap: 4px;\n    min-width: 0;\n  }\n\n  .lesson-title-line .title-md {\n    min-width: 0;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .lesson-chinese-chip {\n    flex: 0 0 auto;\n    max-width: 74px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    padding: 3px 7px;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .flashcard.card {\n    border: 0;\n  }\n\n  .flashcard::before {\n    opacity: 1;\n    height: 0;\n  }\n\n  .flashcard .hanzi-display {\n    color: #07c160 !important;\n  }\n\n  .card[style*=\"text-align: center\"] {\n    background: rgba(255,255,255,0.9);\n  }\n\n  .hanzi-writer-container {\n    border: 1px solid rgba(24, 33, 43, 0.08);\n  }\n\n  .canvas-controls,\n  .nav-actions,\n  .backup-buttons {\n    gap: 10px;\n  }\n\n  .results-display {\n    border-radius: 8px;\n    background: rgba(255,255,255,0.78);\n    box-shadow: 0 12px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .score-circle {\n    border-color: #07c160;\n    box-shadow: 0 0 0 8px rgba(7,193,96,0.08);\n  }\n\n  .char-grid {\n    gap: 8px;\n  }\n\n  .floating-indicator {\n    bottom: calc(98px + env(safe-area-inset-bottom, 0px));\n  }\n\n  .lessons-quick-actions {\n    display: none !important;\n  }\n\n  @keyframes walletEnter {\n    from { opacity: 0; transform: translateY(18px) scale(0.98); }\n    to { opacity: 1; transform: translateY(0) scale(1); }\n  }\n\n  @keyframes characterBlink {\n    0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(7,193,96,0); }\n    50% { transform: translateY(-4px); box-shadow: 0 10px 22px rgba(7,193,96,0.18); }\n  }\n\n  /* ===== DEEP SUPER-APP POLISH ===== */\n  .wallet-card {\n    min-height: 206px;\n    background:\n      radial-gradient(circle at 78% 30%, rgba(255, 255, 255, 0.22), transparent 28%),\n      linear-gradient(135deg, #06b85b 0%, #12c8a1 48%, #1777ff 100%);\n  }\n\n  .wallet-card .progress-bar {\n    height: 7px;\n    margin-top: 22px;\n  }\n\n  .wallet-meta {\n    position: relative;\n    z-index: 1;\n  }\n\n  .wallet-seal {\n    background: rgba(255,255,255,0.12);\n    backdrop-filter: blur(10px);\n  }\n\n  .wallet-brand-mark {\n    position: absolute;\n    z-index: 1;\n    right: 14px;\n    top: 14px;\n    width: 70px;\n    height: 70px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.16);\n    backdrop-filter: blur(10px);\n  }\n\n  .wallet-brand-mark .hanzi-logo-svg {\n    width: 58px;\n    height: 58px;\n    filter: drop-shadow(0 8px 12px rgba(15, 40, 30, 0.18));\n  }\n\n  @media (max-width: 380px) {\n    .wallet-brand-mark {\n      width: 58px;\n      height: 58px;\n      right: 12px;\n      top: 12px;\n    }\n\n    .wallet-brand-mark .hanzi-logo-svg {\n      width: 50px;\n      height: 50px;\n    }\n  }\n\n  .quick-lane {\n    padding: 8px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.64);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.04);\n  }\n\n  .quick-action {\n    min-height: 88px;\n    box-shadow: none;\n  }\n\n  .quick-action-icon {\n    position: relative;\n  }\n\n  .quick-action-icon::after {\n    content: \"\";\n    position: absolute;\n    right: -2px;\n    top: -2px;\n    width: 8px;\n    height: 8px;\n    border-radius: 50%;\n    background: #ffcf33;\n    box-shadow: 0 0 0 2px #fff;\n  }\n\n  .home-metrics .stat-item {\n    background: linear-gradient(180deg, #fff, #f8fffb);\n  }\n\n  .account-entry {\n    display: block;\n    background:\n      linear-gradient(90deg, rgba(255,255,255,0.96), rgba(241, 250, 246, 0.96));\n  }\n\n  .service-section {\n    padding: 10px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.58);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.04);\n  }\n\n  .service-section-head {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 4px 4px 12px;\n    color: #708078;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .service-list {\n    display: grid;\n    gap: 10px;\n  }\n\n  .material-group {\n    display: grid;\n    gap: 8px;\n  }\n\n  .material-group + .material-group {\n    margin-top: 12px;\n  }\n\n  .material-group-head {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 2px 4px;\n    color: #54645c;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .material-group-head span:last-child {\n    color: #91a099;\n  }\n\n  .service-row {\n    margin-bottom: 0;\n    box-shadow: none;\n    background: #fff;\n  }\n\n  .service-row::after {\n    content: \"›\";\n    position: absolute;\n    right: 16px;\n    top: 50%;\n    transform: translateY(-50%);\n    color: #a6b4ad;\n    font-size: 28px;\n    line-height: 1;\n  }\n\n  .service-row .lesson-info {\n    padding-right: 20px;\n  }\n\n  .study-pass-card {\n    min-height: 336px;\n    background:\n      radial-gradient(circle at 50% 18%, rgba(7, 193, 96, 0.18), transparent 38%),\n      linear-gradient(180deg, #fff, #fafffc);\n  }\n\n  .study-pass-card::after {\n    content: \"记\";\n    position: absolute;\n    right: 18px;\n    bottom: 14px;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 64px;\n    color: rgba(7, 193, 96, 0.06);\n    font-weight: 900;\n  }\n\n  .related-service-card {\n    background: #fff;\n  }\n\n  .mini-app-segment {\n    background: rgba(255,255,255,0.78);\n    border: 1px solid rgba(24, 33, 43, 0.06);\n  }\n\n  .draw-prompt-card {\n    display: block;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241, 250, 246, 0.98));\n  }\n\n  .draw-prompt-card::after {\n    content: \"写\";\n    position: absolute;\n    right: 18px;\n    top: 50%;\n    transform: translateY(-50%);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 54px;\n    font-weight: 900;\n    color: rgba(7, 193, 96, 0.08);\n  }\n\n  .writer-mini-program {\n    background:\n      linear-gradient(45deg, transparent calc(50% - 1px), rgba(7,193,96,0.12) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),\n      linear-gradient(-45deg, transparent calc(50% - 1px), rgba(22,119,255,0.1) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),\n      repeating-linear-gradient(0deg, transparent 0 39px, rgba(7,193,96,0.1) 39px 40px),\n      repeating-linear-gradient(90deg, transparent 0 39px, rgba(7,193,96,0.1) 39px 40px),\n      linear-gradient(180deg, #ffffff, #f8fdfb);\n    box-shadow:\n      inset 0 0 0 1px rgba(7, 193, 96, 0.08),\n      0 10px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .quiz-pass-card {\n    background:\n      radial-gradient(circle at 50% 20%, rgba(7, 193, 96, 0.1), transparent 36%),\n      #fff;\n  }\n\n  .quiz-mode-card {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 14px;\n    align-items: center;\n    padding: 16px;\n    margin-bottom: 12px;\n    background: #fff;\n  }\n\n  .quiz-mode-icon {\n    width: 50px;\n    height: 50px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n  }\n\n  .quiz-mode-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .quiz-mode-card:nth-of-type(2) .quiz-mode-icon {\n    background: #eef5ff;\n    color: #1677ff;\n  }\n\n  .quiz-mode-card:nth-of-type(3) .quiz-mode-icon {\n    background: #fff4e0;\n    color: #c77600;\n  }\n\n  .quiz-option {\n    border-radius: 8px;\n    position: relative;\n  }\n\n  .quiz-option::after {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    top: 10px;\n    bottom: 10px;\n    width: 3px;\n    border-radius: 999px;\n    background: rgba(7, 193, 96, 0.28);\n  }\n\n  .stats-wallet {\n    padding: 8px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.6);\n  }\n\n  .stats-wallet .stat-item {\n    background: #fff;\n    box-shadow: none;\n  }\n\n  .char-grid {\n    padding: 10px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.62);\n  }\n\n  .char-item {\n    box-shadow: inset 0 0 0 1px rgba(24,33,43,0.04);\n  }\n\n  .app-bottom-nav {\n    background:\n      linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,252,250,0.96));\n  }\n\n  .bottom-nav-item.active .bottom-nav-icon {\n    animation: tabPop 0.28s ease-out;\n  }\n\n  /* ===== SUPER-APP ROUND TWO ===== */\n  .super-searchbar {\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    align-items: center;\n    gap: 10px;\n    min-height: 42px;\n    padding: 0 12px;\n    margin: 0 0 12px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.88);\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    box-shadow: 0 10px 24px rgba(20, 49, 35, 0.07);\n    color: #718078;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .super-searchbar svg {\n    width: 18px;\n    height: 18px;\n    color: #07a653;\n  }\n\n  .super-searchbar strong {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    color: #1d2c35;\n    font-size: 13px;\n  }\n\n  .super-search-action {\n    display: grid;\n    place-items: center;\n    width: 26px;\n    height: 26px;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n  }\n\n  .mini-program-panel {\n    padding: 12px;\n    margin: 0 0 16px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.72);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.04), 0 12px 28px rgba(20, 49, 35, 0.06);\n  }\n\n  .mini-program-head {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    margin-bottom: 10px;\n    color: #687870;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .mini-program-grid {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 10px 8px;\n  }\n\n  .mini-program-tile {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    gap: 7px;\n    min-width: 0;\n    padding: 6px 2px;\n    border: 0;\n    background: transparent;\n    color: #213129;\n    font: inherit;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .mini-program-tile:active {\n    transform: scale(0.96);\n  }\n\n  .mini-program-icon {\n    width: 42px;\n    height: 42px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    color: #fff;\n    box-shadow: 0 8px 18px rgba(20, 49, 35, 0.1);\n    position: relative;\n    overflow: hidden;\n  }\n\n  .mini-program-icon::before {\n    content: \"\";\n    position: absolute;\n    inset: 4px auto auto 5px;\n    width: 12px;\n    height: 5px;\n    border-radius: 999px;\n    background: rgba(255,255,255,0.36);\n  }\n\n  .mini-program-icon svg {\n    width: 22px;\n    height: 22px;\n    position: relative;\n    z-index: 1;\n  }\n\n  .mini-program-name {\n    max-width: 100%;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .mini-program-tile:nth-child(1) .mini-program-icon { background: linear-gradient(135deg, #07c160, #18d58b); }\n  .mini-program-tile:nth-child(2) .mini-program-icon { background: linear-gradient(135deg, #1677ff, #28b8ff); }\n  .mini-program-tile:nth-child(3) .mini-program-icon { background: linear-gradient(135deg, #ff9f1c, #ffd166); }\n  .mini-program-tile:nth-child(4) .mini-program-icon { background: linear-gradient(135deg, #ff4d4f, #ff8a80); }\n  .mini-program-tile:nth-child(5) .mini-program-icon { background: linear-gradient(135deg, #2f3542, #57606f); }\n  .mini-program-tile:nth-child(6) .mini-program-icon { background: linear-gradient(135deg, #00a6a6, #00d2d3); }\n  .mini-program-tile:nth-child(7) .mini-program-icon { background: linear-gradient(135deg, #8e44ad, #c56cf0); }\n  .mini-program-tile:nth-child(8) .mini-program-icon { background: linear-gradient(135deg, #d99a18, #f6c343); }\n\n  .illustration-strip {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n    gap: 8px;\n    margin: 14px 0 16px;\n  }\n\n  .story-sticker {\n    min-width: 0;\n    min-height: 132px;\n    padding: 10px 6px 9px;\n    border: 0;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.86);\n    box-shadow: 0 10px 24px rgba(20, 49, 35, 0.07);\n    color: #1d2c35;\n    overflow: hidden;\n    position: relative;\n  }\n\n  .story-sticker::after {\n    content: \"\";\n    position: absolute;\n    inset: auto 0 0 auto;\n    width: 36px;\n    height: 36px;\n    border-radius: 50%;\n    background: rgba(7, 193, 96, 0.08);\n  }\n\n  .story-sticker:active {\n    transform: scale(0.97);\n  }\n\n  .story-sticker-svg {\n    display: block;\n    width: 74px;\n    max-width: 100%;\n    height: 60px;\n    margin: 0 auto 5px;\n    filter: drop-shadow(0 8px 12px rgba(20, 49, 35, 0.11));\n    animation: stickerBob 4.4s ease-in-out infinite;\n  }\n\n  .story-sticker:nth-child(2) .story-sticker-svg {\n    animation-delay: -1.2s;\n  }\n\n  .story-sticker:nth-child(3) .story-sticker-svg {\n    animation-delay: -2.1s;\n  }\n\n  .story-sticker-title {\n    display: block;\n    position: relative;\n    z-index: 1;\n    overflow: hidden;\n    text-align: center;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .cute-coach-card {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    margin-bottom: 16px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(235, 255, 246, 0.96));\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);\n  }\n\n  .coach-mini-svg,\n  .panda-buddy-svg {\n    width: 66px;\n    height: 66px;\n    filter: drop-shadow(0 10px 18px rgba(7, 193, 96, 0.18));\n  }\n\n  .coach-title {\n    margin: 0 0 4px;\n    color: #14251c;\n    font-size: 15px;\n    font-weight: 900;\n  }\n\n  .coach-copy {\n    margin: 0;\n    color: #66756e;\n    font-size: 12px;\n    line-height: 1.45;\n  }\n\n  .coach-guide-link {\n    display: inline-flex;\n    align-items: center;\n    gap: 6px;\n    min-height: 30px;\n    margin-top: 10px;\n    padding: 0 10px;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n    font-size: 12px;\n    font-weight: 900;\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.12);\n  }\n\n  .coach-guide-link svg {\n    width: 16px;\n    height: 16px;\n  }\n\n  .coach-guide-link:active {\n    transform: scale(0.97);\n  }\n\n  .tutorial-backdrop {\n    position: fixed;\n    inset: 0;\n    z-index: 300;\n    display: grid;\n    place-items: center;\n    padding: max(18px, env(safe-area-inset-top, 0px)) 18px max(18px, env(safe-area-inset-bottom, 0px));\n    background: rgba(17, 31, 24, 0.34);\n    backdrop-filter: blur(14px);\n  }\n\n  .tutorial-card {\n    position: relative;\n    width: min(calc(100vw - 48px), 360px);\n    max-height: min(760px, calc(100vh - 36px));\n    box-sizing: border-box;\n    overflow: auto;\n    padding: 16px;\n    border-radius: 8px;\n    background:\n      radial-gradient(circle at 88% 6%, rgba(22, 119, 255, 0.12), transparent 26%),\n      linear-gradient(180deg, rgba(255,255,255,0.98), rgba(243, 255, 249, 0.98));\n    border: 1px solid rgba(255,255,255,0.72);\n    box-shadow: 0 24px 70px rgba(9, 35, 23, 0.28);\n    animation: tutorialIn 0.28s ease-out;\n  }\n\n  .tutorial-close {\n    position: absolute;\n    top: 12px;\n    right: 12px;\n    z-index: 2;\n    width: 32px;\n    height: 32px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.84);\n    color: #687870;\n    font-size: 14px;\n    font-weight: 900;\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.06);\n  }\n\n  .tutorial-hero {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    padding-right: 34px;\n  }\n\n  .tutorial-panda {\n    width: 78px;\n    height: 78px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.12);\n  }\n\n  .tutorial-panda .panda-buddy-svg {\n    width: 74px;\n    height: 74px;\n  }\n\n  .tutorial-copy-block {\n    min-width: 0;\n  }\n\n  .tutorial-kicker {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 8px;\n    margin-bottom: 6px;\n    color: #07a653;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .tutorial-kicker span:last-child {\n    color: #90a098;\n  }\n\n  .tutorial-copy-block h2 {\n    margin: 0;\n    color: #14251c;\n    font-size: 21px;\n    line-height: 1.1;\n    font-weight: 900;\n  }\n\n  .tutorial-copy-block p {\n    margin: 7px 0 0;\n    color: #687870;\n    font-size: 12px;\n    line-height: 1.45;\n    font-weight: 700;\n  }\n\n  .tutorial-progress {\n    height: 7px;\n    margin: 15px 0;\n    overflow: hidden;\n    border-radius: 999px;\n    background: #dfece6;\n  }\n\n  .tutorial-progress-fill {\n    height: 100%;\n    border-radius: 999px;\n    background: linear-gradient(90deg, #07c160, #1677ff);\n    transition: width 0.25s ease;\n  }\n\n  .tutorial-step-card {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    min-height: 112px;\n    padding: 14px;\n    border-radius: 8px;\n    background: #fff;\n    box-shadow: 0 12px 28px rgba(20, 49, 35, 0.08);\n  }\n\n  .tutorial-step-icon {\n    width: 50px;\n    height: 50px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    color: #fff;\n    box-shadow: 0 12px 22px rgba(7, 193, 96, 0.18);\n  }\n\n  .tutorial-step-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .tutorial-step-card h3 {\n    margin: 0;\n    color: #14251c;\n    font-size: 17px;\n    line-height: 1.16;\n    font-weight: 900;\n  }\n\n  .tutorial-step-card p {\n    margin: 6px 0 0;\n    color: #687870;\n    font-size: 12px;\n    line-height: 1.45;\n    font-weight: 700;\n  }\n\n  .tutorial-dots {\n    display: flex;\n    justify-content: center;\n    gap: 6px;\n    margin: 14px 0;\n  }\n\n  .tutorial-dots span {\n    width: 7px;\n    height: 7px;\n    border-radius: 999px;\n    background: #cddbd4;\n    transition: width 0.2s ease, background 0.2s ease;\n  }\n\n  .tutorial-dots span.active {\n    width: 22px;\n    background: #07c160;\n  }\n\n  .tutorial-open-step {\n    width: 100%;\n    min-height: 48px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 8px;\n    margin-bottom: 12px;\n    border-radius: 8px;\n    background: linear-gradient(135deg, #07c160, #0aa75a);\n    color: #fff;\n    font-size: 14px;\n    font-weight: 900;\n    box-shadow: 0 12px 24px rgba(7, 193, 96, 0.22);\n  }\n\n  .tutorial-open-step svg {\n    width: 18px;\n    height: 18px;\n  }\n\n  .tutorial-actions {\n    display: flex;\n    align-items: stretch;\n    flex-direction: column;\n    justify-content: space-between;\n    gap: 10px;\n  }\n\n  .tutorial-action-pair {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 8px;\n    min-width: 0;\n    width: 100%;\n  }\n\n  .tutorial-quiet,\n  .tutorial-secondary,\n  .tutorial-primary {\n    min-height: 38px;\n    padding: 0 12px;\n    border-radius: 8px;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .tutorial-quiet {\n    color: #687870;\n  }\n\n  .tutorial-secondary {\n    background: #fff;\n    color: #1677ff;\n    box-shadow: inset 0 0 0 1px rgba(22, 119, 255, 0.14);\n  }\n\n  .tutorial-secondary:disabled {\n    opacity: 0.4;\n  }\n\n  .tutorial-primary {\n    background: #e8fff3;\n    color: #07a653;\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.14);\n  }\n\n  .tutorial-quiet {\n    justify-self: start;\n  }\n\n  @media (max-width: 600px) {\n    .tutorial-card {\n      justify-self: start;\n    }\n  }\n\n  @keyframes tutorialIn {\n    from { opacity: 0; transform: translateY(12px) scale(0.98); }\n    to { opacity: 1; transform: translateY(0) scale(1); }\n  }\n\n  .lesson-service-icon {\n    width: 46px;\n    height: 46px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n    border-radius: 8px;\n    background: #f0fff6;\n    color: #07a653;\n  }\n\n  .lesson-service-icon svg {\n    width: 22px;\n    height: 22px;\n  }\n\n  .service-row:nth-child(2n) .lesson-service-icon {\n    background: #eff6ff;\n    color: #1677ff;\n  }\n\n  .service-row:nth-child(3n) .lesson-service-icon {\n    background: #fff6e6;\n    color: #c77600;\n  }\n\n  @keyframes coachFloat {\n    0%, 100% { transform: translateY(0) rotate(-1deg); }\n    50% { transform: translateY(-5px) rotate(1deg); }\n  }\n\n  @keyframes stickerBob {\n    0%, 100% { transform: translateY(0) rotate(-1deg); }\n    50% { transform: translateY(-4px) rotate(1deg); }\n  }\n\n  @keyframes tabPop {\n    0% { transform: translateY(0) scale(1); }\n    50% { transform: translateY(-3px) scale(1.08); }\n    100% { transform: translateY(0) scale(1); }\n  }\n\n  /* ===== MINI-PROGRAM SYSTEM ===== */\n  .mini-app-hero {\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    margin: 0 0 14px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239, 255, 247, 0.96));\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);\n    border: 1px solid rgba(24, 33, 43, 0.05);\n  }\n\n  .mini-app-hero-icon {\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    color: #fff;\n    background: linear-gradient(135deg, #07c160, #1677ff);\n    box-shadow: 0 10px 20px rgba(7, 193, 96, 0.2);\n  }\n\n  .mini-app-hero-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .mini-app-title {\n    margin: 0;\n    color: #14251c;\n    font-size: 19px;\n    line-height: 1.08;\n    font-weight: 900;\n  }\n\n  .mini-app-subtitle {\n    margin: 4px 0 0;\n    color: #687870;\n    font-size: 12px;\n    line-height: 1.35;\n    font-weight: 700;\n  }\n\n  .mini-app-pill {\n    display: grid;\n    place-items: center;\n    min-width: 42px;\n    min-height: 30px;\n    padding: 0 9px;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n    font-size: 12px;\n    font-weight: 900;\n    white-space: nowrap;\n  }\n\n  .mini-app-progress-card {\n    display: grid;\n    grid-template-columns: 1fr auto;\n    gap: 10px;\n    align-items: center;\n    margin: 0 0 12px;\n    padding: 12px 14px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.78);\n    box-shadow: inset 0 0 0 1px rgba(24, 33, 43, 0.05);\n  }\n\n  .mini-app-progress-card .text-sm {\n    margin: 0;\n  }\n\n  .mini-app-progress-count {\n    color: #07c160;\n    font-weight: 900;\n    font-size: 13px;\n  }\n\n  .daily-training-card {\n    padding: 14px;\n    margin-bottom: 14px;\n    border-radius: 8px;\n    background:\n      radial-gradient(circle at 88% 12%, rgba(22, 119, 255, 0.12), transparent 30%),\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239, 255, 247, 0.96));\n    border: 1px solid rgba(24, 33, 43, 0.05);\n    box-shadow: 0 12px 30px rgba(20, 49, 35, 0.08);\n  }\n\n  .daily-training-hero {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    margin-bottom: 12px;\n  }\n\n  .daily-training-title {\n    margin: 0 0 4px;\n    color: #14251c;\n    font-size: 16px;\n    font-weight: 900;\n  }\n\n  .daily-training-copy {\n    margin: 0;\n    color: #687870;\n    font-size: 12px;\n    line-height: 1.45;\n    font-weight: 700;\n  }\n\n  .daily-queue-grid {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 8px;\n  }\n\n  .daily-queue-char {\n    min-height: 72px;\n    display: grid;\n    place-items: center;\n    gap: 2px;\n    padding: 8px 4px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.9);\n    box-shadow: inset 0 0 0 1px rgba(7, 193, 96, 0.08);\n  }\n\n  .daily-queue-char .hanzi-display {\n    color: #07a653;\n    font-size: 30px;\n    line-height: 1;\n  }\n\n  .daily-queue-char small {\n    color: #687870;\n    font-size: 10px;\n    font-weight: 900;\n  }\n\n  .daily-reason-row {\n    display: flex;\n    gap: 8px;\n    margin-top: 12px;\n    color: #687870;\n    font-size: 11px;\n    font-weight: 800;\n  }\n\n  .daily-step-grid {\n    display: grid;\n    gap: 10px;\n    margin-bottom: 14px;\n  }\n\n  .daily-step-card {\n    position: relative;\n    min-height: 92px;\n    display: grid;\n    grid-template-columns: auto 1fr;\n    grid-template-areas:\n      \"icon title\"\n      \"icon copy\";\n    gap: 3px 12px;\n    align-items: center;\n    padding: 14px;\n    border: 0;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.9);\n    color: #1d2c35;\n    text-align: left;\n    box-shadow: 0 10px 24px rgba(20, 49, 35, 0.07);\n    overflow: hidden;\n  }\n\n  .daily-step-card.primary {\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.96), rgba(22, 119, 255, 0.88));\n    color: #fff;\n    box-shadow: 0 16px 32px rgba(7, 193, 96, 0.18);\n  }\n\n  .daily-step-card:active {\n    transform: scale(0.985);\n  }\n\n  .daily-step-index {\n    position: absolute;\n    right: 12px;\n    top: 8px;\n    color: rgba(7, 193, 96, 0.14);\n    font-size: 48px;\n    font-weight: 900;\n    line-height: 1;\n  }\n\n  .daily-step-card.primary .daily-step-index {\n    color: rgba(255,255,255,0.18);\n  }\n\n  .daily-step-icon {\n    grid-area: icon;\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #e8fff3;\n    color: #07a653;\n  }\n\n  .daily-step-card.primary .daily-step-icon {\n    background: rgba(255,255,255,0.18);\n    color: #fff;\n  }\n\n  .daily-step-card strong {\n    grid-area: title;\n    position: relative;\n    z-index: 1;\n    font-size: 17px;\n    line-height: 1.1;\n  }\n\n  .daily-step-card span:last-child {\n    grid-area: copy;\n    position: relative;\n    z-index: 1;\n    color: #687870;\n    font-size: 12px;\n    line-height: 1.35;\n    font-weight: 700;\n  }\n\n  .daily-step-card.primary span:last-child {\n    color: rgba(255,255,255,0.84);\n  }\n\n  .dual-label {\n    display: block;\n    line-height: 1.15;\n  }\n\n  .dual-label strong {\n    display: block;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .dual-label span {\n    display: block;\n    margin-top: 1px;\n    font-size: 10px;\n    color: #728078;\n    font-weight: 800;\n  }\n\n  .section-title-cn {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 10px;\n    margin: 20px 0 10px;\n    color: #687870;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .section-title-cn span:first-child {\n    color: #14251c;\n  }\n\n  @media (min-width: 980px) {\n    .home-screen {\n      width: min(calc(100vw - 72px), 920px);\n      max-width: 920px;\n      display: grid;\n      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);\n      gap: 18px;\n      align-items: start;\n      padding-bottom: 124px;\n    }\n\n    .home-screen .super-topbar,\n    .home-screen .super-searchbar,\n    .home-screen .illustration-strip,\n    .home-screen .quick-lane,\n    .home-screen .mini-program-panel,\n    .home-screen .home-metrics,\n    .home-screen .section-title,\n    .home-screen .account-entry {\n      grid-column: 1 / -1;\n    }\n\n    .home-screen .super-topbar,\n    .home-screen .super-searchbar,\n    .home-screen .wallet-card,\n    .home-screen .daily-entry-card,\n    .home-screen .illustration-strip,\n    .home-screen .quick-lane,\n    .home-screen .mini-program-panel,\n    .home-screen .cute-coach-card,\n    .home-screen .insight-panel,\n    .home-screen .home-metrics,\n    .home-screen .account-entry {\n      margin-bottom: 0;\n    }\n\n    .home-screen .wallet-card {\n      min-height: 248px;\n    }\n\n    .home-screen .daily-entry-card {\n      align-self: stretch;\n      min-height: 248px;\n    }\n\n    .home-screen .illustration-strip {\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n    }\n\n    .home-screen .quick-lane {\n      grid-template-columns: repeat(4, minmax(0, 1fr));\n    }\n\n    .home-screen .mini-program-grid {\n      grid-template-columns: repeat(8, minmax(0, 1fr));\n    }\n\n    .home-screen .cute-coach-card,\n    .home-screen .insight-panel {\n      min-height: 132px;\n    }\n  }\n\n  @media (max-width: 380px) {\n    .mini-app-hero {\n      grid-template-columns: auto 1fr;\n    }\n\n    .mini-app-pill {\n      grid-column: 1 / -1;\n      justify-self: start;\n    }\n\n    .tutorial-card {\n      padding: 14px;\n    }\n\n    .tutorial-hero {\n      grid-template-columns: 1fr;\n      padding-right: 34px;\n    }\n\n    .tutorial-panda {\n      width: 66px;\n      height: 66px;\n    }\n\n    .tutorial-panda .panda-buddy-svg {\n      width: 64px;\n      height: 64px;\n    }\n\n    .tutorial-actions {\n      align-items: stretch;\n      flex-direction: column;\n    }\n\n    .tutorial-action-pair {\n      display: grid;\n      grid-template-columns: 1fr 1fr;\n      width: 100%;\n    }\n  }\n";
 const TUTORIAL_STORAGE_KEY = 'hanzi_master_tutorial_seen';
+const isSecretRoute = () => {
+  const path = window.location.pathname.replace(/\/+$/, '');
+  return path.endsWith('/secret') || window.location.hash === '#secret' || new URLSearchParams(window.location.search).get('view') === 'secret';
+};
 const loadTutorialSeen = () => {
   try {
     return localStorage.getItem(TUTORIAL_STORAGE_KEY) === 'true';
@@ -1588,14 +2396,14 @@ const saveTutorialSeen = () => {
   }
 };
 function HanziMasterApp() {
-  const [currentView, setCurrentView] = React.useState('home');
+  const [currentView, setCurrentView] = React.useState(() => isSecretRoute() ? 'secret' : 'home');
   const [progress, setProgress] = React.useState(loadProgress);
   const [selectedLesson, setSelectedLesson] = React.useState(null);
   const [selectedQueue, setSelectedQueue] = React.useState(null);
   const [language, setLanguage] = React.useState(loadLanguage);
   const [soundEnabled, setSoundEnabled] = React.useState(loadSoundEnabled);
   const [ambienceEnabled, setAmbienceEnabled] = React.useState(loadAmbienceEnabled);
-  const [tutorialOpen, setTutorialOpen] = React.useState(() => !loadTutorialSeen());
+  const [tutorialOpen, setTutorialOpen] = React.useState(() => !isSecretRoute() && !loadTutorialSeen());
   React.useEffect(() => {
     saveProgress(progress);
   }, [progress]);
@@ -1744,6 +2552,8 @@ function HanziMasterApp() {
     key: "quiz"
   }, viewProps)), currentView === 'stats' && React.createElement(StatsView, _extends({
     key: "stats"
+  }, viewProps)), currentView === 'secret' && React.createElement(SecretCheatSheetView, _extends({
+    key: "secret"
   }, viewProps)), React.createElement(BottomNav, {
     currentView: currentView,
     setCurrentView: setCurrentViewWithSound,
@@ -1751,7 +2561,7 @@ function HanziMasterApp() {
     setSelectedQueue: setSelectedQueue,
     t: t
   }), React.createElement(TutorialOverlay, {
-    open: tutorialOpen,
+    open: tutorialOpen && currentView !== 'secret',
     onClose: closeTutorial,
     setCurrentView: setCurrentViewWithSound,
     setSelectedLesson: setSelectedLesson,
@@ -1767,7 +2577,7 @@ function BottomNav({
   setSelectedQueue,
   t
 }) {
-  if (['learn', 'draw', 'quiz', 'daily'].includes(currentView)) return null;
+  if (['learn', 'draw', 'quiz', 'daily', 'secret'].includes(currentView)) return null;
   const items = [{
     view: 'home',
     icon: 'home',
@@ -2114,6 +2924,13 @@ function AppIcon({
     d: "M12 3v12M7.5 10.5 12 15l4.5-4.5"
   })), React.createElement("path", _extends({}, stroke, {
     d: "M5 20h14"
+  })));
+  if (name === 'print') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
+    d: "M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+  })), React.createElement("path", _extends({}, stroke, {
+    d: "M7 14h10v7H7z"
+  })), React.createElement("path", _extends({}, stroke, {
+    d: "M17 11h.01"
   })));
   return React.createElement("svg", common, React.createElement("circle", {
     cx: "12",
@@ -4345,6 +5162,388 @@ function StatsView({
     className: "btn btn-coral",
     onClick: handleReset
   }, t('stats.reset'))));
+}
+const SECRET_NUMBERS = [['0', '零', 'líng'], ['1', '一', 'yī'], ['2', '二 / 两', 'èr / liǎng'], ['3', '三', 'sān'], ['4', '四', 'sì'], ['5', '五', 'wǔ'], ['6', '六', 'liù'], ['7', '七', 'qī'], ['8', '八', 'bā'], ['9', '九', 'jiǔ'], ['10', '十', 'shí'], ['11', '十一', 'shíyī'], ['20', '二十', 'èrshí'], ['21', '二十一', 'èrshíyī'], ['100', '一百', 'yìbǎi'], ['101', '一百零一', 'yìbǎi líng yī'], ['1,000', '一千', 'yìqiān'], ['10,000', '一万', 'yíwàn']];
+const SECRET_TIME_PATTERNS = [{
+  label: 'Year',
+  formula: 'digits + 年',
+  hanzi: '二零二六年',
+  pinyin: 'èr líng èr liù nián',
+  meaning: 'the year 2026'
+}, {
+  label: 'Month',
+  formula: 'number + 月',
+  hanzi: '九月',
+  pinyin: 'jiǔ yuè',
+  meaning: 'September'
+}, {
+  label: 'Date',
+  formula: 'number + 号 / 日',
+  hanzi: '七月五号',
+  pinyin: 'qī yuè wǔ hào',
+  meaning: 'July 5'
+}, {
+  label: 'Weekday',
+  formula: '星期 + 1-6 / 日',
+  hanzi: '星期五',
+  pinyin: 'xīngqīwǔ',
+  meaning: 'Friday'
+}, {
+  label: 'Clock',
+  formula: 'period + 点 + 分',
+  hanzi: '下午三点二十分',
+  pinyin: 'xiàwǔ sān diǎn èrshí fēn',
+  meaning: '3:20 p.m.'
+}, {
+  label: 'Age',
+  formula: 'number + 岁',
+  hanzi: '我二十岁。',
+  pinyin: 'wǒ èrshí suì',
+  meaning: 'I am 20 years old.'
+}, {
+  label: 'Money',
+  formula: 'number + 块 / 元',
+  hanzi: '三块钱',
+  pinyin: 'sān kuài qián',
+  meaning: 'three yuan'
+}, {
+  label: 'Duration',
+  formula: 'number + time unit',
+  hanzi: '我学了两年。',
+  pinyin: 'wǒ xué le liǎng nián',
+  meaning: 'I studied for two years.'
+}];
+const SECRET_MEASURE_WORDS = [['个', 'gè', 'general people and things', '三个人'], ['本', 'běn', 'books and bound volumes', '两本书'], ['杯', 'bēi', 'cups and glasses', '一杯咖啡'], ['件', 'jiàn', 'clothes and matters', '这件衣服'], ['张', 'zhāng', 'flat objects and tickets', '两张票'], ['只', 'zhī', 'many animals; one of a pair', '一只猫'], ['把', 'bǎ', 'handled objects and chairs', '一把椅子'], ['位', 'wèi', 'polite measure for people', '一位老师'], ['家', 'jiā', 'businesses and institutions', '一家商店'], ['辆', 'liàng', 'vehicles', '一辆车']];
+const SECRET_QUESTION_WORDS = [['什么', 'shénme', 'what'], ['谁', 'shéi', 'who'], ['哪 / 哪儿', 'nǎ / nǎr', 'which / where'], ['几', 'jǐ', 'how many; small expected number'], ['多少', 'duōshao', 'how many; how much'], ['怎么', 'zěnme', 'how; why'], ['为什么', 'wèishénme', 'why'], ['什么时候', 'shénme shíhou', 'when'], ['怎么样', 'zěnmeyàng', 'how is it; how about']];
+const SECRET_TONE_RULES = [{
+  title: 'Four tones',
+  copy: 'mā (1) · má (2) · mǎ (3) · mà (4); neutral tone stays light and short.'
+}, {
+  title: 'Third-tone pair',
+  copy: '3rd + 3rd is pronounced 2nd + 3rd: 你好 nǐ hǎo → ní hǎo.'
+}, {
+  title: '一 tone change',
+  copy: 'yí before a 4th tone; yì before 1st, 2nd, or 3rd tones; yī when isolated or ordinal.'
+}, {
+  title: '不 tone change',
+  copy: 'bù becomes bú before a 4th-tone syllable: 不是 bú shì.'
+}];
+const SECRET_GRAMMAR = [{
+  pattern: 'A 是 B',
+  label: 'Identity',
+  use: 'Use 是 to identify or classify.',
+  hanzi: '我是学生。',
+  pinyin: 'wǒ shì xuésheng',
+  meaning: 'I am a student.'
+}, {
+  pattern: 'A 有 B',
+  label: 'Possession',
+  use: 'Use 有 for have; 没有 for do not have.',
+  hanzi: '我有三本书。',
+  pinyin: 'wǒ yǒu sān běn shū',
+  meaning: 'I have three books.'
+}, {
+  pattern: 'A 在 place',
+  label: 'Location',
+  use: 'Put 在 before the place where someone or something is.',
+  hanzi: '手机在桌子上。',
+  pinyin: 'shǒujī zài zhuōzi shàng',
+  meaning: 'The phone is on the table.'
+}, {
+  pattern: '在 / 正在 + V + 呢',
+  label: 'Action in progress',
+  use: 'Mark an action happening now.',
+  hanzi: '他正在看报纸呢。',
+  pinyin: 'tā zhèngzài kàn bàozhǐ ne',
+  meaning: 'He is reading the newspaper.'
+}, {
+  pattern: '太 + adjective + 了',
+  label: 'Too / very',
+  use: 'Express a strong degree or a changed situation.',
+  hanzi: '今天太热了。',
+  pinyin: 'jīntiān tài rè le',
+  meaning: 'It is too hot today.'
+}, {
+  pattern: '想 / 要 + V',
+  label: 'Want / intend',
+  use: '想 is a wish; 要 is a stronger intention or need.',
+  hanzi: '我要去北京旅游。',
+  pinyin: 'wǒ yào qù Běijīng lǚyóu',
+  meaning: 'I want to travel to Beijing.'
+}, {
+  pattern: '会 / 能 / 可以 + V',
+  label: 'Can',
+  use: '会: learned ability; 能: capability; 可以: permission.',
+  hanzi: '你明天下午能回来吗？',
+  pinyin: 'nǐ míngtiān xiàwǔ néng huílai ma',
+  meaning: 'Can you come back tomorrow afternoon?'
+}, {
+  pattern: 'V + 了',
+  label: 'Completed action',
+  use: 'Place 了 after the verb or at sentence end when a situation changes.',
+  hanzi: '我买了些苹果。',
+  pinyin: 'wǒ mǎi le xiē píngguǒ',
+  meaning: 'I bought some apples.'
+}, {
+  pattern: '没(有) + V',
+  label: 'Past negation',
+  use: 'Negate completed or past actions with 没, not 不.',
+  hanzi: '我没做完。',
+  pinyin: 'wǒ méi zuòwán',
+  meaning: 'I did not finish.'
+}, {
+  pattern: '是...的',
+  label: 'Completed-action detail',
+  use: 'Emphasize when, where, how, or by whom something happened.',
+  hanzi: '这个工作是他帮我介绍的。',
+  pinyin: 'zhège gōngzuò shì tā bāng wǒ jièshào de',
+  meaning: 'He was the one who introduced this job to me.'
+}, {
+  pattern: 'A 比 B + adjective',
+  label: 'Comparison',
+  use: 'Compare A with B; add a quantity after the adjective when needed.',
+  hanzi: '他比我大三岁。',
+  pinyin: 'tā bǐ wǒ dà sān suì',
+  meaning: 'He is three years older than me.'
+}, {
+  pattern: 'A 离 B + 远 / 近',
+  label: 'Distance',
+  use: 'State the distance between two places.',
+  hanzi: '我家离公司很近。',
+  pinyin: 'wǒ jiā lí gōngsī hěn jìn',
+  meaning: 'My home is close to the company.'
+}, {
+  pattern: '就要 / 快要 + V + 了',
+  label: 'About to happen',
+  use: 'Describe an event that will happen very soon.',
+  hanzi: '新年就要到了。',
+  pinyin: 'xīnnián jiùyào dào le',
+  meaning: 'New Year is almost here.'
+}, {
+  pattern: 'V + 完',
+  label: 'Result complement',
+  use: '完 marks that an action has been finished.',
+  hanzi: '作业我已经做完了。',
+  pinyin: 'zuòyè wǒ yǐjīng zuòwán le',
+  meaning: 'I have already finished the homework.'
+}, {
+  pattern: 'V + 着',
+  label: 'Continuing state',
+  use: '着 describes a state that remains in effect.',
+  hanzi: '门开着呢。',
+  pinyin: 'mén kāizhe ne',
+  meaning: 'The door is open.'
+}, {
+  pattern: '...吧',
+  label: 'Suggestion',
+  use: 'Soften a suggestion or proposal.',
+  hanzi: '我们一起去踢足球吧。',
+  pinyin: 'wǒmen yìqǐ qù tī zúqiú ba',
+  meaning: "Let's go play football together."
+}];
+const buildSecretVocabularyIndex = () => {
+  const byHanzi = new Map();
+  const addItem = (item, level, source) => {
+    if (!item?.hanzi) return;
+    const key = item.hanzi.trim();
+    if (!key || /^\?+$/.test(key)) return;
+    const existing = byHanzi.get(key);
+    if (!existing) {
+      byHanzi.set(key, {
+        hanzi: key,
+        pinyin: item.pinyin || '',
+        meanings: item.meaning ? [item.meaning] : [],
+        example: item.example || '',
+        levels: [level],
+        sources: [source]
+      });
+      return;
+    }
+    if (item.meaning && !existing.meanings.includes(item.meaning)) existing.meanings.push(item.meaning);
+    if (!existing.example && item.example) existing.example = item.example;
+    if (!existing.pinyin && item.pinyin) existing.pinyin = item.pinyin;
+    if (!existing.levels.includes(level)) existing.levels.push(level);
+    if (!existing.sources.includes(source)) existing.sources.push(source);
+  };
+  VOCABULARY.forEach(item => addItem(item, 'HSK1', `Lesson ${item.lesson}`));
+  COMPOUNDS.forEach(item => addItem(item, 'HSK1', `Lesson ${item.lesson}`));
+  MATERIAL_COLLECTIONS.forEach(collection => {
+    const level = collection.level || 'Materials';
+    const source = collection.labelEn || collection.sourceFile || collection.id;
+    collection.items.forEach(item => addItem(item, level, source));
+  });
+  return Array.from(byHanzi.values()).sort((a, b) => a.pinyin.localeCompare(b.pinyin, 'en', {
+    sensitivity: 'base'
+  }) || a.hanzi.localeCompare(b.hanzi, 'zh-Hans'));
+};
+function SecretCheatSheetView({
+  setCurrentView,
+  language,
+  setLanguage,
+  playSound,
+  t
+}) {
+  const [query, setQuery] = React.useState('');
+  const [level, setLevel] = React.useState('All');
+  const vocabulary = React.useMemo(buildSecretVocabularyIndex, []);
+  const levels = ['All', 'HSK1', 'HSK2', 'Book3', 'Basics'];
+  const normalizedQuery = query.trim().toLocaleLowerCase();
+  const filteredVocabulary = React.useMemo(() => vocabulary.filter(item => {
+    const matchesLevel = level === 'All' || item.levels.includes(level);
+    if (!matchesLevel) return false;
+    if (!normalizedQuery) return true;
+    return [item.hanzi, item.pinyin, item.meanings.join(' '), item.example, item.sources.join(' ')].join(' ').toLocaleLowerCase().includes(normalizedQuery);
+  }), [vocabulary, level, normalizedQuery]);
+  const leaveSecret = () => {
+    const nextUrl = window.location.protocol === 'file:' ? `${window.location.pathname}${window.location.search}` : '/';
+    window.history.replaceState({}, '', nextUrl);
+    setCurrentView('home');
+  };
+  return React.createElement("div", {
+    className: "screen secret-screen"
+  }, React.createElement("header", {
+    className: "secret-topbar"
+  }, React.createElement("button", {
+    className: "back-btn",
+    onClick: leaveSecret
+  }, t('secret.back')), React.createElement("div", {
+    className: "secret-topbar-actions"
+  }, React.createElement(LanguageToggle, {
+    language: language,
+    setLanguage: setLanguage,
+    playSound: playSound,
+    t: t
+  }), React.createElement("button", {
+    className: "secret-print-button",
+    onClick: () => window.print()
+  }, React.createElement(AppIcon, {
+    name: "print"
+  }), React.createElement("span", null, t('secret.print'))))), React.createElement("section", {
+    className: "secret-hero"
+  }, React.createElement("div", null, React.createElement("p", {
+    className: "secret-kicker"
+  }, t('secret.badge')), React.createElement("h1", null, t('secret.title')), React.createElement("p", null, t('secret.subtitle'))), React.createElement("div", {
+    className: "secret-hero-seal"
+  }, "\u603B")), React.createElement("div", {
+    className: "secret-summary-strip"
+  }, React.createElement("div", null, React.createElement("strong", null, vocabulary.length), React.createElement("span", null, t('secret.uniqueWords'))), React.createElement("div", null, React.createElement("strong", null, MATERIAL_COLLECTIONS.length), React.createElement("span", null, t('secret.collections'))), React.createElement("div", null, React.createElement("strong", null, SECRET_GRAMMAR.length), React.createElement("span", null, t('secret.patterns'))), React.createElement("div", null, React.createElement("strong", null, SECRET_NUMBERS.length), React.createElement("span", null, t('secret.numberForms')))), React.createElement("nav", {
+    className: "secret-jump-nav",
+    "aria-label": t('secret.contents')
+  }, React.createElement("a", {
+    href: "#secret-numbers"
+  }, t('secret.numbers')), React.createElement("a", {
+    href: "#secret-time"
+  }, t('secret.time')), React.createElement("a", {
+    href: "#secret-essentials"
+  }, t('secret.essentials')), React.createElement("a", {
+    href: "#secret-grammar"
+  }, t('secret.grammar')), React.createElement("a", {
+    href: "#secret-vocabulary"
+  }, t('secret.vocabulary'))), React.createElement("section", {
+    id: "secret-numbers",
+    className: "secret-section"
+  }, React.createElement("div", {
+    className: "secret-section-heading"
+  }, React.createElement("div", null, React.createElement("span", null, "01"), React.createElement("h2", null, t('secret.numbers'))), React.createElement("p", null, t('secret.numbersHint'))), React.createElement("div", {
+    className: "secret-number-grid"
+  }, SECRET_NUMBERS.map(([arabic, hanzi, pinyin]) => React.createElement("div", {
+    className: "secret-number-item",
+    key: arabic
+  }, React.createElement("span", null, arabic), React.createElement("strong", null, hanzi), React.createElement("small", null, pinyin)))), React.createElement("div", {
+    className: "secret-rule-band"
+  }, React.createElement("strong", null, "\u4E8C vs. \u4E24"), React.createElement("span", null, "Use \u4E8C when counting or reading digits; use \u4E24 before most measure words: \u4E8C\u5341\u4E8C, \u4E24\u4E2A\u4EBA, \u4E24\u672C\u4E66."))), React.createElement("section", {
+    id: "secret-time",
+    className: "secret-section"
+  }, React.createElement("div", {
+    className: "secret-section-heading"
+  }, React.createElement("div", null, React.createElement("span", null, "02"), React.createElement("h2", null, t('secret.time'))), React.createElement("p", null, t('secret.timeHint'))), React.createElement("div", {
+    className: "secret-pattern-grid secret-time-grid"
+  }, SECRET_TIME_PATTERNS.map(item => React.createElement("article", {
+    className: "secret-pattern-card",
+    key: item.label
+  }, React.createElement("div", {
+    className: "secret-pattern-label"
+  }, React.createElement("span", null, item.label), React.createElement("code", null, item.formula)), React.createElement("strong", null, item.hanzi), React.createElement("em", null, item.pinyin), React.createElement("p", null, item.meaning))))), React.createElement("section", {
+    id: "secret-essentials",
+    className: "secret-section"
+  }, React.createElement("div", {
+    className: "secret-section-heading"
+  }, React.createElement("div", null, React.createElement("span", null, "03"), React.createElement("h2", null, t('secret.essentials'))), React.createElement("p", null, t('secret.essentialsHint'))), React.createElement("div", {
+    className: "secret-reference-grid"
+  }, React.createElement("div", {
+    className: "secret-reference-block"
+  }, React.createElement("h3", null, t('secret.measureWords')), React.createElement("div", {
+    className: "secret-compact-list"
+  }, SECRET_MEASURE_WORDS.map(([hanzi, pinyin, meaning, example]) => React.createElement("div", {
+    key: hanzi
+  }, React.createElement("strong", null, hanzi), React.createElement("em", null, pinyin), React.createElement("span", null, meaning), React.createElement("code", null, example))))), React.createElement("div", {
+    className: "secret-reference-block"
+  }, React.createElement("h3", null, t('secret.questions')), React.createElement("div", {
+    className: "secret-compact-list question-list"
+  }, SECRET_QUESTION_WORDS.map(([hanzi, pinyin, meaning]) => React.createElement("div", {
+    key: hanzi
+  }, React.createElement("strong", null, hanzi), React.createElement("em", null, pinyin), React.createElement("span", null, meaning)))))), React.createElement("div", {
+    className: "secret-tone-grid"
+  }, SECRET_TONE_RULES.map(rule => React.createElement("article", {
+    key: rule.title
+  }, React.createElement("strong", null, rule.title), React.createElement("p", null, rule.copy))))), React.createElement("section", {
+    id: "secret-grammar",
+    className: "secret-section"
+  }, React.createElement("div", {
+    className: "secret-section-heading"
+  }, React.createElement("div", null, React.createElement("span", null, "04"), React.createElement("h2", null, t('secret.grammar'))), React.createElement("p", null, t('secret.grammarHint'))), React.createElement("div", {
+    className: "secret-grammar-list"
+  }, SECRET_GRAMMAR.map((item, index) => React.createElement("article", {
+    className: "secret-grammar-row",
+    key: item.pattern
+  }, React.createElement("span", {
+    className: "secret-grammar-index"
+  }, String(index + 1).padStart(2, '0')), React.createElement("div", {
+    className: "secret-grammar-rule"
+  }, React.createElement("code", null, item.pattern), React.createElement("strong", null, item.label), React.createElement("p", null, item.use)), React.createElement("div", {
+    className: "secret-grammar-example"
+  }, React.createElement("strong", null, item.hanzi), React.createElement("em", null, item.pinyin), React.createElement("span", null, item.meaning)))))), React.createElement("section", {
+    id: "secret-vocabulary",
+    className: "secret-section secret-vocabulary-section"
+  }, React.createElement("div", {
+    className: "secret-section-heading"
+  }, React.createElement("div", null, React.createElement("span", null, "05"), React.createElement("h2", null, t('secret.vocabulary'))), React.createElement("p", null, t('secret.vocabularyHint'))), React.createElement("div", {
+    className: "secret-vocab-tools"
+  }, React.createElement("label", {
+    className: "secret-search"
+  }, React.createElement(AppIcon, {
+    name: "scan"
+  }), React.createElement("input", {
+    value: query,
+    onChange: event => setQuery(event.target.value),
+    placeholder: t('secret.search'),
+    "aria-label": t('secret.search')
+  })), React.createElement("div", {
+    className: "secret-level-filter"
+  }, levels.map(item => React.createElement("button", {
+    key: item,
+    className: level === item ? 'active' : '',
+    onClick: () => setLevel(item)
+  }, item === 'All' ? t('secret.all') : item)))), React.createElement("p", {
+    className: "secret-result-count"
+  }, t('secret.results', {
+    count: filteredVocabulary.length
+  })), filteredVocabulary.length > 0 ? React.createElement("div", {
+    className: "secret-word-grid"
+  }, filteredVocabulary.map(item => React.createElement("article", {
+    className: "secret-word-row",
+    key: item.hanzi
+  }, React.createElement("div", {
+    className: "secret-word-main"
+  }, React.createElement("strong", null, item.hanzi), React.createElement("em", null, item.pinyin)), React.createElement("p", null, item.meanings.join(' · ')), item.example && React.createElement("small", null, item.example), React.createElement("div", {
+    className: "secret-source-tags"
+  }, item.levels.map(itemLevel => React.createElement("span", {
+    key: itemLevel
+  }, itemLevel)))))) : React.createElement("div", {
+    className: "secret-empty"
+  }, t('secret.empty'))), React.createElement("footer", {
+    className: "secret-footer"
+  }, React.createElement(HanziLogoSvg, null), React.createElement("div", null, React.createElement("strong", null, "Hanzi Master"), React.createElement("span", null, t('secret.footer')))));
 }
 document.body.classList.add('app-ready');
 ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(HanziMasterApp, null));

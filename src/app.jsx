@@ -3,6 +3,13 @@
 // ============================================
 const TUTORIAL_STORAGE_KEY = 'hanzi_master_tutorial_seen';
 
+const isSecretRoute = () => {
+  const path = window.location.pathname.replace(/\/+$/, '');
+  return path.endsWith('/secret')
+    || window.location.hash === '#secret'
+    || new URLSearchParams(window.location.search).get('view') === 'secret';
+};
+
 const loadTutorialSeen = () => {
   try {
     return localStorage.getItem(TUTORIAL_STORAGE_KEY) === 'true';
@@ -20,14 +27,14 @@ const saveTutorialSeen = () => {
 };
 
 function HanziMasterApp() {
-  const [currentView, setCurrentView] = React.useState('home');
+  const [currentView, setCurrentView] = React.useState(() => (isSecretRoute() ? 'secret' : 'home'));
   const [progress, setProgress] = React.useState(loadProgress);
   const [selectedLesson, setSelectedLesson] = React.useState(null);
   const [selectedQueue, setSelectedQueue] = React.useState(null);
   const [language, setLanguage] = React.useState(loadLanguage);
   const [soundEnabled, setSoundEnabled] = React.useState(loadSoundEnabled);
   const [ambienceEnabled, setAmbienceEnabled] = React.useState(loadAmbienceEnabled);
-  const [tutorialOpen, setTutorialOpen] = React.useState(() => !loadTutorialSeen());
+  const [tutorialOpen, setTutorialOpen] = React.useState(() => !isSecretRoute() && !loadTutorialSeen());
 
   React.useEffect(() => {
     saveProgress(progress);
@@ -146,9 +153,10 @@ function HanziMasterApp() {
       {currentView === 'draw' && <DrawView key="draw" {...viewProps} />}
       {currentView === 'quiz' && <QuizView key="quiz" {...viewProps} />}
       {currentView === 'stats' && <StatsView key="stats" {...viewProps} />}
+      {currentView === 'secret' && <SecretCheatSheetView key="secret" {...viewProps} />}
       <BottomNav currentView={currentView} setCurrentView={setCurrentViewWithSound} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} t={t} />
       <TutorialOverlay
-        open={tutorialOpen}
+        open={tutorialOpen && currentView !== 'secret'}
         onClose={closeTutorial}
         setCurrentView={setCurrentViewWithSound}
         setSelectedLesson={setSelectedLesson}

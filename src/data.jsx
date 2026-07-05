@@ -168,7 +168,7 @@ const MATERIAL_COLLECTIONS = (() => {
   );
 
   if (rawCollections.length > 0) {
-    return rawCollections.map((collection, index) => ({
+    return rawCollections.map(repairMaterialCollection).map((collection, index) => ({
       id: collection.id || `material-${index + 1}`,
       level: collection.level || 'Material',
       labelKey: collection.id === 'hsk1-word-bank' ? 'queue.hsk1Words' : collection.labelKey,
@@ -244,4 +244,3 @@ const STUDY_CATALOG = (() => {
   });
   return Array.from(byHanzi.values());
 })();
-

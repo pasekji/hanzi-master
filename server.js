@@ -23,6 +23,14 @@ app.use(express.static(path.join(__dirname, 'public'), {
   index: false // Don't serve index.html from static middleware
 }));
 
+app.use((req, res, next) => {
+  if (req.path === '/secret/') {
+    res.redirect(308, '/secret');
+    return;
+  }
+  next();
+});
+
 // Serve HTML with no-cache (always fresh)
 app.get('*', (req, res) => {
   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
