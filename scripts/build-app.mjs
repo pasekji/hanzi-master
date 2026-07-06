@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import vm from 'node:vm';
 import { createOfflineZip } from './create-offline-zip.mjs';
 
@@ -47,6 +48,28 @@ const result = sandbox.Babel.transform(source, {
 
 await writeFile(outputUrl, `${result.code}\n`, 'utf8');
 console.log(`Built ${outputUrl.pathname}`);
+
+const scriptAssets = [
+  'vendor/react.production.min.js',
+  'vendor/react-dom.production.min.js',
+  'vendor/hanzi-writer.min.js',
+  'vendor/hanzi-strokes.js',
+  'vendor/materials-data.js',
+  'app.js',
+];
+const indexUrl = new URL('public/index.html', root);
+let indexHtml = await readFile(indexUrl, 'utf8');
+for (const asset of scriptAssets) {
+  const assetContent = await readFile(new URL(`public/${asset}`, root));
+  const version = createHash('sha256').update(assetContent).digest('hex').slice(0, 12);
+  const escapedAsset = asset.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  indexHtml = indexHtml.replace(
+    new RegExp(`src="${escapedAsset}(?:\\?v=[^"]*)?"`),
+    `src="${asset}?v=${version}"`,
+  );
+}
+await writeFile(indexUrl, indexHtml, 'utf8');
+console.log(`Versioned ${scriptAssets.length} script assets`);
 
 const offlinePackage = await createOfflineZip(root);
 console.log(`Built ${offlinePackage.outputUrl.pathname} (${offlinePackage.entries} files, ${offlinePackage.size} bytes)`);
