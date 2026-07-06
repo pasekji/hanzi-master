@@ -2229,7 +2229,7 @@
   .secret-word-row {
     position: relative;
     min-width: 0;
-    min-height: 142px;
+    min-height: 178px;
     display: flex;
     flex-direction: column;
     padding: 13px;
@@ -2274,12 +2274,32 @@
     line-height: 1.35;
   }
 
-  .secret-word-row > small {
-    display: block;
+  .secret-example {
+    display: grid;
+    gap: 3px;
     margin-top: 7px;
+    padding-top: 7px;
+    border-top: 1px solid #edf2ef;
+  }
+
+  .secret-example small {
     color: #7a867f;
     font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
     font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .secret-example em {
+    color: #1677ff;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .secret-example span {
+    color: #58645e;
+    font-size: 10px;
     line-height: 1.35;
   }
 
@@ -2477,7 +2497,7 @@
     }
 
     .secret-word-row {
-      min-height: 126px;
+      min-height: 164px;
     }
   }
 

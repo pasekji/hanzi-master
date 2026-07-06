@@ -15,6 +15,7 @@ const sourceFiles = [
   'src/app.jsx',
   'src/components.jsx',
   'src/screens.jsx',
+  'src/example-annotations.jsx',
   'src/secret.jsx',
   'src/mount.jsx',
 ];

@@ -114,10 +114,11 @@ const buildSecretVocabularyIndex = () => {
     collection.items.forEach(item => addItem(item, level, source));
   });
 
-  return Array.from(byHanzi.values()).sort((a, b) => (
+  const vocabulary = Array.from(byHanzi.values()).sort((a, b) => (
     a.pinyin.localeCompare(b.pinyin, 'en', { sensitivity: 'base' })
     || a.hanzi.localeCompare(b.hanzi, 'zh-Hans')
   ));
+  return annotateVocabularyExamples(vocabulary);
 };
 
 function SecretCheatSheetView({ setCurrentView, language, setLanguage, playSound, t }) {
@@ -135,6 +136,8 @@ function SecretCheatSheetView({ setCurrentView, language, setLanguage, playSound
       item.pinyin,
       item.meanings.join(' '),
       item.example,
+      item.examplePinyin,
+      item.exampleTranslation,
       item.sources.join(' '),
     ].join(' ').toLocaleLowerCase().includes(normalizedQuery);
   }), [vocabulary, level, normalizedQuery]);
@@ -312,7 +315,13 @@ function SecretCheatSheetView({ setCurrentView, language, setLanguage, playSound
                   <em>{item.pinyin}</em>
                 </div>
                 <p>{item.meanings.join(' · ')}</p>
-                {item.example && <small>{item.example}</small>}
+                {item.example && (
+                  <div className="secret-example">
+                    <small lang="zh-Hans">{item.example}</small>
+                    {item.examplePinyin && <em>{item.examplePinyin}</em>}
+                    {item.exampleTranslation && <span>{item.exampleTranslation}</span>}
+                  </div>
+                )}
                 <div className="secret-source-tags">
                   {item.levels.map(itemLevel => <span key={itemLevel}>{itemLevel}</span>)}
                 </div>
