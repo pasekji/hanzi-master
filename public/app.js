@@ -1871,20 +1871,26 @@ const CHARACTER_GLOSSES = (() => {
 })();
 const getCharacterMemory = item => {
   const hanzi = item?.hanzi || '';
-  const meaning = cleanMemoryMeaning(item?.meaning || 'this meaning');
   const parentheticalForm = hanzi.match(/（([^）]+)）/u)?.[1];
+  const locationFormMeaning = parentheticalForm ? {
+    '这': 'here',
+    '那': 'there',
+    '哪': 'where'
+  }[parentheticalForm[0]] || '' : '';
+  const meaning = locationFormMeaning || cleanMemoryMeaning(item?.meaning || 'this meaning');
   const characters = Array.from(parentheticalForm || hanzi).filter(character => /[\u3400-\u9fff]/u.test(character));
-  const parts = characters.slice(0, 4).map(character => ({
+  const parts = characters.slice(0, 4).map((character, index) => ({
     character,
-    gloss: CHARACTER_GLOSSES.get(character) || 'picture cue'
+    gloss: character === '儿' && index === characters.length - 1 && locationFormMeaning ? 'place suffix' : CHARACTER_GLOSSES.get(character) || 'picture cue'
   }));
   const isSingle = characters.length === 1;
+  const isRepeatedWord = parts.length > 1 && parts.every(part => part.character === parts[0].character);
   return {
     category: getMemoryCategory(item?.meaning),
     isSingle,
     parts,
     title: isSingle ? 'Shape story' : 'Build the word',
-    story: isSingle ? CHARACTER_MEMORY_CUES[hanzi] || `Let the silhouette of ${hanzi} become a small sign for “${meaning}”.` : `Picture ${parts.map(part => `${part.character} (${part.gloss})`).join(' meeting ')}. Read the scene from left to right and land on “${meaning}”.`
+    story: isSingle ? CHARACTER_MEMORY_CUES[hanzi] || `Let the silhouette of ${hanzi} become a small sign for “${meaning}”.` : isRepeatedWord ? `Repeat ${parts[0].character} (${parts[0].gloss}) like calling it twice; the familiar echo becomes “${meaning}”.` : `Picture ${parts.map(part => `${part.character} (${part.gloss})`).join(' meeting ')}. Read the scene from left to right and land on “${meaning}”.`
   };
 };
 function MemorySceneSvg({
