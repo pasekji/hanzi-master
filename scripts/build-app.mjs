@@ -10,6 +10,7 @@ const stylesUrl = new URL('src/styles.css', root);
 const sourceFiles = [
   'src/material-repairs.jsx',
   'src/data.jsx',
+  'src/mnemonics.jsx',
   'src/audio.jsx',
   'src/i18n.jsx',
   'src/progress.jsx',

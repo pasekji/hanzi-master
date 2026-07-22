@@ -488,6 +488,7 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
             {currentChar.example && (
               <p className="material-example">{currentChar.example}</p>
             )}
+            <MemoryScroll item={currentChar} t={t} />
           </div>
         )}
         {!isFlipped && <p className="flashcard-hint">{t('learn.tap')}</p>}
@@ -801,6 +802,10 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
         </div>
       </div>
 
+      {(drawMode === 'learn' || showReference) && (
+        <MemoryScroll item={currentChar} t={t} compact />
+      )}
+
       {/* Hanzi Writer container */}
       <div className="writer-mini-program hanzi-writer-container">
         {isLoading && (
@@ -1107,6 +1112,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
           ) : (
             <strong>{t('quiz.tryAgain')}</strong>
           )}
+          {canContinue && <MemoryScroll item={q.char} t={t} compact />}
         </div>
       )}
       {canContinue && (
