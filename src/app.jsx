@@ -35,6 +35,82 @@ function HanziMasterApp() {
   const [soundEnabled, setSoundEnabled] = React.useState(loadSoundEnabled);
   const [ambienceEnabled, setAmbienceEnabled] = React.useState(loadAmbienceEnabled);
   const [tutorialOpen, setTutorialOpen] = React.useState(() => !isSecretRoute() && !loadTutorialSeen());
+  const [session, setSession] = React.useState(null);
+  const [syncState, setSyncState] = React.useState('idle');
+  const [lastSyncAt, setLastSyncAt] = React.useState(null);
+
+  // Restore session and merge server progress on load (online app only).
+  React.useEffect(() => {
+    if (window.location.protocol === 'file:') return;
+    let cancelled = false;
+    (async () => {
+      const s = await checkSession();
+      if (cancelled || !s) return;
+      setSession(s);
+      try {
+        const remote = await fetchServerProgress();
+        if (remote.progress) {
+          setProgress(prev => mergeProgress(prev, remote.progress));
+          setSyncState('synced');
+          setLastSyncAt(remote.updatedAt || Date.now());
+        }
+      } catch (e) {
+        setSyncState('error');
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  // Push progress to the server (debounced) whenever it changes while logged in.
+  React.useEffect(() => {
+    if (!session || window.location.protocol === 'file:') return;
+    setSyncState('syncing');
+    const handle = window.setTimeout(async () => {
+      try {
+        const res = await pushProgressToServer(progress);
+        setLastSyncAt(res.updatedAt);
+        setSyncState('synced');
+      } catch (e) {
+        setSyncState('error');
+      }
+    }, 1500);
+    return () => window.clearTimeout(handle);
+  }, [progress, session]);
+
+  const account = React.useMemo(() => ({
+    register: async () => {
+      const data = await registerAccount();
+      setSession({ userId: data.userId });
+      return data;
+    },
+    login: async (userId, recoveryCode) => {
+      const data = await loginAccount(userId, recoveryCode);
+      setSession({ userId: data.userId });
+      try {
+        const remote = await fetchServerProgress();
+        if (remote.progress) {
+          setProgress(prev => mergeProgress(prev, remote.progress));
+          setSyncState('synced');
+          setLastSyncAt(remote.updatedAt || Date.now());
+        }
+      } catch (e) {
+        setSyncState('error');
+      }
+      return data;
+    },
+    logout: async () => {
+      await logoutAccount();
+      setSession(null);
+      setSyncState('idle');
+      setLastSyncAt(null);
+    },
+    delete: async () => {
+      await deleteAccount();
+      setSession(null);
+      setSyncState('idle');
+      setLastSyncAt(null);
+    },
+  }), []);
 
   React.useEffect(() => {
     saveProgress(progress);
@@ -141,7 +217,7 @@ function HanziMasterApp() {
     }
     setCurrentView(prev => view(prev));
   }, [currentView, soundEnabled]);
-  const viewProps = { progress, setCurrentView: setCurrentViewWithSound, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered, language, setLanguage, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, openTutorial, t };
+  const viewProps = { progress, setCurrentView: setCurrentViewWithSound, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered, language, setLanguage, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, openTutorial, t, session, syncState, lastSyncAt, account };
 
   return (
     <div className="app-container">

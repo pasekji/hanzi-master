@@ -1130,7 +1130,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
 // ============================================
 // STATS VIEW
 // ============================================
-function StatsView({ progress, setCurrentView, t }) {
+function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, playSound }) {
   const isOfflineCopy = window.location.protocol === 'file:';
   const byLesson = [12, 13, 14, 15].map(l => ({
     lesson: l,
@@ -1280,6 +1280,23 @@ function StatsView({ progress, setCurrentView, t }) {
           </div>
         ))}
       </div>
+
+      {window.location.protocol !== 'file:' && (
+        <>
+          <div className="section-title" style={{ marginTop: '28px' }}>
+            <span className="text-sm">{t('account.section')}</span>
+            <div className="section-line" />
+          </div>
+          <AccountSection
+            session={session}
+            syncState={syncState}
+            lastSyncAt={lastSyncAt}
+            account={account}
+            t={t}
+            playSound={playSound}
+          />
+        </>
+      )}
 
       <div className="section-title" style={{ marginTop: '28px' }}>
         <span className="text-sm">{t('stats.backup')}</span>

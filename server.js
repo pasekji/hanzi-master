@@ -1,20 +1,29 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { initDb } from './lib/db.js';
+import { createApiRouter } from './lib/api.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.set('trust proxy', 1); // behind Caddy; enables req.secure via X-Forwarded-Proto
 const PORT = process.env.PORT || 3000;
+
+await initDb();
 
 // Security headers
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
-  res.setHeader('Content-Security-Policy', "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self';");
+  res.setHeader('Content-Security-Policy', "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'");
   next();
 });
+
+// API (accounts, progress sync). No request logging — privacy first.
+app.use('/api', createApiRouter());
+app.use('/api', (req, res) => res.status(404).json({ error: 'not_found' }));
 
 // Serve static files (JS, CSS, images) with caching
 app.use(express.static(path.join(__dirname, 'public'), {

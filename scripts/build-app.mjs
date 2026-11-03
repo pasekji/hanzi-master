@@ -14,6 +14,7 @@ const sourceFiles = [
   'src/audio.jsx',
   'src/i18n.jsx',
   'src/progress.jsx',
+  'src/account.jsx',
   'src/app.jsx',
   'src/components.jsx',
   'src/screens.jsx',

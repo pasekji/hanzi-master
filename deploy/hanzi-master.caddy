@@ -1,0 +1,49 @@
+# Hanzi Master (demo) — učení čínských znaků s anonymními účty
+#
+# Vlastník fragmentu: repozitář hanzi-master (deploy/hanzi-master.caddy).
+# Nasazuje se výhradně tento soubor, nikdy celý adresář sites/ — ostatní
+# fragmenty patří jiným projektům.
+#
+# Načtení změn:  docker kill --signal=SIGUSR1 edge-caddy
+# `caddy reload` NEFUNGUJE — admin API je v kostře vypnuté.
+# Doména hanzi-master.duckdns.org musí mířit na server UŽ PŘED reloadem,
+# jinak Caddy marně žádá o certifikát a spotřebovává limity Let's Encrypt.
+
+hanzi-master.duckdns.org {
+	import common_headers
+
+	# Caddy HSTS sám NEPŘIDÁVÁ. Přihlašujeme se přes session cookie.
+	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+	encode zstd gzip
+
+	handle {
+		reverse_proxy hanzi-master:3000
+	}
+
+	# Progress dokumenty jsou malé; 1 MB stačí s rezervou.
+	request_body {
+		max_size 1MB
+	}
+
+	# Access log bez čehokoli, co ukazuje na návštěvníka (IP, UA, referer,
+	# cookie) — privacy-first, vzor: rozpocet.caddy.
+	log {
+		output file /data/logs/hanzi-master.log {
+			roll_size 10MB
+			roll_keep 5
+		}
+		format filter {
+			wrap json
+			fields {
+				request>remote_ip delete
+				request>client_ip delete
+				request>remote_port delete
+				request>headers>User-Agent delete
+				request>headers>Referer delete
+				request>headers>Cookie delete
+				request>headers>X-Forwarded-For delete
+			}
+		}
+	}
+}

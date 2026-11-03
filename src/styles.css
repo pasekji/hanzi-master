@@ -4545,3 +4545,101 @@
       width: 100%;
     }
   }
+
+  /* ===== ACCOUNT & SYNC ===== */
+  .account-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .account-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: rgba(24, 33, 43, 0.05);
+  }
+
+  .account-tab {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #687870;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .account-tab.active {
+    background: #ffffff;
+    color: #0a8f4d;
+    box-shadow: 0 4px 12px rgba(20, 49, 35, 0.08);
+  }
+
+  .account-input {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(24, 33, 43, 0.14);
+    background: #ffffff;
+    font: inherit;
+    font-size: 14px;
+    color: #18212b;
+  }
+
+  .account-input:focus {
+    outline: 2px solid rgba(22, 119, 255, 0.35);
+    border-color: #1677ff;
+  }
+
+  .recovery-box {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255, 207, 51, 0.16);
+    border: 1px dashed rgba(194, 120, 3, 0.45);
+  }
+
+  .recovery-code {
+    display: block;
+    margin-top: 4px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #ffffff;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    word-break: break-all;
+    color: #14251c;
+  }
+
+  .recovery-code.big {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .account-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .sync-pill {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(7, 193, 96, 0.12);
+    color: #0a8f4d;
+    font-size: 11px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .sync-pill.error {
+    background: rgba(207, 43, 43, 0.12);
+    color: #cf2b2b;
+  }
