@@ -320,7 +320,7 @@
     height: 100%;
     border-radius: 999px;
     background: linear-gradient(90deg, #07c160, #1677ff);
-    transition: width 0.4s ease-out;
+    transition: width 0.4s linear;
   }
 
   .menu-grid {
@@ -4642,4 +4642,52 @@
   .sync-pill.error {
     background: rgba(207, 43, 43, 0.12);
     color: #cf2b2b;
+  }
+
+  /* ===== MOTION POLISH (ux-motion: education = playful, 200-400ms) ===== */
+  @keyframes viewEnter {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .screen {
+    animation: viewEnter 0.3s ease-out;
+  }
+
+  @keyframes streakPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  .daily-chip {
+    animation: streakPulse 2.2s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .btn:active,
+  .quick-action:active,
+  .daily-entry-card:active,
+  .bottom-nav-item:active,
+  .account-tab:active,
+  .mini-app-tile:active {
+    transform: scale(0.97);
+  }
+
+  .daily-entry-card {
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .daily-entry-card:hover {
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
