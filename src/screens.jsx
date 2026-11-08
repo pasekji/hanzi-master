@@ -90,6 +90,7 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
   const learningCount = React.useMemo(() => new Set(progress.learningChars.filter(hanzi => catalogSet.has(hanzi))).size, [catalogSet, progress.learningChars]);
   const totalChars = STUDY_CATALOG.length || VOCABULARY.length;
   const progressPercent = Math.round((masteredCount / totalChars) * 100);
+  const isNewUser = progress.totalReviews === 0 && masteredCount === 0 && learningCount === 0;
   const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
   const dailySummary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
   const openDailyTraining = () => {
@@ -129,12 +130,29 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
         </div>
       </header>
 
-      <div className="super-searchbar">
-        <AppIcon name="scan" />
-        <strong>{t('home.search')}</strong>
-        <span className="super-search-action"><AppIcon name="sound" /></span>
+      <div className="hero-block">
+        <div className="hero-panda"><PandaBuddySvg /></div>
+        <h2 className="hero-title">{isNewUser ? t('home.heroTitleNew') : t('home.heroTitle')}</h2>
+        <p className="hero-subtitle">{t('home.heroSubtitle')}</p>
+        <button className="btn btn-primary hero-cta" onClick={openDailyTraining}>
+          <span>{isNewUser ? t('home.heroCtaNew') : t('home.heroCtaReturn')}</span>
+          <span aria-hidden="true">→</span>
+        </button>
+        <p className="hero-hint">{t('home.heroHint', { count: dailyQueue.length })}</p>
       </div>
 
+      {isNewUser ? (
+        <div className="wallet-card wallet-empty">
+          <p className="wallet-label">{t('home.walletLabel')}</p>
+          <div className="wallet-empty-body">
+            <span className="wallet-empty-char">字</span>
+            <div>
+              <p className="title-md">{t('home.walletEmptyTitle')}</p>
+              <p className="text-sm">{t('home.walletEmptyCopy')}</p>
+            </div>
+          </div>
+        </div>
+      ) : (
       <div className="wallet-card">
         <p className="wallet-label">{t('home.walletLabel')}</p>
         <div className="wallet-brand-mark"><HanziLogoSvg /></div>
@@ -148,6 +166,7 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
           <div className="wallet-seal">字</div>
         </div>
       </div>
+      )}
 
       <div className="daily-entry-card" onClick={openDailyTraining} role="button" tabIndex={0}>
         <div className="daily-entry-main">

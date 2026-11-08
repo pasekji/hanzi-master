@@ -4691,3 +4691,96 @@
       scroll-behavior: auto !important;
     }
   }
+
+  /* ===== FIRST-RUN HERO (ux-onboarding: value prop + one primary CTA) ===== */
+  .hero-block {
+    position: relative;
+    margin-top: 14px;
+    padding: 22px 18px 18px;
+    border-radius: 20px;
+    background:
+      radial-gradient(circle at 85% 12%, rgba(22, 119, 255, 0.14), transparent 42%),
+      linear-gradient(160deg, #ffffff 0%, #eefaf3 100%);
+    border: 1px solid rgba(7, 193, 96, 0.16);
+    box-shadow: 0 14px 34px rgba(20, 49, 35, 0.10);
+    text-align: center;
+    overflow: hidden;
+    animation: viewEnter 0.3s ease-out;
+  }
+
+  .hero-panda {
+    width: 84px;
+    margin: 0 auto 6px;
+    animation: hanziFloat 5s ease-in-out infinite;
+  }
+
+  .hero-panda svg {
+    width: 84px;
+    height: 84px;
+    display: block;
+  }
+
+  .hero-title {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.25;
+    color: #14251c;
+    letter-spacing: 0.2px;
+  }
+
+  .hero-subtitle {
+    margin-top: 8px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #5c6b62;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+    padding: 14px 18px;
+    font-size: 16px;
+    font-weight: 900;
+    border-radius: 14px;
+  }
+
+  .hero-hint {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0a8f4d;
+  }
+
+  .wallet-empty .wallet-empty-body {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 12px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(7, 193, 96, 0.07);
+    border: 1px dashed rgba(7, 193, 96, 0.35);
+    text-align: left;
+  }
+
+  .wallet-empty-char {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #07c160, #1677ff);
+    color: #fff;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    box-shadow: 0 8px 18px rgba(7, 193, 96, 0.25);
+  }
