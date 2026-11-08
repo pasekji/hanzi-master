@@ -122,8 +122,6 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
             <AppIcon name="help" />
           </button>
           <LanguageToggle language={language} setLanguage={setLanguage} playSound={playSound} t={t} />
-          <SoundToggle soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} t={t} />
-          <AmbienceToggle ambienceEnabled={ambienceEnabled} setAmbienceEnabled={setAmbienceEnabled} t={t} />
           {progress.streakDays > 0 && (
             <div className="daily-chip">🔥 {progress.streakDays}</div>
           )}
@@ -188,91 +186,15 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
         </div>
       </div>
 
-      <IllustrationStrip setCurrentView={setCurrentView} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} t={t} />
-
-      <div className="quick-lane">
-        <button className="quick-action" onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }}>
-          <span className="quick-action-icon"><AppIcon name="scan" /></span>
-          <span className="quick-action-label">{t('tiles.lessons')}</span>
-        </button>
-        <button className="quick-action" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }}>
-          <span className="quick-action-icon"><AppIcon name="card" /></span>
-          <span className="quick-action-label">{t('tiles.cards')}</span>
-        </button>
-        <button className="quick-action" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }}>
-          <span className="quick-action-icon"><AppIcon name="brush" /></span>
-          <span className="quick-action-label">{t('tiles.write')}</span>
-        </button>
-        <button className="quick-action" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }}>
-          <span className="quick-action-icon"><AppIcon name="target" /></span>
-          <span className="quick-action-label">{t('tiles.quiz')}</span>
-        </button>
-      </div>
-
       <div className="mini-program-panel">
         <div className="mini-program-head">
           <span>{t('home.myMiniPrograms')}</span>
-          <span>{t('home.more')}</span>
         </div>
-        <div className="mini-program-grid">
-          <MiniProgramTile icon="book" label={t('tiles.vocab')} onClick={() => openMaterialWordBank('learn')} />
+        <div className="mini-program-grid mini-program-grid-4">
+          <MiniProgramTile icon="scan" label={t('tiles.lessons')} onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }} />
+          <MiniProgramTile icon="card" label={t('tiles.cards')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
           <MiniProgramTile icon="brush" label={t('tiles.write')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }} />
           <MiniProgramTile icon="target" label={t('tiles.quiz')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
-          <MiniProgramTile icon="scan" label={t('tiles.lessons')} onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }} />
-          <MiniProgramTile icon="sound" label={t('tiles.pinyin')} onClick={() => openMaterialWordBank('quiz')} />
-          <MiniProgramTile icon="card" label={t('tiles.cards')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
-          <MiniProgramTile icon="wallet" label={t('tiles.progress')} onClick={() => { setSelectedQueue(null); setCurrentView('stats'); }} />
-          <MiniProgramTile icon="gift" label={t('tiles.review')} onClick={openDailyTraining} />
-        </div>
-      </div>
-
-      <div className="cute-coach-card">
-        <PandaBuddySvg />
-        <div>
-          <p className="coach-title">{t('home.coachTitle')}</p>
-          <p className="coach-copy">{learningCount > 0 ? t('home.coachReview') : t('home.coachNew')}</p>
-          <button className="coach-guide-link" onClick={openTutorial}>
-            <AppIcon name="help" />
-            <span>{t('tutorial.open')}</span>
-          </button>
-        </div>
-      </div>
-
-      <div className="insight-panel">
-        <div>
-          <p className="insight-title">{t('home.taskTitle')}</p>
-          <p className="insight-copy">{learningCount > 0 ? t('home.taskReview') : t('home.taskNew')}</p>
-        </div>
-        <div className="insight-character">{learningCount > 0 ? '练' : '学'}</div>
-      </div>
-
-      <div className="stats-bar home-metrics">
-        <div className="stat-item">
-          <div className="stat-value">{masteredCount}</div>
-          <div className="stat-label">{t('home.stat.mastered')}</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-value">{learningCount}</div>
-          <div className="stat-label">{t('home.stat.learning')}</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-value">{progress.totalReviews}</div>
-          <div className="stat-label">{t('home.stat.reviews')}</div>
-        </div>
-      </div>
-
-      <div className="section-title">
-        <span className="text-sm">{t('home.account')}</span>
-        <div className="section-line" />
-      </div>
-
-      <div className="card card-clickable account-entry" onClick={() => setCurrentView('stats')} role="button" tabIndex={0}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <p className="title-md">{t('home.walletTitle')}</p>
-            <p className="text-sm">{t('home.walletCopy')}</p>
-          </div>
-          <span style={{ fontSize: '28px', color: 'var(--accent-lime)' }}>→</span>
         </div>
       </div>
     </div>
@@ -1149,7 +1071,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
 // ============================================
 // STATS VIEW
 // ============================================
-function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, theme, setTheme, playSound }) {
+function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, theme, setTheme, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound }) {
   const isOfflineCopy = window.location.protocol === 'file:';
   const byLesson = [12, 13, 14, 15].map(l => ({
     lesson: l,
@@ -1298,6 +1220,15 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
             {c.hanzi}
           </div>
         ))}
+      </div>
+
+      <div className="section-title" style={{ marginTop: '28px' }}>
+        <span className="text-sm">{t('settings.section')}</span>
+        <div className="section-line" />
+      </div>
+      <div className="card settings-row">
+        <SoundToggle soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} t={t} />
+        <AmbienceToggle ambienceEnabled={ambienceEnabled} setAmbienceEnabled={setAmbienceEnabled} t={t} />
       </div>
 
       <div className="section-title" style={{ marginTop: '28px' }}>

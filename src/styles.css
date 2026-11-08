@@ -5034,3 +5034,25 @@
     color: #0d1210;
     box-shadow: var(--shadow-inset);
   }
+
+  /* ===== SLEEK HOME ===== */
+  .mini-program-grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .settings-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .settings-row .sound-toggle {
+    width: auto;
+    min-width: 44px;
+    padding: 0 12px;
+    gap: 6px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 800;
+  }
