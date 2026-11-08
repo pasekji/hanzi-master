@@ -38,10 +38,15 @@
       text-size-adjust: 100%;
     }
     
-    html, body, #root {
-      height: 100%;
+    html, body {
       width: 100%;
-      overflow-x: hidden;
+      min-height: 100%;
+      /* clip (not hidden) keeps vertical scrolling working on mobile */
+      overflow-x: clip;
+    }
+
+    #root {
+      min-height: 100%;
     }
     
     body {
