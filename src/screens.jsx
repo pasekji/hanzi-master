@@ -1149,7 +1149,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
 // ============================================
 // STATS VIEW
 // ============================================
-function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, playSound }) {
+function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, theme, setTheme, playSound }) {
   const isOfflineCopy = window.location.protocol === 'file:';
   const byLesson = [12, 13, 14, 15].map(l => ({
     lesson: l,
@@ -1298,6 +1298,14 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
             {c.hanzi}
           </div>
         ))}
+      </div>
+
+      <div className="section-title" style={{ marginTop: '28px' }}>
+        <span className="text-sm">{t('theme.section')}</span>
+        <div className="section-line" />
+      </div>
+      <div className="card">
+        <ThemePicker theme={theme} onChange={setTheme} t={t} />
       </div>
 
       {window.location.protocol !== 'file:' && (

@@ -99,6 +99,7 @@ const mergeProgress = (local, remote) => {
     lastStudyDate,
     drawingAttempts: mergeNumMap(local.drawingAttempts, remote.drawingAttempts),
     lastPositions: { ...(local.lastPositions || {}), ...(remote.lastPositions || {}) },
+    theme: remote.theme || local.theme || null,
   };
 };
 

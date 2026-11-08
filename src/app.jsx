@@ -38,6 +38,19 @@ function HanziMasterApp() {
   const [session, setSession] = React.useState(null);
   const [syncState, setSyncState] = React.useState('idle');
   const [lastSyncAt, setLastSyncAt] = React.useState(null);
+  const [theme, setThemeState] = React.useState(() => {
+    const saved = loadProgress().theme;
+    return isValidTheme(saved) ? saved : loadTheme();
+  });
+
+  React.useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
+
+  const setTheme = React.useCallback((id) => {
+    setThemeState(id);
+    setProgress(prev => ({ ...prev, theme: isValidTheme(id) ? id : prev.theme }));
+  }, []);
 
   // Restore session and merge server progress on load (online app only).
   React.useEffect(() => {
@@ -217,7 +230,7 @@ function HanziMasterApp() {
     }
     setCurrentView(prev => view(prev));
   }, [currentView, soundEnabled]);
-  const viewProps = { progress, setCurrentView: setCurrentViewWithSound, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered, language, setLanguage, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, openTutorial, t, session, syncState, lastSyncAt, account };
+  const viewProps = { progress, setCurrentView: setCurrentViewWithSound, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue, updateProgress, markCharacterLearned, markCharacterMastered, language, setLanguage, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, openTutorial, t, session, syncState, lastSyncAt, account, theme, setTheme };
 
   return (
     <div className="app-container">

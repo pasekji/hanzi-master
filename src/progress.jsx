@@ -49,6 +49,7 @@ const loadProgress = () => {
     lastStudyDate: null,
     drawingAttempts: {},
     lastPositions: {},
+    theme: null,
   };
 };
 
