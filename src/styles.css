@@ -8,7 +8,7 @@
     --accent-cyan: #1677ff;
     --accent-purple: #d99a18;
     --text-primary: #18212b;
-    --text-secondary: #697780;
+    --text-secondary: #5b6a66;
     --border-width: 1px;
     --border-color: #dce7e2;
     --radius: 8px;
@@ -93,7 +93,7 @@
   }
 
   .back-btn {
-    min-height: 40px;
+    min-height: 44px;
     padding: 9px 14px;
     border: 1px solid rgba(7, 193, 96, 0.2);
     border-radius: var(--radius);
@@ -230,7 +230,7 @@
   .score-label {
     margin-top: 4px;
     color: var(--text-secondary);
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.3;
     letter-spacing: 0;
   }
@@ -934,7 +934,7 @@
     --accent-cyan: #1677ff;
     --accent-purple: #d99a18;
     --text-primary: #18212b;
-    --text-secondary: #697780;
+    --text-secondary: #5b6a66;
     --border-width: 1px;
     --border-color: #dce7e2;
     --radius: 8px;
@@ -1620,20 +1620,21 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2px;
-    min-height: 34px;
+    min-height: 42px;
     padding: 3px;
     border: 1px solid rgba(7, 193, 96, 0.14);
-    border-radius: 8px;
+    border-radius: 10px;
     background: rgba(255,255,255,0.82);
     box-shadow: 0 8px 20px rgba(20, 49, 35, 0.07);
   }
 
   .language-toggle button {
-    min-width: 38px;
-    padding: 0 8px;
-    border-radius: 6px;
+    min-width: 44px;
+    min-height: 36px;
+    padding: 0 10px;
+    border-radius: 7px;
     color: #687870;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 900;
   }
 
@@ -1644,8 +1645,8 @@
 
   .guide-toggle,
   .sound-toggle {
-    width: 34px;
-    height: 34px;
+    width: 42px;
+    height: 42px;
     display: grid;
     place-items: center;
     flex: 0 0 auto;
@@ -1665,8 +1666,8 @@
 
   .guide-toggle svg,
   .sound-toggle svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 
   .sound-toggle.active {
@@ -1699,14 +1700,15 @@
     }
 
     .language-toggle button {
-      min-width: 32px;
+      min-width: 40px;
+      min-height: 40px;
       padding: 0 6px;
     }
 
     .guide-toggle,
     .sound-toggle {
-      width: 32px;
-      height: 32px;
+      width: 40px;
+      height: 40px;
     }
 
     .daily-chip {
@@ -1781,7 +1783,7 @@
   .secret-kicker {
     margin: 0 0 10px;
     color: rgba(255, 255, 255, 0.82);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 900;
     text-transform: uppercase;
   }
@@ -2507,7 +2509,8 @@
     }
 
     .secret-topbar .language-toggle button {
-      min-width: 31px;
+      min-width: 40px;
+      min-height: 40px;
       padding: 0 5px;
     }
 
@@ -2803,26 +2806,27 @@
     }
 
     .language-toggle {
-      min-height: 28px;
+      min-height: 36px;
       padding: 2px;
     }
 
     .language-toggle button {
-      min-width: 27px;
-      padding: 0 5px;
-      font-size: 10px;
+      min-width: 40px;
+      min-height: 40px;
+      padding: 0 6px;
+      font-size: 12px;
     }
 
     .guide-toggle,
     .sound-toggle {
-      width: 28px;
-      height: 28px;
+      width: 40px;
+      height: 40px;
     }
 
     .guide-toggle svg,
     .sound-toggle svg {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
     }
 
     .super-topbar .daily-chip {
@@ -3003,7 +3007,7 @@
     display: flex;
     gap: 8px;
     color: #687870;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
   }
 
@@ -3065,7 +3069,7 @@
   }
 
   .quick-action-label {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .insight-panel {
@@ -3434,7 +3438,7 @@
     justify-content: space-between;
     padding: 2px 4px;
     color: #54645c;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 900;
   }
 
@@ -3679,10 +3683,11 @@
     align-items: center;
     gap: 7px;
     min-width: 0;
-    padding: 6px 2px;
+    padding: 8px 2px;
     border: 0;
     background: transparent;
     color: #213129;
+    font-size: 12px;
     font: inherit;
     font-size: 11px;
     font-weight: 900;
@@ -3797,7 +3802,7 @@
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 900;
   }
 
@@ -3839,7 +3844,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    min-height: 30px;
+    min-height: 44px;
     margin-top: 10px;
     padding: 0 10px;
     border-radius: 8px;
@@ -3891,8 +3896,8 @@
     top: 12px;
     right: 12px;
     z-index: 2;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     display: grid;
     place-items: center;
     border-radius: 8px;
@@ -4305,8 +4310,8 @@
   }
 
   .daily-queue-char small {
-    color: #687870;
-    font-size: 10px;
+    color: var(--text-secondary);
+    font-size: 11px;
     font-weight: 900;
   }
 
@@ -4314,8 +4319,8 @@
     display: flex;
     gap: 8px;
     margin-top: 12px;
-    color: #687870;
-    font-size: 11px;
+    color: var(--text-secondary);
+    font-size: 12px;
     font-weight: 800;
   }
 
@@ -4422,8 +4427,8 @@
   .dual-label span {
     display: block;
     margin-top: 1px;
-    font-size: 10px;
-    color: #728078;
+    font-size: 11px;
+    color: var(--text-secondary);
     font-weight: 800;
   }
 
@@ -4563,6 +4568,7 @@
 
   .account-tab {
     flex: 1;
+    min-height: 44px;
     padding: 8px 10px;
     border-radius: 8px;
     font-size: 13px;
@@ -4732,7 +4738,7 @@
     margin-top: 8px;
     font-size: 13.5px;
     line-height: 1.55;
-    color: #5c6b62;
+    color: #47564d;
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
@@ -4755,7 +4761,7 @@
     margin-top: 10px;
     font-size: 12px;
     font-weight: 700;
-    color: #0a8f4d;
+    color: #087f43;
   }
 
   .wallet-empty .wallet-empty-body {
