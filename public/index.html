@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta name="theme-color" content="#e8f7ef">
+  <meta name="theme-color" content="#f8f5ef">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="mobile-web-app-capable" content="yes">
@@ -19,8 +19,8 @@
   <meta name="twitter:description" content="Flashcards, drawing practice and quizzes with your panda coach. Privacy-first: anonymous accounts, no tracking.">
   
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='16' y1='12' x2='84' y2='88'><stop stop-color='%2307c160'/><stop offset='1' stop-color='%231677ff'/></linearGradient></defs><rect x='8' y='8' width='84' height='84' rx='24' fill='url(%23g)'/><rect x='19' y='19' width='62' height='62' rx='17' fill='white' opacity='.12'/><text x='50' y='68' text-anchor='middle' font-family='Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif' font-size='54' font-weight='900' fill='white'>字</text></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='16' y1='12' x2='84' y2='88'><stop stop-color='%2307c160'/><stop offset='1' stop-color='%231677ff'/></linearGradient></defs><rect x='8' y='8' width='84' height='84' rx='24' fill='url(%23g)'/><rect x='19' y='19' width='62' height='62' rx='17' fill='white' opacity='.12'/><text x='50' y='68' text-anchor='middle' font-family='Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif' font-size='54' font-weight='900' fill='white'>字</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='16' y1='12' x2='84' y2='88'><stop stop-color='%23c8371f'/><stop offset='1' stop-color='%23191713'/></linearGradient></defs><rect x='8' y='8' width='84' height='84' rx='24' fill='url(%23g)'/><rect x='19' y='19' width='62' height='62' rx='17' fill='white' opacity='.12'/><text x='50' y='68' text-anchor='middle' font-family='Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif' font-size='54' font-weight='900' fill='white'>字</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='16' y1='12' x2='84' y2='88'><stop stop-color='%23c8371f'/><stop offset='1' stop-color='%23191713'/></linearGradient></defs><rect x='8' y='8' width='84' height='84' rx='24' fill='url(%23g)'/><rect x='19' y='19' width='62' height='62' rx='17' fill='white' opacity='.12'/><text x='50' y='68' text-anchor='middle' font-family='Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif' font-size='54' font-weight='900' fill='white'>字</text></svg>">
   
   <style>
     /* ===== RESET & BASE ===== */
@@ -50,7 +50,7 @@
     }
     
     body {
-      background: #e8f7ef;
+      background: #f8f5ef;
       color: #18212b;
       font-family: 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -76,9 +76,9 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(circle at 22% 12%, rgba(7, 193, 96, 0.18), transparent 30%),
-        radial-gradient(circle at 88% 18%, rgba(22, 119, 255, 0.15), transparent 28%),
-        linear-gradient(180deg, #e8f7ef 0%, #f7fbf8 100%);
+        radial-gradient(circle at 22% 12%, rgba(200, 55, 31, 0.10), transparent 30%),
+        radial-gradient(circle at 88% 18%, rgba(25, 23, 19, 0.08), transparent 28%),
+        linear-gradient(180deg, #f8f5ef 0%, #f3eee2 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -95,7 +95,7 @@
       font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
       font-size: clamp(120px, 34vw, 220px);
       font-weight: 900;
-      color: rgba(7, 193, 96, 0.06);
+      color: rgba(200, 55, 31, 0.05);
       line-height: 1;
       pointer-events: none;
     }
@@ -109,7 +109,7 @@
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid rgba(24, 33, 43, 0.06);
       backdrop-filter: blur(18px);
-      box-shadow: 0 18px 46px rgba(20, 49, 35, 0.14);
+      box-shadow: 0 18px 46px rgba(25, 23, 19, 0.10);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -123,7 +123,7 @@
       display: grid;
       place-items: center;
       border-radius: 24px;
-      filter: drop-shadow(0 14px 20px rgba(7, 193, 96, 0.18));
+      filter: drop-shadow(0 14px 20px rgba(200, 55, 31, 0.10));
       animation: loadingPulse 2.8s ease-in-out infinite;
     }
 
@@ -157,18 +157,18 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #07c160;
+      background: #c8371f;
       animation: loadingBlink 1.2s ease-in-out infinite;
     }
 
     .loading-dots span:nth-child(2) {
       animation-delay: 0.16s;
-      background: #1677ff;
+      background: #191713;
     }
 
     .loading-dots span:nth-child(3) {
       animation-delay: 0.32s;
-      background: #ffcf33;
+      background: #c8bfa8;
     }
     
     @keyframes loadingPulse {
@@ -187,13 +187,13 @@
     
     /* Selection color */
     ::selection {
-      background: #07c160;
+      background: #c8371f;
       color: #ffffff;
     }
     
     /* Focus visible for accessibility */
     :focus-visible {
-      outline: 3px solid #1677ff;
+      outline: 3px solid #191713;
       outline-offset: 2px;
     }
     
@@ -237,6 +237,6 @@
   <script src="vendor/hanzi-strokes.js?v=57fe6e9f521f"></script>
   <script src="vendor/materials-data.js?v=cdee21b3ce6c"></script>
   
-  <script src="app.js?v=2629e2121e74"></script>
+  <script src="app.js?v=5b1e31921199"></script>
 </body>
 </html>

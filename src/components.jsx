@@ -245,17 +245,11 @@ function AppIcon({ name }) {
 }
 
 function HanziLogoSvg() {
+  // Vermilion seal (hanko): flat red square with the character — the brand mark.
   return (
     <svg className="hanzi-logo-svg" width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="8" y="8" width="76" height="76" rx="22" fill="url(#hanziLogoGradient)" />
-      <rect x="18" y="18" width="56" height="56" rx="16" fill="white" opacity="0.12" />
-      <text x="46" y="61" textAnchor="middle" fontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fontSize="47" fontWeight="900" fill="white">字</text>
-      <defs>
-        <linearGradient id="hanziLogoGradient" x1="8" y1="8" x2="84" y2="84" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#07C160" />
-          <stop offset="1" stopColor="#1677FF" />
-        </linearGradient>
-      </defs>
+      <rect x="10" y="10" width="72" height="72" rx="10" fill="#c8371f" />
+      <text x="46" y="62" textAnchor="middle" fontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, serif" fontSize="48" fontWeight="900" fill="#fffdf8">字</text>
     </svg>
   );
 }

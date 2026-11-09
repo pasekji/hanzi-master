@@ -129,7 +129,10 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
       </header>
 
       <div className="hero-block">
-        <div className="hero-panda"><PandaBuddySvg /></div>
+        <div className="hero-char-wrap">
+          <span className="hero-char">{dailyQueue[0]?.hanzi || '字'}</span>
+          <span className="hero-seal">字</span>
+        </div>
         <h2 className="hero-title">{isNewUser ? t('home.heroTitleNew') : t('home.heroTitle')}</h2>
         <p className="hero-subtitle">{t('home.heroSubtitle')}</p>
         <button className="btn btn-primary hero-cta" onClick={openDailyTraining}>
