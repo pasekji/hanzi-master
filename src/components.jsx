@@ -4,21 +4,28 @@
 // ============================================
 
 function HanziLogoSvg() {
-  // Brand: vermilion seal with three horizontal strokes (三) — new mark.
+  // Brand mark: vermilion seal with a single calligraphic brush stroke.
   return (
-    <svg className="hanzi-logo-svg" width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="8" y="8" width="76" height="76" rx="8" fill="currentColor" />
-      <path d="M28 34h36M24 46h44M28 58h36" stroke="#fffdf8" strokeWidth="7" strokeLinecap="round" />
+    <svg className="hanzi-logo-svg" width="92" height="92" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="6" y="6" width="84" height="84" rx="14" fill="currentColor" />
+      <path
+        d="M28 66 C 30 46, 44 32, 58 34 C 70 36, 72 50, 62 56 C 54 61, 44 58, 42 50"
+        stroke="#fffdf8" strokeWidth="9" strokeLinecap="round" fill="none"
+      />
+      <circle cx="66" cy="30" r="4.5" fill="#fffdf8" />
     </svg>
   );
 }
 
-function SealMarkSvg({ char = '学' }) {
-  // Small seal used in tutorial / empty states.
+function SealMarkSvg() {
+  // Small seal for tutorial / empty states — same brush stroke, no dot.
   return (
-    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="6" y="6" width="60" height="60" rx="8" fill="#c8371f" />
-      <text x="36" y="47" textAnchor="middle" fontFamily="Songti SC, SimSun, Microsoft YaHei, serif" fontSize="34" fontWeight="900" fill="#fffdf8">{char}</text>
+    <svg width="72" height="72" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="8" y="8" width="80" height="80" rx="16" fill="#c8371f" />
+      <path
+        d="M30 64 C 32 47, 45 35, 58 37 C 68 39, 70 51, 61 56 C 54 60, 46 57, 44 50"
+        stroke="#fffdf8" strokeWidth="9" strokeLinecap="round" fill="none"
+      />
     </svg>
   );
 }
@@ -178,7 +185,7 @@ function TutorialOverlay({ open, onClose, setCurrentView, setSelectedLesson, set
       <div className="tutorial-card">
         <button className="tutorial-close" onClick={onClose} aria-label={t('tutorial.close')}>×</button>
         <div className="tutorial-hero">
-          <SealMarkSvg char="学" />
+          <SealMarkSvg />
           <div>
             <div className="tutorial-kicker">
               <span>{t('tutorial.badge')}</span>

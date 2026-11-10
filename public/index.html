@@ -19,8 +19,8 @@
   <meta name="twitter:description" content="Flashcards, drawing practice and quizzes with your panda coach. Privacy-first: anonymous accounts, no tracking.">
   
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='16' y1='12' x2='84' y2='88'><stop stop-color='%23c8371f'/><stop offset='1' stop-color='%23191713'/></linearGradient></defs><rect x='8' y='8' width='84' height='84' rx='24' fill='url(%23g)'/><rect x='19' y='19' width='62' height='62' rx='17' fill='white' opacity='.12'/><text x='50' y='68' text-anchor='middle' font-family='Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif' font-size='54' font-weight='900' fill='white'>字</text></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='16' y1='12' x2='84' y2='88'><stop stop-color='%23c8371f'/><stop offset='1' stop-color='%23191713'/></linearGradient></defs><rect x='8' y='8' width='84' height='84' rx='24' fill='url(%23g)'/><rect x='19' y='19' width='62' height='62' rx='17' fill='white' opacity='.12'/><text x='50' y='68' text-anchor='middle' font-family='Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif' font-size='54' font-weight='900' fill='white'>字</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect x='6' y='6' width='84' height='84' rx='14' fill='%23c8371f'/><path d='M28 66 C 30 46, 44 32, 58 34 C 70 36, 72 50, 62 56 C 54 61, 44 58, 42 50' stroke='white' stroke-width='9' stroke-linecap='round' fill='none'/><circle cx='66' cy='30' r='4.5' fill='white'/></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect x='6' y='6' width='84' height='84' rx='14' fill='%23c8371f'/><path d='M28 66 C 30 46, 44 32, 58 34 C 70 36, 72 50, 62 56 C 54 61, 44 58, 42 50' stroke='white' stroke-width='9' stroke-linecap='round' fill='none'/><circle cx='66' cy='30' r='4.5' fill='white'/></svg>">
   
   <style>
     /* ===== RESET & BASE ===== */
@@ -87,18 +87,7 @@
       overflow: hidden;
     }
 
-    .loading-screen::before {
-      content: "字";
-      position: absolute;
-      right: max(14px, 12vw);
-      top: 16%;
-      font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
-      font-size: clamp(120px, 34vw, 220px);
-      font-weight: 900;
-      color: rgba(200, 55, 31, 0.05);
-      line-height: 1;
-      pointer-events: none;
-    }
+    
 
     .loading-card {
       position: relative;
@@ -147,28 +136,27 @@
       font-weight: 700;
     }
 
-    .loading-dots {
-      display: flex;
-      gap: 6px;
-      margin-top: 4px;
+    .loading-bar {
+      width: 120px;
+      height: 3px;
+      margin-top: 14px;
+      background: rgba(25, 23, 19, 0.12);
+      border-radius: 2px;
+      overflow: hidden;
     }
 
-    .loading-dots span {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
+    .loading-bar span {
+      display: block;
+      width: 40%;
+      height: 100%;
       background: #c8371f;
-      animation: loadingBlink 1.2s ease-in-out infinite;
+      border-radius: 2px;
+      animation: loadingSlide 1.1s ease-in-out infinite;
     }
 
-    .loading-dots span:nth-child(2) {
-      animation-delay: 0.16s;
-      background: #191713;
-    }
-
-    .loading-dots span:nth-child(3) {
-      animation-delay: 0.32s;
-      background: #c8bfa8;
+    @keyframes loadingSlide {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(300%); }
     }
     
     @keyframes loadingPulse {
@@ -212,21 +200,15 @@
     <div class="loading-screen">
       <div class="loading-card">
         <div class="loading-logo" aria-hidden="true">
-          <svg width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="8" y="8" width="76" height="76" rx="22" fill="url(#loadingLogoGradient)"/>
-            <rect x="18" y="18" width="56" height="56" rx="16" fill="white" opacity="0.12"/>
-            <text x="46" y="61" text-anchor="middle" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="47" font-weight="900" fill="white">&#23383;</text>
-            <defs>
-              <linearGradient id="loadingLogoGradient" x1="8" y1="8" x2="84" y2="84" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#07C160"/>
-                <stop offset="1" stop-color="#1677FF"/>
-              </linearGradient>
-            </defs>
+          <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="6" width="84" height="84" rx="14" fill="#c8371f"/>
+            <path d="M28 66 C 30 46, 44 32, 58 34 C 70 36, 72 50, 62 56 C 54 61, 44 58, 42 50" stroke="#fffdf8" stroke-width="9" stroke-linecap="round" fill="none"/>
+            <circle cx="66" cy="30" r="4.5" fill="#fffdf8"/>
           </svg>
         </div>
         <div class="loading-text">Hanzi Master</div>
         <div class="loading-subtext">Preparing your lesson</div>
-        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <div class="loading-bar"><span></span></div>
       </div>
     </div>
   </div>
@@ -237,6 +219,6 @@
   <script src="vendor/hanzi-strokes.js?v=57fe6e9f521f"></script>
   <script src="vendor/materials-data.js?v=cdee21b3ce6c"></script>
   
-  <script src="app.js?v=1f8dc04b6b14"></script>
+  <script src="app.js?v=bc824c69564f"></script>
 </body>
 </html>

@@ -3674,50 +3674,52 @@ function HanziLogoSvg() {
     className: "hanzi-logo-svg",
     width: "92",
     height: "92",
-    viewBox: "0 0 92 92",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true"
-  }, React.createElement("rect", {
-    x: "8",
-    y: "8",
-    width: "76",
-    height: "76",
-    rx: "8",
-    fill: "currentColor"
-  }), React.createElement("path", {
-    d: "M28 34h36M24 46h44M28 58h36",
-    stroke: "#fffdf8",
-    strokeWidth: "7",
-    strokeLinecap: "round"
-  }));
-}
-function SealMarkSvg({
-  char = '学'
-}) {
-  return React.createElement("svg", {
-    width: "72",
-    height: "72",
-    viewBox: "0 0 72 72",
+    viewBox: "0 0 96 96",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg",
     "aria-hidden": "true"
   }, React.createElement("rect", {
     x: "6",
     y: "6",
-    width: "60",
-    height: "60",
-    rx: "8",
-    fill: "#c8371f"
-  }), React.createElement("text", {
-    x: "36",
-    y: "47",
-    textAnchor: "middle",
-    fontFamily: "Songti SC, SimSun, Microsoft YaHei, serif",
-    fontSize: "34",
-    fontWeight: "900",
+    width: "84",
+    height: "84",
+    rx: "14",
+    fill: "currentColor"
+  }), React.createElement("path", {
+    d: "M28 66 C 30 46, 44 32, 58 34 C 70 36, 72 50, 62 56 C 54 61, 44 58, 42 50",
+    stroke: "#fffdf8",
+    strokeWidth: "9",
+    strokeLinecap: "round",
+    fill: "none"
+  }), React.createElement("circle", {
+    cx: "66",
+    cy: "30",
+    r: "4.5",
     fill: "#fffdf8"
-  }, char));
+  }));
+}
+function SealMarkSvg() {
+  return React.createElement("svg", {
+    width: "72",
+    height: "72",
+    viewBox: "0 0 96 96",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true"
+  }, React.createElement("rect", {
+    x: "8",
+    y: "8",
+    width: "80",
+    height: "80",
+    rx: "16",
+    fill: "#c8371f"
+  }), React.createElement("path", {
+    d: "M30 64 C 32 47, 45 35, 58 37 C 68 39, 70 51, 61 56 C 54 60, 46 57, 44 50",
+    stroke: "#fffdf8",
+    strokeWidth: "9",
+    strokeLinecap: "round",
+    fill: "none"
+  }));
 }
 function AppIcon({
   name
@@ -4090,9 +4092,7 @@ function TutorialOverlay({
     "aria-label": t('tutorial.close')
   }, "\xD7"), React.createElement("div", {
     className: "tutorial-hero"
-  }, React.createElement(SealMarkSvg, {
-    char: "\u5B66"
-  }), React.createElement("div", null, React.createElement("div", {
+  }, React.createElement(SealMarkSvg, null), React.createElement("div", null, React.createElement("div", {
     className: "tutorial-kicker"
   }, React.createElement("span", null, t('tutorial.badge')), React.createElement("span", null, t('tutorial.stepCount', {
     current: stepIndex + 1,
