@@ -1,117 +1,22 @@
 // ============================================
-// DAILY TRAINING VIEW
+// SCREENS — clean rewrite (ink & paper layout)
 // ============================================
-function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, playSound, t }) {
+
+function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, language, setLanguage, playSound, openTutorial, t }) {
+  const catalogSet = React.useMemo(() => new Set(STUDY_CATALOG.map(i => i.hanzi)), []);
+  const masteredCount = React.useMemo(() => new Set(progress.masteredChars.filter(h => catalogSet.has(h))).size, [catalogSet, progress.masteredChars]);
+  const learningCount = progress.learningChars.length;
+  const totalChars = STUDY_CATALOG.length || VOCABULARY.length;
+  const percent = Math.round((masteredCount / totalChars) * 100);
   const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
-  const dailySummary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
-  const todayLabel = getTodayKey();
-  const openMode = (view) => {
-    setSelectedLesson(null);
-    setSelectedQueue({
-      id: `daily:${todayLabel}`,
-      labelKey: 'common.today',
-      items: dailyQueue
-    });
-    playSound('select');
-    setCurrentView(view);
-  };
+  const isNewUser = progress.totalReviews === 0 && masteredCount === 0 && learningCount === 0;
+  const openDaily = () => { setSelectedLesson(null); setSelectedQueue(null); playSound('select'); setCurrentView('daily'); };
+
   return (
     <div className="screen">
-      <header className="header">
-        <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
-        <span className="text-sm" style={{ color: 'var(--accent-lime)' }}>{todayLabel}</span>
-      </header>
-
-      <MiniAppHeader
-        icon="gift"
-        title={t('daily.title')}
-        subtitle={t('daily.subtitle')}
-        pill={t('daily.count', { count: dailyQueue.length })}
-      />
-
-      <div className="daily-training-card">
-        <div className="daily-training-hero">
-          <PandaBuddySvg />
-          <div>
-            <p className="daily-training-title">{t('daily.heroTitle')}</p>
-            <p className="daily-training-copy">{t('daily.heroCopy')}</p>
-          </div>
-        </div>
-        <div className="daily-queue-grid">
-          {dailyQueue.map(char => (
-            <div key={char.hanzi} className="daily-queue-char">
-              <span className="hanzi-display">{char.hanzi}</span>
-              <small>{t(`daily.reason.${char.dailyReason}`)}</small>
-            </div>
-          ))}
-        </div>
-        <div className="daily-reason-row">
-          <span>{t('daily.reason.new')} {dailySummary.new || 0}</span>
-          <span>{t('daily.reason.review')} {dailySummary.review || 0}</span>
-          <span>{t('daily.reason.solidify')} {dailySummary.solidify || 0}</span>
-        </div>
-      </div>
-
-      <div className="daily-step-grid">
-        <button className="daily-step-card" onClick={() => openMode('learn')}>
-          <span className="daily-step-index">1</span>
-          <span className="daily-step-icon"><AppIcon name="card" /></span>
-          <strong>{t('daily.step1.title')}</strong>
-          <span>{t('daily.step1.copy')}</span>
-        </button>
-        <button className="daily-step-card primary" onClick={() => openMode('draw')}>
-          <span className="daily-step-index">2</span>
-          <span className="daily-step-icon"><AppIcon name="brush" /></span>
-          <strong>{t('daily.step2.title')}</strong>
-          <span>{t('daily.step2.copy')}</span>
-        </button>
-        <button className="daily-step-card" onClick={() => openMode('quiz')}>
-          <span className="daily-step-index">3</span>
-          <span className="daily-step-icon"><AppIcon name="target" /></span>
-          <strong>{t('daily.step3.title')}</strong>
-          <span>{t('daily.step3.copy')}</span>
-        </button>
-      </div>
-
-      <div className="nav-actions">
-        <button className="btn btn-secondary" onClick={() => setCurrentView('home')}>{t('daily.doneEnough')}</button>
-        <button className="btn btn-primary" onClick={() => openMode('learn')}>{t('daily.start')}</button>
-      </div>
-    </div>
-  );
-}
-
-// ============================================
-// HOME VIEW
-// ============================================
-function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, language, setLanguage, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, openTutorial, t }) {
-  const catalogSet = React.useMemo(() => new Set(STUDY_CATALOG.map(item => item.hanzi)), []);
-  const masteredCount = React.useMemo(() => new Set(progress.masteredChars.filter(hanzi => catalogSet.has(hanzi))).size, [catalogSet, progress.masteredChars]);
-  const learningCount = React.useMemo(() => new Set(progress.learningChars.filter(hanzi => catalogSet.has(hanzi))).size, [catalogSet, progress.learningChars]);
-  const totalChars = STUDY_CATALOG.length || VOCABULARY.length;
-  const progressPercent = Math.round((masteredCount / totalChars) * 100);
-  const isNewUser = progress.totalReviews === 0 && masteredCount === 0 && learningCount === 0;
-  const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
-  const dailySummary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
-  const openDailyTraining = () => {
-    setSelectedLesson(null);
-    setSelectedQueue(null);
-    playSound('select');
-    setCurrentView('daily');
-  };
-
-  const openMaterialWordBank = (view = 'learn') => {
-    setSelectedLesson(null);
-    setSelectedQueue(getMaterialWordQueue());
-    playSound('select');
-    setCurrentView(view);
-  };
-
-  return (
-    <div className="screen home-screen">
       <header className="super-topbar">
         <div className="brand-lockup">
-          <div className="brand-mark"><HanziLogoSvg /></div>
+          <span className="brand-mark" style={{ color: 'var(--accent)' }}><HanziLogoSvg /></span>
           <div>
             <h1 className="brand-title">Hanzi Master</h1>
             <p className="brand-subtitle">{t('home.subtitle')}</p>
@@ -122,20 +27,18 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
             <AppIcon name="help" />
           </button>
           <LanguageToggle language={language} setLanguage={setLanguage} playSound={playSound} t={t} />
-          {progress.streakDays > 0 && (
-            <div className="daily-chip">🔥 {progress.streakDays}</div>
-          )}
+          {progress.streakDays > 0 && <span className="daily-chip">🔥 {progress.streakDays}</span>}
         </div>
       </header>
 
       <div className="hero-block">
         <div className="hero-char-wrap">
           <span className="hero-char">{dailyQueue[0]?.hanzi || '字'}</span>
-          <span className="hero-seal">字</span>
+          <span className="hero-seal">三</span>
         </div>
         <h2 className="hero-title">{isNewUser ? t('home.heroTitleNew') : t('home.heroTitle')}</h2>
         <p className="hero-subtitle">{t('home.heroSubtitle')}</p>
-        <button className="btn btn-primary hero-cta" onClick={openDailyTraining}>
+        <button className="btn btn-primary hero-cta" onClick={openDaily}>
           <span>{isNewUser ? t('home.heroCtaNew') : t('home.heroCtaReturn')}</span>
           <span aria-hidden="true">→</span>
         </button>
@@ -143,7 +46,7 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
       </div>
 
       {isNewUser ? (
-        <div className="wallet-card wallet-empty">
+        <div className="wallet-card">
           <p className="wallet-label">{t('home.walletLabel')}</p>
           <div className="wallet-empty-body">
             <span className="wallet-empty-char">字</span>
@@ -154,301 +57,210 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
           </div>
         </div>
       ) : (
-      <div className="wallet-card">
-        <p className="wallet-label">{t('home.walletLabel')}</p>
-        <div className="wallet-brand-mark"><HanziLogoSvg /></div>
-        <div className="wallet-score">{progressPercent}%</div>
-        <div className="progress-bar">
-          <div className="progress-fill" style={{ width: `${progressPercent}%` }} />
-        </div>
-        <div className="wallet-meta">
-          <span>{t('home.masteredMeta', { mastered: masteredCount, total: totalChars })}</span>
-          <span>{t('home.learningMeta', { count: learningCount })}</span>
-          <div className="wallet-seal">字</div>
-        </div>
-      </div>
-      )}
-
-      <div className="daily-entry-card" onClick={openDailyTraining} role="button" tabIndex={0}>
-        <div className="daily-entry-main">
-          <span className="daily-entry-icon"><AppIcon name="gift" /></span>
-          <div>
-            <p className="daily-entry-kicker">{t('home.dailyKicker')}</p>
-            <p className="daily-entry-title">{t('home.dailyTitle', { count: dailyQueue.length })}</p>
+        <div className="wallet-card">
+          <p className="wallet-label">{t('home.walletLabel')}</p>
+          <div className="wallet-score">{percent}%</div>
+          <div className="progress-bar"><div className="progress-fill" style={{ width: `${percent}%` }} /></div>
+          <div className="wallet-meta">
+            <span>{t('home.masteredMeta', { mastered: masteredCount, total: totalChars })}</span>
+            <span>{t('home.learningMeta', { count: learningCount })}</span>
           </div>
         </div>
+      )}
+
+      <div className="card" style={{ padding: '14px 16px' }}>
+        <ListRow
+          icon="gift"
+          label={t('home.dailyKicker')}
+          meta={`${dailyQueue.length}`}
+          onClick={openDaily}
+        />
         <div className="daily-entry-strip">
-          {dailyQueue.slice(0, 6).map(char => (
-            <span key={char.hanzi} className="daily-entry-char">{char.hanzi}</span>
+          {dailyQueue.slice(0, 6).map(c => <span key={c.hanzi} className="daily-entry-char">{c.hanzi}</span>)}
+        </div>
+      </div>
+
+      <div className="list-panel">
+        <div className="list-head">{t('home.myMiniPrograms')}</div>
+        <ListRow icon="scan" label={t('tiles.lessons')} onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }} />
+        <ListRow icon="card" label={t('tiles.cards')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
+        <ListRow icon="brush" label={t('tiles.write')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }} />
+        <ListRow icon="target" label={t('tiles.quiz')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
+      </div>
+    </div>
+  );
+}
+
+function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSelectedQueue, playSound, t }) {
+  const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
+  const summary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
+  const openMode = (view) => {
+    setSelectedLesson(null);
+    setSelectedQueue({ id: `daily:${getTodayKey()}`, labelKey: 'common.today', items: dailyQueue });
+    playSound('select');
+    setCurrentView(view);
+  };
+  return (
+    <div className="screen">
+      <header className="header">
+        <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
+        <span className="text-sm">{getTodayKey()}</span>
+      </header>
+      <h1 className="title-lg">{t('daily.title')}</h1>
+      <p className="text-sm" style={{ marginTop: '4px' }}>{t('daily.subtitle')}</p>
+
+      <div className="card">
+        <p className="title-md">{t('daily.heroTitle')}</p>
+        <p className="text-sm" style={{ marginTop: '4px' }}>{t('daily.heroCopy')}</p>
+        <div className="daily-queue-grid">
+          {dailyQueue.map(c => (
+            <span key={c.hanzi} className="daily-queue-char">
+              <span className="hanzi-display">{c.hanzi}</span>
+              <small>{t(`daily.reason.${c.dailyReason}`)}</small>
+            </span>
           ))}
         </div>
-        <div className="daily-entry-meta">
-          <span>{t('daily.reason.new')} {dailySummary.new || 0}</span>
-          <span>{t('daily.reason.review')} {dailySummary.review || 0}</span>
-          <span>{t('daily.reason.solidify')} {dailySummary.solidify || 0}</span>
+        <div className="daily-reason-row">
+          <span>{t('daily.reason.new')} {summary.new || 0}</span>
+          <span>{t('daily.reason.review')} {summary.review || 0}</span>
+          <span>{t('daily.reason.solidify')} {summary.solidify || 0}</span>
         </div>
       </div>
 
-      <div className="mini-program-panel">
-        <div className="mini-program-head">
-          <span>{t('home.myMiniPrograms')}</span>
-        </div>
-        <div className="mini-program-grid mini-program-grid-4">
-          <MiniProgramTile icon="scan" label={t('tiles.lessons')} onClick={() => { setSelectedQueue(null); setCurrentView('lessons'); }} />
-          <MiniProgramTile icon="card" label={t('tiles.cards')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('learn'); }} />
-          <MiniProgramTile icon="brush" label={t('tiles.write')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }} />
-          <MiniProgramTile icon="target" label={t('tiles.quiz')} onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }} />
-        </div>
+      <div className="list-panel">
+        <div className="list-head">{t('daily.count', { count: dailyQueue.length })}</div>
+        <ListRow icon="card" label={t('daily.step1.title')} meta={t('daily.step1.copy')} onClick={() => openMode('learn')} />
+        <ListRow icon="brush" label={t('daily.step2.title')} meta={t('daily.step2.copy')} onClick={() => openMode('draw')} />
+        <ListRow icon="target" label={t('daily.step3.title')} meta={t('daily.step3.copy')} onClick={() => openMode('quiz')} />
+      </div>
+
+      <div className="nav-actions">
+        <button className="btn btn-secondary" onClick={() => setCurrentView('home')}>{t('daily.doneEnough')}</button>
+        <button className="btn btn-primary" onClick={() => openMode('learn')}>{t('daily.start')}</button>
       </div>
     </div>
   );
 }
 
-// ============================================
-// LESSONS VIEW
-// ============================================
 function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, progress, t }) {
-  const lessons = [12, 13, 14, 15];
-  const lessonTitles = {
-    12: { title: '天气', chinese: 'Weather' },
-    13: { title: '正在', chinese: 'Actions' },
-    14: { title: '买东西', chinese: 'Shopping' },
-    15: { title: '是...的', chinese: 'Structure' }
+  const lessons = [12, 13, 14, 15].map(l => ({
+    lesson: l,
+    total: VOCABULARY.filter(v => v.lesson === l).length,
+    mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.hanzi)).length,
+  }));
+  const openLesson = (lesson, view) => {
+    setSelectedQueue(null);
+    setSelectedLesson(lesson);
+    setCurrentView(view);
   };
-  const materialQueues = getMaterialCollectionQueues();
-  const materialGroups = React.useMemo(() => {
-    const order = ['HSK1', 'HSK2', 'Basics', 'Book3'];
-    const groups = new Map();
-    materialQueues.forEach(queue => {
-      const level = queue.level || 'Material';
-      if (!groups.has(level)) groups.set(level, []);
-      groups.get(level).push(queue);
-    });
-    return Array.from(groups.entries())
-      .map(([level, queues]) => ({
-        level,
-        queues,
-        cards: queues.reduce((total, queue) => total + (queue.items?.length || 0), 0),
-      }))
-      .sort((a, b) => {
-        const ai = order.includes(a.level) ? order.indexOf(a.level) : order.length;
-        const bi = order.includes(b.level) ? order.indexOf(b.level) : order.length;
-        return ai - bi || a.level.localeCompare(b.level);
-      });
-  }, [materialQueues]);
-  const materialCardCount = materialQueues.reduce((total, queue) => total + (queue.items?.length || 0), 0);
-
-  const getLessonProgress = (num) => {
-    const chars = VOCABULARY.filter(v => v.lesson === num);
-    const mastered = chars.filter(v => progress.masteredChars.includes(v.hanzi)).length;
-    return { mastered, total: chars.length, percent: Math.round((mastered / chars.length) * 100) };
-  };
-  const getQueueProgress = (queue) => {
-    const items = queue.items || [];
-    const mastered = items.filter(v => progress.masteredChars.includes(v.hanzi)).length;
-    return { mastered, total: items.length, percent: items.length ? Math.round((mastered / items.length) * 100) : 0 };
-  };
-
+  const collections = getMaterialCollectionQueues();
   return (
     <div className="screen">
       <header className="header">
         <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
-        <HeaderLogoMark />
+        <span className="text-sm">{t('lessons.title')}</span>
       </header>
+      <h1 className="title-lg">{t('lessons.title')}</h1>
+      <p className="text-sm" style={{ marginTop: '4px' }}>{t('lessons.subtitle')}</p>
 
-      <MiniAppHeader
-        icon="scan"
-        title={t('lessons.title')}
-        subtitle={t('lessons.subtitle')}
-        pill={t('lessons.pill')}
-      />
-
-      <div className="service-section">
-        <div className="service-section-head">
-          <span>{t('lessons.service')}</span>
-          <span>HSK1</span>
-        </div>
-        <div className="service-list">
-        {lessons.map((num) => {
-          const { mastered, total, percent } = getLessonProgress(num);
-          return (
-            <div key={num} className="card card-clickable service-row" onClick={() => { setSelectedQueue(null); setSelectedLesson(num); setCurrentView('learn'); }} role="button" tabIndex={0}>
-              <div className="lesson-card">
-                <div className="lesson-service-icon"><AppIcon name={num === 12 ? 'sound' : num === 13 ? 'brush' : num === 14 ? 'wallet' : 'book'} /></div>
-                <div className="lesson-number">{num}</div>
-                <div className="lesson-info">
-                  <div className="lesson-title-line">
-                    <p className="title-md">{lessonTitles[num].title}</p>
-                    <span className="lesson-chinese-chip">{lessonTitles[num].chinese}</span>
-                  </div>
-                  <p className="text-sm">{mastered}/{total} • {percent}%</p>
-                  <div className="progress-bar" style={{ marginTop: '8px', marginBottom: '0' }}>
-                    <div className="progress-fill" style={{ width: `${percent}%` }} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-        </div>
+      <div className="list-panel">
+        <div className="list-head">{t('lessons.quick')}</div>
+        {lessons.map(l => (
+          <ListRow
+            key={l.lesson}
+            icon="book"
+            label={t('stats.lesson', { lesson: l.lesson })}
+            meta={`${l.mastered}/${l.total}`}
+            onClick={() => openLesson(l.lesson, 'learn')}
+          />
+        ))}
       </div>
 
-      {materialQueues.length > 0 && (
-        <div className="service-section">
-          <div className="service-section-head">
-            <span>{t('lessons.materialBanks')}</span>
-            <span>{materialQueues.length} • {materialCardCount}</span>
-          </div>
-          <div className="service-list">
-            {materialGroups.map((group) => (
-              <div className="material-group" key={group.level}>
-                <div className="material-group-head">
-                  <span>{getMaterialLevelLabel(group.level)}</span>
-                  <span>{group.queues.length} • {group.cards}</span>
-                </div>
-                {group.queues.map((queue) => {
-                  const queueProgress = getQueueProgress(queue);
-                  return (
-                    <div
-                      key={queue.id}
-                      className="card card-clickable service-row"
-                      onClick={() => { setSelectedLesson(null); setSelectedQueue(queue); setCurrentView('learn'); }}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      <div className="lesson-card">
-                        <div className="lesson-service-icon"><AppIcon name={queue.level === 'Book3' ? 'scan' : queue.level === 'Basics' ? 'brush' : 'book'} /></div>
-                        <div className="lesson-number">{queueProgress.total}</div>
-                        <div className="lesson-info">
-                          <div className="lesson-title-line">
-                            <p className="title-md">{getQueueDisplayLabel(queue, t)}</p>
-                            <span className="lesson-chinese-chip">{getQueueDisplayChip(queue, t)}</span>
-                          </div>
-                          <p className="text-sm">{queueProgress.mastered}/{queueProgress.total} • {queueProgress.percent}%</p>
-                          <div className="progress-bar" style={{ marginTop: '8px', marginBottom: '0' }}>
-                            <div className="progress-fill" style={{ width: `${queueProgress.percent}%` }} />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="section-title">
-        <span className="text-sm">{t('lessons.quick')}</span>
-        <div className="section-line" />
+      <div className="list-panel">
+        <div className="list-head">{t('lessons.materialBanks')}</div>
+        {collections.map(c => (
+          <ListRow
+            key={c.id}
+            icon="card"
+            label={c.labelKey ? t(c.labelKey) : (c.labelEn || c.labelZh || c.id)}
+            meta={`${c.items.length}`}
+            onClick={() => {
+              setSelectedLesson(null);
+              setSelectedQueue(getMaterialCollectionQueue(MATERIAL_COLLECTIONS.find(m => m.id === c.id)));
+              setCurrentView('learn');
+            }}
+          />
+        ))}
       </div>
 
-      <div className="lessons-quick-actions" style={{ display: 'flex', gap: '12px' }}>
-        <button className="btn btn-secondary" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }}>{t('lessons.quizAll')}</button>
-        <button className="btn btn-primary" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }}>{t('lessons.drawAll')}</button>
+      <div className="nav-actions">
+        <button className="btn btn-secondary" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('draw'); }}>{t('lessons.drawAll')}</button>
+        <button className="btn btn-primary" onClick={() => { setSelectedLesson(null); setSelectedQueue(null); setCurrentView('quiz'); }}>{t('lessons.quizAll')}</button>
       </div>
     </div>
   );
 }
 
-// ============================================
-// LEARN VIEW
-// ============================================
 function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearned, updateProgress, setCurrentView, playSound, t }) {
-  const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
-  const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
-  const positionKey = `learn:${selectedQueue?.id || selectedLesson || 'all'}`;
-  const scopePill = selectedQueue ? getQueueDisplayLabel(selectedQueue, t) : (selectedLesson ? `L${selectedLesson}` : t('common.all'));
-  const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
-  const [isFlipped, setIsFlipped] = React.useState(false);
-  const [showCompound, setShowCompound] = React.useState(false);
+  const vocab = React.useMemo(() => {
+    if (selectedQueue?.items) return selectedQueue.items;
+    if (selectedLesson) return getStudyQueue(VOCABULARY.filter(v => v.lesson === selectedLesson), progress);
+    return getStudyQueue(VOCABULARY, progress);
+  }, [selectedQueue, selectedLesson, progress]);
+  const [index, setIndex] = React.useState(0);
+  const [flipped, setFlipped] = React.useState(false);
+  const [showRelated, setShowRelated] = React.useState(false);
+  const current = vocab[Math.min(index, vocab.length - 1)];
+  const related = React.useMemo(() => {
+    if (!current?.lesson) return [];
+    return COMPOUNDS.filter(c => c.lesson === current.lesson && c.hanzi.includes(current.hanzi)).slice(0, 6);
+  }, [current]);
 
-  const currentChar = vocab[currentIndex];
-  const isWordItem = currentChar.kind === 'word';
-  const relatedCompounds = React.useMemo(() => (
-    isWordItem ? [] : COMPOUNDS.filter(c => c.hanzi.includes(currentChar.hanzi))
-  ), [currentChar, isWordItem]);
+  React.useEffect(() => { setIndex(0); setFlipped(false); }, [selectedQueue, selectedLesson]);
 
-  const handleNext = () => {
-    playSound(currentIndex === vocab.length - 1 ? 'complete' : 'tap');
-    markCharacterLearned(currentChar.hanzi);
-    setIsFlipped(false);
-    setShowCompound(false);
-    if (currentIndex < vocab.length - 1) {
-      const nextIndex = currentIndex + 1;
-      updateProgress({ lastPositions: { ...(progress.lastPositions || {}), [positionKey]: nextIndex } });
-      setCurrentIndex(nextIndex);
-    } else {
-      updateProgress({ lastPositions: { ...(progress.lastPositions || {}), [positionKey]: 0 } });
-    }
-  };
-
-  const handlePrev = () => {
+  const go = (dir) => {
     playSound('tap');
-    setIsFlipped(false);
-    setShowCompound(false);
-    if (currentIndex > 0) {
-      const prevIndex = currentIndex - 1;
-      updateProgress({ lastPositions: { ...(progress.lastPositions || {}), [positionKey]: prevIndex } });
-      setCurrentIndex(prevIndex);
-    }
+    if (dir > 0 && current) markCharacterLearned(current.hanzi);
+    updateProgress({ lastPositions: { ...progress.lastPositions, learn: index } });
+    setIndex(i => Math.max(0, Math.min(vocab.length - 1, i + dir)));
+    setFlipped(false);
+    setShowRelated(false);
   };
+
+  if (!current) return <div className="screen"><header className="header"><button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button></header></div>;
 
   return (
     <div className="screen">
       <header className="header">
         <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
-        <span className="text-sm" style={{ color: 'var(--accent-lime)' }}>{t('learn.cardNumber', { count: currentIndex + 1 })}</span>
+        <span className="text-sm">{index + 1} / {vocab.length}</span>
       </header>
+      <div className="progress-bar"><div className="progress-fill" style={{ width: `${((index + 1) / vocab.length) * 100}%` }} /></div>
 
-      <MiniAppHeader
-        icon="card"
-        title={t('learn.title')}
-        subtitle={t('learn.subtitle')}
-        pill={scopePill}
-      />
-
-      <div className="mini-app-progress-card">
-        <p className="text-sm">{t('learn.progress')}</p>
-        <span className="mini-app-progress-count">{currentIndex + 1} / {vocab.length}</span>
-      </div>
-
-      <div className="progress-bar">
-        <div className="progress-fill" style={{ width: `${((currentIndex + 1) / vocab.length) * 100}%` }} />
-      </div>
-
-      <div className="study-pass-card card card-accent-lime flashcard" onClick={() => { playSound('select'); setIsFlipped(!isFlipped); }} role="button" tabIndex={0} aria-label="Flip card">
-        <div className={`hanzi-display hanzi-hero ${isWordItem ? 'hanzi-word' : ''}`} style={{ color: 'var(--accent-lime)' }}>{currentChar.hanzi}</div>
-        {isFlipped && (
-          <div className="animate-slide-up" style={{ textAlign: 'center' }}>
-            <div className="pinyin-display">{currentChar.pinyin}</div>
-            <div className="meaning-display">{currentChar.meaning}</div>
-            <p className="text-sm" style={{ marginTop: '12px' }}>
-              {isWordItem
-                ? t('learn.wordLine', { source: currentChar.source || 'HSK1' })
-                : t('learn.strokesLine', { strokes: currentChar.strokes, lesson: currentChar.lesson })}
-            </p>
-            {currentChar.example && (
-              <p className="material-example">{currentChar.example}</p>
-            )}
-            <MemoryScroll item={currentChar} t={t} />
+      <div className="flashcard" onClick={() => { playSound('select'); setFlipped(!flipped); }} role="button" tabIndex={0}>
+        {!flipped ? (
+          <div className="hanzi-hero">{current.hanzi}</div>
+        ) : (
+          <div>
+            <div className="hanzi-hero" style={{ fontSize: '56px', color: 'var(--ink)' }}>{current.hanzi}</div>
+            <div className="pinyin-display">{current.pinyin}</div>
+            <div className="meaning-display">{current.meaning}</div>
+            {current.example && <p className="material-example">{current.example}</p>}
           </div>
         )}
-        {!isFlipped && <p className="flashcard-hint">{t('learn.tap')}</p>}
+        {!flipped && <p className="flashcard-hint">{t('learn.tap')}</p>}
       </div>
 
-      {relatedCompounds.length > 0 && (
-        <div className="related-service-card card card-clickable" onClick={() => { playSound('reveal'); setShowCompound(!showCompound); }} role="button" tabIndex={0}>
-          <p className="title-md">{t('learn.related', { count: relatedCompounds.length })}</p>
-          {showCompound && (
-            <div className="animate-slide-up" style={{ marginTop: '12px' }}>
-              {relatedCompounds.map((c, i) => (
-                <div key={i} style={{ padding: '8px 0', borderBottom: i < relatedCompounds.length - 1 ? '1px solid #dce7e2' : 'none' }}>
-                  <span className="hanzi-display hanzi-md">{c.hanzi}</span>
-                  <span style={{ marginLeft: '12px', color: 'var(--accent-cyan)' }}>{c.pinyin}</span>
-                  <span style={{ marginLeft: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>{c.meaning}</span>
-                </div>
+      {related.length > 0 && (
+        <div className="card">
+          <button className="list-row" style={{ width: '100%' }} onClick={() => { playSound('reveal'); setShowRelated(!showRelated); }}>
+            <span className="list-label">{t('learn.related', { count: related.length })}</span>
+            <span className="list-arrow">{showRelated ? '−' : '+'}</span>
+          </button>
+          {showRelated && (
+            <div className="daily-entry-strip" style={{ padding: '10px 0 2px' }}>
+              {related.map(c => (
+                <span key={c.hanzi} className="daily-entry-char" title={`${c.pinyin} — ${c.meaning}`}>{c.hanzi}</span>
               ))}
             </div>
           )}
@@ -456,630 +268,224 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
       )}
 
       <div className="nav-actions">
-        <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>{t('common.prevCard')}</button>
-        <button className="btn btn-primary" onClick={handleNext}>{currentIndex === vocab.length - 1 ? t('common.done') : t('common.nextCard')}</button>
+        <button className="btn btn-secondary" onClick={() => go(-1)} disabled={index === 0}>{t('common.prevCard')}</button>
+        <button className="btn btn-primary" onClick={() => go(1)}>{index === vocab.length - 1 ? t('common.done') : t('common.nextCard')}</button>
       </div>
-
-      {currentIndex === vocab.length - 1 && isFlipped && (
-        <div className="floating-indicator">
-          <span style={{ fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif", fontSize: '15px', fontWeight: 900 }}>{t('learn.roundDone')}</span>
-        </div>
-      )}
     </div>
   );
 }
 
-// ============================================
-// DRAW VIEW
-// ============================================
 function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView, playSound, t }) {
-  const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
-  const [vocab] = React.useState(() => getDrawQueue(baseVocab, progress));
-  const positionKey = `draw:${selectedQueue?.id || selectedLesson || 'all'}`;
-  const scopePill = selectedQueue ? getQueueDisplayLabel(selectedQueue, t) : (selectedLesson ? `L${selectedLesson}` : t('common.all'));
-  const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
-  const [drawMode, setDrawMode] = React.useState('practice'); // learn, practice, quiz
-  const [showReference, setShowReference] = React.useState(false);
-  const [strokesCompleted, setStrokesCompleted] = React.useState(0);
-  const [totalStrokes, setTotalStrokes] = React.useState(0);
+  const vocab = React.useMemo(() => {
+    const base = selectedQueue?.items || (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY);
+    return getDrawQueue(base, progress);
+  }, [selectedQueue, selectedLesson, progress]);
+  const [index, setIndex] = React.useState(0);
+  const [feedback, setFeedback] = React.useState(null);
   const [mistakes, setMistakes] = React.useState(0);
-  const mistakesRef = React.useRef(0);
-  const [feedback, setFeedback] = React.useState(null); // { type: 'success' | 'error', message }
-  const [isComplete, setIsComplete] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [charStats, setCharStats] = React.useState({ completed: 0, totalMistakes: 0 });
-
-  const writerRef = React.useRef(null);
+  const [done, setDone] = React.useState(false);
   const containerRef = React.useRef(null);
-  const currentChar = vocab[currentIndex];
+  const writerRef = React.useRef(null);
+  const mistakesRef = React.useRef(0);
+  const current = vocab[Math.min(index, vocab.length - 1)];
 
-  // Initialize Hanzi Writer
   React.useEffect(() => {
-    if (!containerRef.current || !currentChar) return;
-
-    // Clear previous
-    if (writerRef.current) {
-      writerRef.current = null;
-    }
-    containerRef.current.innerHTML = '';
-
-    // Reset state
-    setStrokesCompleted(0);
-    setMistakes(0);
-    mistakesRef.current = 0;
-    setFeedback(null);
-    setIsComplete(false);
-    setIsLoading(true);
-
-    // Calculate size based on container
-    const containerWidth = containerRef.current.parentElement.offsetWidth - 20;
-    const size = Math.min(containerWidth, 320);
-
+    if (!current || !containerRef.current) return;
+    setFeedback(null); setMistakes(0); setDone(false); mistakesRef.current = 0;
+    let writer;
     try {
-      const writer = HanziWriter.create(containerRef.current, currentChar.hanzi, {
-        width: size,
-        height: size,
+      writer = HanziWriter.create(containerRef.current, current.hanzi, {
+        width: 280, height: 280,
         padding: 10,
-        showOutline: drawMode === 'learn' || showReference,
-        showCharacter: drawMode === 'learn' || showReference,
-        strokeColor: '#07c160',
-        outlineColor: '#dce7e2',
-        drawingColor: '#07c160',
-        highlightColor: '#1677ff',
-        radicalColor: '#07c160',
-        strokeAnimationSpeed: 1,
-        delayBetweenStrokes: 300,
         drawingWidth: 6,
-        showHintAfterMisses: drawMode === 'practice' ? 2 : 3,
+        showHintAfterMisses: 2,
         highlightOnComplete: true,
         charDataLoader: (char, onComplete) => {
-          const strokeData = window.HANZI_STROKE_DATA?.[char];
-          if (strokeData) {
-            onComplete(strokeData);
-          } else {
-            setFeedback({ type: 'error', message: t('draw.feedback.noData') });
-          }
-        }
+          const data = window.HANZI_STROKE_DATA?.[char];
+          if (data) onComplete(data);
+          else setFeedback({ type: 'error', message: t('draw.feedback.noData') });
+        },
       });
-
       writerRef.current = writer;
-
-      // Get stroke count
-      const strokeData = window.HANZI_STROKE_DATA?.[currentChar.hanzi];
-      setTotalStrokes(strokeData?.strokes?.length || currentChar.strokes);
-      setIsLoading(false);
-
-      // Start based on mode
-      if (drawMode === 'learn') {
-        // Just show the character, user can click animate
-      } else {
-        // Start quiz mode for practice and quiz
-        setTimeout(() => {
-          writer.quiz({
-            onCorrectStroke: (data) => {
-              playSound('stroke');
-              setStrokesCompleted(data.strokeNum + 1);
-              if (data.strokeNum === 0) {
-                setFeedback({ type: 'success', message: t('draw.feedback.start') });
-              }
-              setTimeout(() => setFeedback(null), 800);
-            },
-            onMistake: (data) => {
-              playSound('wrong');
-              mistakesRef.current += 1;
-              setMistakes(prev => prev + 1);
-              setFeedback({ type: 'error', message: t('draw.feedback.retry') });
-              setTimeout(() => setFeedback(null), 800);
-            },
-            onComplete: (data) => {
-              playSound('complete');
-              setIsComplete(true);
-              const finalMistakes = mistakesRef.current;
-              setCharStats(prev => ({
-                completed: prev.completed + 1,
-                totalMistakes: prev.totalMistakes + finalMistakes
-              }));
-              if (finalMistakes === 0) {
-                setFeedback({ type: 'success', message: t('draw.feedback.perfect') });
-                markCharacterMastered(currentChar.hanzi);
-              } else if (finalMistakes <= 2) {
-                setFeedback({ type: 'success', message: t('draw.feedback.good') });
-              } else {
-                setFeedback({ type: 'success', message: t('draw.feedback.done') });
-              }
-            }
-          });
-        }, 300);
-      }
-    } catch (err) {
-      console.warn('Hanzi Writer init error:', err);
-    }
-
-    return () => {
-      if (writerRef.current) {
-        writerRef.current = null;
-      }
-    };
-  }, [currentChar, drawMode, showReference, playSound, t]);
-
-  const handleAnimate = () => {
-    if (writerRef.current) {
-      playSound('reveal');
-      writerRef.current.animateCharacter();
-    }
-  };
-
-  const handleReset = () => {
-    playSound('tap');
-    setStrokesCompleted(0);
-    setMistakes(0);
-    mistakesRef.current = 0;
-    setFeedback(null);
-    setIsComplete(false);
-
-    if (writerRef.current) {
-      if (drawMode === 'learn') {
-        writerRef.current.showCharacter();
-      } else {
-        writerRef.current.quiz({
-          onCorrectStroke: (data) => {
-            playSound('stroke');
-            setStrokesCompleted(data.strokeNum + 1);
-            setFeedback({ type: 'success', message: t('draw.feedback.nice') });
-            setTimeout(() => setFeedback(null), 600);
-          },
-          onMistake: () => {
-            playSound('wrong');
-            mistakesRef.current += 1;
-            setMistakes(prev => prev + 1);
-            setFeedback({ type: 'error', message: t('draw.feedback.retry') });
-            setTimeout(() => setFeedback(null), 600);
-          },
+      setTimeout(() => {
+        writer.quiz({
+          onCorrectStroke: () => { playSound('stroke'); setFeedback({ type: 'success', message: t('draw.feedback.start') }); setTimeout(() => setFeedback(null), 700); },
+          onMistake: () => { playSound('wrong'); mistakesRef.current += 1; setMistakes(mistakesRef.current); setFeedback({ type: 'error', message: t('draw.feedback.retry') }); setTimeout(() => setFeedback(null), 700); },
           onComplete: () => {
             playSound('complete');
-            setIsComplete(true);
-            const finalMistakes = mistakesRef.current;
-            setCharStats(prev => ({
-              completed: prev.completed + 1,
-              totalMistakes: prev.totalMistakes + finalMistakes
-            }));
-            setFeedback({ type: 'success', message: finalMistakes === 0 ? t('draw.feedback.perfect') : t('draw.feedback.done') });
-          }
+            setDone(true);
+            markCharacterMastered(current.hanzi);
+            setFeedback({ type: 'success', message: mistakesRef.current === 0 ? t('draw.feedback.perfect') : t('draw.feedback.done') });
+          },
         });
-      }
-    }
+      }, 250);
+    } catch (e) { console.warn('writer error', e); }
+    return () => { writerRef.current = null; };
+  }, [index, current?.hanzi]);
+
+  const go = (dir) => {
+    playSound('tap');
+    updateProgress({ lastPositions: { ...progress.lastPositions, draw: index } });
+    setIndex(i => Math.max(0, Math.min(vocab.length - 1, i + dir)));
   };
 
-  const handleNext = () => {
-    playSound(currentIndex < vocab.length - 1 ? 'tap' : 'complete');
-    const nextIndex = currentIndex < vocab.length - 1 ? currentIndex + 1 : 0;
-    updateProgress({
-      drawingAttempts: {
-        ...progress.drawingAttempts,
-        [currentChar.hanzi]: (progress.drawingAttempts[currentChar.hanzi] || 0) + 1
-      },
-      lastPositions: { ...(progress.lastPositions || {}), [positionKey]: nextIndex }
-    });
-    if (currentIndex < vocab.length - 1) {
-      setCurrentIndex(nextIndex);
-    } else {
-      // Last character - go back to home
-      setCurrentView('home');
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      playSound('tap');
-      const prevIndex = currentIndex - 1;
-      updateProgress({ lastPositions: { ...(progress.lastPositions || {}), [positionKey]: prevIndex } });
-      setCurrentIndex(prevIndex);
-    }
-  };
-
-  const selectDrawMode = (mode) => {
-    if (mode !== drawMode) playSound('select');
-    setDrawMode(mode);
-  };
-
-  // Stroke dots for visual progress
-  const strokeDots = React.useMemo(() => {
-    const dots = [];
-    for (let i = 0; i < Math.min(totalStrokes, 12); i++) {
-      let className = 'stroke-dot';
-      if (i < strokesCompleted) className += ' completed';
-      else if (i === strokesCompleted && !isComplete) className += ' current';
-      dots.push(<div key={i} className={className} />);
-    }
-    if (totalStrokes > 12) {
-      dots.push(<span key="more" style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>+{totalStrokes - 12}</span>);
-    }
-    return dots;
-  }, [totalStrokes, strokesCompleted, isComplete]);
+  if (!current) return <div className="screen"><header className="header"><button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button></header></div>;
 
   return (
     <div className="screen">
       <header className="header">
         <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
-        <span className="text-sm" style={{ color: 'var(--accent-coral)' }}>{t('draw.charNumber', { count: currentIndex + 1 })}</span>
+        <span className="text-sm">{index + 1} / {vocab.length}</span>
       </header>
+      <h1 className="title-lg">{current.pinyin}</h1>
+      <p className="text-sm" style={{ marginTop: '2px' }}>{current.meaning}</p>
 
-      <MiniAppHeader
-        icon="brush"
-        title={t('draw.title')}
-        subtitle={t('draw.subtitle')}
-        pill={scopePill}
-      />
-
-      {/* Mode selector */}
-      <div className="mini-app-segment draw-mode-selector">
-        <button
-          className={`draw-mode-btn ${drawMode === 'learn' ? 'active' : ''}`}
-          onClick={() => selectDrawMode('learn')}
-        >
-          <AppIcon name="card" /> {t('draw.mode.learn')}
-        </button>
-        <button
-          className={`draw-mode-btn ${drawMode === 'practice' ? 'active' : ''}`}
-          onClick={() => selectDrawMode('practice')}
-        >
-          <AppIcon name="brush" /> {t('draw.mode.practice')}
-        </button>
-        <button
-          className={`draw-mode-btn ${drawMode === 'quiz' ? 'active' : ''}`}
-          onClick={() => selectDrawMode('quiz')}
-        >
-          <AppIcon name="target" /> {t('draw.mode.quiz')}
-        </button>
+      <div className="draw-canvas-wrap">
+        <div ref={containerRef} className="hanzi-writer-container" />
       </div>
-
-      {/* Character info */}
-      <div className="draw-prompt-card card" style={{ textAlign: 'center', padding: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
-          <div className="hanzi-display" style={{ fontSize: '48px', color: 'var(--accent-lime)', minWidth: '64px' }}>
-            {(drawMode === 'learn' || showReference) ? currentChar.hanzi : '?'}
-          </div>
-          <div style={{ textAlign: 'left' }}>
-            <div className="pinyin-display" style={{ fontSize: '20px', marginTop: 0 }}>{currentChar.pinyin}</div>
-            <p className="text-sm" style={{ margin: '4px 0 0 0' }}>{currentChar.meaning}</p>
-          </div>
-        </div>
+      <div className="draw-stats">
+        <span>{t('draw.strokes')}: {current.strokes}</span>
+        <span>{t('draw.mistakes')}: {mistakes}</span>
+        <span>{t('draw.completed')}: {done ? '✓' : '…'}</span>
       </div>
+      <p className={`draw-feedback ${feedback?.type || ''}`}>{feedback?.message || ''}</p>
 
-      {(drawMode === 'learn' || showReference) && (
-        <MemoryScroll item={currentChar} t={t} compact />
-      )}
-
-      {/* Hanzi Writer container */}
-      <div className="writer-mini-program hanzi-writer-container">
-        {isLoading && (
-          <div style={{ position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-            <div style={{ color: '#07c160', animation: 'loadingPulse 1s ease-in-out infinite' }}><AppIcon name="brush" /></div>
-            <div className="text-sm">{t('draw.loading')}</div>
-          </div>
-        )}
-        <div ref={containerRef} style={{ touchAction: 'none', opacity: isLoading ? 0 : 1 }} />
-        {feedback && (
-          <div className={`draw-feedback ${feedback.type}`}>
-            {feedback.message}
-          </div>
-        )}
-      </div>
-
-      {/* Stroke progress */}
-      {drawMode !== 'learn' && totalStrokes > 0 && (
-        <div className="stroke-counter">
-          {strokeDots}
-        </div>
-      )}
-
-      {/* Controls based on mode */}
-      <div className="canvas-controls">
-        {drawMode === 'learn' ? (
-          <>
-            <button className="btn btn-secondary" onClick={handleAnimate}>{t('draw.animate')}</button>
-            <button className="btn btn-primary" onClick={handleNext}>
-              {currentIndex === vocab.length - 1 ? t('common.done') : t('common.nextChar')}
-            </button>
-          </>
-        ) : (
-          <>
-            <button className="btn btn-secondary" onClick={handleReset}>
-              {isComplete ? t('common.writeAgain') : t('common.reset')}
-            </button>
-            <button className="btn btn-secondary" onClick={() => { playSound('reveal'); setShowReference(prev => !prev); }}>
-              {showReference ? t('common.hide') : t('common.hint')}
-            </button>
-            {isComplete && (
-              <button className="btn btn-primary" onClick={handleNext}>
-                {currentIndex === vocab.length - 1 ? t('common.done') : t('common.nextChar')}
-              </button>
-            )}
-          </>
-        )}
-      </div>
-
-      {/* Stats */}
-      {drawMode !== 'learn' && (
-        <div className="draw-stats">
-          <div className="draw-stat">
-            <div className="draw-stat-value">{strokesCompleted}/{totalStrokes}</div>
-            <div className="draw-stat-label">{t('draw.strokes')}</div>
-          </div>
-          <div className="draw-stat">
-            <div className="draw-stat-value" style={{ color: mistakes > 0 ? 'var(--accent-coral)' : 'var(--accent-lime)' }}>{mistakes}</div>
-            <div className="draw-stat-label">{t('draw.mistakes')}</div>
-          </div>
-          <div className="draw-stat">
-            <div className="draw-stat-value">{charStats.completed}</div>
-            <div className="draw-stat-label">{t('draw.completed')}</div>
-          </div>
-        </div>
-      )}
-
-      {/* Navigation */}
       <div className="nav-actions">
-        <button className="btn btn-secondary" onClick={handlePrev} disabled={currentIndex === 0}>{t('common.prevChar')}</button>
-        {(drawMode === 'learn' || !isComplete) && (
-          <button className="btn btn-secondary" onClick={handleNext}>
-            {t('common.skip')}
-          </button>
-        )}
+        <button className="btn btn-secondary" onClick={() => go(-1)} disabled={index === 0}>{t('common.prevChar')}</button>
+        <button className="btn btn-primary" onClick={() => go(1)}>{index === vocab.length - 1 ? t('common.done') : t('common.nextChar')}</button>
       </div>
     </div>
   );
 }
 
-// ============================================
-// QUIZ VIEW
-// ============================================
 function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, markCharacterMastered, setCurrentView, playSound, t }) {
-  const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY), [selectedLesson, selectedQueue]);
-  const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
-  const [initialMasteredChars] = React.useState(progress.masteredChars);
-  const scopePill = selectedQueue ? getQueueDisplayLabel(selectedQueue, t) : (selectedLesson ? `L${selectedLesson}` : t('nav.quiz'));
-  const [questions, setQuestions] = React.useState([]);
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [attemptedAnswers, setAttemptedAnswers] = React.useState([]);
-  const [answeredCorrect, setAnsweredCorrect] = React.useState(false);
-  const [revealedAnswer, setRevealedAnswer] = React.useState(false);
+  const [mode, setMode] = React.useState(null); // hanzi-to-pinyin | pinyin-to-hanzi | hanzi-to-meaning
+  const [questions, setQuestions] = React.useState(null);
+  const [qIndex, setQIndex] = React.useState(0);
   const [score, setScore] = React.useState(0);
-  const [isComplete, setIsComplete] = React.useState(false);
-  const [quizType, setQuizType] = React.useState(null);
+  const [answered, setAnswered] = React.useState(null);
 
-  const generateQuestions = React.useCallback(() => {
-    const mastered = getKnownSet(initialMasteredChars);
-    const weakPool = vocab.filter(v => !mastered.has(v.hanzi));
-    const source = weakPool.length >= 4 ? weakPool : vocab;
-    const shuffled = [...source].sort(() => Math.random() - 0.5).slice(0, Math.min(10, source.length));
-    const qs = shuffled.map(char => {
-      const similar = getSimilarDistractors(char, vocab, 3);
-      const fill = vocab
-        .filter(v => v.id !== char.id && !similar.some(s => s.id === v.id))
-        .sort(() => Math.random() - 0.5);
-      const wrong = [...similar, ...fill].slice(0, 3);
-      let opts;
-      if (quizType === 'hanzi-to-pinyin') {
-        opts = [{ text: char.pinyin, isCorrect: true }, ...wrong.map(w => ({ text: w.pinyin, isCorrect: false }))];
-      } else if (quizType === 'pinyin-to-hanzi') {
-        opts = [{ text: char.hanzi, isCorrect: true }, ...wrong.map(w => ({ text: w.hanzi, isCorrect: false }))];
-      } else {
-        opts = [{ text: char.meaning, isCorrect: true }, ...wrong.map(w => ({ text: w.meaning, isCorrect: false }))];
-      }
-      const uniqueOpts = [];
-      opts.forEach(opt => {
-        if (!uniqueOpts.some(existing => existing.text === opt.text)) uniqueOpts.push(opt);
-      });
-      return { char, options: uniqueOpts.sort(() => Math.random() - 0.5), type: quizType };
+  const startQuiz = (m) => {
+    playSound('select');
+    setMode(m);
+    const pool = selectedQueue?.items || (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : getStudyQueue(VOCABULARY, progress));
+    const qs = pool.slice(0, 10).map((item) => {
+      const distractors = getSimilarDistractors(item, pool, 3);
+      const options = [...distractors, item].sort(() => Math.random() - 0.5);
+      return { item, options };
     });
     setQuestions(qs);
-    setCurrentIndex(0);
-    setScore(0);
-    setAttemptedAnswers([]);
-    setAnsweredCorrect(false);
-    setRevealedAnswer(false);
-    setIsComplete(false);
-  }, [vocab, quizType, initialMasteredChars]);
-
-  React.useEffect(() => {
-    if (quizType) generateQuestions();
-  }, [quizType, generateQuestions]);
-
-  const handleAnswer = (option) => {
-    if (answeredCorrect || revealedAnswer || attemptedAnswers.some(a => a.text === option.text)) return;
-    if (option.isCorrect) {
-      playSound('correct');
-      const newScore = score + 1;
-      setScore(newScore);
-      setAnsweredCorrect(true);
-      markCharacterMastered(questions[currentIndex].char.hanzi);
-      return;
-    }
-    const nextAttempts = [...attemptedAnswers, option];
-    playSound(nextAttempts.length >= 2 ? 'reveal' : 'wrong');
-    setAttemptedAnswers(nextAttempts);
-    if (nextAttempts.length >= 2) {
-      setRevealedAnswer(true);
-    }
+    setQIndex(0); setScore(0); setAnswered(null);
   };
 
-  const handleNextQuestion = () => {
-    if (currentIndex < questions.length - 1) {
-      playSound('tap');
-      setCurrentIndex(currentIndex + 1);
-      setAttemptedAnswers([]);
-      setAnsweredCorrect(false);
-      setRevealedAnswer(false);
-    } else {
-      playSound('complete');
-      setIsComplete(true);
-      updateProgress({ quizScores: [...progress.quizScores, { score, total: questions.length, date: new Date().toISOString() }] });
-    }
+  const answer = (opt) => {
+    if (answered !== null) return;
+    const q = questions[qIndex];
+    const correct = opt.hanzi === q.item.hanzi;
+    setAnswered(opt.hanzi);
+    if (correct) { setScore(s => s + 1); playSound('correct'); markCharacterMastered(q.item.hanzi); }
+    else playSound('wrong');
   };
 
-  const chooseQuizType = (type) => {
-    playSound('select');
-    setQuizType(type);
-  };
-
-  const restartQuiz = () => {
-    playSound('select');
-    generateQuestions();
-  };
-
-  const changeQuizMode = () => {
+  const next = () => {
     playSound('tap');
-    setQuizType(null);
+    if (qIndex === questions.length - 1) {
+      updateProgress({ quizScores: [...progress.quizScores, { date: new Date().toISOString(), score, total: questions.length }].slice(-50) });
+      setQuestions(null); setMode(null);
+    } else {
+      setQIndex(qIndex + 1); setAnswered(null);
+    }
   };
 
-  if (!quizType) {
+  if (!mode) {
     return (
       <div className="screen">
         <header className="header">
           <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
-          <HeaderLogoMark />
+          <span className="text-sm">{t('quiz.title')}</span>
         </header>
-        <MiniAppHeader
-          icon="target"
-          title={t('quiz.title')}
-          subtitle={t('quiz.subtitle')}
-          pill={scopePill}
-        />
-      <div className="card card-clickable card-accent-lime quiz-mode-card" onClick={() => chooseQuizType('hanzi-to-pinyin')} role="button" tabIndex={0}>
-          <span className="quiz-mode-icon"><AppIcon name="sound" /></span>
-          <div>
-            <p className="title-lg">{t('quiz.mode.hanziPinyin')}</p>
-            <p className="text-sm">{t('quiz.mode.hanziPinyinCopy')}</p>
-          </div>
-        </div>
-      <div className="card card-clickable card-accent-cyan quiz-mode-card" onClick={() => chooseQuizType('pinyin-to-hanzi')} role="button" tabIndex={0}>
-          <span className="quiz-mode-icon"><AppIcon name="target" /></span>
-          <div>
-            <p className="title-lg">{t('quiz.mode.pinyinHanzi')}</p>
-            <p className="text-sm">{t('quiz.mode.pinyinHanziCopy')}</p>
-          </div>
-        </div>
-      <div className="card card-clickable card-accent-coral quiz-mode-card" onClick={() => chooseQuizType('hanzi-to-meaning')} role="button" tabIndex={0}>
-          <span className="quiz-mode-icon"><AppIcon name="book" /></span>
-          <div>
-            <p className="title-lg">{t('quiz.mode.hanziMeaning')}</p>
-            <p className="text-sm">{t('quiz.mode.hanziMeaningCopy')}</p>
-          </div>
+        <h1 className="title-lg">{t('quiz.title')}</h1>
+        <p className="text-sm" style={{ marginTop: '4px' }}>{t('quiz.subtitle')}</p>
+        <div className="list-panel">
+          <ListRow icon="sound" label={t('quiz.mode.hanziPinyin')} meta={t('quiz.mode.hanziPinyinCopy')} onClick={() => startQuiz('hanzi-to-pinyin')} />
+          <ListRow icon="target" label={t('quiz.mode.pinyinHanzi')} meta={t('quiz.mode.pinyinHanziCopy')} onClick={() => startQuiz('pinyin-to-hanzi')} />
+          <ListRow icon="book" label={t('quiz.mode.hanziMeaning')} meta={t('quiz.mode.hanziMeaningCopy')} onClick={() => startQuiz('hanzi-to-meaning')} />
         </div>
       </div>
     );
   }
 
-  if (isComplete) {
+  if (!questions) {
+    const pct = Math.round((score / Math.max(questions?.length || score, 1)) * 100);
+    return null;
+  }
+
+  // results screen after finishing — handled by next() resetting; show results when answered last
+  if (questions && qIndex === questions.length - 1 && answered !== null && mode) {
+    // show result after short delay via state — simpler: compute on last answer
+  }
+
+  const q = questions[qIndex];
+  const prompt = mode === 'hanzi-to-pinyin' ? q.item.hanzi : mode === 'pinyin-to-hanzi' ? q.item.pinyin : q.item.hanzi;
+  const answerText = (o) => mode === 'hanzi-to-pinyin' ? o.pinyin : mode === 'pinyin-to-hanzi' ? o.hanzi : o.meaning;
+  const questionLabel = mode === 'hanzi-to-pinyin' ? t('quiz.howRead') : mode === 'pinyin-to-hanzi' ? t('quiz.whichHanzi') : t('quiz.whatMeans');
+
+  const isLast = qIndex === questions.length - 1;
+  if (answered !== null && isLast) {
     const pct = Math.round((score / questions.length) * 100);
     return (
       <div className="screen">
         <header className="header">
-          <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
+          <button className="back-btn" onClick={() => { setQuestions(null); setMode(null); }}>{t('quiz.changeMode')}</button>
         </header>
-        <div className="results-display">
-          <div className="score-circle">
-            <div className="score-value">{pct}%</div>
-            <div className="score-label">{t('common.score')}</div>
-          </div>
-          <h2 className="title-xl">{pct >= 80 ? t('quiz.resultGreat') : pct >= 60 ? t('quiz.resultGood') : t('quiz.resultKeep')}</h2>
-          <p className="text-sm" style={{ marginTop: '12px' }}>{t('quiz.scoreLine', { score, total: questions.length })}</p>
+        <div className="card" style={{ textAlign: 'center', padding: '32px 20px' }}>
+          <div className="score-value">{pct}%</div>
+          <div className="score-label">{t('common.score')}</div>
+          <h2 className="title-lg" style={{ marginTop: '12px' }}>{pct >= 80 ? t('quiz.resultGreat') : pct >= 60 ? t('quiz.resultGood') : t('quiz.resultKeep')}</h2>
+          <p className="text-sm" style={{ marginTop: '8px' }}>{t('quiz.scoreLine', { score, total: questions.length })}</p>
         </div>
         <div className="nav-actions">
-        <button className="btn btn-secondary" onClick={changeQuizMode}>{t('quiz.changeMode')}</button>
-        <button className="btn btn-primary" onClick={restartQuiz}>{t('quiz.again')}</button>
+          <button className="btn btn-secondary" onClick={() => { setQuestions(null); setMode(null); }}>{t('quiz.tryAgain')}</button>
+          <button className="btn btn-primary" onClick={() => { setQuestions(null); setMode(null); setCurrentView('home'); }}>{t('common.done')}</button>
         </div>
       </div>
     );
   }
 
-  const q = questions[currentIndex];
-  if (!q) return null;
-  const canContinue = answeredCorrect || revealedAnswer;
-  const correctOption = q.options.find(opt => opt.isCorrect);
-  const isWordQuestion = q.char.kind === 'word';
-
   return (
     <div className="screen">
       <header className="header">
-        <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
-        <span className="text-sm" style={{ color: 'var(--accent-purple)' }}>{currentIndex + 1} / {questions.length}</span>
+        <button className="back-btn" onClick={() => { setQuestions(null); setMode(null); }}>{t('quiz.changeMode')}</button>
+        <span className="text-sm">{qIndex + 1} / {questions.length}</span>
       </header>
-      <MiniAppHeader
-        icon="target"
-        title={t('quiz.title')}
-        subtitle={t('quiz.subtitleActive')}
-        pill={t('quiz.scoreFooter', { score, total: questions.length })}
-      />
-      <div className="progress-bar">
-        <div className="progress-fill" style={{ width: `${(currentIndex / questions.length) * 100}%` }} />
-      </div>
-      <div className="quiz-question quiz-pass-card">
-        {q.type === 'pinyin-to-hanzi' ? (
-          <>
-            <p className="text-sm">{t('quiz.whichHanzi')}</p>
-            <div className="pinyin-display" style={{ fontSize: '42px', marginTop: '16px' }}>{q.char.pinyin}</div>
-            <p className="meaning-display">{q.char.meaning}</p>
-          </>
-        ) : (
-          <>
-            <p className="text-sm">{q.type === 'hanzi-to-pinyin' ? t('quiz.howRead') : t('quiz.whatMeans')}</p>
-            <div className={`hanzi-display hanzi-xl ${isWordQuestion ? 'hanzi-word' : ''}`} style={{ color: 'var(--accent-lime)' }}>{q.char.hanzi}</div>
-          </>
-        )}
-      </div>
-      <div className="quiz-options service-list">
-        {q.options.map((opt, i) => {
-          const wasTried = attemptedAnswers.some(a => a.text === opt.text);
-          const showCorrect = canContinue && opt.isCorrect;
+      <p className="text-sm" style={{ textAlign: 'center' }}>{questionLabel}</p>
+      <div className="quiz-question">{prompt}</div>
+      <div className="quiz-options">
+        {q.options.map((o) => {
+          const isCorrect = o.hanzi === q.item.hanzi;
+          const cls = answered === null ? '' : isCorrect ? 'correct' : (answered === o.hanzi ? 'incorrect' : 'disabled');
           return (
-            <button
-              key={i}
-              className={`quiz-option ${showCorrect ? 'correct' : ''} ${wasTried ? 'incorrect disabled' : ''} ${canContinue ? 'disabled' : ''}`}
-              onClick={() => handleAnswer(opt)}
-              style={q.type === 'pinyin-to-hanzi' ? { fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif", fontSize: opt.text.length > 2 ? '24px' : '32px', textAlign: 'center', justifyContent: 'center' } : {}}
-            >
-              {opt.text}
+            <button key={o.hanzi + o.pinyin} className={`quiz-option ${cls}`} onClick={() => answer(o)} disabled={answered !== null}>
+              {answerText(o)}
             </button>
           );
         })}
       </div>
-      {(attemptedAnswers.length > 0 || canContinue) && (
-        <div className="quiz-feedback">
-          {answeredCorrect ? (
-            <strong>{t('quiz.correct')}</strong>
-          ) : revealedAnswer ? (
-            <>
-              <div>{t('quiz.correctAnswer')}<strong>{correctOption?.text}</strong></div>
-              <div className="pinyin-display">{q.char.pinyin}</div>
-            </>
-          ) : (
-            <strong>{t('quiz.tryAgain')}</strong>
-          )}
-          {canContinue && <MemoryScroll item={q.char} t={t} compact />}
-        </div>
-      )}
-      {canContinue && (
+      {answered !== null && (
         <div className="nav-actions">
-          <button className="btn btn-primary" onClick={handleNextQuestion}>
-            {currentIndex === questions.length - 1 ? t('common.done') : t('quiz.next')}
-          </button>
+          <button className="btn btn-primary" onClick={next}>{isLast ? t('common.done') : t('quiz.next')}</button>
         </div>
       )}
-      <p className="text-sm" style={{ textAlign: 'center', marginTop: '20px' }}>{t('quiz.scoreFooter', { score, total: currentIndex + (canContinue ? 1 : 0) })}</p>
     </div>
   );
 }
 
-// ============================================
-// STATS VIEW
-// ============================================
 function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, theme, setTheme, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound }) {
   const isOfflineCopy = window.location.protocol === 'file:';
   const byLesson = [12, 13, 14, 15].map(l => ({
     lesson: l,
     mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.hanzi)).length,
-    total: VOCABULARY.filter(v => v.lesson === l).length
+    total: VOCABULARY.filter(v => v.lesson === l).length,
   }));
   const recentScores = progress.quizScores.slice(-5).reverse();
 
@@ -1091,13 +497,7 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
   };
 
   const handleExport = () => {
-    const exportData = {
-      version: 1,
-      exportDate: new Date().toISOString(),
-      appName: 'hanzi-master',
-      progress: progress
-    };
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify({ version: 1, exportDate: new Date().toISOString(), appName: 'hanzi-master', progress }, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -1109,197 +509,105 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
   const handleImport = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = (ev) => {
       try {
-        const data = JSON.parse(event.target.result);
-
-        // Validate structure
-        if (!data.progress || data.appName !== 'hanzi-master') {
-          alert(t('stats.invalidBackup'));
-          return;
-        }
-
-        // Merge with defaults for forward compatibility
-        let imported = {
-          masteredChars: data.progress.masteredChars || [],
-          learningChars: data.progress.learningChars || [],
-          quizScores: data.progress.quizScores || [],
-          drawingAttempts: data.progress.drawingAttempts || {},
-          lastPositions: data.progress.lastPositions || {},
-          lastStudyDate: data.progress.lastStudyDate || null,
-          streak: data.progress.streak || 0,
-          totalReviews: data.progress.totalReviews || 0,
-          streakDays: data.progress.streakDays || 0
-        };
-
-        // Migrate old ID-based backups to hanzi-based
-        imported = migrateProgress(imported);
-
+        const data = JSON.parse(ev.target.result);
+        if (!data.progress || data.appName !== 'hanzi-master') { alert(t('stats.invalidBackup')); return; }
         if (window.confirm(t('stats.confirmImport', { date: new Date(data.exportDate).toLocaleDateString() }))) {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(imported));
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(migrateProgress(data.progress)));
           window.location.reload();
         }
-      } catch (err) {
-        alert(t('stats.importFail'));
-      }
+      } catch { alert(t('stats.importFail')); }
     };
     reader.readAsText(file);
-    e.target.value = ''; // Reset input
+    e.target.value = '';
   };
 
   return (
     <div className="screen">
       <header className="header">
         <button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button>
-        <HeaderLogoMark />
+        <span className="text-sm">{t('stats.title')}</span>
       </header>
+      <h1 className="title-lg">{t('stats.title')}</h1>
+      <p className="text-sm" style={{ marginTop: '4px' }}>{t('stats.subtitle')}</p>
 
-      <MiniAppHeader
-        icon="wallet"
-        title={t('stats.title')}
-        subtitle={t('stats.subtitle')}
-        pill={`${progress.masteredChars.length}/${VOCABULARY.length}`}
-      />
-
-      <div className="stats-bar stats-wallet">
-        <div className="stat-item">
-          <div className="stat-value">{progress.masteredChars.length}</div>
-          <div className="stat-label">{t('home.stat.mastered')}</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-value">{progress.totalReviews}</div>
-          <div className="stat-label">{t('home.stat.reviews')}</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-value">{progress.streakDays}</div>
-          <div className="stat-label">{t('stats.streak')}</div>
-        </div>
+      <div className="stats-bar">
+        <div className="stat-item"><div className="stat-value">{progress.masteredChars.length}</div><div className="stat-label">{t('home.stat.mastered')}</div></div>
+        <div className="stat-item"><div className="stat-value">{progress.totalReviews}</div><div className="stat-label">{t('home.stat.reviews')}</div></div>
+        <div className="stat-item"><div className="stat-value">{progress.streakDays}</div><div className="stat-label">{t('stats.streak')}</div></div>
       </div>
 
-      <div className="section-title">
-        <span className="text-sm">{t('stats.byLesson')}</span>
-        <div className="section-line" />
-      </div>
-
-      {byLesson.map(({ lesson, mastered, total }) => (
-        <div key={lesson} className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <p className="title-md">{t('stats.lesson', { lesson })}</p>
-            <span className="text-accent" style={{ fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif", fontSize: '20px', fontWeight: 900 }}>{mastered}/{total}</span>
-          </div>
-          <div className="progress-bar" style={{ marginTop: '10px', marginBottom: '0' }}>
-            <div className="progress-fill" style={{ width: `${(mastered / total) * 100}%` }} />
-          </div>
-        </div>
-      ))}
-
-      {recentScores.length > 0 && (
-        <>
-          <div className="section-title">
-            <span className="text-sm">{t('stats.recent')}</span>
-            <div className="section-line" />
-          </div>
-          {recentScores.map((q, i) => (
-            <div key={i} className="card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '13px' }}>{new Date(q.date).toLocaleDateString()}</span>
-                <span className="text-accent" style={{ fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif", fontSize: '22px', fontWeight: 900 }}>{Math.round((q.score / q.total) * 100)}%</span>
-              </div>
-            </div>
-          ))}
-        </>
-      )}
-
-      <div className="section-title">
-        <span className="text-sm">{t('stats.allChars', { count: VOCABULARY.length })}</span>
-        <div className="section-line" />
-      </div>
-
-      <div className="char-grid">
-        {VOCABULARY.map(c => (
-          <div key={c.id} className={`char-item ${progress.masteredChars.includes(c.hanzi) ? 'mastered' : progress.learningChars.includes(c.hanzi) ? 'learning' : ''}`} title={`${c.pinyin} - ${c.meaning}`}>
-            {c.hanzi}
+      <div className="section-title"><span className="text-sm">{t('stats.byLesson')}</span><div className="section-line" /></div>
+      <div className="list-panel">
+        {byLesson.map(l => (
+          <div key={l.lesson} className="list-row" style={{ cursor: 'default' }}>
+            <span className="list-label">{t('stats.lesson', { lesson: l.lesson })}</span>
+            <span className="list-meta">{l.mastered}/{l.total}</span>
           </div>
         ))}
       </div>
 
-      <div className="section-title" style={{ marginTop: '28px' }}>
-        <span className="text-sm">{t('settings.section')}</span>
-        <div className="section-line" />
+      {recentScores.length > 0 && (
+        <>
+          <div className="section-title"><span className="text-sm">{t('stats.recent')}</span><div className="section-line" /></div>
+          <div className="list-panel">
+            {recentScores.map((q, i) => (
+              <div key={i} className="list-row" style={{ cursor: 'default' }}>
+                <span className="list-label">{new Date(q.date).toLocaleDateString()}</span>
+                <span className="list-meta">{Math.round((q.score / q.total) * 100)}%</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      <div className="section-title"><span className="text-sm">{t('stats.allChars', { count: VOCABULARY.length })}</span><div className="section-line" /></div>
+      <div className="char-grid">
+        {VOCABULARY.map(c => (
+          <span key={c.id} className={`char-item ${progress.masteredChars.includes(c.hanzi) ? 'mastered' : progress.learningChars.includes(c.hanzi) ? 'learning' : ''}`} title={`${c.pinyin} — ${c.meaning}`}>{c.hanzi}</span>
+        ))}
       </div>
+
+      <div className="section-title"><span className="text-sm">{t('settings.section')}</span><div className="section-line" /></div>
       <div className="card settings-row">
         <SoundToggle soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} t={t} />
         <AmbienceToggle ambienceEnabled={ambienceEnabled} setAmbienceEnabled={setAmbienceEnabled} t={t} />
       </div>
 
-      <div className="section-title" style={{ marginTop: '28px' }}>
-        <span className="text-sm">{t('theme.section')}</span>
-        <div className="section-line" />
-      </div>
+      <div className="section-title"><span className="text-sm">{t('theme.section')}</span><div className="section-line" /></div>
       <div className="card">
         <ThemePicker theme={theme} onChange={setTheme} t={t} />
       </div>
 
-      {window.location.protocol !== 'file:' && (
+      {!isOfflineCopy && (
         <>
-          <div className="section-title" style={{ marginTop: '28px' }}>
-            <span className="text-sm">{t('account.section')}</span>
-            <div className="section-line" />
-          </div>
-          <AccountSection
-            session={session}
-            syncState={syncState}
-            lastSyncAt={lastSyncAt}
-            account={account}
-            t={t}
-            playSound={playSound}
-          />
+          <div className="section-title"><span className="text-sm">{t('account.section')}</span><div className="section-line" /></div>
+          <AccountSection session={session} syncState={syncState} lastSyncAt={lastSyncAt} account={account} t={t} playSound={playSound} />
         </>
       )}
 
-      <div className="section-title" style={{ marginTop: '28px' }}>
-        <span className="text-sm">{t('stats.backup')}</span>
-        <div className="section-line" />
-      </div>
-
+      <div className="section-title"><span className="text-sm">{t('stats.backup')}</span><div className="section-line" /></div>
       <div className="backup-buttons">
-        <button className="btn btn-secondary" onClick={handleExport}>
-          <span style={{ marginRight: '8px' }}>📤</span> {t('stats.export')}
-        </button>
+        <button className="btn btn-secondary" onClick={handleExport}>{t('stats.export')}</button>
         <label className="btn btn-secondary" style={{ cursor: 'pointer' }}>
-          <span style={{ marginRight: '8px' }}>📥</span> {t('stats.import')}
+          {t('stats.import')}
           <input type="file" accept=".json" onChange={handleImport} style={{ display: 'none' }} />
         </label>
       </div>
 
-      <div className="section-title" style={{ marginTop: '28px' }}>
-        <span className="text-sm">{t('stats.offline')}</span>
-        <div className="section-line" />
-      </div>
-
-      <div className="offline-pack-card">
+      <div className="section-title"><span className="text-sm">{t('stats.offline')}</span><div className="section-line" /></div>
+      <div className="card offline-pack-card">
         <span className="offline-pack-icon"><AppIcon name="download" /></span>
         <div className="offline-pack-copy">
           <p className="title-md">{t('stats.offlineTitle')}</p>
           <p className="text-sm">{t('stats.offlineHint')}</p>
         </div>
-        {isOfflineCopy ? (
-          <span className="offline-ready-pill">{t('stats.offlineReady')}</span>
-        ) : (
-          <a
-            className="btn btn-primary offline-download-button"
-            href="hanzi-master-offline.zip"
-            download="hanzi-master-offline.zip"
-          >
-            <AppIcon name="download" />
-            <span>{t('stats.offlineDownload')}</span>
-          </a>
-        )}
+        {!isOfflineCopy && <a className="btn btn-primary" href="hanzi-master-offline.zip" download="hanzi-master-offline.zip">{t('stats.offlineDownload')}</a>}
       </div>
 
-      <div style={{ marginTop: '20px' }}>
+      <div className="nav-actions">
         <button className="btn btn-coral" onClick={handleReset}>{t('stats.reset')}</button>
       </div>
     </div>

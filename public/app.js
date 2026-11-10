@@ -3063,7 +3063,7 @@ const getSimilarDistractors = (char, vocab, count = 3) => {
   });
   return [...byGroup, ...byShape].slice(0, count);
 };
-const styles = "  /* ===== MINI-PROGRAM BASE SYSTEM ===== */\n  :root {\n    --radius-sm: 8px;\n    --radius-md: 12px;\n    --radius-lg: 16px;\n    --radius-xl: 20px;\n    --shadow-inset: 0 0 0 1px rgba(24, 33, 43, 0.06) inset;\n    --shadow-sm: 0 6px 16px rgba(20, 49, 35, 0.08);\n    --shadow-md: 0 12px 28px rgba(20, 49, 35, 0.12);\n    --shadow-lg: 0 18px 44px rgba(20, 49, 35, 0.16);\n    --bg-primary: #f8f5ef;\n    --bg-secondary: #f0ead9;\n    --bg-card: #fffdf8;\n    --accent-lime: #c8371f;\n    --accent-coral: #c8371f;\n    --accent-cyan: #191713;\n    --accent-purple: #8b8375;\n    --text-primary: #191713;\n    --text-secondary: #7a7264;\n    --border-width: 1px;\n    --border-color: #e4ddcf;\n    --radius: 8px;\n    --shadow-offset: 0px;\n    --transition-fast: 0.18s ease;\n    --transition-bounce: 0.38s cubic-bezier(0.2, 0.9, 0.2, 1.2);\n  }\n\n  body {\n    background: linear-gradient(180deg, #f8f5ef 0%, #f8f5ef 38%, #f7f8fb 100%);\n    color: var(--text-primary);\n    overflow-x: hidden;\n  }\n\n  html,\n  body,\n  #root {\n    width: 100%;\n    max-width: 100%;\n    overflow-x: hidden;\n  }\n\n  .app-container {\n    position: relative;\n    min-height: 100vh;\n    min-height: 100dvh;\n    width: 100%;\n    max-width: 100vw;\n    background:\n      radial-gradient(circle at 18% 8%, rgba(7, 193, 96, 0.16), transparent 28%),\n      radial-gradient(circle at 86% 12%, rgba(22, 119, 255, 0.14), transparent 24%),\n      linear-gradient(180deg, #f8f5ef 0%, #f8f5ef 42%, #f9faf8 100%);\n    color: var(--text-primary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    overflow-x: hidden;\n  }\n\n  .screen {\n    width: min(calc(100vw - 24px), 460px);\n    max-width: 460px;\n    min-height: 100vh;\n    min-height: 100dvh;\n    margin: 0 auto;\n    padding: 18px;\n    padding-bottom: calc(92px + env(safe-area-inset-bottom, 20px));\n    box-sizing: border-box;\n  }\n\n  .screen *,\n  .app-bottom-nav,\n  .app-bottom-nav * {\n    box-sizing: border-box;\n  }\n\n  @media (min-width: 768px) {\n    .screen {\n      max-width: 480px;\n      padding: 24px;\n      padding-bottom: 110px;\n    }\n  }\n\n  .header {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    padding: 10px 0 14px;\n    margin-bottom: 10px;\n  }\n\n  .logo {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    color: #0d1f17;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 28px;\n    font-weight: 900;\n    letter-spacing: 0;\n    user-select: none;\n  }\n\n  .back-btn {\n    min-height: 44px;\n    padding: 9px 14px;\n    border: 1px solid rgba(7, 193, 96, 0.2);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.82);\n    color: var(--text-primary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 800;\n    transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);\n    white-space: nowrap;\n  }\n\n  .card {\n    position: relative;\n    margin-bottom: 14px;\n    padding: 18px;\n    overflow: hidden;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.94);\n    box-shadow: var(--shadow-inset);\n    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);\n  }\n\n  .card-clickable {\n    cursor: pointer;\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .card-clickable:active,\n  .btn:active,\n  .back-btn:active {\n    transform: scale(0.985);\n    box-shadow: var(--shadow-inset);\n  }\n\n  @media (hover: hover) {\n    .card-clickable:hover {\n      transform: translateY(-2px);\n      box-shadow: var(--shadow-inset);\n    }\n\n    .btn-secondary:hover,\n    .back-btn:hover {\n      background: #ecfff5;\n      color: #06783d;\n    }\n  }\n\n  .card-accent-lime,\n  .card-accent-cyan,\n  .card-accent-coral,\n  .card-accent-purple {\n    border-color: rgba(24, 33, 43, 0.08);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .title-hero,\n  .title-xl,\n  .title-lg,\n  .title-md {\n    margin: 0;\n    color: #191713;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-weight: 900;\n    line-height: 1.12;\n    letter-spacing: 0;\n  }\n\n  .title-hero {\n    font-size: clamp(38px, 12vw, 50px);\n    background: linear-gradient(135deg, #c8371f 0%, #191713 100%);\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n    background-clip: text;\n  }\n\n  .title-xl { font-size: clamp(28px, 8vw, 36px); }\n  .title-lg { font-size: clamp(20px, 5.6vw, 26px); }\n  .title-md { font-size: 16px; }\n\n  .text-sm {\n    margin: 0;\n    color: var(--text-secondary);\n    font-size: 12px;\n    line-height: 1.45;\n    letter-spacing: 0;\n  }\n\n  .text-accent { color: var(--accent-lime); }\n\n  .stats-bar,\n  .draw-stats {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n    gap: 8px;\n    margin-bottom: 24px;\n  }\n\n  .stat-item,\n  .draw-stat {\n    padding: 12px 8px;\n    text-align: center;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.76);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .stat-value,\n  .draw-stat-value,\n  .score-value,\n  .lesson-number,\n  .text-accent {\n    color: var(--accent-lime);\n  }\n\n  .stat-value,\n  .draw-stat-value,\n  .lesson-number,\n  .score-value {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-weight: 900;\n    line-height: 1;\n  }\n\n  .stat-value,\n  .lesson-number { font-size: 36px; }\n  .draw-stat-value { font-size: 24px; }\n\n  .stat-label,\n  .draw-stat-label,\n  .score-label {\n    margin-top: 4px;\n    color: var(--text-secondary);\n    font-size: 12px;\n    line-height: 1.3;\n    letter-spacing: 0;\n  }\n\n  .btn {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    width: 100%;\n    min-height: 50px;\n    padding: 13px 18px;\n    border: 1px solid transparent;\n    border-radius: var(--radius);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 16px;\n    font-weight: 900;\n    letter-spacing: 0;\n    text-decoration: none;\n    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .btn-primary {\n    background: linear-gradient(135deg, #c8371f, #a02c17);\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .btn-secondary {\n    background: #ffffff;\n    color: #191713;\n    border-color: rgba(22, 119, 255, 0.16);\n  }\n\n  .btn-coral {\n    background: #f9e9e5;\n    color: #c8371f;\n    border-color: #eccfc7;\n  }\n\n  .btn:disabled {\n    opacity: 0.45;\n    cursor: not-allowed;\n  }\n\n  .hanzi-display {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'SimSun', sans-serif;\n    font-weight: 900;\n  }\n\n  .hanzi-hero {\n    padding: 16px;\n    font-size: clamp(96px, 28vw, 128px);\n    line-height: 1;\n    text-align: center;\n    animation: hanziFloat 5s ease-in-out infinite;\n  }\n\n  .hanzi-xl {\n    padding: 12px;\n    font-size: clamp(60px, 18vw, 84px);\n    line-height: 1;\n    text-align: center;\n  }\n\n  .hanzi-word {\n    max-width: 100%;\n    font-size: clamp(46px, 14vw, 88px);\n    line-height: 1.05;\n    overflow-wrap: anywhere;\n  }\n\n  .hanzi-lg { font-size: clamp(48px, 14vw, 64px); line-height: 1; }\n  .hanzi-md { font-size: clamp(28px, 8vw, 36px); line-height: 1; }\n\n  .progress-bar {\n    width: 100%;\n    height: 8px;\n    margin: 16px 0;\n    overflow: hidden;\n    border-radius: 999px;\n    background: #e3ebe7;\n  }\n\n  .progress-fill {\n    height: 100%;\n    border-radius: 999px;\n    background: linear-gradient(90deg, #c8371f, #191713);\n    transition: width 0.4s linear;\n  }\n\n  .menu-grid {\n    display: grid;\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n    gap: 10px;\n  }\n\n  .menu-item {\n    min-height: 112px;\n    padding: 16px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 10px;\n  }\n\n  .menu-icon {\n    width: 52px;\n    height: 52px;\n    display: grid;\n    place-items: center;\n    border-radius: 16px;\n    background: linear-gradient(135deg, rgba(7, 193, 96, 0.14), rgba(22, 119, 255, 0.14));\n    font-size: 28px;\n  }\n\n  .menu-label {\n    font-size: 14px;\n    font-weight: 900;\n  }\n\n  .streak-badge {\n    display: inline-flex;\n    align-items: center;\n    gap: 6px;\n    padding: 8px 14px;\n    border: 1px solid #ffe2a8;\n    border-radius: var(--radius);\n    background: #f0ead9;\n    color: #7a7264;\n    font-size: 16px;\n    font-weight: 900;\n  }\n\n  .canvas-container,\n  .hanzi-writer-container {\n    position: relative;\n    width: 100%;\n    aspect-ratio: 1;\n    margin: 16px 0;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: #fff;\n    box-shadow: var(--shadow-inset);\n    touch-action: none;\n    -webkit-touch-callout: none;\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .drawing-canvas {\n    width: 100%;\n    height: 100%;\n    display: block;\n    touch-action: none;\n  }\n\n  .canvas-guide {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    color: rgba(7, 193, 96, 0.1);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: clamp(150px, 45vw, 200px);\n    font-weight: 900;\n    line-height: 1;\n    pointer-events: none;\n    user-select: none;\n  }\n\n  .canvas-controls,\n  .nav-actions {\n    display: flex;\n    gap: 10px;\n  }\n\n  .canvas-controls .btn,\n  .nav-actions .btn {\n    flex: 1;\n  }\n\n  .draw-mode-selector {\n    display: flex;\n    gap: 8px;\n    margin-bottom: 16px;\n  }\n\n  .draw-mode-btn {\n    flex: 1;\n    min-height: 46px;\n    padding: 10px 8px;\n    border: 0;\n    border-radius: var(--radius);\n    background: transparent;\n    color: #65737d;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 900;\n    letter-spacing: 0;\n    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);\n  }\n\n  .draw-mode-btn.active {\n    background: #c8371f;\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .hanzi-writer-container {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n\n  .hanzi-writer-container svg {\n    width: 100% !important;\n    height: 100% !important;\n  }\n\n  .stroke-counter {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 12px;\n    margin: 12px 0;\n    font-size: 14px;\n  }\n\n  .stroke-dot {\n    width: 12px;\n    height: 12px;\n    border-radius: 50%;\n    background: #d8e6df;\n    transition: all 0.2s ease;\n  }\n\n  .stroke-dot.completed { background: #c8371f; }\n  .stroke-dot.current { background: #191713; transform: scale(1.3); }\n  .stroke-dot.error { background: #c8371f; }\n\n  .draw-feedback {\n    position: absolute;\n    left: 12px;\n    right: 12px;\n    bottom: 12px;\n    z-index: 5;\n    padding: 12px;\n    border: 1px solid;\n    border-radius: var(--radius);\n    text-align: center;\n    font-size: 16px;\n    font-weight: 900;\n    pointer-events: none;\n    animation: feedbackPop 0.3s ease-out;\n  }\n\n  .draw-feedback.success {\n    background: #f0ead9;\n    color: #8f2817;\n    border-color: #e9dfc9;\n  }\n\n  .draw-feedback.error {\n    background: #f9e9e5;\n    color: #c8371f;\n    border-color: #eccfc7;\n  }\n\n  .quiz-question {\n    margin: 10px 0 14px;\n    padding: 24px 16px;\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.78);\n    box-shadow: var(--shadow-inset);\n    text-align: center;\n  }\n\n  .quiz-options {\n    display: grid;\n    gap: 12px;\n  }\n\n  .quiz-option {\n    padding: 15px 16px;\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    background: #fff;\n    color: var(--text-primary);\n    box-shadow: var(--shadow-inset);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 16px;\n    text-align: left;\n    transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .quiz-option:active:not(.disabled) { transform: scale(0.985); }\n  .quiz-option.correct { background: #f0ead9; color: #8f2817; border-color: #e9dfc9; animation: correctPop 0.35s ease-out; }\n  .quiz-option.incorrect { background: #f9e9e5; color: #c8371f; border-color: #eccfc7; animation: incorrectShake 0.35s ease-out; }\n  .quiz-option.disabled { pointer-events: none; cursor: default; }\n\n  .quiz-feedback {\n    margin-top: 16px;\n    padding: 14px;\n    border: 1px solid rgba(22, 119, 255, 0.16);\n    border-radius: var(--radius);\n    background: #f0f7ff;\n    color: #17344d;\n    font-size: 14px;\n  }\n\n  .quiz-feedback strong { color: var(--accent-lime); }\n  .quiz-feedback .pinyin-display { margin-top: 6px; font-size: 24px; }\n\n  .flashcard {\n    min-height: 280px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    cursor: pointer;\n    -webkit-user-select: none;\n    user-select: none;\n  }\n\n  .flashcard-hint {\n    margin-top: 16px;\n    color: var(--text-secondary);\n    font-size: 12px;\n    animation: hintPulse 2s ease-in-out infinite;\n  }\n\n  .material-example {\n    max-width: min(100%, 520px);\n    margin: 14px auto 0;\n    color: var(--text-secondary);\n    font-size: 14px;\n    line-height: 1.55;\n  }\n\n  .memory-scroll {\n    width: 100%;\n    max-width: 390px;\n    margin: 18px auto 0;\n    padding: 13px 0 10px;\n    border-top: 1px solid #dce9e2;\n    border-bottom: 1px solid #dce9e2;\n    background: #f8f5ef;\n    color: #191713;\n    text-align: left;\n    animation: memoryScrollOpen 0.42s cubic-bezier(0.2, 0.8, 0.2, 1);\n  }\n\n  .memory-scroll-compact {\n    max-width: 460px;\n    margin: 12px auto 16px;\n    padding-inline: 12px;\n  }\n\n  .memory-scroll-heading {\n    display: flex;\n    align-items: center;\n    gap: 9px;\n    margin-bottom: 9px;\n  }\n\n  .memory-scroll-seal {\n    width: 31px;\n    height: 31px;\n    flex: 0 0 31px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #ef4b3e;\n    color: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 18px;\n    font-weight: 900;\n  }\n\n  .memory-scroll-heading div {\n    min-width: 0;\n    display: grid;\n    gap: 1px;\n  }\n\n  .memory-scroll-heading strong {\n    color: #191713;\n    font-size: 14px;\n    font-weight: 900;\n    line-height: 1.25;\n  }\n\n  .memory-scroll-heading span:last-child {\n    color: #718078;\n    font-size: 11px;\n    font-weight: 700;\n    line-height: 1.25;\n  }\n\n  .memory-scene-svg {\n    display: block;\n    width: 100%;\n    height: auto;\n    aspect-ratio: 240 / 132;\n    max-height: 190px;\n  }\n\n  .memory-parts {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 7px 12px;\n    margin-top: 9px;\n  }\n\n  .memory-parts span {\n    display: inline-flex;\n    align-items: baseline;\n    gap: 5px;\n    padding-left: 7px;\n    border-left: 2px solid #c8371f;\n    color: #65746c;\n    font-size: 11px;\n    line-height: 1.3;\n  }\n\n  .memory-parts b {\n    color: #191713;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 16px;\n  }\n\n  .memory-scroll > p {\n    margin: 9px 0 0;\n    color: #33483d;\n    font-size: 12px;\n    line-height: 1.5;\n  }\n\n  .memory-scroll > small {\n    display: block;\n    margin-top: 6px;\n    color: #89958e;\n    font-size: 11px;\n    line-height: 1.35;\n  }\n\n  .quiz-feedback .memory-scroll {\n    margin-bottom: 0;\n    background: rgba(255, 255, 255, 0.58);\n  }\n\n  @keyframes memoryScrollOpen {\n    from { opacity: 0; transform: translateY(8px) scaleY(0.97); }\n    to { opacity: 1; transform: translateY(0) scaleY(1); }\n  }\n\n  @media (prefers-reduced-motion: reduce) {\n    .memory-scroll { animation: none; }\n  }\n\n  .pinyin-display {\n    margin-top: 12px;\n    color: var(--accent-cyan);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: clamp(22px, 6vw, 28px);\n    font-weight: 700;\n  }\n\n  .meaning-display {\n    margin-top: 8px;\n    color: var(--text-secondary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: clamp(16px, 4.5vw, 20px);\n  }\n\n  .nav-actions { margin-top: 20px; }\n\n  .results-display {\n    padding: 32px 0;\n    text-align: center;\n  }\n\n  .score-circle {\n    width: clamp(140px, 40vw, 170px);\n    height: clamp(140px, 40vw, 170px);\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    margin: 0 auto 24px;\n    border: 6px solid var(--accent-lime);\n    border-radius: 50%;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .score-value { font-size: clamp(48px, 14vw, 60px); }\n\n  .char-grid {\n    display: grid;\n    grid-template-columns: repeat(5, minmax(0, 1fr));\n    gap: 6px;\n    margin-top: 16px;\n  }\n\n  @media (min-width: 400px) {\n    .char-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }\n  }\n\n  .char-item {\n    aspect-ratio: 1;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    border-radius: 8px;\n    background: #edf3ef;\n    color: #191713;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: clamp(16px, 4.5vw, 20px);\n    font-weight: 700;\n    transition: transform var(--transition-fast);\n  }\n\n  .char-item.mastered { background: #c8371f; color: #fff; }\n  .char-item.learning { background: #191713; color: #fff; }\n\n  .backup-buttons {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 12px;\n  }\n\n  .backup-buttons .btn {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n\n  .offline-pack-card {\n    display: grid;\n    grid-template-columns: auto minmax(0, 1fr);\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    border: 1px solid rgba(7, 193, 96, 0.1);\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(232, 255, 243, 0.94));\n    box-shadow: var(--shadow-inset);\n  }\n\n  .offline-pack-icon {\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: linear-gradient(135deg, #c8371f, #191713);\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .offline-pack-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .offline-pack-copy {\n    min-width: 0;\n  }\n\n  .offline-pack-copy .text-sm {\n    margin-top: 4px;\n  }\n\n  .offline-download-button,\n  .offline-ready-pill {\n    grid-column: 1 / -1;\n  }\n\n  .offline-download-button {\n    gap: 8px;\n    text-decoration: none;\n  }\n\n  .offline-download-button svg {\n    width: 19px;\n    height: 19px;\n  }\n\n  .offline-ready-pill {\n    min-height: 42px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #f0ead9;\n    color: #8f2817;\n    font-size: 14px;\n    font-weight: 900;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .section-title {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    margin: 28px 0 16px;\n  }\n\n  .section-line {\n    flex: 1;\n    height: 1px;\n    background: linear-gradient(90deg, rgba(7, 193, 96, 0.35), transparent);\n  }\n\n  .lesson-card {\n    display: flex;\n    align-items: center;\n    gap: 16px;\n  }\n\n  .lesson-number {\n    min-width: 70px;\n    text-align: center;\n  }\n\n  .lesson-info {\n    flex: 1;\n    min-width: 0;\n  }\n\n  .floating-indicator {\n    position: fixed;\n    left: 50%;\n    bottom: calc(24px + env(safe-area-inset-bottom, 0px));\n    z-index: 100;\n    transform: translateX(-50%);\n    padding: 14px 28px;\n    border: 1px solid rgba(7, 193, 96, 0.2);\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.96);\n    box-shadow: var(--shadow-inset);\n    animation: floatIn 0.4s cubic-bezier(0.2, 0.9, 0.2, 1.2);\n  }\n\n  @keyframes hanziFloat {\n    0%, 100% { transform: translateY(0) rotate(-1deg); }\n    50% { transform: translateY(-8px) rotate(1deg); }\n  }\n\n  @keyframes feedbackPop {\n    0% { transform: scale(0.9); opacity: 0; }\n    100% { transform: scale(1); opacity: 1; }\n  }\n\n  @keyframes correctPop {\n    0% { transform: scale(1); }\n    50% { transform: scale(1.03); }\n    100% { transform: scale(1); }\n  }\n\n  @keyframes incorrectShake {\n    0%, 100% { transform: translateX(0); }\n    20% { transform: translateX(-8px); }\n    40% { transform: translateX(8px); }\n    60% { transform: translateX(-4px); }\n    80% { transform: translateX(4px); }\n  }\n\n  @keyframes hintPulse {\n    0%, 100% { opacity: 1; }\n    50% { opacity: 0.4; }\n  }\n\n  @keyframes floatIn {\n    0% { transform: translateX(-50%) translateY(80px); opacity: 0; }\n    100% { transform: translateX(-50%) translateY(0); opacity: 1; }\n  }\n\n  /* ===== UTILITY ANIMATIONS ===== */\n  @keyframes slideUp {\n    from { opacity: 0; transform: translateY(20px); }\n    to { opacity: 1; transform: translateY(0); }\n  }\n\n  .animate-slide-up {\n    animation: slideUp 0.35s ease-out;\n  }\n\n  /* ===== CHINESE SUPER-APP THEME ===== */\n  :root {\n    --bg-primary: #f8f5ef;\n    --bg-secondary: #f0ead9;\n    --bg-card: #fffdf8;\n    --accent-lime: #c8371f;\n    --accent-coral: #c8371f;\n    --accent-cyan: #191713;\n    --accent-purple: #8b8375;\n    --text-primary: #191713;\n    --text-secondary: #7a7264;\n    --border-width: 1px;\n    --border-color: #e4ddcf;\n    --radius: 8px;\n    --shadow-offset: 0px;\n    --transition-fast: 0.18s ease;\n    --transition-bounce: 0.38s cubic-bezier(0.2, 0.9, 0.2, 1.2);\n  }\n\n  body {\n    background:\n      linear-gradient(180deg, #f8f5ef 0%, #f8f5ef 36%, #f7f8fb 100%);\n    color: var(--text-primary);\n    overflow-x: hidden;\n  }\n\n  html,\n  body,\n  #root {\n    width: 100%;\n    max-width: 100%;\n    overflow-x: hidden;\n    overflow-anchor: none;\n  }\n\n  .app-container {\n    background:\n      radial-gradient(circle at 18% 8%, rgba(7, 193, 96, 0.16), transparent 28%),\n      radial-gradient(circle at 86% 12%, rgba(22, 119, 255, 0.14), transparent 24%),\n      linear-gradient(180deg, #f8f5ef 0%, #f8f5ef 42%, #f9faf8 100%);\n    color: var(--text-primary);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    overflow-x: hidden;\n    width: 100%;\n    max-width: 100vw;\n  }\n\n  .screen {\n    width: min(calc(100vw - 24px), 460px);\n    box-sizing: border-box;\n    max-width: 460px;\n    margin: 0 auto;\n    padding: 18px;\n    padding-bottom: calc(92px + env(safe-area-inset-bottom, 20px));\n  }\n\n  .screen *,\n  .app-bottom-nav,\n  .app-bottom-nav * {\n    box-sizing: border-box;\n  }\n\n  @media (min-width: 768px) {\n    .screen {\n      max-width: 480px;\n      padding: 24px;\n      padding-bottom: 110px;\n    }\n  }\n\n  .screen::before {\n    content: \"汉\";\n    position: fixed;\n    top: 76px;\n    right: max(12px, calc((100vw - 460px) / 2 - 24px));\n    z-index: 0;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 116px;\n    font-weight: 900;\n    color: rgba(7, 193, 96, 0.06);\n    animation: characterDrift 7s ease-in-out infinite;\n    pointer-events: none;\n  }\n\n  .screen > * {\n    position: relative;\n    z-index: 1;\n  }\n\n  .header {\n    padding: 10px 0 14px;\n    margin-bottom: 10px;\n  }\n\n  .logo {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    color: #0d1f17;\n    font-size: 28px;\n    letter-spacing: 0;\n    text-shadow: none;\n    transform: none;\n  }\n\n  .logo::after {\n    content: \"Master\";\n    padding: 4px 9px;\n    border-radius: 999px;\n    background: linear-gradient(135deg, #c8371f, #191713);\n    color: #fff;\n    font-family: 'Segoe UI', Arial, sans-serif;\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  .streak-badge,\n  .back-btn,\n  .btn,\n  .draw-mode-btn,\n  .quiz-option {\n    border-radius: var(--radius);\n    letter-spacing: 0;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .back-btn {\n    background: rgba(255, 255, 255, 0.82);\n    color: var(--text-primary);\n    border-color: rgba(7, 193, 96, 0.2);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 800;\n  }\n\n  .card,\n  .stat-item,\n  .draw-stat,\n  .hanzi-writer-container,\n  .canvas-container,\n  .quiz-option,\n  .floating-indicator {\n    border-color: rgba(24, 33, 43, 0.08);\n    border-radius: var(--radius);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .card {\n    background: rgba(255, 255, 255, 0.94);\n    padding: 18px;\n    margin-bottom: 14px;\n    overflow: hidden;\n  }\n\n  .card::before {\n    content: \"\";\n    position: absolute;\n    inset: 0 0 auto 0;\n    height: 3px;\n    background: linear-gradient(90deg, #c8371f, #191713, #8b8375);\n    opacity: 0;\n    transition: opacity var(--transition-fast);\n  }\n\n  .card-clickable:hover::before,\n  .card-accent-lime::before,\n  .card-accent-cyan::before,\n  .card-accent-coral::before,\n  .card-accent-purple::before {\n    opacity: 1;\n  }\n\n  .card-clickable:active,\n  .btn:active,\n  .back-btn:active {\n    transform: scale(0.985);\n    box-shadow: var(--shadow-inset);\n  }\n\n  @media (hover: hover) {\n    .card-clickable:hover {\n      transform: translateY(-2px);\n      box-shadow: var(--shadow-inset);\n    }\n\n    .btn-secondary:hover,\n    .back-btn:hover {\n      background: #ecfff5;\n      color: #06783d;\n    }\n  }\n\n  .card-accent-lime,\n  .card-accent-cyan,\n  .card-accent-coral,\n  .card-accent-purple {\n    border-color: rgba(24, 33, 43, 0.08);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .title-hero {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 44px;\n    letter-spacing: 0;\n    background: linear-gradient(135deg, #c8371f 0%, #191713 100%);\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n    background-clip: text;\n  }\n\n  .title-xl {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 36px;\n    letter-spacing: 0;\n  }\n\n  .title-lg {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 24px;\n    letter-spacing: 0;\n  }\n\n  .title-md,\n  .menu-label,\n  .stat-label,\n  .draw-stat-label,\n  .score-label,\n  .text-sm {\n    letter-spacing: 0;\n  }\n\n  .text-sm {\n    font-size: 12px;\n    color: var(--text-secondary);\n  }\n\n  .progress-bar {\n    height: 8px;\n    border: none;\n    border-radius: 999px;\n    background: #e3ebe7;\n  }\n\n  .progress-fill {\n    border-radius: 999px;\n    background: linear-gradient(90deg, #c8371f, #191713);\n  }\n\n  .stats-bar {\n    gap: 8px;\n  }\n\n  .stat-item {\n    background: rgba(255, 255, 255, 0.76);\n    padding: 12px 8px;\n  }\n\n  .stat-value,\n  .draw-stat-value,\n  .score-value,\n  .lesson-number,\n  .text-accent {\n    color: #c8371f;\n  }\n\n  .stat-value,\n  .lesson-number,\n  .score-value {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 36px;\n  }\n\n  .menu-grid {\n    grid-template-columns: repeat(2, 1fr);\n    gap: 10px;\n  }\n\n  .menu-item {\n    min-height: 112px;\n    padding: 16px;\n    flex-direction: column;\n    justify-content: center;\n    gap: 10px;\n    background:\n      linear-gradient(180deg, rgba(255,255,255,0.94), rgba(250,253,252,0.94));\n  }\n\n  .menu-icon {\n    width: 52px;\n    height: 52px;\n    display: grid;\n    place-items: center;\n    border-radius: 16px;\n    background: linear-gradient(135deg, rgba(7, 193, 96, 0.14), rgba(22, 119, 255, 0.14));\n    font-size: 28px;\n    animation: iconBreathe 4s ease-in-out infinite;\n  }\n\n  .menu-label {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 14px;\n    font-weight: 900;\n    color: #191713;\n  }\n\n  .btn {\n    min-height: 50px;\n    border: none;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-size: 16px;\n    font-weight: 900;\n  }\n\n  .btn-primary {\n    background: linear-gradient(135deg, #c8371f, #a02c17);\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .btn-secondary {\n    background: #ffffff;\n    color: #191713;\n    border: 1px solid rgba(22, 119, 255, 0.16);\n  }\n\n  .btn-coral,\n  .quiz-option.incorrect,\n  .draw-feedback.error {\n    background: #f9e9e5;\n    color: #c8371f;\n    border-color: #eccfc7;\n  }\n\n  .hanzi-display {\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'SimSun', sans-serif;\n  }\n\n  .hanzi-hero {\n    font-size: 116px;\n    color: #c8371f;\n    animation: hanziFloat 5s ease-in-out infinite;\n  }\n\n  .hanzi-xl {\n    font-size: 78px;\n  }\n\n  .hanzi-word {\n    font-size: 80px;\n  }\n\n  .pinyin-display {\n    color: #191713;\n  }\n\n  .meaning-display {\n    color: #5b6973;\n  }\n\n  .section-title {\n    margin: 24px 0 12px;\n  }\n\n  .section-line {\n    height: 1px;\n    background: linear-gradient(90deg, rgba(7, 193, 96, 0.35), transparent);\n  }\n\n  .lesson-card {\n    gap: 14px;\n  }\n\n  .lesson-number {\n    min-width: 58px;\n  }\n\n  .draw-mode-selector {\n    padding: 4px;\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.74);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .draw-mode-btn {\n    border: none;\n    background: transparent;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    font-weight: 900;\n    color: #65737d;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 6px;\n  }\n\n  .draw-mode-btn svg {\n    width: 18px;\n    height: 18px;\n  }\n\n  .hanzi-writer-container .text-sm + svg,\n  .hanzi-writer-container svg:first-child {\n    max-width: 100%;\n  }\n\n  .hanzi-writer-container > div[style*=\"position: absolute\"] svg {\n    width: 46px;\n    height: 46px;\n  }\n\n  .draw-mode-btn.active {\n    background: #c8371f;\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .hanzi-writer-container {\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.04), rgba(22, 119, 255, 0.04)),\n      #fff;\n  }\n\n  .stroke-dot {\n    border: none;\n    background: #d8e6df;\n  }\n\n  .stroke-dot.completed,\n  .draw-feedback.success,\n  .quiz-option.correct {\n    background: #f0ead9;\n    color: #8f2817;\n    border-color: #e9dfc9;\n  }\n\n  .stroke-dot.current {\n    background: #191713;\n  }\n\n  .draw-stat {\n    background: rgba(255, 255, 255, 0.76);\n  }\n\n  .quiz-question {\n    margin: 10px 0 14px;\n    padding: 24px 16px;\n    border-radius: var(--radius);\n    background: rgba(255, 255, 255, 0.78);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .quiz-option {\n    padding: 15px 16px;\n    background: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .quiz-feedback {\n    border-radius: var(--radius);\n    border-color: rgba(22, 119, 255, 0.16);\n    background: #f0f7ff;\n    color: #17344d;\n  }\n\n  .flashcard {\n    min-height: 310px;\n    background:\n      radial-gradient(circle at 50% 24%, rgba(7, 193, 96, 0.13), transparent 35%),\n      #fff;\n  }\n\n  .flashcard-hint {\n    color: #84929a;\n  }\n\n  .char-item {\n    border: none;\n    border-radius: 8px;\n    background: #edf3ef;\n  }\n\n  .char-item.mastered {\n    background: #c8371f;\n    color: #fff;\n  }\n\n  .char-item.learning {\n    background: #191713;\n    color: #fff;\n  }\n\n  .streak-badge {\n    background: #f0ead9;\n    color: #7a7264;\n    border: 1px solid #ffe2a8;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n  }\n\n  .floating-indicator {\n    background: rgba(255, 255, 255, 0.96);\n    border-color: rgba(7, 193, 96, 0.2);\n  }\n\n  .app-mascot {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    margin-bottom: 14px;\n    border-radius: var(--radius);\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.12), rgba(22, 119, 255, 0.1)),\n      rgba(255, 255, 255, 0.82);\n    box-shadow: var(--shadow-inset);\n    animation: slideUp 0.35s ease-out;\n  }\n\n  .app-mascot-face {\n    width: 58px;\n    height: 58px;\n    display: grid;\n    place-items: center;\n    border-radius: 20px;\n    background: linear-gradient(135deg, #c8371f, #191713);\n    color: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 36px;\n    font-weight: 900;\n    box-shadow: var(--shadow-inset);\n    animation: mascotPulse 3.4s ease-in-out infinite;\n  }\n\n  .app-mascot-title {\n    margin: 0 0 2px;\n    font-size: 16px;\n    font-weight: 900;\n    color: #191713;\n  }\n\n  .app-mascot-subtitle {\n    margin: 0;\n    font-size: 12px;\n    color: #5f6e77;\n  }\n\n  @keyframes characterDrift {\n    0%, 100% { transform: translateY(0) rotate(-5deg); }\n    50% { transform: translateY(18px) rotate(3deg); }\n  }\n\n  @keyframes iconBreathe {\n    0%, 100% { transform: translateY(0) scale(1); }\n    50% { transform: translateY(-3px) scale(1.04); }\n  }\n\n  @keyframes mascotPulse {\n    0%, 100% { transform: scale(1); }\n    50% { transform: scale(1.05); }\n  }\n\n  @media (prefers-reduced-motion: reduce) {\n    *, *::before, *::after {\n      animation-duration: 0.001ms !important;\n      animation-iteration-count: 1 !important;\n      transition-duration: 0.001ms !important;\n    }\n  }\n\n  /* ===== UTILITY ANIMATIONS ===== */\n  @keyframes slideUp {\n    from { opacity: 0; transform: translateY(20px); }\n    to { opacity: 1; transform: translateY(0); }\n  }\n\n  .animate-slide-up {\n    animation: slideUp 0.35s ease-out;\n  }\n\n  /* ===== FULL PRODUCT REDESIGN ===== */\n  .app-container {\n    position: relative;\n    min-height: 100vh;\n    overflow-anchor: none;\n  }\n\n  .screen {\n    padding-top: 22px;\n    padding-bottom: calc(118px + env(safe-area-inset-bottom, 20px));\n    overflow-anchor: none;\n  }\n\n  .app-container::before {\n    content: \"\";\n    position: fixed;\n    inset: 0;\n    background:\n      linear-gradient(180deg, rgba(7, 193, 96, 0.12), transparent 220px),\n      repeating-linear-gradient(135deg, rgba(7, 193, 96, 0.025) 0 1px, transparent 1px 18px);\n    pointer-events: none;\n  }\n\n  .super-topbar {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    margin-bottom: 14px;\n  }\n\n  .brand-lockup {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n    min-width: 0;\n  }\n\n  .brand-lockup > div {\n    min-width: 0;\n  }\n\n  .brand-mark {\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: transparent;\n  }\n\n  .hanzi-logo-svg {\n    width: 58px;\n    height: 58px;\n    filter: drop-shadow(0 12px 22px rgba(7, 193, 96, 0.22));\n  }\n\n  .header-logo-mark {\n    width: 40px;\n    height: 40px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n  }\n\n  .header-logo-mark .hanzi-logo-svg {\n    width: 42px;\n    height: 42px;\n    filter: drop-shadow(0 8px 14px rgba(7, 193, 96, 0.18));\n  }\n\n  .brand-title {\n    margin: 0;\n    font-size: 20px;\n    line-height: 1;\n    font-weight: 900;\n    color: #191713;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .brand-subtitle {\n    margin: 4px 0 0;\n    color: #6c7a73;\n    font-size: 12px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .daily-chip {\n    display: flex;\n    align-items: center;\n    gap: 6px;\n    min-height: 34px;\n    padding: 0 11px;\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.86);\n    border: 1px solid rgba(217, 154, 24, 0.22);\n    color: #7a7264;\n    font-weight: 900;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .topbar-actions {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    flex-shrink: 0;\n  }\n\n  .language-toggle {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 2px;\n    min-height: 42px;\n    padding: 3px;\n    border: 1px solid rgba(7, 193, 96, 0.14);\n    border-radius: 12px;\n    background: rgba(255,255,255,0.82);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .language-toggle button {\n    min-width: 44px;\n    min-height: 36px;\n    padding: 0 10px;\n    border-radius: 8px;\n    color: #7a7264;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .language-toggle button.active {\n    background: #c8371f;\n    color: #fff;\n  }\n\n  .guide-toggle,\n  .sound-toggle {\n    width: 42px;\n    height: 42px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255,255,255,0.82);\n    color: #7a7264;\n    box-shadow: var(--shadow-inset);\n    transition: transform var(--transition-fast), color var(--transition-fast), background var(--transition-fast);\n  }\n\n  .guide-toggle {\n    color: #c8371f;\n    background: #f0ead9;\n    border-color: rgba(7, 193, 96, 0.16);\n  }\n\n  .guide-toggle svg,\n  .sound-toggle svg {\n    width: 20px;\n    height: 20px;\n  }\n\n  .sound-toggle.active {\n    background: #c8371f;\n    color: #fff;\n  }\n\n  .ambience-toggle {\n    color: #7a7264;\n  }\n\n  .ambience-toggle.active {\n    background: #8b8375;\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .guide-toggle:active,\n  .sound-toggle:active {\n    transform: scale(0.96);\n  }\n\n  @media (max-width: 380px) {\n    .super-topbar {\n      gap: 8px;\n    }\n\n    .topbar-actions {\n      gap: 6px;\n    }\n\n    .language-toggle button {\n      min-width: 40px;\n      min-height: 40px;\n      padding: 0 6px;\n    }\n\n    .guide-toggle,\n    .sound-toggle {\n      width: 40px;\n      height: 40px;\n    }\n\n    .daily-chip {\n      padding: 0 8px;\n    }\n  }\n\n  /* ===== SECRET CONSOLIDATED CHEAT SHEET ===== */\n  .secret-screen {\n    width: min(calc(100vw - 24px), 1120px);\n    max-width: 1120px;\n    padding-top: 14px;\n    color: #17251e;\n  }\n\n  .secret-topbar {\n    position: sticky;\n    top: 0;\n    z-index: 40;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    min-height: 58px;\n    padding: 8px 0;\n    background: rgba(232, 247, 239, 0.9);\n    backdrop-filter: blur(16px);\n  }\n\n  .secret-topbar-actions {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n  }\n\n  .secret-print-button {\n    min-height: 34px;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    gap: 7px;\n    padding: 0 12px;\n    border: 1px solid rgba(22, 119, 255, 0.14);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.88);\n    color: #1665c1;\n    font-size: 12px;\n    font-weight: 900;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-print-button svg {\n    width: 17px;\n    height: 17px;\n  }\n\n  .secret-hero {\n    min-height: 220px;\n    display: grid;\n    grid-template-columns: minmax(0, 1fr) auto;\n    gap: 28px;\n    align-items: center;\n    padding: 30px;\n    overflow: hidden;\n    border-radius: 8px;\n    color: #fff;\n    background:\n      linear-gradient(135deg, #079858 0%, #c8371f 45%, #191713 100%);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-kicker {\n    margin: 0 0 10px;\n    color: rgba(255, 255, 255, 0.82);\n    font-size: 12px;\n    font-weight: 900;\n    text-transform: uppercase;\n  }\n\n  .secret-hero h1 {\n    max-width: 760px;\n    margin: 0;\n    color: #fff;\n    font-size: 36px;\n    line-height: 1.05;\n    font-weight: 900;\n  }\n\n  .secret-hero p:last-child {\n    max-width: 680px;\n    margin: 12px 0 0;\n    color: rgba(255, 255, 255, 0.86);\n    font-size: 14px;\n    line-height: 1.55;\n    font-weight: 700;\n  }\n\n  .secret-hero-seal {\n    width: 114px;\n    height: 114px;\n    display: grid;\n    place-items: center;\n    border: 2px solid rgba(255, 255, 255, 0.48);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.12);\n    color: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 66px;\n    font-weight: 900;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-summary-strip {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    margin: 14px 0;\n    overflow: hidden;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.88);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-summary-strip > div {\n    min-width: 0;\n    display: flex;\n    align-items: baseline;\n    gap: 8px;\n    padding: 15px 16px;\n    border-right: 1px solid #f0ead9;\n  }\n\n  .secret-summary-strip > div:last-child {\n    border-right: 0;\n  }\n\n  .secret-summary-strip strong {\n    color: #c8371f;\n    font-size: 24px;\n    line-height: 1;\n  }\n\n  .secret-summary-strip span {\n    color: #6d7a73;\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  .secret-jump-nav {\n    position: sticky;\n    top: 58px;\n    z-index: 35;\n    display: grid;\n    grid-template-columns: repeat(5, minmax(0, 1fr));\n    gap: 6px;\n    padding: 7px;\n    margin-bottom: 22px;\n    border: 1px solid rgba(24, 33, 43, 0.05);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.92);\n    box-shadow: var(--shadow-inset);\n    backdrop-filter: blur(16px);\n    scrollbar-width: none;\n  }\n\n  .secret-jump-nav::-webkit-scrollbar {\n    display: none;\n  }\n\n  .secret-jump-nav a {\n    min-height: 34px;\n    display: grid;\n    place-items: center;\n    padding: 6px 8px;\n    border-radius: 8px;\n    color: #65736c;\n    font-size: 12px;\n    font-weight: 900;\n    text-align: center;\n    text-decoration: none;\n  }\n\n  .secret-jump-nav a:hover {\n    background: #f0ead9;\n    color: #8f2817;\n  }\n\n  .secret-section {\n    padding: 22px 0 30px;\n    scroll-margin-top: 122px;\n  }\n\n  .secret-section + .secret-section {\n    border-top: 1px solid rgba(24, 33, 43, 0.07);\n  }\n\n  .secret-section-heading {\n    display: flex;\n    align-items: flex-end;\n    justify-content: space-between;\n    gap: 18px;\n    margin-bottom: 16px;\n  }\n\n  .secret-section-heading > div {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n  }\n\n  .secret-section-heading > div > span {\n    width: 34px;\n    height: 34px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #191713;\n    color: #fff;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .secret-section:nth-of-type(2) .secret-section-heading > div > span { background: #191713; }\n  .secret-section:nth-of-type(3) .secret-section-heading > div > span { background: #8b8375; }\n  .secret-section:nth-of-type(4) .secret-section-heading > div > span { background: #c8371f; }\n  .secret-section:nth-of-type(5) .secret-section-heading > div > span { background: #c8371f; }\n\n  .secret-section-heading h2 {\n    margin: 0;\n    color: #191713;\n    font-size: 24px;\n    line-height: 1.1;\n    font-weight: 900;\n  }\n\n  .secret-section-heading > p {\n    max-width: 520px;\n    margin: 0;\n    color: #748078;\n    font-size: 12px;\n    line-height: 1.4;\n    text-align: right;\n  }\n\n  .secret-number-grid {\n    display: grid;\n    grid-template-columns: repeat(6, minmax(0, 1fr));\n    gap: 8px;\n  }\n\n  .secret-number-item {\n    min-width: 0;\n    min-height: 100px;\n    display: grid;\n    grid-template-columns: auto 1fr;\n    grid-template-areas:\n      \"arabic hanzi\"\n      \"pinyin pinyin\";\n    gap: 5px 8px;\n    align-items: center;\n    padding: 12px;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.9);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-number-item > span {\n    grid-area: arabic;\n    color: #191713;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .secret-number-item strong {\n    grid-area: hanzi;\n    min-width: 0;\n    color: #191713;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 28px;\n    line-height: 1;\n    text-align: right;\n    overflow-wrap: anywhere;\n  }\n\n  .secret-number-item small {\n    grid-area: pinyin;\n    color: #7a7264;\n    font-size: 12px;\n    line-height: 1.25;\n  }\n\n  .secret-rule-band {\n    display: flex;\n    align-items: center;\n    gap: 12px;\n    margin-top: 10px;\n    padding: 13px 15px;\n    border-radius: 8px;\n    background: #eff6ff;\n    color: #24415c;\n    font-size: 12px;\n    line-height: 1.45;\n  }\n\n  .secret-rule-band strong {\n    flex: 0 0 auto;\n    color: #1665c1;\n  }\n\n  .secret-pattern-grid {\n    display: grid;\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n    gap: 10px;\n  }\n\n  .secret-pattern-card {\n    min-width: 0;\n    padding: 15px;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.9);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-pattern-label {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 8px;\n    margin-bottom: 12px;\n  }\n\n  .secret-pattern-label > span {\n    color: #191713;\n    font-size: 12px;\n    font-weight: 900;\n    text-transform: uppercase;\n  }\n\n  .secret-pattern-label code {\n    padding: 4px 7px;\n    border-radius: 8px;\n    background: #eef4f1;\n    color: #53635b;\n    font-family: inherit;\n    font-size: 11px;\n    font-weight: 800;\n  }\n\n  .secret-pattern-card > strong {\n    display: block;\n    color: #191713;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 24px;\n    line-height: 1.2;\n  }\n\n  .secret-pattern-card > em {\n    display: block;\n    margin-top: 5px;\n    color: #c8371f;\n    font-size: 12px;\n    font-style: normal;\n    font-weight: 800;\n  }\n\n  .secret-pattern-card > p {\n    margin: 6px 0 0;\n    color: #6c7972;\n    font-size: 12px;\n  }\n\n  .secret-reference-grid {\n    display: grid;\n    grid-template-columns: 1.15fr 0.85fr;\n    gap: 12px;\n  }\n\n  .secret-reference-block {\n    min-width: 0;\n    padding: 16px;\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.86);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-reference-block h3 {\n    margin: 0 0 12px;\n    color: #191713;\n    font-size: 16px;\n    font-weight: 900;\n  }\n\n  .secret-compact-list {\n    display: grid;\n    gap: 0;\n  }\n\n  .secret-compact-list > div {\n    min-width: 0;\n    display: grid;\n    grid-template-columns: 34px 72px minmax(0, 1fr) auto;\n    gap: 8px;\n    align-items: center;\n    min-height: 40px;\n    padding: 6px 0;\n    border-bottom: 1px solid #f0ead9;\n  }\n\n  .secret-compact-list > div:last-child {\n    border-bottom: 0;\n  }\n\n  .secret-compact-list strong {\n    color: #c8371f;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 20px;\n  }\n\n  .secret-compact-list em {\n    color: #191713;\n    font-size: 12px;\n    font-style: normal;\n    font-weight: 800;\n  }\n\n  .secret-compact-list span {\n    min-width: 0;\n    color: #586860;\n    font-size: 12px;\n    line-height: 1.3;\n  }\n\n  .secret-compact-list code {\n    color: #8b6417;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 12px;\n  }\n\n  .question-list > div {\n    grid-template-columns: minmax(72px, auto) 100px minmax(0, 1fr);\n  }\n\n  .secret-tone-grid {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 8px;\n    margin-top: 12px;\n  }\n\n  .secret-tone-grid article {\n    padding: 13px;\n    border-radius: 8px;\n    background: #fff8e9;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-tone-grid strong {\n    color: #7a7264;\n    font-size: 12px;\n  }\n\n  .secret-tone-grid p {\n    margin: 6px 0 0;\n    color: #695d43;\n    font-size: 12px;\n    line-height: 1.45;\n  }\n\n  .secret-grammar-list {\n    display: grid;\n    gap: 8px;\n  }\n\n  .secret-grammar-row {\n    min-width: 0;\n    display: grid;\n    grid-template-columns: 38px minmax(230px, 0.82fr) minmax(300px, 1.18fr);\n    gap: 14px;\n    align-items: center;\n    padding: 14px;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.9);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-grammar-index {\n    color: #c8d4ce;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .secret-grammar-rule {\n    min-width: 0;\n  }\n\n  .secret-grammar-rule code {\n    display: inline-block;\n    max-width: 100%;\n    margin-bottom: 5px;\n    padding: 5px 8px;\n    border-radius: 8px;\n    background: #fff0ef;\n    color: #c73535;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 14px;\n    font-weight: 900;\n    overflow-wrap: anywhere;\n  }\n\n  .secret-grammar-rule strong {\n    display: block;\n    color: #191713;\n    font-size: 12px;\n  }\n\n  .secret-grammar-rule p {\n    margin: 4px 0 0;\n    color: #6e7a74;\n    font-size: 12px;\n    line-height: 1.4;\n  }\n\n  .secret-grammar-example {\n    min-width: 0;\n    padding-left: 14px;\n    border-left: 2px solid #d8eee2;\n  }\n\n  .secret-grammar-example strong {\n    display: block;\n    color: #191713;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 18px;\n    line-height: 1.25;\n  }\n\n  .secret-grammar-example em {\n    display: block;\n    margin-top: 4px;\n    color: #c8371f;\n    font-size: 12px;\n    font-style: normal;\n    font-weight: 800;\n  }\n\n  .secret-grammar-example span {\n    display: block;\n    margin-top: 3px;\n    color: #697770;\n    font-size: 12px;\n  }\n\n  .secret-vocab-tools {\n    display: grid;\n    grid-template-columns: minmax(260px, 1fr) auto;\n    gap: 10px;\n    align-items: center;\n    margin-bottom: 10px;\n  }\n\n  .secret-search {\n    min-width: 0;\n    min-height: 44px;\n    display: flex;\n    align-items: center;\n    gap: 9px;\n    padding: 0 13px;\n    border: 1px solid rgba(7, 193, 96, 0.14);\n    border-radius: 8px;\n    background: #fff;\n    color: #c8371f;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-search svg {\n    width: 18px;\n    height: 18px;\n    flex: 0 0 auto;\n  }\n\n  .secret-search input {\n    min-width: 0;\n    width: 100%;\n    border: 0;\n    outline: 0;\n    background: transparent;\n    color: #18251f;\n    font: inherit;\n    font-size: 14px;\n  }\n\n  .secret-search input::placeholder {\n    color: #8a9690;\n  }\n\n  .secret-level-filter {\n    display: flex;\n    gap: 4px;\n    padding: 4px;\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.86);\n    box-shadow: var(--shadow-inset);\n    scrollbar-width: none;\n  }\n\n  .secret-level-filter::-webkit-scrollbar {\n    display: none;\n  }\n\n  .secret-level-filter button {\n    min-height: 34px;\n    padding: 0 10px;\n    border-radius: 8px;\n    color: #68766f;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .secret-level-filter button.active {\n    background: #c8371f;\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-result-count {\n    margin: 0 0 10px;\n    color: #78847e;\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  .secret-word-grid {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n    gap: 8px;\n  }\n\n  .secret-word-row {\n    position: relative;\n    min-width: 0;\n    min-height: 178px;\n    display: flex;\n    flex-direction: column;\n    padding: 13px;\n    overflow: hidden;\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.9);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .secret-word-main {\n    min-width: 0;\n    display: flex;\n    align-items: baseline;\n    justify-content: space-between;\n    gap: 8px;\n  }\n\n  .secret-word-main strong {\n    min-width: 0;\n    color: #191713;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 24px;\n    line-height: 1.15;\n    overflow-wrap: anywhere;\n  }\n\n  .secret-word-main em {\n    flex: 0 1 auto;\n    color: #191713;\n    font-size: 12px;\n    font-style: normal;\n    font-weight: 800;\n    text-align: right;\n    overflow-wrap: anywhere;\n  }\n\n  .secret-word-row > p {\n    margin: 7px 0 0;\n    color: #596860;\n    font-size: 12px;\n    line-height: 1.35;\n  }\n\n  .secret-example {\n    display: grid;\n    gap: 3px;\n    margin-top: 7px;\n    padding-top: 7px;\n    border-top: 1px solid #f0ead9;\n  }\n\n  .secret-example small {\n    color: #7a867f;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 12px;\n    line-height: 1.35;\n  }\n\n  .secret-example em {\n    color: #191713;\n    font-size: 11px;\n    font-style: normal;\n    font-weight: 700;\n    line-height: 1.35;\n  }\n\n  .secret-example span {\n    color: #58645e;\n    font-size: 11px;\n    line-height: 1.35;\n  }\n\n  .secret-source-tags {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 4px;\n    margin-top: auto;\n    padding-top: 9px;\n  }\n\n  .secret-source-tags span {\n    padding: 3px 6px;\n    border-radius: 8px;\n    background: #f0ead9;\n    color: #8f2817;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .secret-empty {\n    min-height: 130px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: rgba(255, 255, 255, 0.82);\n    color: #78847e;\n    font-size: 14px;\n  }\n\n  .secret-footer {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 10px;\n    padding: 28px 0 6px;\n    color: #637169;\n  }\n\n  .secret-footer .hanzi-logo-svg {\n    width: 44px;\n    height: 44px;\n    filter: none;\n  }\n\n  .secret-footer strong,\n  .secret-footer span {\n    display: block;\n  }\n\n  .secret-footer strong {\n    color: #191713;\n    font-size: 12px;\n  }\n\n  .secret-footer span {\n    margin-top: 2px;\n    font-size: 11px;\n  }\n\n  @media (max-width: 900px) {\n    .secret-number-grid {\n      grid-template-columns: repeat(4, minmax(0, 1fr));\n    }\n\n    .secret-tone-grid {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n\n    .secret-word-grid {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n  }\n\n  @media (max-width: 680px) {\n    .secret-screen {\n      width: min(calc(100vw - 16px), 560px);\n      padding-left: 8px;\n      padding-right: 8px;\n    }\n\n    .secret-topbar {\n      min-height: 54px;\n    }\n\n    .secret-topbar .language-toggle button {\n      min-width: 40px;\n      min-height: 40px;\n      padding: 0 5px;\n    }\n\n    .secret-print-button {\n      width: 34px;\n      padding: 0;\n    }\n\n    .secret-print-button span {\n      display: none;\n    }\n\n    .secret-hero {\n      min-height: 190px;\n      gap: 16px;\n      padding: 22px;\n    }\n\n    .secret-hero h1 {\n      font-size: 28px;\n    }\n\n    .secret-hero p:last-child {\n      font-size: 12px;\n    }\n\n    .secret-hero-seal {\n      width: 74px;\n      height: 74px;\n      font-size: 44px;\n    }\n\n    .secret-summary-strip {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n\n    .secret-summary-strip > div:nth-child(2) {\n      border-right: 0;\n    }\n\n    .secret-summary-strip > div:nth-child(-n+2) {\n      border-bottom: 1px solid #f0ead9;\n    }\n\n    .secret-jump-nav {\n      top: 54px;\n      grid-template-columns: repeat(5, minmax(68px, 1fr));\n      overflow-x: auto;\n    }\n\n    .secret-section {\n      scroll-margin-top: 116px;\n    }\n\n    .secret-section-heading {\n      display: block;\n    }\n\n    .secret-section-heading > p {\n      margin-top: 8px;\n      text-align: left;\n    }\n\n    .secret-number-grid {\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n    }\n\n    .secret-pattern-grid,\n    .secret-reference-grid,\n    .secret-word-grid {\n      grid-template-columns: 1fr;\n    }\n\n    .secret-compact-list > div {\n      grid-template-columns: 32px 68px minmax(0, 1fr);\n    }\n\n    .secret-compact-list code {\n      grid-column: 2 / -1;\n    }\n\n    .question-list > div {\n      grid-template-columns: minmax(72px, auto) 92px minmax(0, 1fr);\n    }\n\n    .secret-grammar-row {\n      grid-template-columns: 30px minmax(0, 1fr);\n      align-items: start;\n    }\n\n    .secret-grammar-example {\n      grid-column: 2;\n      padding: 10px 0 0;\n      border-top: 1px solid #e3eee8;\n      border-left: 0;\n    }\n\n    .secret-vocab-tools {\n      grid-template-columns: 1fr;\n    }\n\n    .secret-level-filter {\n      overflow-x: auto;\n    }\n\n    .secret-level-filter button {\n      flex: 1 0 auto;\n    }\n\n    .secret-word-row {\n      min-height: 164px;\n    }\n  }\n\n  @media (max-width: 390px) {\n    .secret-hero {\n      grid-template-columns: 1fr;\n    }\n\n    .secret-hero-seal {\n      display: none;\n    }\n\n    .secret-number-grid {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n\n    .secret-rule-band {\n      display: block;\n    }\n\n    .secret-rule-band span {\n      display: block;\n      margin-top: 5px;\n    }\n\n    .secret-tone-grid {\n      grid-template-columns: 1fr;\n    }\n\n    .question-list > div {\n      grid-template-columns: minmax(70px, auto) minmax(0, 1fr);\n    }\n\n    .question-list span {\n      grid-column: 1 / -1;\n    }\n  }\n\n  @media print {\n    @page {\n      size: A4;\n      margin: 11mm;\n    }\n\n    html,\n    body,\n    #root,\n    .app-container {\n      width: auto !important;\n      height: auto !important;\n      min-height: 0 !important;\n      overflow: visible !important;\n      background: #fff !important;\n    }\n\n    .app-container::before,\n    .secret-topbar,\n    .secret-jump-nav,\n    .secret-vocab-tools,\n    .secret-result-count {\n      display: none !important;\n    }\n\n    .secret-screen {\n      width: 100% !important;\n      max-width: none !important;\n      min-height: 0 !important;\n      padding: 0 !important;\n      color: #111 !important;\n    }\n\n    .secret-hero {\n      min-height: 0;\n      padding: 16px;\n      color: #111;\n      background: #fff !important;\n      border: 2px solid #111;\n      box-shadow: var(--shadow-inset);\n      break-inside: avoid;\n    }\n\n    .secret-hero h1,\n    .secret-hero p,\n    .secret-kicker {\n      color: #111 !important;\n    }\n\n    .secret-hero-seal {\n      color: #111;\n      border-color: #111;\n      box-shadow: var(--shadow-inset);\n    }\n\n    .secret-summary-strip,\n    .secret-number-item,\n    .secret-pattern-card,\n    .secret-reference-block,\n    .secret-grammar-row,\n    .secret-word-row {\n      background: #fff !important;\n      box-shadow: var(--shadow-inset);\n    }\n\n    .secret-summary-strip {\n      break-inside: avoid;\n    }\n\n    .secret-section {\n      padding: 14px 0;\n    }\n\n    .secret-section-heading {\n      break-after: avoid;\n    }\n\n    .secret-number-grid {\n      grid-template-columns: repeat(6, minmax(0, 1fr));\n    }\n\n    .secret-pattern-grid {\n      grid-template-columns: repeat(2, minmax(0, 1fr));\n    }\n\n    .secret-tone-grid {\n      grid-template-columns: repeat(4, minmax(0, 1fr));\n    }\n\n    .secret-word-grid {\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n    }\n\n    .secret-number-item,\n    .secret-pattern-card,\n    .secret-grammar-row,\n    .secret-word-row,\n    .secret-tone-grid article {\n      break-inside: avoid;\n    }\n\n    .secret-word-row {\n      min-height: 0;\n    }\n\n    .secret-footer {\n      break-inside: avoid;\n    }\n  }\n\n  @media (max-width: 520px) {\n    .super-topbar {\n      gap: 8px;\n    }\n\n    .brand-lockup {\n      gap: 7px;\n      flex: 1 1 auto;\n      max-width: calc(100% - 162px);\n    }\n\n    .brand-mark {\n      width: 38px;\n      height: 38px;\n      flex: 0 0 auto;\n    }\n\n    .hanzi-logo-svg {\n      width: 48px;\n      height: 48px;\n    }\n\n    .brand-title {\n      max-width: 114px;\n      font-size: 16px;\n    }\n\n    .brand-subtitle {\n      display: none;\n    }\n\n    .topbar-actions {\n      gap: 5px;\n    }\n\n    .language-toggle {\n      min-height: 36px;\n      padding: 2px;\n    }\n\n    .language-toggle button {\n      min-width: 40px;\n      min-height: 40px;\n      padding: 0 6px;\n      font-size: 12px;\n    }\n\n    .guide-toggle,\n    .sound-toggle {\n      width: 40px;\n      height: 40px;\n    }\n\n    .guide-toggle svg,\n    .sound-toggle svg {\n      width: 18px;\n      height: 18px;\n    }\n\n    .super-topbar .daily-chip {\n      display: none;\n    }\n  }\n\n  .wallet-card {\n    position: relative;\n    min-height: 188px;\n    padding: 20px;\n    border-radius: 8px;\n    overflow: hidden;\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.96), rgba(22, 119, 255, 0.88)),\n      #c8371f;\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n    animation: walletEnter 0.48s ease-out;\n  }\n\n  .wallet-card::before {\n    content: \"学\";\n    position: absolute;\n    right: -10px;\n    top: -28px;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 180px;\n    font-weight: 900;\n    color: rgba(255,255,255,0.11);\n    line-height: 1;\n  }\n\n  .wallet-card::after {\n    content: \"\";\n    position: absolute;\n    left: 20px;\n    right: 20px;\n    bottom: 18px;\n    height: 1px;\n    background: rgba(255,255,255,0.28);\n  }\n\n  .wallet-label {\n    margin: 0;\n    color: rgba(255,255,255,0.78);\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  .wallet-score {\n    margin: 8px 0 16px;\n    font-size: 56px;\n    line-height: 0.9;\n    font-weight: 900;\n    letter-spacing: -1px;\n  }\n\n  .wallet-card .progress-bar {\n    background: rgba(255,255,255,0.25);\n  }\n\n  .wallet-card .progress-fill {\n    background: #fff;\n  }\n\n  .wallet-meta {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 12px;\n    margin-top: 12px;\n    color: rgba(255,255,255,0.86);\n    font-size: 12px;\n  }\n\n  .wallet-seal {\n    display: grid;\n    place-items: center;\n    width: 44px;\n    height: 44px;\n    border: 1px solid rgba(255,255,255,0.36);\n    border-radius: 8px;\n    color: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 24px;\n    font-weight: 900;\n  }\n\n  .daily-entry-card {\n    position: relative;\n    display: grid;\n    gap: 12px;\n    margin: 14px 0 16px;\n    padding: 14px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.96), rgba(232, 255, 243, 0.92));\n    border: 1px solid rgba(7, 193, 96, 0.12);\n    box-shadow: var(--shadow-inset);\n    cursor: pointer;\n    overflow: hidden;\n  }\n\n  .daily-entry-card::after {\n    content: \"练\";\n    position: absolute;\n    right: -4px;\n    bottom: -24px;\n    color: rgba(7, 193, 96, 0.07);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 104px;\n    font-weight: 900;\n    line-height: 1;\n  }\n\n  .daily-entry-main {\n    position: relative;\n    z-index: 1;\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 10px;\n    align-items: center;\n  }\n\n  .daily-entry-icon {\n    width: 42px;\n    height: 42px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    color: #fff;\n    background: linear-gradient(135deg, #c8371f, #191713);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .daily-entry-kicker {\n    margin: 0 0 2px;\n    color: #c8371f;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .daily-entry-title {\n    margin: 0;\n    color: #191713;\n    font-size: 16px;\n    font-weight: 900;\n    line-height: 1.2;\n  }\n\n  .daily-entry-strip {\n    position: relative;\n    z-index: 1;\n    display: flex;\n    gap: 6px;\n    overflow: hidden;\n  }\n\n  .daily-entry-char {\n    width: 36px;\n    height: 36px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n    border-radius: 8px;\n    background: #fff;\n    color: #c8371f;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 24px;\n    font-weight: 900;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .daily-entry-meta {\n    position: relative;\n    z-index: 1;\n    display: flex;\n    gap: 8px;\n    color: #7a7264;\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  .quick-lane {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 8px;\n    margin: 14px 0 20px;\n  }\n\n  .quick-action {\n    min-width: 0;\n    min-height: 82px;\n    padding: 0 4px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 8px;\n    border: 0;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.92);\n    color: #1c2b34;\n    box-shadow: var(--shadow-inset);\n    font-weight: 900;\n    transition: transform 0.18s ease, box-shadow 0.18s ease;\n  }\n\n  .quick-action:active {\n    transform: translateY(2px) scale(0.98);\n  }\n\n  .quick-action-icon {\n    width: 38px;\n    height: 38px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #f0ead9;\n    color: #c8371f;\n  }\n\n  .quick-action-icon svg,\n  .bottom-nav-icon svg {\n    width: 22px;\n    height: 22px;\n  }\n\n  .quick-action:nth-child(2) .quick-action-icon {\n    background: #eef5ff;\n  }\n\n  .quick-action:nth-child(3) .quick-action-icon {\n    background: #f0ead9;\n  }\n\n  .quick-action:nth-child(4) .quick-action-icon {\n    background: #fff0f0;\n  }\n\n  .quick-action-label {\n    font-size: 12px;\n  }\n\n  .insight-panel {\n    display: grid;\n    grid-template-columns: 1fr auto;\n    gap: 12px;\n    align-items: center;\n    padding: 16px;\n    margin-bottom: 18px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.96), rgba(240, 255, 248, 0.96));\n    box-shadow: var(--shadow-inset);\n  }\n\n  .insight-title {\n    margin: 0 0 4px;\n    font-weight: 900;\n    color: #152820;\n  }\n\n  .insight-copy {\n    margin: 0;\n    color: #66756e;\n    font-size: 12px;\n  }\n\n  .insight-character {\n    width: 54px;\n    height: 54px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #121f18;\n    color: #c8371f;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 36px;\n    font-weight: 900;\n    animation: characterBlink 4.2s ease-in-out infinite;\n  }\n\n  .app-bottom-nav {\n    position: fixed;\n    left: 50%;\n    bottom: calc(12px + env(safe-area-inset-bottom, 0px));\n    z-index: 200;\n    width: min(440px, calc(100vw - 24px));\n    max-width: calc(100vw - 24px);\n    display: grid;\n    grid-template-columns: repeat(5, 1fr);\n    gap: 4px;\n    padding: 8px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.92);\n    border: 1px solid rgba(24, 33, 43, 0.08);\n    box-shadow: var(--shadow-inset);\n    transform: translateX(-50%);\n    backdrop-filter: blur(16px);\n  }\n\n  .bottom-nav-item {\n    min-width: 0;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 3px;\n    padding: 7px 2px;\n    border: 0;\n    border-radius: 8px;\n    background: transparent;\n    color: #7a7264;\n    font-size: 11px;\n    font-weight: 900;\n  }\n\n  .bottom-nav-item.active {\n    background: #f0ead9;\n    color: #c8371f;\n  }\n\n  .bottom-nav-icon {\n    font-size: 18px;\n    line-height: 1;\n  }\n\n  .menu-grid {\n    display: none;\n  }\n\n  .stats-bar {\n    margin-top: 12px;\n  }\n\n  .card {\n    border: none;\n  }\n\n  .section-title {\n    margin-top: 22px;\n  }\n\n  .header {\n    min-height: 54px;\n    padding: 0;\n    margin-bottom: 14px;\n  }\n\n  .header .logo {\n    font-size: 24px;\n  }\n\n  .header .logo::after {\n    content: \"学\";\n    width: 22px;\n    height: 22px;\n    padding: 0;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    font-size: 12px;\n  }\n\n  .screen > .title-xl {\n    margin-top: 4px;\n  }\n\n  .lesson-card {\n    min-height: 82px;\n  }\n\n  .lesson-number {\n    width: 54px;\n    height: 54px;\n    min-width: 54px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #f0ead9;\n    font-size: 24px;\n  }\n\n  .lesson-info .title-md {\n    font-size: 16px;\n  }\n\n  .lesson-title-line {\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    gap: 4px;\n    min-width: 0;\n  }\n\n  .lesson-title-line .title-md {\n    min-width: 0;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .lesson-chinese-chip {\n    flex: 0 0 auto;\n    max-width: 74px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    padding: 3px 7px;\n    border-radius: 8px;\n    background: #f0ead9;\n    color: #c8371f;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .flashcard.card {\n    border: 0;\n  }\n\n  .flashcard::before {\n    opacity: 1;\n    height: 0;\n  }\n\n  .flashcard .hanzi-display {\n    color: #c8371f !important;\n  }\n\n  .card[style*=\"text-align: center\"] {\n    background: rgba(255,255,255,0.9);\n  }\n\n  .hanzi-writer-container {\n    border: 1px solid rgba(24, 33, 43, 0.08);\n  }\n\n  .canvas-controls,\n  .nav-actions,\n  .backup-buttons {\n    gap: 10px;\n  }\n\n  .results-display {\n    border-radius: 8px;\n    background: rgba(255,255,255,0.78);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .score-circle {\n    border-color: #c8371f;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .char-grid {\n    gap: 8px;\n  }\n\n  .floating-indicator {\n    bottom: calc(98px + env(safe-area-inset-bottom, 0px));\n  }\n\n  .lessons-quick-actions {\n    display: none !important;\n  }\n\n  @keyframes walletEnter {\n    from { opacity: 0; transform: translateY(18px) scale(0.98); }\n    to { opacity: 1; transform: translateY(0) scale(1); }\n  }\n\n  @keyframes characterBlink {\n    0%, 100% { transform: translateY(0); box-shadow: var(--shadow-inset); }\n    50% { transform: translateY(-4px); box-shadow: var(--shadow-inset); }\n  }\n\n  /* ===== DEEP SUPER-APP POLISH ===== */\n  .wallet-card {\n    min-height: 206px;\n    background:\n      radial-gradient(circle at 78% 30%, rgba(255, 255, 255, 0.22), transparent 28%),\n      linear-gradient(135deg, #06b85b 0%, #12c8a1 48%, #1777ff 100%);\n  }\n\n  .wallet-card .progress-bar {\n    height: 7px;\n    margin-top: 22px;\n  }\n\n  .wallet-meta {\n    position: relative;\n    z-index: 1;\n  }\n\n  .wallet-seal {\n    background: rgba(255,255,255,0.12);\n    backdrop-filter: blur(10px);\n  }\n\n  .wallet-brand-mark {\n    position: absolute;\n    z-index: 1;\n    right: 14px;\n    top: 14px;\n    width: 70px;\n    height: 70px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.16);\n    backdrop-filter: blur(10px);\n  }\n\n  .wallet-brand-mark .hanzi-logo-svg {\n    width: 58px;\n    height: 58px;\n    filter: drop-shadow(0 8px 12px rgba(15, 40, 30, 0.18));\n  }\n\n  @media (max-width: 380px) {\n    .wallet-brand-mark {\n      width: 58px;\n      height: 58px;\n      right: 12px;\n      top: 12px;\n    }\n\n    .wallet-brand-mark .hanzi-logo-svg {\n      width: 50px;\n      height: 50px;\n    }\n  }\n\n  .quick-lane {\n    padding: 8px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.64);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .quick-action {\n    min-height: 88px;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .quick-action-icon {\n    position: relative;\n  }\n\n  .quick-action-icon::after {\n    content: \"\";\n    position: absolute;\n    right: -2px;\n    top: -2px;\n    width: 8px;\n    height: 8px;\n    border-radius: 50%;\n    background: #c8bfa8;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .home-metrics .stat-item {\n    background: linear-gradient(180deg, #fff, #f8fffb);\n  }\n\n  .account-entry {\n    display: block;\n    background:\n      linear-gradient(90deg, rgba(255,255,255,0.96), rgba(241, 250, 246, 0.96));\n  }\n\n  .service-section {\n    padding: 10px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.58);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .service-section-head {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 4px 4px 12px;\n    color: #708078;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .service-list {\n    display: grid;\n    gap: 10px;\n  }\n\n  .material-group {\n    display: grid;\n    gap: 8px;\n  }\n\n  .material-group + .material-group {\n    margin-top: 12px;\n  }\n\n  .material-group-head {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    padding: 2px 4px;\n    color: #7a7264;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .material-group-head span:last-child {\n    color: #91a099;\n  }\n\n  .service-row {\n    margin-bottom: 0;\n    box-shadow: var(--shadow-inset);\n    background: #fff;\n  }\n\n  .service-row::after {\n    content: \"›\";\n    position: absolute;\n    right: 16px;\n    top: 50%;\n    transform: translateY(-50%);\n    color: #a6b4ad;\n    font-size: 28px;\n    line-height: 1;\n  }\n\n  .service-row .lesson-info {\n    padding-right: 20px;\n  }\n\n  .study-pass-card {\n    min-height: 336px;\n    background:\n      radial-gradient(circle at 50% 18%, rgba(7, 193, 96, 0.18), transparent 38%),\n      linear-gradient(180deg, #fff, #fafffc);\n  }\n\n  .study-pass-card::after {\n    content: \"记\";\n    position: absolute;\n    right: 18px;\n    bottom: 14px;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 64px;\n    color: rgba(7, 193, 96, 0.06);\n    font-weight: 900;\n  }\n\n  .related-service-card {\n    background: #fff;\n  }\n\n  .mini-app-segment {\n    background: rgba(255,255,255,0.78);\n    border: 1px solid rgba(24, 33, 43, 0.06);\n  }\n\n  .draw-prompt-card {\n    display: block;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241, 250, 246, 0.98));\n  }\n\n  .draw-prompt-card::after {\n    content: \"写\";\n    position: absolute;\n    right: 18px;\n    top: 50%;\n    transform: translateY(-50%);\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif;\n    font-size: 54px;\n    font-weight: 900;\n    color: rgba(7, 193, 96, 0.08);\n  }\n\n  .writer-mini-program {\n    background:\n      linear-gradient(45deg, transparent calc(50% - 1px), rgba(7,193,96,0.12) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),\n      linear-gradient(-45deg, transparent calc(50% - 1px), rgba(22,119,255,0.1) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),\n      repeating-linear-gradient(0deg, transparent 0 39px, rgba(7,193,96,0.1) 39px 40px),\n      repeating-linear-gradient(90deg, transparent 0 39px, rgba(7,193,96,0.1) 39px 40px),\n      linear-gradient(180deg, #ffffff, #f8fdfb);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .quiz-pass-card {\n    background:\n      radial-gradient(circle at 50% 20%, rgba(7, 193, 96, 0.1), transparent 36%),\n      #fff;\n  }\n\n  .quiz-mode-card {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 14px;\n    align-items: center;\n    padding: 16px;\n    margin-bottom: 12px;\n    background: #fff;\n  }\n\n  .quiz-mode-icon {\n    width: 50px;\n    height: 50px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #f0ead9;\n    color: #c8371f;\n  }\n\n  .quiz-mode-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .quiz-mode-card:nth-of-type(2) .quiz-mode-icon {\n    background: #eef5ff;\n    color: #191713;\n  }\n\n  .quiz-mode-card:nth-of-type(3) .quiz-mode-icon {\n    background: #f0ead9;\n    color: #c77600;\n  }\n\n  .quiz-option {\n    border-radius: 8px;\n    position: relative;\n  }\n\n  .quiz-option::after {\n    content: \"\";\n    position: absolute;\n    left: 0;\n    top: 10px;\n    bottom: 10px;\n    width: 3px;\n    border-radius: 999px;\n    background: rgba(7, 193, 96, 0.28);\n  }\n\n  .stats-wallet {\n    padding: 8px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.6);\n  }\n\n  .stats-wallet .stat-item {\n    background: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .char-grid {\n    padding: 10px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.62);\n  }\n\n  .char-item {\n    box-shadow: var(--shadow-inset);\n  }\n\n  .app-bottom-nav {\n    background:\n      linear-gradient(180deg, rgba(255,255,255,0.96), rgba(249,252,250,0.96));\n  }\n\n  .bottom-nav-item.active .bottom-nav-icon {\n    animation: tabPop 0.28s ease-out;\n  }\n\n  /* ===== SUPER-APP ROUND TWO ===== */\n  .super-searchbar {\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    align-items: center;\n    gap: 10px;\n    min-height: 42px;\n    padding: 0 12px;\n    margin: 0 0 12px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.88);\n    border: 1px solid rgba(24, 33, 43, 0.06);\n    box-shadow: var(--shadow-inset);\n    color: #718078;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .super-searchbar svg {\n    width: 18px;\n    height: 18px;\n    color: #c8371f;\n  }\n\n  .super-searchbar strong {\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    color: #191713;\n    font-size: 14px;\n  }\n\n  .super-search-action {\n    display: grid;\n    place-items: center;\n    width: 26px;\n    height: 26px;\n    border-radius: 8px;\n    background: #f0ead9;\n    color: #c8371f;\n  }\n\n  .mini-program-panel {\n    padding: 12px;\n    margin: 0 0 16px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.72);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .mini-program-head {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    margin-bottom: 10px;\n    color: #7a7264;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .mini-program-grid {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 10px 8px;\n  }\n\n  .mini-program-tile {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    gap: 7px;\n    min-width: 0;\n    padding: 8px 2px;\n    border: 0;\n    background: transparent;\n    color: #213129;\n    font-size: 12px;\n    font: inherit;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .mini-program-tile:active {\n    transform: scale(0.96);\n  }\n\n  .mini-program-icon {\n    width: 42px;\n    height: 42px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n    position: relative;\n    overflow: hidden;\n  }\n\n  .mini-program-icon::before {\n    content: \"\";\n    position: absolute;\n    inset: 4px auto auto 5px;\n    width: 12px;\n    height: 5px;\n    border-radius: 999px;\n    background: rgba(255,255,255,0.36);\n  }\n\n  .mini-program-icon svg {\n    width: 22px;\n    height: 22px;\n    position: relative;\n    z-index: 1;\n  }\n\n  .mini-program-name {\n    max-width: 100%;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n  }\n\n  .mini-program-tile:nth-child(1) .mini-program-icon { background: linear-gradient(135deg, #c8371f, #18d58b); }\n  .mini-program-tile:nth-child(2) .mini-program-icon { background: linear-gradient(135deg, #191713, #5a5348); }\n  .mini-program-tile:nth-child(3) .mini-program-icon { background: linear-gradient(135deg, #ff9f1c, #ffd166); }\n  .mini-program-tile:nth-child(4) .mini-program-icon { background: linear-gradient(135deg, #ff4d4f, #ff8a80); }\n  .mini-program-tile:nth-child(5) .mini-program-icon { background: linear-gradient(135deg, #2f3542, #57606f); }\n  .mini-program-tile:nth-child(6) .mini-program-icon { background: linear-gradient(135deg, #00a6a6, #00d2d3); }\n  .mini-program-tile:nth-child(7) .mini-program-icon { background: linear-gradient(135deg, #8e44ad, #c56cf0); }\n  .mini-program-tile:nth-child(8) .mini-program-icon { background: linear-gradient(135deg, #8b8375, #f6c343); }\n\n  .illustration-strip {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n    gap: 8px;\n    margin: 14px 0 16px;\n  }\n\n  .story-sticker {\n    min-width: 0;\n    min-height: 132px;\n    padding: 10px 6px 9px;\n    border: 0;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.86);\n    box-shadow: var(--shadow-inset);\n    color: #191713;\n    overflow: hidden;\n    position: relative;\n  }\n\n  .story-sticker::after {\n    content: \"\";\n    position: absolute;\n    inset: auto 0 0 auto;\n    width: 36px;\n    height: 36px;\n    border-radius: 50%;\n    background: rgba(7, 193, 96, 0.08);\n  }\n\n  .story-sticker:active {\n    transform: scale(0.97);\n  }\n\n  .story-sticker-svg {\n    display: block;\n    width: 74px;\n    max-width: 100%;\n    height: 60px;\n    margin: 0 auto 5px;\n    filter: drop-shadow(0 8px 12px rgba(20, 49, 35, 0.11));\n    animation: stickerBob 4.4s ease-in-out infinite;\n  }\n\n  .story-sticker:nth-child(2) .story-sticker-svg {\n    animation-delay: -1.2s;\n  }\n\n  .story-sticker:nth-child(3) .story-sticker-svg {\n    animation-delay: -2.1s;\n  }\n\n  .story-sticker-title {\n    display: block;\n    position: relative;\n    z-index: 1;\n    overflow: hidden;\n    text-align: center;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .cute-coach-card {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    margin-bottom: 16px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(235, 255, 246, 0.96));\n    box-shadow: var(--shadow-inset);\n  }\n\n  .coach-mini-svg,\n  .panda-buddy-svg {\n    width: 66px;\n    height: 66px;\n    filter: drop-shadow(0 10px 18px rgba(7, 193, 96, 0.18));\n  }\n\n  .coach-title {\n    margin: 0 0 4px;\n    color: #191713;\n    font-size: 16px;\n    font-weight: 900;\n  }\n\n  .coach-copy {\n    margin: 0;\n    color: #66756e;\n    font-size: 12px;\n    line-height: 1.45;\n  }\n\n  .coach-guide-link {\n    display: inline-flex;\n    align-items: center;\n    gap: 6px;\n    min-height: 44px;\n    margin-top: 10px;\n    padding: 0 10px;\n    border-radius: 8px;\n    background: #f0ead9;\n    color: #c8371f;\n    font-size: 12px;\n    font-weight: 900;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .coach-guide-link svg {\n    width: 16px;\n    height: 16px;\n  }\n\n  .coach-guide-link:active {\n    transform: scale(0.97);\n  }\n\n  .tutorial-backdrop {\n    position: fixed;\n    inset: 0;\n    z-index: 300;\n    display: grid;\n    place-items: center;\n    padding: max(18px, env(safe-area-inset-top, 0px)) 18px max(18px, env(safe-area-inset-bottom, 0px));\n    background: rgba(17, 31, 24, 0.34);\n    backdrop-filter: blur(14px);\n  }\n\n  .tutorial-card {\n    position: relative;\n    width: min(calc(100vw - 48px), 360px);\n    max-height: min(760px, calc(100vh - 36px));\n    box-sizing: border-box;\n    overflow: auto;\n    padding: 16px;\n    border-radius: 8px;\n    background:\n      radial-gradient(circle at 88% 6%, rgba(22, 119, 255, 0.12), transparent 26%),\n      linear-gradient(180deg, rgba(255,255,255,0.98), rgba(243, 255, 249, 0.98));\n    border: 1px solid rgba(255,255,255,0.72);\n    box-shadow: var(--shadow-inset);\n    animation: tutorialIn 0.28s ease-out;\n  }\n\n  .tutorial-close {\n    position: absolute;\n    top: 12px;\n    right: 12px;\n    z-index: 2;\n    width: 40px;\n    height: 40px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.84);\n    color: #7a7264;\n    font-size: 14px;\n    font-weight: 900;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .tutorial-hero {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    padding-right: 34px;\n  }\n\n  .tutorial-panda {\n    width: 78px;\n    height: 78px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #f0ead9;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .tutorial-panda .panda-buddy-svg {\n    width: 74px;\n    height: 74px;\n  }\n\n  .tutorial-copy-block {\n    min-width: 0;\n  }\n\n  .tutorial-kicker {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 8px;\n    margin-bottom: 6px;\n    color: #c8371f;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .tutorial-kicker span:last-child {\n    color: #90a098;\n  }\n\n  .tutorial-copy-block h2 {\n    margin: 0;\n    color: #191713;\n    font-size: 20px;\n    line-height: 1.1;\n    font-weight: 900;\n  }\n\n  .tutorial-copy-block p {\n    margin: 7px 0 0;\n    color: #7a7264;\n    font-size: 12px;\n    line-height: 1.45;\n    font-weight: 700;\n  }\n\n  .tutorial-progress {\n    height: 7px;\n    margin: 15px 0;\n    overflow: hidden;\n    border-radius: 999px;\n    background: #dfece6;\n  }\n\n  .tutorial-progress-fill {\n    height: 100%;\n    border-radius: 999px;\n    background: linear-gradient(90deg, #c8371f, #191713);\n    transition: width 0.25s ease;\n  }\n\n  .tutorial-step-card {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    min-height: 112px;\n    padding: 14px;\n    border-radius: 8px;\n    background: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .tutorial-step-icon {\n    width: 50px;\n    height: 50px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: linear-gradient(135deg, #c8371f, #191713);\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .tutorial-step-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .tutorial-step-card h3 {\n    margin: 0;\n    color: #191713;\n    font-size: 18px;\n    line-height: 1.16;\n    font-weight: 900;\n  }\n\n  .tutorial-step-card p {\n    margin: 6px 0 0;\n    color: #7a7264;\n    font-size: 12px;\n    line-height: 1.45;\n    font-weight: 700;\n  }\n\n  .tutorial-dots {\n    display: flex;\n    justify-content: center;\n    gap: 6px;\n    margin: 14px 0;\n  }\n\n  .tutorial-dots span {\n    width: 7px;\n    height: 7px;\n    border-radius: 999px;\n    background: #cddbd4;\n    transition: width 0.2s ease, background 0.2s ease;\n  }\n\n  .tutorial-dots span.active {\n    width: 22px;\n    background: #c8371f;\n  }\n\n  .tutorial-open-step {\n    width: 100%;\n    min-height: 48px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 8px;\n    margin-bottom: 12px;\n    border-radius: 8px;\n    background: linear-gradient(135deg, #c8371f, #a02c17);\n    color: #fff;\n    font-size: 14px;\n    font-weight: 900;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .tutorial-open-step svg {\n    width: 18px;\n    height: 18px;\n  }\n\n  .tutorial-actions {\n    display: flex;\n    align-items: stretch;\n    flex-direction: column;\n    justify-content: space-between;\n    gap: 10px;\n  }\n\n  .tutorial-action-pair {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 8px;\n    min-width: 0;\n    width: 100%;\n  }\n\n  .tutorial-quiet,\n  .tutorial-secondary,\n  .tutorial-primary {\n    min-height: 38px;\n    padding: 0 12px;\n    border-radius: 8px;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .tutorial-quiet {\n    color: #7a7264;\n  }\n\n  .tutorial-secondary {\n    background: #fff;\n    color: #191713;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .tutorial-secondary:disabled {\n    opacity: 0.4;\n  }\n\n  .tutorial-primary {\n    background: #f0ead9;\n    color: #c8371f;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .tutorial-quiet {\n    justify-self: start;\n  }\n\n  @media (max-width: 600px) {\n    .tutorial-card {\n      justify-self: start;\n    }\n  }\n\n  @keyframes tutorialIn {\n    from { opacity: 0; transform: translateY(12px) scale(0.98); }\n    to { opacity: 1; transform: translateY(0) scale(1); }\n  }\n\n  .lesson-service-icon {\n    width: 46px;\n    height: 46px;\n    display: grid;\n    place-items: center;\n    flex: 0 0 auto;\n    border-radius: 8px;\n    background: #f0fff6;\n    color: #c8371f;\n  }\n\n  .lesson-service-icon svg {\n    width: 22px;\n    height: 22px;\n  }\n\n  .service-row:nth-child(2n) .lesson-service-icon {\n    background: #eff6ff;\n    color: #191713;\n  }\n\n  .service-row:nth-child(3n) .lesson-service-icon {\n    background: #fff6e6;\n    color: #c77600;\n  }\n\n  @keyframes coachFloat {\n    0%, 100% { transform: translateY(0) rotate(-1deg); }\n    50% { transform: translateY(-5px) rotate(1deg); }\n  }\n\n  @keyframes stickerBob {\n    0%, 100% { transform: translateY(0) rotate(-1deg); }\n    50% { transform: translateY(-4px) rotate(1deg); }\n  }\n\n  @keyframes tabPop {\n    0% { transform: translateY(0) scale(1); }\n    50% { transform: translateY(-3px) scale(1.08); }\n    100% { transform: translateY(0) scale(1); }\n  }\n\n  /* ===== MINI-PROGRAM SYSTEM ===== */\n  .mini-app-hero {\n    display: grid;\n    grid-template-columns: auto 1fr auto;\n    gap: 12px;\n    align-items: center;\n    padding: 14px;\n    margin: 0 0 14px;\n    border-radius: 8px;\n    background:\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239, 255, 247, 0.96));\n    box-shadow: var(--shadow-inset);\n    border: 1px solid rgba(24, 33, 43, 0.05);\n  }\n\n  .mini-app-hero-icon {\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    color: #fff;\n    background: linear-gradient(135deg, #c8371f, #191713);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .mini-app-hero-icon svg {\n    width: 24px;\n    height: 24px;\n  }\n\n  .mini-app-title {\n    margin: 0;\n    color: #191713;\n    font-size: 20px;\n    line-height: 1.08;\n    font-weight: 900;\n  }\n\n  .mini-app-subtitle {\n    margin: 4px 0 0;\n    color: #7a7264;\n    font-size: 12px;\n    line-height: 1.35;\n    font-weight: 700;\n  }\n\n  .mini-app-pill {\n    display: grid;\n    place-items: center;\n    min-width: 42px;\n    min-height: 30px;\n    padding: 0 9px;\n    border-radius: 8px;\n    background: #f0ead9;\n    color: #c8371f;\n    font-size: 12px;\n    font-weight: 900;\n    white-space: nowrap;\n  }\n\n  .mini-app-progress-card {\n    display: grid;\n    grid-template-columns: 1fr auto;\n    gap: 10px;\n    align-items: center;\n    margin: 0 0 12px;\n    padding: 12px 14px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.78);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .mini-app-progress-card .text-sm {\n    margin: 0;\n  }\n\n  .mini-app-progress-count {\n    color: #c8371f;\n    font-weight: 900;\n    font-size: 14px;\n  }\n\n  .daily-training-card {\n    padding: 14px;\n    margin-bottom: 14px;\n    border-radius: 8px;\n    background:\n      radial-gradient(circle at 88% 12%, rgba(22, 119, 255, 0.12), transparent 30%),\n      linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239, 255, 247, 0.96));\n    border: 1px solid rgba(24, 33, 43, 0.05);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .daily-training-hero {\n    display: grid;\n    grid-template-columns: auto 1fr;\n    gap: 12px;\n    align-items: center;\n    margin-bottom: 12px;\n  }\n\n  .daily-training-title {\n    margin: 0 0 4px;\n    color: #191713;\n    font-size: 16px;\n    font-weight: 900;\n  }\n\n  .daily-training-copy {\n    margin: 0;\n    color: #7a7264;\n    font-size: 12px;\n    line-height: 1.45;\n    font-weight: 700;\n  }\n\n  .daily-queue-grid {\n    display: grid;\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n    gap: 8px;\n  }\n\n  .daily-queue-char {\n    min-height: 72px;\n    display: grid;\n    place-items: center;\n    gap: 2px;\n    padding: 8px 4px;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.9);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .daily-queue-char .hanzi-display {\n    color: #c8371f;\n    font-size: 28px;\n    line-height: 1;\n  }\n\n  .daily-queue-char small {\n    color: var(--text-secondary);\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .daily-reason-row {\n    display: flex;\n    gap: 8px;\n    margin-top: 12px;\n    color: var(--text-secondary);\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  .daily-step-grid {\n    display: grid;\n    gap: 10px;\n    margin-bottom: 14px;\n  }\n\n  .daily-step-card {\n    position: relative;\n    min-height: 92px;\n    display: grid;\n    grid-template-columns: auto 1fr;\n    grid-template-areas:\n      \"icon title\"\n      \"icon copy\";\n    gap: 3px 12px;\n    align-items: center;\n    padding: 14px;\n    border: 0;\n    border-radius: 8px;\n    background: rgba(255,255,255,0.9);\n    color: #191713;\n    text-align: left;\n    box-shadow: var(--shadow-inset);\n    overflow: hidden;\n  }\n\n  .daily-step-card.primary {\n    background:\n      linear-gradient(135deg, rgba(7, 193, 96, 0.96), rgba(22, 119, 255, 0.88));\n    color: #fff;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .daily-step-card:active {\n    transform: scale(0.985);\n  }\n\n  .daily-step-index {\n    position: absolute;\n    right: 12px;\n    top: 8px;\n    color: rgba(7, 193, 96, 0.14);\n    font-size: 48px;\n    font-weight: 900;\n    line-height: 1;\n  }\n\n  .daily-step-card.primary .daily-step-index {\n    color: rgba(255,255,255,0.18);\n  }\n\n  .daily-step-icon {\n    grid-area: icon;\n    width: 48px;\n    height: 48px;\n    display: grid;\n    place-items: center;\n    border-radius: 8px;\n    background: #f0ead9;\n    color: #c8371f;\n  }\n\n  .daily-step-card.primary .daily-step-icon {\n    background: rgba(255,255,255,0.18);\n    color: #fff;\n  }\n\n  .daily-step-card strong {\n    grid-area: title;\n    position: relative;\n    z-index: 1;\n    font-size: 18px;\n    line-height: 1.1;\n  }\n\n  .daily-step-card span:last-child {\n    grid-area: copy;\n    position: relative;\n    z-index: 1;\n    color: #7a7264;\n    font-size: 12px;\n    line-height: 1.35;\n    font-weight: 700;\n  }\n\n  .daily-step-card.primary span:last-child {\n    color: rgba(255,255,255,0.84);\n  }\n\n  .dual-label {\n    display: block;\n    line-height: 1.15;\n  }\n\n  .dual-label strong {\n    display: block;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .dual-label span {\n    display: block;\n    margin-top: 1px;\n    font-size: 12px;\n    color: var(--text-secondary);\n    font-weight: 800;\n  }\n\n  .section-title-cn {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    gap: 10px;\n    margin: 20px 0 10px;\n    color: #7a7264;\n    font-size: 12px;\n    font-weight: 900;\n  }\n\n  .section-title-cn span:first-child {\n    color: #191713;\n  }\n\n  @media (min-width: 980px) {\n    .home-screen {\n      width: min(calc(100vw - 72px), 920px);\n      max-width: 920px;\n      display: grid;\n      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);\n      gap: 18px;\n      align-items: start;\n      padding-bottom: 124px;\n    }\n\n    .home-screen .super-topbar,\n    .home-screen .super-searchbar,\n    .home-screen .illustration-strip,\n    .home-screen .quick-lane,\n    .home-screen .mini-program-panel,\n    .home-screen .home-metrics,\n    .home-screen .section-title,\n    .home-screen .account-entry {\n      grid-column: 1 / -1;\n    }\n\n    .home-screen .super-topbar,\n    .home-screen .super-searchbar,\n    .home-screen .wallet-card,\n    .home-screen .daily-entry-card,\n    .home-screen .illustration-strip,\n    .home-screen .quick-lane,\n    .home-screen .mini-program-panel,\n    .home-screen .cute-coach-card,\n    .home-screen .insight-panel,\n    .home-screen .home-metrics,\n    .home-screen .account-entry {\n      margin-bottom: 0;\n    }\n\n    .home-screen .wallet-card {\n      min-height: 248px;\n    }\n\n    .home-screen .daily-entry-card {\n      align-self: stretch;\n      min-height: 248px;\n    }\n\n    .home-screen .illustration-strip {\n      grid-template-columns: repeat(3, minmax(0, 1fr));\n    }\n\n    .home-screen .quick-lane {\n      grid-template-columns: repeat(4, minmax(0, 1fr));\n    }\n\n    .home-screen .mini-program-grid {\n      grid-template-columns: repeat(8, minmax(0, 1fr));\n    }\n\n    .home-screen .cute-coach-card,\n    .home-screen .insight-panel {\n      min-height: 132px;\n    }\n  }\n\n  @media (max-width: 380px) {\n    .mini-app-hero {\n      grid-template-columns: auto 1fr;\n    }\n\n    .mini-app-pill {\n      grid-column: 1 / -1;\n      justify-self: start;\n    }\n\n    .tutorial-card {\n      padding: 14px;\n    }\n\n    .tutorial-hero {\n      grid-template-columns: 1fr;\n      padding-right: 34px;\n    }\n\n    .tutorial-panda {\n      width: 66px;\n      height: 66px;\n    }\n\n    .tutorial-panda .panda-buddy-svg {\n      width: 64px;\n      height: 64px;\n    }\n\n    .tutorial-actions {\n      align-items: stretch;\n      flex-direction: column;\n    }\n\n    .tutorial-action-pair {\n      display: grid;\n      grid-template-columns: 1fr 1fr;\n      width: 100%;\n    }\n  }\n\n  /* ===== ACCOUNT & SYNC ===== */\n  .account-card {\n    display: flex;\n    flex-direction: column;\n  }\n\n  .account-tabs {\n    display: flex;\n    gap: 4px;\n    padding: 4px;\n    margin-top: 10px;\n    border-radius: 12px;\n    background: rgba(24, 33, 43, 0.05);\n  }\n\n  .account-tab {\n    flex: 1;\n    min-height: 44px;\n    padding: 8px 10px;\n    border-radius: 8px;\n    font-size: 14px;\n    font-weight: 800;\n    color: #7a7264;\n    transition: background 0.15s ease, color 0.15s ease;\n  }\n\n  .account-tab.active {\n    background: #ffffff;\n    color: #0a8f4d;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .account-input {\n    width: 100%;\n    margin-top: 8px;\n    padding: 10px 12px;\n    border-radius: 12px;\n    border: 1px solid rgba(24, 33, 43, 0.14);\n    background: #ffffff;\n    font: inherit;\n    font-size: 14px;\n    color: #191713;\n  }\n\n  .account-input:focus {\n    outline: 2px solid rgba(22, 119, 255, 0.35);\n    border-color: #191713;\n  }\n\n  .recovery-box {\n    margin-top: 12px;\n    padding: 12px;\n    border-radius: 12px;\n    background: rgba(255, 207, 51, 0.16);\n    border: 1px dashed rgba(194, 120, 3, 0.45);\n  }\n\n  .recovery-code {\n    display: block;\n    margin-top: 4px;\n    padding: 8px 10px;\n    border-radius: 8px;\n    background: #ffffff;\n    font-family: ui-monospace, Menlo, Consolas, monospace;\n    font-size: 14px;\n    letter-spacing: 0.5px;\n    word-break: break-all;\n    color: #191713;\n  }\n\n  .recovery-code.big {\n    font-size: 16px;\n    font-weight: 700;\n    letter-spacing: 1px;\n  }\n\n  .account-row {\n    display: flex;\n    justify-content: space-between;\n    align-items: flex-start;\n    gap: 10px;\n  }\n\n  .sync-pill {\n    flex-shrink: 0;\n    padding: 4px 10px;\n    border-radius: 999px;\n    background: rgba(7, 193, 96, 0.12);\n    color: #0a8f4d;\n    font-size: 12px;\n    font-weight: 800;\n    white-space: nowrap;\n  }\n\n  .sync-pill.error {\n    background: rgba(207, 43, 43, 0.12);\n    color: #c8371f;\n  }\n\n  /* ===== MOTION POLISH (ux-motion: education = playful, 200-400ms) ===== */\n  @keyframes viewEnter {\n    from { opacity: 0; transform: translateY(14px); }\n    to { opacity: 1; transform: translateY(0); }\n  }\n\n  .screen {\n    animation: viewEnter 0.3s ease-out;\n  }\n\n  @keyframes streakPulse {\n    0%, 100% { transform: scale(1); }\n    50% { transform: scale(1.08); }\n  }\n\n  .daily-chip {\n    animation: streakPulse 2.2s ease-in-out infinite;\n    transform-origin: center;\n  }\n\n  .btn:active,\n  .quick-action:active,\n  .daily-entry-card:active,\n  .bottom-nav-item:active,\n  .account-tab:active,\n  .mini-app-tile:active {\n    transform: scale(0.97);\n  }\n\n  .daily-entry-card {\n    transition: transform var(--transition-fast), box-shadow var(--transition-fast);\n  }\n\n  .daily-entry-card:hover {\n    transform: translateY(-2px);\n  }\n\n  @media (prefers-reduced-motion: reduce) {\n    *,\n    *::before,\n    *::after {\n      animation-duration: 0.01ms !important;\n      animation-iteration-count: 1 !important;\n      transition-duration: 0.01ms !important;\n      scroll-behavior: auto !important;\n    }\n  }\n\n  /* ===== FIRST-RUN HERO (ux-onboarding: value prop + one primary CTA) ===== */\n  .hero-block {\n    position: relative;\n    margin-top: 14px;\n    padding: 22px 18px 18px;\n    border-radius: 20px;\n    background:\n      radial-gradient(circle at 85% 12%, rgba(22, 119, 255, 0.14), transparent 42%),\n      linear-gradient(160deg, #ffffff 0%, #eefaf3 100%);\n    border: 1px solid rgba(7, 193, 96, 0.16);\n    box-shadow: var(--shadow-inset);\n    text-align: center;\n    overflow: hidden;\n    animation: viewEnter 0.3s ease-out;\n  }\n\n  .hero-panda {\n    width: 84px;\n    margin: 0 auto 6px;\n    animation: hanziFloat 5s ease-in-out infinite;\n  }\n\n  .hero-panda svg {\n    width: 84px;\n    height: 84px;\n    display: block;\n  }\n\n  .hero-title {\n    font-size: 24px;\n    font-weight: 900;\n    line-height: 1.25;\n    color: #191713;\n    letter-spacing: 0.2px;\n  }\n\n  .hero-subtitle {\n    margin-top: 8px;\n    font-size: 14px;\n    line-height: 1.55;\n    color: #6b6353;\n    max-width: 300px;\n    margin-left: auto;\n    margin-right: auto;\n  }\n\n  .hero-cta {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 8px;\n    width: 100%;\n    margin-top: 16px;\n    padding: 14px 18px;\n    font-size: 16px;\n    font-weight: 900;\n    border-radius: 16px;\n  }\n\n  .hero-hint {\n    margin-top: 10px;\n    font-size: 12px;\n    font-weight: 700;\n    color: #087f43;\n  }\n\n  .wallet-empty .wallet-empty-body {\n    display: flex;\n    align-items: center;\n    gap: 14px;\n    margin-top: 12px;\n    padding: 14px;\n    border-radius: 16px;\n    background: rgba(7, 193, 96, 0.07);\n    border: 1px dashed rgba(7, 193, 96, 0.35);\n    text-align: left;\n  }\n\n  .wallet-empty-char {\n    flex-shrink: 0;\n    width: 52px;\n    height: 52px;\n    display: grid;\n    place-items: center;\n    border-radius: 16px;\n    background: linear-gradient(135deg, #c8371f, #191713);\n    color: #fff;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;\n    font-size: 28px;\n    font-weight: 900;\n    box-shadow: var(--shadow-inset);\n  }\n\n  /* ===== THEME PICKER ===== */\n  .theme-picker {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 10px;\n  }\n\n  .theme-chip {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    gap: 8px;\n    padding: 10px 6px 12px;\n    border-radius: 16px;\n    border: 2px solid transparent;\n    background: var(--bg-secondary);\n    transition: transform var(--transition-fast), border-color var(--transition-fast);\n  }\n\n  .theme-chip.active {\n    border-color: var(--accent-lime);\n    background: var(--bg-card);\n    box-shadow: var(--shadow-inset);\n  }\n\n  .theme-swatch {\n    width: 100%;\n    height: 44px;\n    border-radius: 12px;\n    box-shadow: var(--shadow-inset);\n  }\n\n  .theme-chip-label {\n    font-size: 12px;\n    font-weight: 800;\n    color: var(--text-primary);\n  }\n\n  /* ===== DARK THEME ===== */\n  html[data-theme='dark'] {\n    --bg-primary: #14120f;\n    --bg-secondary: #1d1a15;\n    --bg-card: #1d1a15;\n    --accent-lime: #e04a2a;\n    --accent-cyan: #efe9dd;\n    --text-primary: #efe9dd;\n    --text-secondary: #a39a87;\n    --border-color: #2e2a22;\n    --shadow-inset: 0 0 0 1px rgba(232, 240, 236, 0.08) inset;\n    --shadow-sm: 0 6px 16px rgba(0, 0, 0, 0.4);\n    --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.5);\n    --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.6);\n    color-scheme: dark;\n  }\n\n  html[data-theme='dark'] body {\n    background: #14120f !important;\n    color: #e8f0ec;\n  }\n\n  html[data-theme='dark'] .loading-screen {\n    background: radial-gradient(circle at 22% 12%, rgba(224, 74, 42, 0.12), transparent 30%),\n      radial-gradient(circle at 88% 18%, rgba(239, 233, 221, 0.10), transparent 28%),\n      linear-gradient(180deg, #14120f 0%, #14120f 100%);\n  }\n\n  html[data-theme='dark'] .loading-card {\n    background: rgba(29, 26, 21, 0.92);\n    border-color: rgba(232, 240, 236, 0.08);\n  }\n\n  html[data-theme='dark'] .loading-text { color: #e8f0ec; }\n  html[data-theme='dark'] .loading-subtext { color: #9fb3a9; }\n\n  html[data-theme='dark'] .card,\n  html[data-theme='dark'] .wallet-card,\n  html[data-theme='dark'] .daily-entry-card,\n  html[data-theme='dark'] .mini-program-panel,\n  html[data-theme='dark'] .insight-panel,\n  html[data-theme='dark'] .cute-coach-card,\n  html[data-theme='dark'] .super-topbar,\n  html[data-theme='dark'] .app-bottom-nav,\n  html[data-theme='dark'] .account-card,\n  html[data-theme='dark'] .daily-training-card,\n  html[data-theme='dark'] .daily-step-card,\n  html[data-theme='dark'] .lesson-card,\n  html[data-theme='dark'] .quiz-card,\n  html[data-theme='dark'] .theme-chip {\n    background: #1d1a15;\n    border-color: #2a3830;\n    box-shadow: var(--shadow-inset);\n  }\n\n  html[data-theme='dark'] .hero-block {\n    background: radial-gradient(circle at 85% 12%, rgba(239, 233, 221, 0.16), transparent 42%),\n      linear-gradient(160deg, #1d1a15 0%, #12241b 100%);\n    border-color: rgba(224, 74, 42, 0.22);\n  }\n\n  html[data-theme='dark'] .brand-title,\n  html[data-theme='dark'] .hero-title,\n  html[data-theme='dark'] .title-md,\n  html[data-theme='dark'] .title-sm,\n  html[data-theme='dark'] .stat-value,\n  html[data-theme='dark'] .wallet-score,\n  html[data-theme='dark'] .daily-entry-title,\n  html[data-theme='dark'] .coach-title,\n  html[data-theme='dark'] .insight-title,\n  html[data-theme='dark'] .mini-program-name,\n  html[data-theme='dark'] .quick-action-label,\n  html[data-theme='dark'] .bottom-nav-item,\n  html[data-theme='dark'] .daily-queue-char .hanzi-display,\n  html[data-theme='dark'] .char-item,\n  html[data-theme='dark'] h1,\n  html[data-theme='dark'] h2,\n  html[data-theme='dark'] h3 {\n    color: #e8f0ec;\n  }\n\n  html[data-theme='dark'] .brand-subtitle,\n  html[data-theme='dark'] .hero-subtitle,\n  html[data-theme='dark'] .text-sm,\n  html[data-theme='dark'] .stat-label,\n  html[data-theme='dark'] .wallet-meta,\n  html[data-theme='dark'] .daily-entry-meta,\n  html[data-theme='dark'] .daily-entry-kicker,\n  html[data-theme='dark'] .coach-copy,\n  html[data-theme='dark'] .insight-copy,\n  html[data-theme='dark'] .daily-reason-row,\n  html[data-theme='dark'] .daily-queue-char small,\n  html[data-theme='dark'] .section-title .text-sm,\n  html[data-theme='dark'] .bottom-nav-item {\n    color: #9fb3a9;\n  }\n\n  html[data-theme='dark'] .btn-secondary,\n  html[data-theme='dark'] .account-input,\n  html[data-theme='dark'] .recovery-code,\n  html[data-theme='dark'] .guide-toggle,\n  html[data-theme='dark'] .sound-toggle,\n  html[data-theme='dark'] .language-toggle,\n  html[data-theme='dark'] .back-btn,\n  html[data-theme='dark'] .super-searchbar {\n    background: #1d1a15;\n    color: #e8f0ec;\n    border-color: #2a3830;\n  }\n\n  html[data-theme='dark'] .language-toggle button { color: #9fb3a9; }\n  html[data-theme='dark'] .language-toggle button.active { background: #e04a2a; color: #14120f; }\n  html[data-theme='dark'] .guide-toggle { background: rgba(224, 74, 42, 0.12); color: #e04a2a; border-color: rgba(224, 74, 42, 0.25); }\n\n  html[data-theme='dark'] .bottom-nav-item.active { color: #e04a2a; }\n  html[data-theme='dark'] .daily-chip { background: #1d1a15; }\n\n  html[data-theme='dark'] .hero-hint { color: #e04a2a; }\n\n  html[data-theme='dark'] .wallet-empty .wallet-empty-body {\n    background: rgba(224, 74, 42, 0.08);\n    border-color: rgba(224, 74, 42, 0.35);\n  }\n\n  html[data-theme='dark'] .theme-chip.active { border-color: #e04a2a; }\n  html[data-theme='dark'] .theme-swatch { box-shadow: var(--shadow-inset); }\n\n  html[data-theme='dark'] .account-tab { color: #9fb3a9; }\n  html[data-theme='dark'] .account-tabs { background: rgba(232, 240, 236, 0.06); }\n  html[data-theme='dark'] .account-tab.active { background: #1d1a15; color: #e04a2a; }\n  html[data-theme='dark'] .recovery-box { background: rgba(217, 154, 24, 0.12); border-color: rgba(217, 154, 24, 0.4); }\n  html[data-theme='dark'] .recovery-code { background: #14120f; color: #e8f0ec; }\n  html[data-theme='dark'] .sync-pill { background: rgba(224, 74, 42, 0.14); color: #e04a2a; }\n\n  html[data-theme='dark'] .progress-bar { background: rgba(232, 240, 236, 0.10); }\n  html[data-theme='dark'] .char-grid .char-item { background: #1d1a15; border-color: #2a3830; color: #e8f0ec; }\n  html[data-theme='dark'] .char-item.mastered { background: rgba(224, 74, 42, 0.16); border-color: rgba(224, 74, 42, 0.4); }\n  html[data-theme='dark'] .char-item.learning { background: rgba(239, 233, 221, 0.14); border-color: rgba(239, 233, 221, 0.35); }\n\n  html[data-theme='dark'] .quiz-option { background: #1d1a15; border-color: #2a3830; color: #e8f0ec; }\n  html[data-theme='dark'] .quiz-option.correct { background: rgba(224, 74, 42, 0.14); color: #e04a2a; border-color: rgba(224, 74, 42, 0.4); }\n  html[data-theme='dark'] .quiz-option.incorrect { background: rgba(242, 72, 72, 0.12); color: #e04a2a; border-color: rgba(242, 72, 72, 0.4); }\n\n  html[data-theme='dark'] ::selection { background: #e04a2a; color: #14120f; }\n\n  /* ===== SAKURA THEME ===== */\n  html[data-theme='sakura'] {\n    --bg-primary: #f9f1ee;\n    --bg-secondary: #f3e4e0;\n    --bg-card: #fffdf8;\n    --accent-lime: #c2452e;\n    --accent-cyan: #191713;\n    --text-primary: #241f1a;\n    --text-secondary: #8a7a6d;\n    --border-color: #e8d8d2;\n  }\n\n  html[data-theme='sakura'] body {\n    background: #f9f1ee !important;\n    color: #3d1f2d;\n  }\n\n  html[data-theme='sakura'] .loading-screen {\n    background: radial-gradient(circle at 22% 12%, rgba(194, 69, 46, 0.14), transparent 30%),\n      radial-gradient(circle at 88% 18%, rgba(139, 131, 117, 0.12), transparent 28%),\n      linear-gradient(180deg, #f9f1ee 0%, #f9f1ee 100%);\n  }\n\n  html[data-theme='sakura'] .hero-block {\n    background: radial-gradient(circle at 85% 12%, rgba(139, 131, 117, 0.12), transparent 42%),\n      linear-gradient(160deg, #ffffff 0%, #f9f1ee 100%);\n    border-color: rgba(194, 69, 46, 0.2);\n  }\n\n  html[data-theme='sakura'] .btn-primary {\n    background: linear-gradient(135deg, #c2452e, #d97a63);\n    box-shadow: var(--shadow-inset);\n  }\n\n  html[data-theme='sakura'] .progress-fill { background: linear-gradient(90deg, #c2452e, #8b8375); }\n  html[data-theme='sakura'] .hero-hint { color: #a83a26; }\n  html[data-theme='sakura'] .wallet-empty .wallet-empty-body {\n    background: rgba(194, 69, 46, 0.07);\n    border-color: rgba(194, 69, 46, 0.35);\n  }\n  html[data-theme='sakura'] .wallet-empty-char { background: linear-gradient(135deg, #c2452e, #8b8375); box-shadow: var(--shadow-inset); }\n  html[data-theme='sakura'] .theme-chip.active { border-color: #c2452e; }\n  html[data-theme='sakura'] .language-toggle button.active { background: #c2452e; }\n  html[data-theme='sakura'] .guide-toggle { background: #f3e4e0; color: #a83a26; border-color: rgba(194, 69, 46, 0.2); }\n  html[data-theme='sakura'] .bottom-nav-item.active { color: #c2452e; }\n  html[data-theme='sakura'] .account-tab.active { color: #a83a26; }\n  html[data-theme='sakura'] .sync-pill { background: rgba(194, 69, 46, 0.12); color: #a83a26; }\n  html[data-theme='sakura'] ::selection { background: #c2452e; color: #fff; }\n\n  html[data-theme='dark'] .btn-primary {\n    background: linear-gradient(135deg, #e04a2a, #c23c22);\n    color: #14120f;\n    box-shadow: var(--shadow-inset);\n  }\n\n  /* ===== SLEEK HOME ===== */\n  .mini-program-grid-4 {\n    grid-template-columns: repeat(4, minmax(0, 1fr));\n  }\n\n  .settings-row {\n    display: flex;\n    align-items: center;\n    gap: 10px;\n  }\n\n  .settings-row .sound-toggle {\n    width: auto;\n    min-width: 44px;\n    padding: 0 12px;\n    gap: 6px;\n    display: inline-flex;\n    align-items: center;\n    font-size: 12px;\n    font-weight: 800;\n  }\n\n  /* ============================================================\n     MINIMAL OVERRIDE — unified sleek system (flat, 1px borders,\n     single radius scale, accent only on actions/active states)\n     ============================================================ */\n  :root {\n    --radius-card: 16px;\n    --radius-control: 12px;\n    --line: 1px solid var(--border-color);\n    --card-shadow: 0 1px 2px rgba(20, 49, 35, 0.04);\n  }\n\n  html[data-theme='dark'] {\n    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);\n  }\n\n  .card, .wallet-card, .daily-entry-card, .mini-program-panel,\n  .insight-panel, .cute-coach-card, .daily-training-card, .daily-step-card,\n  .lesson-card, .quiz-card, .account-card, .theme-chip, .hero-block,\n  .offline-pack-card, .material-card, .story-card {\n    border-radius: var(--radius-card) !important;\n    border: var(--line) !important;\n    box-shadow: var(--card-shadow) !important;\n    background: var(--bg-card) !important;\n  }\n\n  /* flat primary button, no gradient */\n  .btn-primary {\n    background: var(--accent-lime) !important;\n    box-shadow: none !important;\n    border-radius: var(--radius-control) !important;\n  }\n\n  .btn-secondary, .back-btn {\n    border-radius: var(--radius-control) !important;\n    box-shadow: none !important;\n  }\n\n  .progress-fill {\n    background: var(--accent-lime) !important;\n  }\n\n  /* monochrome tile icons */\n  .mini-program-tile .mini-program-icon,\n  .mini-program-tile:nth-child(n) .mini-program-icon,\n  .quick-action-icon {\n    background: var(--bg-secondary) !important;\n    color: var(--text-primary) !important;\n    border: var(--line);\n    box-shadow: none !important;\n  }\n\n  /* clean bottom nav: hairline instead of shadow */\n  .app-bottom-nav {\n    border-top: var(--line) !important;\n    box-shadow: none !important;\n    border-radius: 0 !important;\n    background: var(--bg-card) !important;\n  }\n\n  /* clean topbar */\n  .super-topbar {\n    border-radius: 0 !important;\n    box-shadow: none !important;\n    border: none !important;\n    border-bottom: var(--line) !important;\n    background: var(--bg-card) !important;\n  }\n\n  .daily-chip {\n    border-radius: 999px !important;\n    border: var(--line) !important;\n    box-shadow: none !important;\n    background: var(--bg-secondary) !important;\n  }\n\n  /* hero: flat white card */\n  .hero-block {\n    background: var(--bg-card) !important;\n  }\n\n  .hero-panda {\n    animation: none !important;\n  }\n\n  .wallet-empty-char, .brand-mark, .wallet-brand-mark {\n    background: var(--accent-lime) !important;\n    box-shadow: none !important;\n  }\n\n  .section-line {\n    background: var(--border-color) !important;\n    box-shadow: none !important;\n  }\n\n  .char-item {\n    border-radius: var(--radius-control) !important;\n    box-shadow: none !important;\n  }\n\n  /* kill decorative floating background characters */\n  .character-drift, .insight-character {\n    animation: none !important;\n  }\n\n  .btn-coral {\n    background: var(--bg-card) !important;\n    color: var(--accent-coral) !important;\n    border: 1px solid var(--accent-coral) !important;\n    box-shadow: none !important;\n  }\n\n  .theme-chip.active {\n    border-color: var(--accent-lime) !important;\n    box-shadow: none !important;\n  }\n\n  .account-tab.active {\n    box-shadow: none !important;\n  }\n\n  .sync-pill {\n    border: var(--line) !important;\n  }\n\n  .recovery-code {\n    border: var(--line) !important;\n    box-shadow: none !important;\n  }\n\n  .recovery-box {\n    border-style: solid !important;\n  }\n\n  /* ============================================================\n     INK & PAPER — complete redesign layer\n     Warm paper background, ink text, vermilion seal accent.\n     Sharp 4px corners, hairline rules, no shadows.\n     ============================================================ */\n  :root {\n    --radius-card: 4px;\n    --radius-control: 4px;\n    --card-shadow: none;\n  }\n\n  body {\n    background: #f8f5ef !important;\n  }\n\n  .card, .wallet-card, .daily-entry-card, .mini-program-panel,\n  .insight-panel, .cute-coach-card, .daily-training-card, .daily-step-card,\n  .lesson-card, .quiz-card, .account-card, .theme-chip, .hero-block,\n  .offline-pack-card, .material-card, .story-card, .tutorial-step-card {\n    border-radius: var(--radius-card) !important;\n    border: 1px solid var(--border-color) !important;\n    box-shadow: none !important;\n    background: var(--bg-card) !important;\n  }\n\n  .btn-primary, .btn-secondary, .back-btn, .btn-coral {\n    border-radius: var(--radius-control) !important;\n    box-shadow: none !important;\n  }\n\n  .btn-primary {\n    background: var(--accent-lime) !important;\n    color: #fffdf8 !important;\n  }\n\n  .app-bottom-nav, .super-topbar {\n    border-radius: 0 !important;\n    box-shadow: none !important;\n  }\n\n  .mini-program-tile .mini-program-icon,\n  .mini-program-tile:nth-child(n) .mini-program-icon,\n  .quick-action-icon {\n    border-radius: var(--radius-control) !important;\n    box-shadow: none !important;\n  }\n\n  .hanzi-logo-svg rect {\n    fill: #c8371f !important;\n  }\n\n  /* hero: big ink character with vermilion seal */\n  .hero-char-wrap {\n    position: relative;\n    display: inline-block;\n    margin-bottom: 4px;\n  }\n\n  .hero-char {\n    display: block;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Songti SC', 'SimSun', serif;\n    font-size: 88px;\n    font-weight: 900;\n    line-height: 1;\n    color: var(--text-primary);\n  }\n\n  .hero-seal {\n    position: absolute;\n    right: -18px;\n    bottom: 2px;\n    width: 30px;\n    height: 30px;\n    display: grid;\n    place-items: center;\n    background: #c8371f;\n    color: #fffdf8;\n    border-radius: 4px;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', serif;\n    font-size: 17px;\n    font-weight: 900;\n  }\n\n  .hero-panda { display: none !important; }\n\n  .hero-block {\n    padding-top: 26px !important;\n  }\n\n  html[data-theme='dark'] body {\n    background: #14120f !important;\n  }\n\n  html[data-theme='dark'] .hero-seal { background: #e04a2a; }\n  html[data-theme='dark'] .hanzi-logo-svg rect { fill: #e04a2a !important; }\n\n  html[data-theme='sakura'] body {\n    background: #f9f1ee !important;\n  }\n\n  html[data-theme='sakura'] .hero-seal { background: #c2452e; }\n\n  /* ============================================================\n     INK LAYOUT — complete layout redesign (editorial lists,\n     hairline rules, big numerals/characters, left aligned)\n     ============================================================ */\n\n  /* screen header: hairline + big title */\n  .header {\n    border-bottom: 1px solid var(--border-color) !important;\n    box-shadow: none !important;\n    padding-bottom: 12px !important;\n    margin-bottom: 16px !important;\n  }\n\n  .header .text-sm {\n    font-size: 12px !important;\n    font-weight: 800 !important;\n  }\n\n  /* mini-program tiles -> editorial list rows */\n  .mini-program-panel {\n    padding: 4px 16px !important;\n  }\n\n  .mini-program-head {\n    padding: 12px 0 8px !important;\n    font-weight: 900 !important;\n    font-size: 14px !important;\n    color: var(--text-primary) !important;\n    border-bottom: 1px solid var(--border-color) !important;\n  }\n\n  .mini-program-grid, .mini-program-grid-4 {\n    display: flex !important;\n    flex-direction: column !important;\n    gap: 0 !important;\n  }\n\n  .mini-program-tile {\n    flex-direction: row !important;\n    align-items: center !important;\n    gap: 14px !important;\n    padding: 14px 0 !important;\n    border-bottom: 1px solid var(--border-color) !important;\n    border-radius: 0 !important;\n  }\n\n  .mini-program-tile:last-child {\n    border-bottom: none !important;\n  }\n\n  .mini-program-tile .mini-program-icon {\n    width: 36px !important;\n    height: 36px !important;\n    flex-shrink: 0 !important;\n  }\n\n  .mini-program-tile .mini-program-icon svg {\n    width: 18px !important;\n    height: 18px !important;\n  }\n\n  .mini-program-name {\n    flex: 1 !important;\n    text-align: left !important;\n    font-size: 15px !important;\n    font-weight: 700 !important;\n    color: var(--text-primary) !important;\n    white-space: normal !important;\n  }\n\n  .mini-program-tile::after {\n    content: '→';\n    color: var(--text-secondary) !important;\n    font-size: 16px !important;\n  }\n\n  /* daily queue: big characters in a row, no boxes */\n  .daily-queue-grid {\n    display: flex !important;\n    flex-wrap: wrap !important;\n    gap: 4px 14px !important;\n    padding: 8px 0 !important;\n  }\n\n  .daily-queue-char {\n    background: transparent !important;\n    border: none !important;\n    box-shadow: none !important;\n    border-radius: 0 !important;\n    padding: 4px 0 !important;\n    display: flex !important;\n    flex-direction: column !important;\n    align-items: center !important;\n    gap: 2px !important;\n  }\n\n  .daily-queue-char .hanzi-display {\n    font-size: 34px !important;\n    font-weight: 900 !important;\n    color: var(--text-primary) !important;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Songti SC', serif !important;\n  }\n\n  /* daily steps -> numbered list */\n  .daily-step-grid {\n    display: flex !important;\n    flex-direction: column !important;\n    gap: 0 !important;\n  }\n\n  .daily-step-card {\n    flex-direction: row !important;\n    align-items: center !important;\n    gap: 14px !important;\n    padding: 14px 0 !important;\n    border: none !important;\n    border-bottom: 1px solid var(--border-color) !important;\n    border-radius: 0 !important;\n    background: transparent !important;\n    box-shadow: none !important;\n    text-align: left !important;\n  }\n\n  .daily-step-card:last-child {\n    border-bottom: none !important;\n  }\n\n  .daily-step-index {\n    font-size: 13px !important;\n    font-weight: 900 !important;\n    color: var(--accent-lime) !important;\n    font-family: ui-monospace, Menlo, Consolas, monospace !important;\n  }\n\n  .daily-step-icon {\n    display: none !important;\n  }\n\n  /* home daily strip: bigger characters */\n  .daily-entry-strip {\n    gap: 10px !important;\n  }\n\n  .daily-entry-char {\n    font-size: 26px !important;\n    background: transparent !important;\n    border: none !important;\n    box-shadow: none !important;\n    color: var(--text-primary) !important;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Songti SC', serif !important;\n  }\n\n  /* quiz options -> hairline rows */\n  .quiz-options.service-list {\n    gap: 0 !important;\n  }\n\n  .quiz-option {\n    border-radius: 0 !important;\n    border: none !important;\n    border-bottom: 1px solid var(--border-color) !important;\n    box-shadow: none !important;\n    padding: 16px 4px !important;\n    font-size: 17px !important;\n    background: transparent !important;\n    color: var(--text-primary) !important;\n  }\n\n  .quiz-option:last-child {\n    border-bottom: none !important;\n  }\n\n  /* char grid: hairline cells */\n  .char-grid {\n    gap: 6px !important;\n  }\n\n  .char-item {\n    border: 1px solid var(--border-color) !important;\n    border-radius: var(--radius-control) !important;\n    box-shadow: none !important;\n    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Songti SC', serif !important;\n  }\n\n  /* hero: left aligned editorial */\n  .hero-block {\n    text-align: left !important;\n    padding: 24px 20px 20px !important;\n  }\n\n  .hero-char-wrap {\n    margin-bottom: 10px !important;\n  }\n\n  .hero-subtitle {\n    margin-left: 0 !important;\n    margin-right: 0 !important;\n    max-width: none !important;\n  }\n\n  .hero-title {\n    font-size: 26px !important;\n  }\n\n  /* wallet: big number */\n  .wallet-score {\n    font-size: 44px !important;\n    font-weight: 900 !important;\n  }\n\n  .progress-bar {\n    height: 3px !important;\n    border-radius: 0 !important;\n    background: var(--border-color) !important;\n  }\n\n  .progress-fill {\n    border-radius: 0 !important;\n  }\n\n  /* stats bar: hairline top/bottom, big numbers */\n  .stats-bar {\n    border-top: 1px solid var(--border-color) !important;\n    border-bottom: 1px solid var(--border-color) !important;\n    border-radius: 0 !important;\n    box-shadow: none !important;\n    background: transparent !important;\n    padding: 14px 0 !important;\n  }\n\n  .stat-value {\n    font-size: 26px !important;\n    font-weight: 900 !important;\n  }\n\n  /* section titles: small ink label with rule */\n  .section-title .text-sm {\n    font-size: 12px !important;\n    font-weight: 800 !important;\n    color: var(--text-secondary) !important;\n    letter-spacing: 0.4px !important;\n  }\n\n  /* buttons full width at bottom actions */\n  .nav-actions {\n    gap: 10px !important;\n  }\n\n  .nav-actions .btn {\n    flex: 1 !important;\n  }\n";
+const styles = "/* ============================================================\n   HANZI MASTER — Ink & Paper design system (v2, clean rewrite)\n   Warm paper, ink text, vermilion seal accent. Hairlines, no shadows.\n   ============================================================ */\n\n:root {\n  --bg: #f8f5ef;\n  --bg-soft: #f0ead9;\n  --card: #fffdf8;\n  --ink: #191713;\n  --ink-soft: #7a7264;\n  --line: #e4ddcf;\n  --accent: #c8371f;\n  --accent-ink: #191713;\n  --danger: #c8371f;\n  --radius: 4px;\n  --font: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n  --font-serif: 'Songti SC', 'SimSun', 'Microsoft YaHei', serif;\n  --font-mono: ui-monospace, Menlo, Consolas, monospace;\n  --ease: 0.18s ease;\n}\n\nhtml[data-theme='dark'] {\n  --bg: #14120f;\n  --bg-soft: #1d1a15;\n  --card: #1d1a15;\n  --ink: #efe9dd;\n  --ink-soft: #a39a87;\n  --line: #2e2a22;\n  --accent: #e04a2a;\n  --accent-ink: #efe9dd;\n  color-scheme: dark;\n}\n\nhtml[data-theme='sakura'] {\n  --bg: #f9f1ee;\n  --bg-soft: #f3e4e0;\n  --card: #fffaf8;\n  --ink: #241f1a;\n  --ink-soft: #8a7a6d;\n  --line: #e8d8d2;\n  --accent: #c2452e;\n  --accent-ink: #191713;\n}\n\n* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }\n\nhtml, body {\n  width: 100%;\n  min-height: 100%;\n  overflow-x: clip;\n}\n\nbody {\n  background: var(--bg);\n  color: var(--ink);\n  font-family: var(--font);\n  font-size: 16px;\n  line-height: 1.5;\n  -webkit-font-smoothing: antialiased;\n  overscroll-behavior-y: contain;\n}\n\n#root { min-height: 100%; }\n\nbutton { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }\nbutton:disabled { opacity: 0.4; cursor: not-allowed; }\n:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }\n::selection { background: var(--accent); color: var(--card); }\n\n/* ---------- layout ---------- */\n.screen {\n  width: min(100vw - 24px, 460px);\n  max-width: 460px;\n  min-height: 100vh;\n  min-height: 100dvh;\n  margin: 0 auto;\n  padding: 16px 12px calc(96px + env(safe-area-inset-bottom, 0px));\n  animation: viewEnter 0.3s ease-out;\n}\n\n@keyframes viewEnter {\n  from { opacity: 0; transform: translateY(10px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n.header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 10px;\n  padding-bottom: 12px;\n  margin-bottom: 14px;\n  border-bottom: 1px solid var(--line);\n}\n\n.back-btn {\n  min-height: 44px;\n  padding: 8px 14px;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  background: var(--card);\n  font-weight: 800;\n  font-size: 14px;\n  transition: transform var(--ease);\n}\n\n/* ---------- topbar ---------- */\n.super-topbar {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 10px;\n  padding: 10px 0 12px;\n  border-bottom: 1px solid var(--line);\n}\n\n.brand-lockup { display: flex; align-items: center; gap: 10px; min-width: 0; }\n.brand-mark svg { width: 40px; height: 40px; display: block; }\n.brand-title { font-size: 18px; font-weight: 900; line-height: 1.1; }\n.brand-subtitle { font-size: 12px; color: var(--ink-soft); font-weight: 700; }\n\n.topbar-actions { display: flex; align-items: center; gap: 8px; }\n\n.guide-toggle, .sound-toggle {\n  width: 40px; height: 40px;\n  display: grid; place-items: center;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  background: var(--card);\n  color: var(--ink);\n  transition: transform var(--ease);\n}\n.guide-toggle svg, .sound-toggle svg { width: 20px; height: 20px; }\n.guide-toggle:active, .sound-toggle:active, .back-btn:active { transform: scale(0.96); }\n\n.language-toggle {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 2px;\n  min-height: 40px;\n  padding: 2px;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  background: var(--card);\n}\n.language-toggle button {\n  min-width: 40px; min-height: 36px;\n  padding: 0 8px;\n  border-radius: 3px;\n  font-size: 12px; font-weight: 900;\n  color: var(--ink-soft);\n}\n.language-toggle button.active { background: var(--accent); color: var(--card); }\n\n.daily-chip {\n  display: flex; align-items: center; gap: 4px;\n  min-height: 40px;\n  padding: 0 10px;\n  border: 1px solid var(--line);\n  border-radius: 999px;\n  background: var(--bg-soft);\n  font-size: 13px; font-weight: 900;\n  animation: streakPulse 2.2s ease-in-out infinite;\n}\n@keyframes streakPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } }\n\n/* ---------- bottom nav ---------- */\n.app-bottom-nav {\n  position: fixed;\n  left: 0; right: 0; bottom: 0;\n  z-index: 50;\n  display: flex;\n  background: var(--card);\n  border-top: 1px solid var(--line);\n  padding-bottom: env(safe-area-inset-bottom, 0px);\n}\n.bottom-nav-item {\n  flex: 1;\n  display: flex; flex-direction: column; align-items: center; gap: 2px;\n  min-height: 56px;\n  padding: 8px 0;\n  color: var(--ink-soft);\n  font-size: 11px; font-weight: 800;\n  transition: color var(--ease), transform var(--ease);\n}\n.bottom-nav-item:active { transform: scale(0.94); }\n.bottom-nav-item.active { color: var(--accent); }\n.bottom-nav-icon svg { width: 22px; height: 22px; }\n\n/* ---------- buttons ---------- */\n.btn {\n  display: inline-flex; align-items: center; justify-content: center; gap: 8px;\n  min-height: 48px;\n  padding: 12px 18px;\n  border-radius: var(--radius);\n  border: 1px solid var(--line);\n  background: var(--card);\n  color: var(--ink);\n  font-size: 15px; font-weight: 900;\n  transition: transform var(--ease);\n}\n.btn:active { transform: scale(0.97); }\n.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--card); }\n.btn-secondary { background: var(--card); }\n.btn-coral { background: var(--card); border-color: var(--accent); color: var(--accent); }\n\n.nav-actions { display: flex; gap: 10px; margin-top: 18px; }\n.nav-actions .btn { flex: 1; }\n\n/* ---------- type helpers ---------- */\n.text-sm { font-size: 12px; color: var(--ink-soft); line-height: 1.45; }\n.title-md { font-size: 16px; font-weight: 900; }\n.title-lg { font-size: 20px; font-weight: 900; }\n.text-accent { color: var(--accent); }\n\n.section-title { display: flex; align-items: center; gap: 10px; margin: 26px 0 10px; }\n.section-title .text-sm { font-weight: 800; letter-spacing: 0.4px; }\n.section-line { flex: 1; height: 1px; background: var(--line); }\n\n/* ---------- hero ---------- */\n.hero-block {\n  margin-top: 14px;\n  padding: 22px 18px;\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n}\n.hero-char-wrap { position: relative; display: inline-block; margin-bottom: 12px; }\n.hero-char {\n  display: block;\n  font-family: var(--font-serif);\n  font-size: 84px; font-weight: 900; line-height: 1;\n  color: var(--ink);\n}\n.hero-seal {\n  position: absolute; right: -16px; bottom: 2px;\n  width: 28px; height: 28px;\n  display: grid; place-items: center;\n  background: var(--accent); color: var(--card);\n  border-radius: 3px;\n  font-family: var(--font-serif);\n  font-size: 16px; font-weight: 900;\n}\n.hero-title { font-size: 25px; font-weight: 900; line-height: 1.25; }\n.hero-subtitle { margin-top: 8px; font-size: 14px; line-height: 1.55; color: var(--ink-soft); }\n.hero-cta { width: 100%; margin-top: 16px; }\n.hero-hint { margin-top: 10px; font-size: 12px; font-weight: 800; color: var(--accent); }\n\n/* ---------- cards & lists ---------- */\n.card {\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  padding: 16px;\n  margin-top: 12px;\n}\n\n.list-panel {\n  margin-top: 12px;\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  padding: 2px 16px;\n}\n.list-head {\n  padding: 12px 0 8px;\n  font-size: 14px; font-weight: 900;\n  border-bottom: 1px solid var(--line);\n}\n.list-row {\n  display: flex; align-items: center; gap: 14px;\n  width: 100%;\n  padding: 14px 0;\n  border-bottom: 1px solid var(--line);\n  text-align: left;\n  transition: transform var(--ease);\n}\n.list-row:active { transform: scale(0.98); }\n.list-row:last-child { border-bottom: none; }\n.list-icon {\n  width: 36px; height: 36px; flex-shrink: 0;\n  display: grid; place-items: center;\n  background: var(--bg-soft);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  color: var(--ink);\n}\n.list-icon svg { width: 18px; height: 18px; }\n.list-label { flex: 1; font-size: 15px; font-weight: 700; }\n.list-arrow { color: var(--ink-soft); font-size: 16px; }\n.list-meta { font-size: 12px; color: var(--ink-soft); font-weight: 700; }\n\n/* ---------- wallet / progress ---------- */\n.wallet-card { margin-top: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }\n.wallet-label { font-size: 12px; font-weight: 800; color: var(--ink-soft); letter-spacing: 0.4px; }\n.wallet-score { font-size: 44px; font-weight: 900; line-height: 1.1; margin-top: 6px; }\n.progress-bar { height: 3px; background: var(--line); margin-top: 10px; }\n.progress-fill { height: 100%; background: var(--accent); transition: width 0.4s linear; }\n.wallet-meta { display: flex; gap: 12px; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--ink-soft); }\n.wallet-empty-body { display: flex; align-items: center; gap: 14px; margin-top: 10px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }\n.wallet-empty-char {\n  width: 52px; height: 52px; flex-shrink: 0;\n  display: grid; place-items: center;\n  background: var(--accent); color: var(--card);\n  border-radius: var(--radius);\n  font-family: var(--font-serif); font-size: 28px; font-weight: 900;\n}\n\n/* ---------- daily ---------- */\n.daily-queue-grid { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 10px 0; }\n.daily-queue-char { display: flex; flex-direction: column; align-items: center; gap: 2px; }\n.daily-queue-char .hanzi-display { font-family: var(--font-serif); font-size: 34px; font-weight: 900; }\n.daily-queue-char small { font-size: 11px; font-weight: 800; color: var(--ink-soft); }\n.daily-reason-row { display: flex; gap: 12px; margin-top: 8px; font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.daily-entry-strip { display: flex; flex-wrap: wrap; gap: 10px; }\n.daily-entry-char { font-family: var(--font-serif); font-size: 26px; font-weight: 900; }\n\n/* ---------- learn / flashcard ---------- */\n.flashcard {\n  margin-top: 14px;\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  padding: 36px 20px 28px;\n  text-align: center;\n  cursor: pointer;\n  transition: transform var(--ease);\n}\n.flashcard:active { transform: scale(0.985); }\n.hanzi-hero { font-family: var(--font-serif); font-size: clamp(96px, 30vw, 132px); font-weight: 900; line-height: 1; color: var(--accent); }\n.hanzi-word { font-size: clamp(56px, 18vw, 84px); }\n.hanzi-md { font-family: var(--font-serif); font-size: 24px; font-weight: 900; }\n.pinyin-display { font-size: 20px; font-weight: 900; margin-top: 14px; }\n.meaning-display { font-size: 15px; color: var(--ink-soft); font-weight: 700; margin-top: 4px; }\n.material-example { margin-top: 12px; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }\n.flashcard-hint { margin-top: 16px; font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n\n/* ---------- draw ---------- */\n.draw-canvas-wrap { margin-top: 14px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; }\n.hanzi-writer-container { width: 100%; max-width: 300px; margin: 0 auto; }\n.draw-stats { display: flex; gap: 16px; margin-top: 12px; font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.draw-feedback { min-height: 24px; margin-top: 10px; text-align: center; font-weight: 900; font-size: 14px; }\n.draw-feedback.success { color: var(--accent); }\n.draw-feedback.error { color: var(--danger); }\n\n/* ---------- quiz ---------- */\n.quiz-question { margin-top: 14px; font-family: var(--font-serif); font-size: 40px; font-weight: 900; text-align: center; padding: 18px 0; }\n.quiz-options { display: flex; flex-direction: column; margin-top: 6px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 2px 16px; }\n.quiz-option {\n  padding: 16px 4px;\n  border-bottom: 1px solid var(--line);\n  font-size: 17px; font-weight: 700;\n  text-align: left;\n  transition: transform var(--ease);\n}\n.quiz-option:active { transform: scale(0.98); }\n.quiz-option:last-child { border-bottom: none; }\n.quiz-option.correct { color: var(--accent); }\n.quiz-option.incorrect { color: var(--danger); opacity: 0.7; }\n.quiz-option.disabled { opacity: 0.5; }\n.score-value { font-size: 56px; font-weight: 900; }\n.score-label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n\n/* ---------- stats ---------- */\n.stats-bar { display: flex; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; margin-top: 12px; }\n.stat-item { flex: 1; text-align: center; }\n.stat-value { font-size: 26px; font-weight: 900; }\n.stat-label { font-size: 11px; font-weight: 800; color: var(--ink-soft); margin-top: 2px; }\n.char-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-top: 10px; }\n.char-item {\n  aspect-ratio: 1;\n  display: grid; place-items: center;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  font-family: var(--font-serif);\n  font-size: 16px; font-weight: 900;\n  color: var(--ink-soft);\n}\n.char-item.mastered { background: var(--accent); border-color: var(--accent); color: var(--card); }\n.char-item.learning { border-color: var(--accent); color: var(--accent); }\n.backup-buttons { display: flex; gap: 10px; }\n.backup-buttons .btn { flex: 1; }\n.offline-pack-card { display: flex; align-items: center; gap: 12px; }\n.offline-pack-icon { width: 40px; height: 40px; display: grid; place-items: center; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius); }\n.offline-pack-copy { flex: 1; }\n\n/* ---------- settings / theme ---------- */\n.settings-row { display: flex; gap: 10px; align-items: center; }\n.theme-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }\n.theme-chip { display: flex; flex-direction: column; gap: 8px; padding: 10px 6px 12px; border: 2px solid transparent; border-radius: var(--radius); background: var(--bg-soft); transition: border-color var(--ease), transform var(--ease); }\n.theme-chip:active { transform: scale(0.97); }\n.theme-chip.active { border-color: var(--accent); background: var(--card); }\n.theme-swatch { width: 100%; height: 44px; border-radius: 3px; border: 1px solid var(--line); }\n.theme-chip-label { font-size: 12px; font-weight: 800; }\n\n/* ---------- account ---------- */\n.account-tabs { display: flex; gap: 4px; padding: 3px; margin-top: 10px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }\n.account-tab { flex: 1; min-height: 44px; border-radius: 3px; font-size: 13px; font-weight: 900; color: var(--ink-soft); }\n.account-tab.active { background: var(--card); color: var(--accent); }\n.account-input {\n  width: 100%; margin-top: 8px; min-height: 44px;\n  padding: 10px 12px;\n  border: 1px solid var(--line); border-radius: var(--radius);\n  background: var(--card); color: var(--ink);\n  font: inherit; font-size: 14px;\n}\n.recovery-box { margin-top: 12px; padding: 12px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--bg-soft); }\n.recovery-code { display: block; margin-top: 4px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--card); font-family: var(--font-mono); font-size: 13px; word-break: break-all; }\n.recovery-code.big { font-size: 16px; font-weight: 700; letter-spacing: 1px; }\n.account-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }\n.sync-pill { padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-soft); font-size: 11px; font-weight: 800; white-space: nowrap; }\n.sync-pill.error { color: var(--danger); border-color: var(--danger); }\n\n/* ---------- tutorial ---------- */\n.tutorial-backdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: rgba(20, 18, 15, 0.55); padding: 20px; }\n.tutorial-card { position: relative; width: min(360px, 100%); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }\n.tutorial-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--radius); font-size: 18px; font-weight: 900; }\n.tutorial-hero { display: flex; gap: 12px; align-items: center; }\n.tutorial-panda svg { width: 64px; height: 64px; }\n.tutorial-kicker { display: flex; gap: 8px; font-size: 11px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); }\n.tutorial-step-card { margin-top: 14px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }\n.tutorial-step-card h3 { font-size: 16px; font-weight: 900; }\n.tutorial-step-card p { margin-top: 4px; font-size: 13px; color: var(--ink-soft); }\n.tutorial-progress { height: 3px; background: var(--line); margin-top: 14px; }\n.tutorial-progress-fill { height: 100%; background: var(--accent); transition: width var(--ease); }\n.tutorial-dots { display: flex; gap: 6px; justify-content: center; margin-top: 12px; }\n.tutorial-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--line); }\n.tutorial-dots span.active { background: var(--accent); }\n.tutorial-open-step { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin-top: 14px; background: var(--accent); color: var(--card); border-radius: var(--radius); font-weight: 900; }\n.tutorial-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }\n.tutorial-quiet { min-height: 44px; padding: 0 12px; color: var(--ink-soft); font-weight: 800; font-size: 13px; }\n.tutorial-action-pair { display: flex; gap: 8px; }\n.tutorial-secondary, .tutorial-primary { min-height: 44px; padding: 0 16px; border-radius: var(--radius); font-weight: 900; font-size: 13px; }\n.tutorial-secondary { border: 1px solid var(--line); }\n.tutorial-primary { background: var(--ink); color: var(--card); }\n\n/* ---------- secret ---------- */\n.secret-kicker { font-size: 12px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); letter-spacing: 1px; }\n.secret-search { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 0 12px; min-height: 44px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }\n.secret-search input { flex: 1; border: 0; outline: 0; background: transparent; font: inherit; font-size: 14px; color: var(--ink); }\n.secret-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }\n.secret-table td, .secret-table th { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: left; }\n.secret-table th { font-size: 11px; font-weight: 900; color: var(--ink-soft); letter-spacing: 0.4px; }\n.secret-hanzi { font-family: var(--font-serif); font-size: 18px; font-weight: 900; }\n\n/* ---------- motion ---------- */\n@keyframes viewEnter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after {\n    animation-duration: 0.01ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 0.01ms !important;\n    scroll-behavior: auto !important;\n  }\n}\n\n@media (max-width: 380px) {\n  .hero-char { font-size: 72px; }\n  .char-grid { grid-template-columns: repeat(6, 1fr); }\n}\n\n/* ---------- secret cheat sheet (restyled to ink system) ---------- */\n.secret-topbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }\n.secret-topbar-actions { display: flex; align-items: center; gap: 8px; }\n.secret-print-button { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }\n.secret-print-button svg { width: 20px; height: 20px; }\n.secret-hero h1 { font-size: 26px; font-weight: 900; margin-top: 6px; }\n.secret-hero p { margin-top: 6px; font-size: 14px; color: var(--ink-soft); max-width: 60ch; }\n.secret-summary-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }\n.secret-summary-strip span { padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-soft); font-size: 12px; font-weight: 800; }\n.secret-section { margin-top: 26px; }\n.secret-section-heading { font-size: 12px; font-weight: 900; color: var(--ink-soft); letter-spacing: 0.6px; text-transform: none; }\n.secret-section > p, .secret-section-heading + p { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }\n.secret-reference-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }\n.secret-reference-block { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 12px; }\n.secret-reference-block strong { display: block; font-size: 14px; }\n.secret-reference-block span { font-size: 12px; color: var(--ink-soft); }\n.secret-rule-band, .secret-pattern-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-top: 12px; }\n.secret-tone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 12px; }\n.secret-pattern-label { font-size: 11px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); }\n.secret-vocab-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }\n.secret-level-filter { display: flex; flex-wrap: wrap; gap: 6px; }\n.secret-level-filter button { min-height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.secret-level-filter button.active { background: var(--accent); border-color: var(--accent); color: var(--card); }\n.secret-result-count { font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.secret-word-grid { display: flex; flex-direction: column; margin-top: 8px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 2px 16px; }\n.secret-word-row { display: flex; align-items: baseline; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }\n.secret-word-row:last-child { border-bottom: none; }\n.secret-word-main { display: flex; align-items: baseline; gap: 10px; min-width: 0; }\n.secret-word-main .secret-hanzi { flex-shrink: 0; }\n.secret-word-main span { font-size: 13px; color: var(--ink-soft); }\n.secret-source-tags { margin-left: auto; display: flex; gap: 6px; flex-shrink: 0; }\n.secret-source-tags span { font-size: 11px; font-weight: 800; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; }\n.secret-footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); font-weight: 700; }\n";
 const apiFetch = (path, options = {}) => fetch(path, {
   credentials: 'same-origin',
   headers: {
@@ -3416,16 +3416,14 @@ const isSecretRoute = () => {
 const loadTutorialSeen = () => {
   try {
     return localStorage.getItem(TUTORIAL_STORAGE_KEY) === 'true';
-  } catch (e) {
+  } catch {
     return false;
   }
 };
 const saveTutorialSeen = () => {
   try {
     localStorage.setItem(TUTORIAL_STORAGE_KEY, 'true');
-  } catch (e) {
-    console.warn('Failed to save tutorial state:', e);
-  }
+  } catch {}
 };
 function HanziMasterApp() {
   const [currentView, setCurrentView] = React.useState(() => isSecretRoute() ? 'secret' : 'home');
@@ -3444,14 +3442,51 @@ function HanziMasterApp() {
     return isValidTheme(saved) ? saved : loadTheme();
   });
   React.useEffect(() => {
+    saveProgress(progress);
+  }, [progress]);
+  React.useEffect(() => {
     applyTheme(theme);
   }, [theme]);
-  const setTheme = React.useCallback(id => {
-    setThemeState(id);
-    setProgress(prev => ({
-      ...prev,
-      theme: isValidTheme(id) ? id : prev.theme
-    }));
+  React.useEffect(() => {
+    try {
+      localStorage.setItem(LANGUAGE_KEY, language);
+    } catch {}
+  }, [language]);
+  React.useEffect(() => {
+    saveSoundEnabled(soundEnabled);
+  }, [soundEnabled]);
+  React.useEffect(() => {
+    saveAmbienceEnabled(ambienceEnabled);
+    if (!ambienceEnabled) {
+      stopAmbienceLoop();
+      return;
+    }
+    startAmbienceLoop();
+    const unlock = () => startAmbienceLoop();
+    window.addEventListener('pointerdown', unlock, {
+      once: true
+    });
+    window.addEventListener('keydown', unlock, {
+      once: true
+    });
+    return () => {
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('keydown', unlock);
+    };
+  }, [ambienceEnabled]);
+  React.useEffect(() => () => stopAmbienceLoop(), []);
+  React.useEffect(() => {
+    const today = new Date().toDateString();
+    if (progress.lastStudyDate !== today) {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const wasYesterday = progress.lastStudyDate === yesterday.toDateString();
+      setProgress(prev => ({
+        ...prev,
+        lastStudyDate: today,
+        streakDays: wasYesterday ? prev.streakDays + 1 : 1
+      }));
+    }
   }, []);
   React.useEffect(() => {
     if (window.location.protocol === 'file:') return;
@@ -3467,7 +3502,7 @@ function HanziMasterApp() {
           setSyncState('synced');
           setLastSyncAt(remote.updatedAt || Date.now());
         }
-      } catch (e) {
+      } catch {
         setSyncState('error');
       }
     })();
@@ -3483,142 +3518,39 @@ function HanziMasterApp() {
         const res = await pushProgressToServer(progress);
         setLastSyncAt(res.updatedAt);
         setSyncState('synced');
-      } catch (e) {
+      } catch {
         setSyncState('error');
       }
     }, 1500);
     return () => window.clearTimeout(handle);
   }, [progress, session]);
-  const account = React.useMemo(() => ({
-    register: async () => {
-      const data = await registerAccount();
-      setSession({
-        userId: data.userId
-      });
-      return data;
-    },
-    login: async (userId, recoveryCode) => {
-      const data = await loginAccount(userId, recoveryCode);
-      setSession({
-        userId: data.userId
-      });
-      try {
-        const remote = await fetchServerProgress();
-        if (remote.progress) {
-          setProgress(prev => mergeProgress(prev, remote.progress));
-          setSyncState('synced');
-          setLastSyncAt(remote.updatedAt || Date.now());
-        }
-      } catch (e) {
-        setSyncState('error');
-      }
-      return data;
-    },
-    logout: async () => {
-      await logoutAccount();
-      setSession(null);
-      setSyncState('idle');
-      setLastSyncAt(null);
-    },
-    delete: async () => {
-      await deleteAccount();
-      setSession(null);
-      setSyncState('idle');
-      setLastSyncAt(null);
-    }
-  }), []);
-  React.useEffect(() => {
-    saveProgress(progress);
-  }, [progress]);
-  React.useLayoutEffect(() => {
-    const resetScroll = () => {
-      window.scrollTo({
-        top: 0,
-        left: 0
-      });
-      if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    };
-    resetScroll();
-    const frame = requestAnimationFrame(resetScroll);
-    const timeout = window.setTimeout(resetScroll, 80);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.clearTimeout(timeout);
-    };
-  }, [currentView]);
-  React.useEffect(() => {
-    try {
-      localStorage.setItem(LANGUAGE_KEY, language);
-    } catch (e) {
-      console.warn('Failed to save language:', e);
-    }
-  }, [language]);
-  React.useEffect(() => {
-    saveSoundEnabled(soundEnabled);
-  }, [soundEnabled]);
-  React.useEffect(() => {
-    saveAmbienceEnabled(ambienceEnabled);
-    if (!ambienceEnabled) {
-      stopAmbienceLoop();
-      return undefined;
-    }
-    startAmbienceLoop();
-    const unlockAmbience = () => startAmbienceLoop();
-    window.addEventListener('pointerdown', unlockAmbience, {
-      once: true
-    });
-    window.addEventListener('keydown', unlockAmbience, {
-      once: true
-    });
-    return () => {
-      window.removeEventListener('pointerdown', unlockAmbience);
-      window.removeEventListener('keydown', unlockAmbience);
-    };
-  }, [ambienceEnabled]);
-  React.useEffect(() => () => stopAmbienceLoop(), []);
-  React.useEffect(() => {
-    const today = new Date().toDateString();
-    if (progress.lastStudyDate !== today) {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      const wasYesterday = progress.lastStudyDate === yesterday.toDateString();
-      setProgress(prev => ({
-        ...prev,
-        lastStudyDate: today,
-        streakDays: wasYesterday ? prev.streakDays + 1 : prev.lastStudyDate ? 1 : 1
-      }));
-    }
-  }, []);
-  const updateProgress = React.useCallback(updates => {
-    setProgress(prev => ({
-      ...prev,
-      ...updates
-    }));
-  }, []);
+  const updateProgress = React.useCallback(updates => setProgress(prev => ({
+    ...prev,
+    ...updates
+  })), []);
   const markCharacterLearned = React.useCallback(hanzi => {
-    setProgress(prev => {
-      if (prev.learningChars.includes(hanzi)) return {
-        ...prev,
-        totalReviews: prev.totalReviews + 1
-      };
-      return {
-        ...prev,
-        learningChars: [...prev.learningChars, hanzi],
-        totalReviews: prev.totalReviews + 1
-      };
+    setProgress(prev => prev.learningChars.includes(hanzi) ? {
+      ...prev,
+      totalReviews: prev.totalReviews + 1
+    } : {
+      ...prev,
+      learningChars: [...prev.learningChars, hanzi],
+      totalReviews: prev.totalReviews + 1
     });
   }, []);
   const markCharacterMastered = React.useCallback(hanzi => {
-    setProgress(prev => {
-      if (prev.masteredChars.includes(hanzi)) return prev;
-      return {
-        ...prev,
-        masteredChars: [...prev.masteredChars, hanzi],
-        learningChars: prev.learningChars.filter(h => h !== hanzi)
-      };
+    setProgress(prev => prev.masteredChars.includes(hanzi) ? prev : {
+      ...prev,
+      masteredChars: [...prev.masteredChars, hanzi],
+      learningChars: prev.learningChars.filter(h => h !== hanzi)
     });
+  }, []);
+  const setTheme = React.useCallback(id => {
+    setThemeState(id);
+    setProgress(prev => ({
+      ...prev,
+      theme: isValidTheme(id) ? id : prev.theme
+    }));
   }, []);
   const t = React.useCallback((key, vars) => translateUi(language, key, vars), [language]);
   const playSound = React.useCallback(name => playSoundEffect(name, soundEnabled), [soundEnabled]);
@@ -3639,6 +3571,44 @@ function HanziMasterApp() {
     }
     setCurrentView(prev => view(prev));
   }, [currentView, soundEnabled]);
+  const account = React.useMemo(() => ({
+    register: async () => {
+      const d = await registerAccount();
+      setSession({
+        userId: d.userId
+      });
+      return d;
+    },
+    login: async (userId, code) => {
+      const d = await loginAccount(userId, code);
+      setSession({
+        userId: d.userId
+      });
+      try {
+        const remote = await fetchServerProgress();
+        if (remote.progress) {
+          setProgress(prev => mergeProgress(prev, remote.progress));
+          setSyncState('synced');
+          setLastSyncAt(remote.updatedAt || Date.now());
+        }
+      } catch {
+        setSyncState('error');
+      }
+      return d;
+    },
+    logout: async () => {
+      await logoutAccount();
+      setSession(null);
+      setSyncState('idle');
+      setLastSyncAt(null);
+    },
+    delete: async () => {
+      await deleteAccount();
+      setSession(null);
+      setSyncState('idle');
+      setLastSyncAt(null);
+    }
+  }), []);
   const viewProps = {
     progress,
     setCurrentView: setCurrentViewWithSound,
@@ -3699,6 +3669,232 @@ function HanziMasterApp() {
     t: t
   }));
 }
+function HanziLogoSvg() {
+  return React.createElement("svg", {
+    className: "hanzi-logo-svg",
+    width: "92",
+    height: "92",
+    viewBox: "0 0 92 92",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true"
+  }, React.createElement("rect", {
+    x: "8",
+    y: "8",
+    width: "76",
+    height: "76",
+    rx: "8",
+    fill: "currentColor"
+  }), React.createElement("path", {
+    d: "M28 34h36M24 46h44M28 58h36",
+    stroke: "#fffdf8",
+    strokeWidth: "7",
+    strokeLinecap: "round"
+  }));
+}
+function SealMarkSvg({
+  char = '学'
+}) {
+  return React.createElement("svg", {
+    width: "72",
+    height: "72",
+    viewBox: "0 0 72 72",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": "true"
+  }, React.createElement("rect", {
+    x: "6",
+    y: "6",
+    width: "60",
+    height: "60",
+    rx: "8",
+    fill: "#c8371f"
+  }), React.createElement("text", {
+    x: "36",
+    y: "47",
+    textAnchor: "middle",
+    fontFamily: "Songti SC, SimSun, Microsoft YaHei, serif",
+    fontSize: "34",
+    fontWeight: "900",
+    fill: "#fffdf8"
+  }, char));
+}
+function AppIcon({
+  name
+}) {
+  const p = {
+    width: 24,
+    height: 24,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    xmlns: 'http://www.w3.org/2000/svg',
+    stroke: 'currentColor',
+    strokeWidth: 1.8,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round'
+  };
+  switch (name) {
+    case 'home':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M4 11.5 12 4l8 7.5"
+      }), React.createElement("path", {
+        d: "M6 10v9h12v-9"
+      }), React.createElement("path", {
+        d: "M10 19v-5h4v5"
+      }));
+    case 'card':
+      return React.createElement("svg", p, React.createElement("rect", {
+        x: "4",
+        y: "5",
+        width: "16",
+        height: "14",
+        rx: "2"
+      }), React.createElement("path", {
+        d: "M4 10h16"
+      }), React.createElement("path", {
+        d: "M8 14.5h5"
+      }));
+    case 'brush':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M14 5l5 5-8.5 8.5-5 1 1-5L14 5Z"
+      }), React.createElement("path", {
+        d: "M12.5 6.5l5 5"
+      }), React.createElement("path", {
+        d: "M5 20c3-1 5-.5 7-2"
+      }));
+    case 'target':
+      return React.createElement("svg", p, React.createElement("circle", {
+        cx: "12",
+        cy: "12",
+        r: "8"
+      }), React.createElement("circle", {
+        cx: "12",
+        cy: "12",
+        r: "4"
+      }), React.createElement("circle", {
+        cx: "12",
+        cy: "12",
+        r: "1",
+        fill: "currentColor"
+      }));
+    case 'chart':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M4 4v16h16"
+      }), React.createElement("path", {
+        d: "M8 15l3-4 3 2 5-6"
+      }));
+    case 'scan':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"
+      }), React.createElement("path", {
+        d: "M7 12h10"
+      }));
+    case 'book':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M4 5a2 2 0 0 1 2-2h14v18H6a2 2 0 0 0-2 2V5Z"
+      }), React.createElement("path", {
+        d: "M4 19a2 2 0 0 1 2-2h14"
+      }), React.createElement("path", {
+        d: "M9 8h7"
+      }));
+    case 'sound':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M4 9v6h4l5 4V5L8 9H4Z"
+      }), React.createElement("path", {
+        d: "M16.5 9a4.5 4.5 0 0 1 0 6"
+      }), React.createElement("path", {
+        d: "M19 6.5a8 8 0 0 1 0 11"
+      }));
+    case 'mute':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M4 9v6h4l5 4V5L8 9H4Z"
+      }), React.createElement("path", {
+        d: "M16 9l5 6M21 9l-5 6"
+      }));
+    case 'tea':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M5 11h12v4a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-4Z"
+      }), React.createElement("path", {
+        d: "M17 12h1.5a2.5 2.5 0 0 1 0 5H17"
+      }), React.createElement("path", {
+        d: "M8 21h8"
+      }), React.createElement("path", {
+        d: "M9 8c-.8-1-.8-2 0-3M13 8c-.8-1-.8-2 0-3"
+      }));
+    case 'gift':
+      return React.createElement("svg", p, React.createElement("rect", {
+        x: "4",
+        y: "10",
+        width: "16",
+        height: "10",
+        rx: "1"
+      }), React.createElement("path", {
+        d: "M12 10v10M4 14h16"
+      }), React.createElement("path", {
+        d: "M12 10c-4 0-5-2-4.5-3.5C8 5 10 5 11 6c.8.8 1 2.5 1 4Zm0 0c4 0 5-2 4.5-3.5C16 5 14 5 13 6c-.8.8-1 2.5-1 4Z"
+      }));
+    case 'wallet':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M3 7a2 2 0 0 1 2-2h13a1 1 0 0 1 1 1v2"
+      }), React.createElement("rect", {
+        x: "3",
+        y: "7",
+        width: "18",
+        height: "12",
+        rx: "2"
+      }), React.createElement("path", {
+        d: "M16 13h2"
+      }));
+    case 'help':
+      return React.createElement("svg", p, React.createElement("circle", {
+        cx: "12",
+        cy: "12",
+        r: "9"
+      }), React.createElement("path", {
+        d: "M9.5 9.5a2.5 2.5 0 1 1 3.8 2.1c-.8.5-1.3 1-1.3 2"
+      }), React.createElement("path", {
+        d: "M12 17h.01"
+      }));
+    case 'download':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M12 4v11"
+      }), React.createElement("path", {
+        d: "M7 11l5 5 5-5"
+      }), React.createElement("path", {
+        d: "M5 20h14"
+      }));
+    case 'print':
+      return React.createElement("svg", p, React.createElement("path", {
+        d: "M7 8V4h10v4"
+      }), React.createElement("rect", {
+        x: "4",
+        y: "8",
+        width: "16",
+        height: "8",
+        rx: "2"
+      }), React.createElement("path", {
+        d: "M7 13h10v7H7z"
+      }));
+    case 'search':
+      return React.createElement("svg", p, React.createElement("circle", {
+        cx: "11",
+        cy: "11",
+        r: "6"
+      }), React.createElement("path", {
+        d: "M20 20l-4.5-4.5"
+      }));
+    default:
+      return React.createElement("svg", p, React.createElement("rect", {
+        x: "4",
+        y: "4",
+        width: "16",
+        height: "16",
+        rx: "3"
+      }), React.createElement("path", {
+        d: "M9 12h6M12 9v6"
+      }));
+  }
+}
 function BottomNav({
   currentView,
   setCurrentView,
@@ -3747,6 +3943,90 @@ function BottomNav({
   }, React.createElement(AppIcon, {
     name: item.icon
   })), React.createElement("span", null, item.label))));
+}
+function LanguageToggle({
+  language,
+  setLanguage,
+  playSound,
+  t
+}) {
+  return React.createElement("div", {
+    className: "language-toggle",
+    "aria-label": "UI language"
+  }, ['zh', 'en'].map(lang => React.createElement("button", {
+    key: lang,
+    className: language === lang ? 'active' : '',
+    "aria-pressed": language === lang,
+    onClick: () => {
+      playSound?.('tap');
+      setLanguage(lang);
+    }
+  }, t(lang === 'zh' ? 'lang.zh' : 'lang.en'))));
+}
+function SoundToggle({
+  soundEnabled,
+  setSoundEnabled,
+  t
+}) {
+  return React.createElement("button", {
+    className: `sound-toggle ${soundEnabled ? 'active' : ''}`,
+    onClick: () => {
+      playSoundEffect(soundEnabled ? 'tap' : 'correct', true);
+      setSoundEnabled(!soundEnabled);
+    },
+    "aria-label": soundEnabled ? t('sound.on') : t('sound.off'),
+    "aria-pressed": soundEnabled,
+    title: t('sound.label')
+  }, React.createElement(AppIcon, {
+    name: soundEnabled ? 'sound' : 'mute'
+  }));
+}
+function AmbienceToggle({
+  ambienceEnabled,
+  setAmbienceEnabled,
+  t
+}) {
+  return React.createElement("button", {
+    className: `sound-toggle ${ambienceEnabled ? 'active' : ''}`,
+    onClick: () => {
+      const next = !ambienceEnabled;
+      if (next) {
+        playSoundEffect('reveal', true);
+        startAmbienceLoop();
+      } else {
+        playSoundEffect('tap', true);
+        stopAmbienceLoop();
+      }
+      setAmbienceEnabled(next);
+    },
+    "aria-label": ambienceEnabled ? t('ambience.on') : t('ambience.off'),
+    "aria-pressed": ambienceEnabled,
+    title: t('ambience.label')
+  }, React.createElement(AppIcon, {
+    name: "tea"
+  }));
+}
+function ListRow({
+  icon,
+  label,
+  meta,
+  onClick
+}) {
+  return React.createElement("button", {
+    className: "list-row",
+    onClick: onClick
+  }, React.createElement("span", {
+    className: "list-icon"
+  }, React.createElement(AppIcon, {
+    name: icon
+  })), React.createElement("span", {
+    className: "list-label"
+  }, label), meta && React.createElement("span", {
+    className: "list-meta"
+  }, meta), React.createElement("span", {
+    className: "list-arrow",
+    "aria-hidden": "true"
+  }, "\u2192"));
 }
 const TUTORIAL_STEPS = [{
   icon: 'gift',
@@ -3797,17 +4077,6 @@ function TutorialOverlay({
   const isFirst = stepIndex === 0;
   const isLast = stepIndex === TUTORIAL_STEPS.length - 1;
   const progress = Math.round((stepIndex + 1) / TUTORIAL_STEPS.length * 100);
-  const goToStep = nextIndex => {
-    playSound?.('tap');
-    setStepIndex(Math.max(0, Math.min(TUTORIAL_STEPS.length - 1, nextIndex)));
-  };
-  const openStepView = () => {
-    playSound?.('select');
-    setSelectedLesson(null);
-    setSelectedQueue(null);
-    setCurrentView(step.view);
-    onClose();
-  };
   return React.createElement("div", {
     className: "tutorial-backdrop",
     role: "dialog",
@@ -3819,18 +4088,20 @@ function TutorialOverlay({
     className: "tutorial-close",
     onClick: onClose,
     "aria-label": t('tutorial.close')
-  }, "x"), React.createElement("div", {
+  }, "\xD7"), React.createElement("div", {
     className: "tutorial-hero"
-  }, React.createElement("div", {
-    className: "tutorial-panda"
-  }, React.createElement(PandaBuddySvg, null)), React.createElement("div", {
-    className: "tutorial-copy-block"
-  }, React.createElement("div", {
+  }, React.createElement(SealMarkSvg, {
+    char: "\u5B66"
+  }), React.createElement("div", null, React.createElement("div", {
     className: "tutorial-kicker"
   }, React.createElement("span", null, t('tutorial.badge')), React.createElement("span", null, t('tutorial.stepCount', {
     current: stepIndex + 1,
     total: TUTORIAL_STEPS.length
-  }))), React.createElement("h2", null, t('tutorial.title')), React.createElement("p", null, t('tutorial.intro')))), React.createElement("div", {
+  }))), React.createElement("h2", {
+    className: "title-lg"
+  }, t('tutorial.title')), React.createElement("p", {
+    className: "text-sm"
+  }, t('tutorial.intro')))), React.createElement("div", {
     className: "tutorial-progress"
   }, React.createElement("div", {
     className: "tutorial-progress-fill",
@@ -3839,19 +4110,21 @@ function TutorialOverlay({
     }
   })), React.createElement("div", {
     className: "tutorial-step-card"
-  }, React.createElement("span", {
-    className: "tutorial-step-icon"
-  }, React.createElement(AppIcon, {
-    name: step.icon
-  })), React.createElement("div", null, React.createElement("h3", null, t(step.titleKey)), React.createElement("p", null, t(step.bodyKey)))), React.createElement("div", {
+  }, React.createElement("h3", null, t(step.titleKey)), React.createElement("p", null, t(step.bodyKey))), React.createElement("div", {
     className: "tutorial-dots",
     "aria-hidden": "true"
-  }, TUTORIAL_STEPS.map((item, index) => React.createElement("span", {
+  }, TUTORIAL_STEPS.map((item, i) => React.createElement("span", {
     key: item.titleKey,
-    className: index === stepIndex ? 'active' : ''
+    className: i === stepIndex ? 'active' : ''
   }))), React.createElement("button", {
     className: "tutorial-open-step",
-    onClick: openStepView
+    onClick: () => {
+      playSound?.('select');
+      setSelectedLesson(null);
+      setSelectedQueue(null);
+      setCurrentView(step.view);
+      onClose();
+    }
   }, React.createElement(AppIcon, {
     name: step.icon
   }), React.createElement("span", null, t(step.actionKey))), React.createElement("div", {
@@ -3863,751 +4136,18 @@ function TutorialOverlay({
     className: "tutorial-action-pair"
   }, React.createElement("button", {
     className: "tutorial-secondary",
-    onClick: () => goToStep(stepIndex - 1),
+    onClick: () => {
+      playSound?.('tap');
+      setStepIndex(Math.max(0, stepIndex - 1));
+    },
     disabled: isFirst
   }, t('tutorial.back')), React.createElement("button", {
     className: "tutorial-primary",
-    onClick: () => isLast ? onClose() : goToStep(stepIndex + 1)
+    onClick: () => {
+      playSound?.('tap');
+      isLast ? onClose() : setStepIndex(stepIndex + 1);
+    }
   }, isLast ? t('tutorial.done') : t('tutorial.next'))))));
-}
-function LanguageToggle({
-  language,
-  setLanguage,
-  playSound,
-  t
-}) {
-  return React.createElement("div", {
-    className: "language-toggle",
-    "aria-label": "UI language"
-  }, React.createElement("button", {
-    className: language === 'zh' ? 'active' : '',
-    onClick: () => {
-      playSound?.('tap');
-      setLanguage('zh');
-    },
-    "aria-pressed": language === 'zh'
-  }, t('lang.zh')), React.createElement("button", {
-    className: language === 'en' ? 'active' : '',
-    onClick: () => {
-      playSound?.('tap');
-      setLanguage('en');
-    },
-    "aria-pressed": language === 'en'
-  }, t('lang.en')));
-}
-function SoundToggle({
-  soundEnabled,
-  setSoundEnabled,
-  t
-}) {
-  const label = soundEnabled ? t('sound.on') : t('sound.off');
-  return React.createElement("button", {
-    className: `sound-toggle ${soundEnabled ? 'active' : ''}`,
-    onClick: () => {
-      playSoundEffect(soundEnabled ? 'tap' : 'correct', true);
-      setSoundEnabled(!soundEnabled);
-    },
-    "aria-label": label,
-    "aria-pressed": soundEnabled,
-    title: t('sound.label')
-  }, React.createElement(AppIcon, {
-    name: soundEnabled ? 'sound' : 'mute'
-  }));
-}
-function AmbienceToggle({
-  ambienceEnabled,
-  setAmbienceEnabled,
-  t
-}) {
-  const label = ambienceEnabled ? t('ambience.on') : t('ambience.off');
-  return React.createElement("button", {
-    className: `sound-toggle ambience-toggle ${ambienceEnabled ? 'active' : ''}`,
-    onClick: () => {
-      const next = !ambienceEnabled;
-      if (next) {
-        playSoundEffect('reveal', true);
-        startAmbienceLoop();
-      } else {
-        playSoundEffect('tap', true);
-        stopAmbienceLoop();
-      }
-      setAmbienceEnabled(next);
-    },
-    "aria-label": label,
-    "aria-pressed": ambienceEnabled,
-    title: t('ambience.label')
-  }, React.createElement(AppIcon, {
-    name: "tea"
-  }));
-}
-function AppIcon({
-  name
-}) {
-  const common = {
-    width: 24,
-    height: 24,
-    viewBox: '0 0 24 24',
-    fill: 'none',
-    xmlns: 'http://www.w3.org/2000/svg'
-  };
-  const stroke = {
-    stroke: 'currentColor',
-    strokeWidth: 2,
-    strokeLinecap: 'round',
-    strokeLinejoin: 'round'
-  };
-  if (name === 'home') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1v-9.5Z"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M9 21h6"
-  })));
-  if (name === 'card') return React.createElement("svg", common, React.createElement("rect", {
-    x: "5",
-    y: "4",
-    width: "13",
-    height: "16",
-    rx: "3",
-    fill: "currentColor",
-    opacity: "0.14"
-  }), React.createElement("path", _extends({}, stroke, {
-    d: "M8 8h8M8 12h5M8 16h7"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M17 4l2 2"
-  })));
-  if (name === 'brush') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M15.5 4.5 20 9l-8.5 8.5-4.5 1 1-4.5 7.5-9.5Z"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M13 7l4 4"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M5 20c2-1 3.5-.5 5-2"
-  })));
-  if (name === 'target') return React.createElement("svg", common, React.createElement("circle", _extends({}, stroke, {
-    cx: "12",
-    cy: "12",
-    r: "7"
-  })), React.createElement("circle", _extends({}, stroke, {
-    cx: "12",
-    cy: "12",
-    r: "3"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M12 2v3M22 12h-3M12 22v-3M2 12h3"
-  })));
-  if (name === 'chart') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M5 19V9M12 19V5M19 19v-7"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M4 19h16"
-  })));
-  if (name === 'scan') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M5 9V6a1 1 0 0 1 1-1h3M15 5h3a1 1 0 0 1 1 1v3M19 15v3a1 1 0 0 1-1 1h-3M9 19H6a1 1 0 0 1-1-1v-3"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M8 12h8"
-  })));
-  if (name === 'book') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M5 5.5A2.5 2.5 0 0 1 7.5 3H19v16H7.5A2.5 2.5 0 0 0 5 21V5.5Z"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M5 5.5A2.5 2.5 0 0 0 7.5 8H19"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M9 12h6"
-  })));
-  if (name === 'sound') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M4 10v4h4l5 4V6l-5 4H4Z"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M16 9.5c1.1 1.3 1.1 3.7 0 5M18.5 7c2.2 2.7 2.2 7.3 0 10"
-  })));
-  if (name === 'mute') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M4 10v4h4l5 4V6l-5 4H4Z"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M19 9l-5 5M14 9l5 5"
-  })));
-  if (name === 'tea') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M6 10h11v3.5A4.5 4.5 0 0 1 12.5 18h-2A4.5 4.5 0 0 1 6 13.5V10Z"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M17 11h1.2a1.8 1.8 0 0 1 0 3.6H17"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M8 21h8"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M9 7c-.7-.9-.7-1.8 0-2.7M12 7c-.7-.9-.7-1.8 0-2.7M15 7c-.7-.9-.7-1.8 0-2.7"
-  })));
-  if (name === 'gift') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M4 10h16v10H4V10Z"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M12 10v10M4 14h16M7 7c0-1.7 1.4-3 3-2l2 5H8a3 3 0 0 1-1-3ZM17 7c0-1.7-1.4-3-3-2l-2 5h4a3 3 0 0 0 1-3Z"
-  })));
-  if (name === 'wallet') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M5 7.5h13a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7.5a2 2 0 0 1 2-2h11"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M17 13h3"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M6 5.5 16 3v4.5"
-  })));
-  if (name === 'help') return React.createElement("svg", common, React.createElement("circle", _extends({}, stroke, {
-    cx: "12",
-    cy: "12",
-    r: "8"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M9.8 9.3a2.4 2.4 0 0 1 4.5 1.2c0 1.8-2.3 2-2.3 3.7"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M12 17h.01"
-  })));
-  if (name === 'download') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M12 3v12M7.5 10.5 12 15l4.5-4.5"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M5 20h14"
-  })));
-  if (name === 'print') return React.createElement("svg", common, React.createElement("path", _extends({}, stroke, {
-    d: "M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M7 14h10v7H7z"
-  })), React.createElement("path", _extends({}, stroke, {
-    d: "M17 11h.01"
-  })));
-  return React.createElement("svg", common, React.createElement("circle", {
-    cx: "12",
-    cy: "12",
-    r: "9",
-    fill: "currentColor",
-    opacity: "0.14"
-  }), React.createElement("path", _extends({}, stroke, {
-    d: "M8 12h8M12 8v8"
-  })));
-}
-function HanziLogoSvg() {
-  return React.createElement("svg", {
-    className: "hanzi-logo-svg",
-    width: "92",
-    height: "92",
-    viewBox: "0 0 92 92",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true"
-  }, React.createElement("rect", {
-    x: "10",
-    y: "10",
-    width: "72",
-    height: "72",
-    rx: "10",
-    fill: "#c8371f"
-  }), React.createElement("text", {
-    x: "46",
-    y: "62",
-    textAnchor: "middle",
-    fontFamily: "Microsoft YaHei, PingFang SC, Noto Sans CJK SC, serif",
-    fontSize: "48",
-    fontWeight: "900",
-    fill: "#fffdf8"
-  }, "\u5B57"));
-}
-function HeaderLogoMark() {
-  return React.createElement("div", {
-    className: "header-logo-mark",
-    "aria-hidden": "true"
-  }, React.createElement(HanziLogoSvg, null));
-}
-function CoachSvg() {
-  return React.createElement("svg", {
-    className: "coach-mini-svg",
-    width: "90",
-    height: "90",
-    viewBox: "0 0 90 90",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true"
-  }, React.createElement("rect", {
-    x: "16",
-    y: "12",
-    width: "58",
-    height: "64",
-    rx: "20",
-    fill: "#E8FFF3"
-  }), React.createElement("rect", {
-    x: "21",
-    y: "17",
-    width: "48",
-    height: "48",
-    rx: "16",
-    fill: "url(#coachGradient)"
-  }), React.createElement("text", {
-    x: "45",
-    y: "50",
-    textAnchor: "middle",
-    fontFamily: "Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif",
-    fontSize: "30",
-    fontWeight: "900",
-    fill: "white"
-  }, "\u5B66"), React.createElement("circle", {
-    cx: "34",
-    cy: "33",
-    r: "2.4",
-    fill: "#17382A"
-  }), React.createElement("circle", {
-    cx: "56",
-    cy: "33",
-    r: "2.4",
-    fill: "#17382A"
-  }), React.createElement("path", {
-    d: "M38 56c4 3 10 3 14 0",
-    stroke: "#17382A",
-    strokeWidth: "3",
-    strokeLinecap: "round"
-  }), React.createElement("path", {
-    d: "M20 66c-5 1-8 4-9 9 7 2 12 0 15-5",
-    fill: "#FFE5A3"
-  }), React.createElement("path", {
-    d: "M70 23c6-3 9-1 10 5-5 4-10 4-14 0",
-    fill: "#FFE5A3"
-  }), React.createElement("defs", null, React.createElement("linearGradient", {
-    id: "coachGradient",
-    x1: "21",
-    y1: "17",
-    x2: "69",
-    y2: "65",
-    gradientUnits: "userSpaceOnUse"
-  }, React.createElement("stop", {
-    stopColor: "#07C160"
-  }), React.createElement("stop", {
-    offset: "1",
-    stopColor: "#1677FF"
-  }))));
-}
-function PandaBuddySvg() {
-  return React.createElement("svg", {
-    className: "panda-buddy-svg",
-    width: "90",
-    height: "90",
-    viewBox: "0 0 90 90",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true"
-  }, React.createElement("rect", {
-    x: "10",
-    y: "13",
-    width: "70",
-    height: "64",
-    rx: "22",
-    fill: "#E8FFF3"
-  }), React.createElement("circle", {
-    cx: "28",
-    cy: "29",
-    r: "10",
-    fill: "#17382A"
-  }), React.createElement("circle", {
-    cx: "62",
-    cy: "29",
-    r: "10",
-    fill: "#17382A"
-  }), React.createElement("circle", {
-    cx: "45",
-    cy: "43",
-    r: "27",
-    fill: "white"
-  }), React.createElement("ellipse", {
-    cx: "34",
-    cy: "40",
-    rx: "8",
-    ry: "10",
-    fill: "#17382A",
-    transform: "rotate(-18 34 40)"
-  }), React.createElement("ellipse", {
-    cx: "56",
-    cy: "40",
-    rx: "8",
-    ry: "10",
-    fill: "#17382A",
-    transform: "rotate(18 56 40)"
-  }), React.createElement("circle", {
-    cx: "35",
-    cy: "39",
-    r: "2.2",
-    fill: "white"
-  }), React.createElement("circle", {
-    cx: "55",
-    cy: "39",
-    r: "2.2",
-    fill: "white"
-  }), React.createElement("path", {
-    d: "M45 45c3 0 5 2 5 4s-2 4-5 4-5-2-5-4 2-4 5-4Z",
-    fill: "#17382A"
-  }), React.createElement("path", {
-    d: "M39 58c4 3 8 3 12 0",
-    stroke: "#17382A",
-    strokeWidth: "3",
-    strokeLinecap: "round"
-  }), React.createElement("rect", {
-    x: "31",
-    y: "62",
-    width: "28",
-    height: "13",
-    rx: "6",
-    fill: "url(#pandaBookGradient)"
-  }), React.createElement("path", {
-    d: "M38 66h14M38 70h10",
-    stroke: "white",
-    strokeWidth: "2",
-    strokeLinecap: "round"
-  }), React.createElement("text", {
-    x: "69",
-    y: "66",
-    textAnchor: "middle",
-    fontFamily: "Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif",
-    fontSize: "16",
-    fontWeight: "900",
-    fill: "#07C160"
-  }, "\u5B66"), React.createElement("defs", null, React.createElement("linearGradient", {
-    id: "pandaBookGradient",
-    x1: "31",
-    y1: "62",
-    x2: "59",
-    y2: "75",
-    gradientUnits: "userSpaceOnUse"
-  }, React.createElement("stop", {
-    stopColor: "#07C160"
-  }), React.createElement("stop", {
-    offset: "1",
-    stopColor: "#1677FF"
-  }))));
-}
-function LanternStickerSvg() {
-  return React.createElement("svg", {
-    className: "story-sticker-svg",
-    width: "90",
-    height: "72",
-    viewBox: "0 0 90 72",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true"
-  }, React.createElement("path", {
-    d: "M45 5v10",
-    stroke: "#17382A",
-    strokeWidth: "3",
-    strokeLinecap: "round"
-  }), React.createElement("rect", {
-    x: "31",
-    y: "12",
-    width: "28",
-    height: "8",
-    rx: "4",
-    fill: "#FFCF33"
-  }), React.createElement("rect", {
-    x: "24",
-    y: "18",
-    width: "42",
-    height: "38",
-    rx: "17",
-    fill: "url(#lanternGradient)"
-  }), React.createElement("path", {
-    d: "M34 21c-4 9-4 22 0 32M56 21c4 9 4 22 0 32",
-    stroke: "#FFE5A3",
-    strokeWidth: "3",
-    strokeLinecap: "round"
-  }), React.createElement("text", {
-    x: "45",
-    y: "44",
-    textAnchor: "middle",
-    fontFamily: "Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif",
-    fontSize: "21",
-    fontWeight: "900",
-    fill: "white"
-  }, "\u8BFE"), React.createElement("rect", {
-    x: "33",
-    y: "55",
-    width: "24",
-    height: "7",
-    rx: "3.5",
-    fill: "#FFCF33"
-  }), React.createElement("path", {
-    d: "M45 62v6",
-    stroke: "#17382A",
-    strokeWidth: "3",
-    strokeLinecap: "round"
-  }), React.createElement("defs", null, React.createElement("linearGradient", {
-    id: "lanternGradient",
-    x1: "24",
-    y1: "18",
-    x2: "66",
-    y2: "56",
-    gradientUnits: "userSpaceOnUse"
-  }, React.createElement("stop", {
-    stopColor: "#FF5A5F"
-  }), React.createElement("stop", {
-    offset: "1",
-    stopColor: "#FF9F1C"
-  }))));
-}
-function BrushStickerSvg() {
-  return React.createElement("svg", {
-    className: "story-sticker-svg",
-    width: "90",
-    height: "72",
-    viewBox: "0 0 90 72",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true"
-  }, React.createElement("rect", {
-    x: "18",
-    y: "11",
-    width: "54",
-    height: "42",
-    rx: "14",
-    fill: "#E8FFF3"
-  }), React.createElement("path", {
-    d: "M30 51c9-1 17-4 24-12",
-    stroke: "#07C160",
-    strokeWidth: "6",
-    strokeLinecap: "round"
-  }), React.createElement("path", {
-    d: "M50 17l19 19-8 8-19-19 8-8Z",
-    fill: "url(#brushGradient)"
-  }), React.createElement("path", {
-    d: "M42 25l19 19-10 7-16 4 4-16 3-14Z",
-    fill: "#FFE5A3"
-  }), React.createElement("path", {
-    d: "M42 25l19 19",
-    stroke: "#17382A",
-    strokeWidth: "3",
-    strokeLinecap: "round"
-  }), React.createElement("circle", {
-    cx: "30",
-    cy: "22",
-    r: "4",
-    fill: "#1677FF"
-  }), React.createElement("defs", null, React.createElement("linearGradient", {
-    id: "brushGradient",
-    x1: "42",
-    y1: "17",
-    x2: "69",
-    y2: "44",
-    gradientUnits: "userSpaceOnUse"
-  }, React.createElement("stop", {
-    stopColor: "#1677FF"
-  }), React.createElement("stop", {
-    offset: "1",
-    stopColor: "#07C160"
-  }))));
-}
-function SealStickerSvg() {
-  return React.createElement("svg", {
-    className: "story-sticker-svg",
-    width: "90",
-    height: "72",
-    viewBox: "0 0 90 72",
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg",
-    "aria-hidden": "true"
-  }, React.createElement("rect", {
-    x: "24",
-    y: "12",
-    width: "42",
-    height: "42",
-    rx: "12",
-    fill: "url(#sealGradient)"
-  }), React.createElement("rect", {
-    x: "31",
-    y: "19",
-    width: "28",
-    height: "28",
-    rx: "7",
-    stroke: "white",
-    strokeWidth: "3"
-  }), React.createElement("text", {
-    x: "45",
-    y: "40",
-    textAnchor: "middle",
-    fontFamily: "Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif",
-    fontSize: "21",
-    fontWeight: "900",
-    fill: "white"
-  }, "\u4F1A"), React.createElement("path", {
-    d: "M28 57h34",
-    stroke: "#17382A",
-    strokeWidth: "4",
-    strokeLinecap: "round"
-  }), React.createElement("path", {
-    d: "M36 63h18",
-    stroke: "#07C160",
-    strokeWidth: "4",
-    strokeLinecap: "round"
-  }), React.createElement("defs", null, React.createElement("linearGradient", {
-    id: "sealGradient",
-    x1: "24",
-    y1: "12",
-    x2: "66",
-    y2: "54",
-    gradientUnits: "userSpaceOnUse"
-  }, React.createElement("stop", {
-    stopColor: "#07C160"
-  }), React.createElement("stop", {
-    offset: "1",
-    stopColor: "#1677FF"
-  }))));
-}
-function IllustrationStrip({
-  setCurrentView,
-  setSelectedLesson,
-  setSelectedQueue,
-  t
-}) {
-  return React.createElement("div", {
-    className: "illustration-strip",
-    "aria-label": "Study shortcuts"
-  }, React.createElement("button", {
-    className: "story-sticker",
-    onClick: () => {
-      setSelectedQueue(null);
-      setCurrentView('lessons');
-    }
-  }, React.createElement(LanternStickerSvg, null), React.createElement("span", {
-    className: "story-sticker-title"
-  }, t('stickers.lessons'))), React.createElement("button", {
-    className: "story-sticker",
-    onClick: () => {
-      setSelectedLesson(null);
-      setSelectedQueue(null);
-      setCurrentView('draw');
-    }
-  }, React.createElement(BrushStickerSvg, null), React.createElement("span", {
-    className: "story-sticker-title"
-  }, t('stickers.write'))), React.createElement("button", {
-    className: "story-sticker",
-    onClick: () => {
-      setSelectedLesson(null);
-      setSelectedQueue(null);
-      setCurrentView('quiz');
-    }
-  }, React.createElement(SealStickerSvg, null), React.createElement("span", {
-    className: "story-sticker-title"
-  }, t('stickers.quiz'))));
-}
-function MiniProgramTile({
-  icon,
-  label,
-  onClick
-}) {
-  return React.createElement("button", {
-    className: "mini-program-tile",
-    onClick: onClick
-  }, React.createElement("span", {
-    className: "mini-program-icon"
-  }, React.createElement(AppIcon, {
-    name: icon
-  })), React.createElement("span", {
-    className: "mini-program-name"
-  }, label));
-}
-function MiniAppHeader({
-  icon,
-  title,
-  subtitle,
-  pill
-}) {
-  return React.createElement("div", {
-    className: "mini-app-hero"
-  }, React.createElement("span", {
-    className: "mini-app-hero-icon"
-  }, React.createElement(AppIcon, {
-    name: icon
-  })), React.createElement("div", null, React.createElement("h1", {
-    className: "mini-app-title"
-  }, title), React.createElement("p", {
-    className: "mini-app-subtitle"
-  }, subtitle)), pill && React.createElement("span", {
-    className: "mini-app-pill"
-  }, pill));
-}
-function DailyTrainingView({
-  progress,
-  setCurrentView,
-  setSelectedLesson,
-  setSelectedQueue,
-  playSound,
-  t
-}) {
-  const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
-  const dailySummary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
-  const todayLabel = getTodayKey();
-  const openMode = view => {
-    setSelectedLesson(null);
-    setSelectedQueue({
-      id: `daily:${todayLabel}`,
-      labelKey: 'common.today',
-      items: dailyQueue
-    });
-    playSound('select');
-    setCurrentView(view);
-  };
-  return React.createElement("div", {
-    className: "screen"
-  }, React.createElement("header", {
-    className: "header"
-  }, React.createElement("button", {
-    className: "back-btn",
-    onClick: () => setCurrentView('home')
-  }, t('common.back')), React.createElement("span", {
-    className: "text-sm",
-    style: {
-      color: 'var(--accent-lime)'
-    }
-  }, todayLabel)), React.createElement(MiniAppHeader, {
-    icon: "gift",
-    title: t('daily.title'),
-    subtitle: t('daily.subtitle'),
-    pill: t('daily.count', {
-      count: dailyQueue.length
-    })
-  }), React.createElement("div", {
-    className: "daily-training-card"
-  }, React.createElement("div", {
-    className: "daily-training-hero"
-  }, React.createElement(PandaBuddySvg, null), React.createElement("div", null, React.createElement("p", {
-    className: "daily-training-title"
-  }, t('daily.heroTitle')), React.createElement("p", {
-    className: "daily-training-copy"
-  }, t('daily.heroCopy')))), React.createElement("div", {
-    className: "daily-queue-grid"
-  }, dailyQueue.map(char => React.createElement("div", {
-    key: char.hanzi,
-    className: "daily-queue-char"
-  }, React.createElement("span", {
-    className: "hanzi-display"
-  }, char.hanzi), React.createElement("small", null, t(`daily.reason.${char.dailyReason}`))))), React.createElement("div", {
-    className: "daily-reason-row"
-  }, React.createElement("span", null, t('daily.reason.new'), " ", dailySummary.new || 0), React.createElement("span", null, t('daily.reason.review'), " ", dailySummary.review || 0), React.createElement("span", null, t('daily.reason.solidify'), " ", dailySummary.solidify || 0))), React.createElement("div", {
-    className: "daily-step-grid"
-  }, React.createElement("button", {
-    className: "daily-step-card",
-    onClick: () => openMode('learn')
-  }, React.createElement("span", {
-    className: "daily-step-index"
-  }, "1"), React.createElement("span", {
-    className: "daily-step-icon"
-  }, React.createElement(AppIcon, {
-    name: "card"
-  })), React.createElement("strong", null, t('daily.step1.title')), React.createElement("span", null, t('daily.step1.copy'))), React.createElement("button", {
-    className: "daily-step-card primary",
-    onClick: () => openMode('draw')
-  }, React.createElement("span", {
-    className: "daily-step-index"
-  }, "2"), React.createElement("span", {
-    className: "daily-step-icon"
-  }, React.createElement(AppIcon, {
-    name: "brush"
-  })), React.createElement("strong", null, t('daily.step2.title')), React.createElement("span", null, t('daily.step2.copy'))), React.createElement("button", {
-    className: "daily-step-card",
-    onClick: () => openMode('quiz')
-  }, React.createElement("span", {
-    className: "daily-step-index"
-  }, "3"), React.createElement("span", {
-    className: "daily-step-icon"
-  }, React.createElement(AppIcon, {
-    name: "target"
-  })), React.createElement("strong", null, t('daily.step3.title')), React.createElement("span", null, t('daily.step3.copy')))), React.createElement("div", {
-    className: "nav-actions"
-  }, React.createElement("button", {
-    className: "btn btn-secondary",
-    onClick: () => setCurrentView('home')
-  }, t('daily.doneEnough')), React.createElement("button", {
-    className: "btn btn-primary",
-    onClick: () => openMode('learn')
-  }, t('daily.start'))));
 }
 function HomeView({
   progress,
@@ -4616,42 +4156,34 @@ function HomeView({
   setSelectedQueue,
   language,
   setLanguage,
-  soundEnabled,
-  setSoundEnabled,
-  ambienceEnabled,
-  setAmbienceEnabled,
   playSound,
   openTutorial,
   t
 }) {
-  const catalogSet = React.useMemo(() => new Set(STUDY_CATALOG.map(item => item.hanzi)), []);
-  const masteredCount = React.useMemo(() => new Set(progress.masteredChars.filter(hanzi => catalogSet.has(hanzi))).size, [catalogSet, progress.masteredChars]);
-  const learningCount = React.useMemo(() => new Set(progress.learningChars.filter(hanzi => catalogSet.has(hanzi))).size, [catalogSet, progress.learningChars]);
+  const catalogSet = React.useMemo(() => new Set(STUDY_CATALOG.map(i => i.hanzi)), []);
+  const masteredCount = React.useMemo(() => new Set(progress.masteredChars.filter(h => catalogSet.has(h))).size, [catalogSet, progress.masteredChars]);
+  const learningCount = progress.learningChars.length;
   const totalChars = STUDY_CATALOG.length || VOCABULARY.length;
-  const progressPercent = Math.round(masteredCount / totalChars * 100);
-  const isNewUser = progress.totalReviews === 0 && masteredCount === 0 && learningCount === 0;
+  const percent = Math.round(masteredCount / totalChars * 100);
   const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
-  const dailySummary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
-  const openDailyTraining = () => {
+  const isNewUser = progress.totalReviews === 0 && masteredCount === 0 && learningCount === 0;
+  const openDaily = () => {
     setSelectedLesson(null);
     setSelectedQueue(null);
     playSound('select');
     setCurrentView('daily');
   };
-  const openMaterialWordBank = (view = 'learn') => {
-    setSelectedLesson(null);
-    setSelectedQueue(getMaterialWordQueue());
-    playSound('select');
-    setCurrentView(view);
-  };
   return React.createElement("div", {
-    className: "screen home-screen"
+    className: "screen"
   }, React.createElement("header", {
     className: "super-topbar"
   }, React.createElement("div", {
     className: "brand-lockup"
-  }, React.createElement("div", {
-    className: "brand-mark"
+  }, React.createElement("span", {
+    className: "brand-mark",
+    style: {
+      color: 'var(--accent)'
+    }
   }, React.createElement(HanziLogoSvg, null)), React.createElement("div", null, React.createElement("h1", {
     className: "brand-title"
   }, "Hanzi Master"), React.createElement("p", {
@@ -4670,7 +4202,7 @@ function HomeView({
     setLanguage: setLanguage,
     playSound: playSound,
     t: t
-  }), progress.streakDays > 0 && React.createElement("div", {
+  }), progress.streakDays > 0 && React.createElement("span", {
     className: "daily-chip"
   }, "\uD83D\uDD25 ", progress.streakDays))), React.createElement("div", {
     className: "hero-block"
@@ -4680,13 +4212,13 @@ function HomeView({
     className: "hero-char"
   }, dailyQueue[0]?.hanzi || '字'), React.createElement("span", {
     className: "hero-seal"
-  }, "\u5B57")), React.createElement("h2", {
+  }, "\u4E09")), React.createElement("h2", {
     className: "hero-title"
   }, isNewUser ? t('home.heroTitleNew') : t('home.heroTitle')), React.createElement("p", {
     className: "hero-subtitle"
   }, t('home.heroSubtitle')), React.createElement("button", {
     className: "btn btn-primary hero-cta",
-    onClick: openDailyTraining
+    onClick: openDaily
   }, React.createElement("span", null, isNewUser ? t('home.heroCtaNew') : t('home.heroCtaReturn')), React.createElement("span", {
     "aria-hidden": "true"
   }, "\u2192")), React.createElement("p", {
@@ -4694,7 +4226,7 @@ function HomeView({
   }, t('home.heroHint', {
     count: dailyQueue.length
   }))), isNewUser ? React.createElement("div", {
-    className: "wallet-card wallet-empty"
+    className: "wallet-card"
   }, React.createElement("p", {
     className: "wallet-label"
   }, t('home.walletLabel')), React.createElement("div", {
@@ -4710,15 +4242,13 @@ function HomeView({
   }, React.createElement("p", {
     className: "wallet-label"
   }, t('home.walletLabel')), React.createElement("div", {
-    className: "wallet-brand-mark"
-  }, React.createElement(HanziLogoSvg, null)), React.createElement("div", {
     className: "wallet-score"
-  }, progressPercent, "%"), React.createElement("div", {
+  }, percent, "%"), React.createElement("div", {
     className: "progress-bar"
   }, React.createElement("div", {
     className: "progress-fill",
     style: {
-      width: `${progressPercent}%`
+      width: `${percent}%`
     }
   })), React.createElement("div", {
     className: "wallet-meta"
@@ -4727,46 +4257,33 @@ function HomeView({
     total: totalChars
   })), React.createElement("span", null, t('home.learningMeta', {
     count: learningCount
-  })), React.createElement("div", {
-    className: "wallet-seal"
-  }, "\u5B57"))), React.createElement("div", {
-    className: "daily-entry-card",
-    onClick: openDailyTraining,
-    role: "button",
-    tabIndex: 0
-  }, React.createElement("div", {
-    className: "daily-entry-main"
-  }, React.createElement("span", {
-    className: "daily-entry-icon"
-  }, React.createElement(AppIcon, {
-    name: "gift"
-  })), React.createElement("div", null, React.createElement("p", {
-    className: "daily-entry-kicker"
-  }, t('home.dailyKicker')), React.createElement("p", {
-    className: "daily-entry-title"
-  }, t('home.dailyTitle', {
-    count: dailyQueue.length
   })))), React.createElement("div", {
+    className: "card",
+    style: {
+      padding: '14px 16px'
+    }
+  }, React.createElement(ListRow, {
+    icon: "gift",
+    label: t('home.dailyKicker'),
+    meta: `${dailyQueue.length}`,
+    onClick: openDaily
+  }), React.createElement("div", {
     className: "daily-entry-strip"
-  }, dailyQueue.slice(0, 6).map(char => React.createElement("span", {
-    key: char.hanzi,
+  }, dailyQueue.slice(0, 6).map(c => React.createElement("span", {
+    key: c.hanzi,
     className: "daily-entry-char"
-  }, char.hanzi))), React.createElement("div", {
-    className: "daily-entry-meta"
-  }, React.createElement("span", null, t('daily.reason.new'), " ", dailySummary.new || 0), React.createElement("span", null, t('daily.reason.review'), " ", dailySummary.review || 0), React.createElement("span", null, t('daily.reason.solidify'), " ", dailySummary.solidify || 0))), React.createElement("div", {
-    className: "mini-program-panel"
+  }, c.hanzi)))), React.createElement("div", {
+    className: "list-panel"
   }, React.createElement("div", {
-    className: "mini-program-head"
-  }, React.createElement("span", null, t('home.myMiniPrograms'))), React.createElement("div", {
-    className: "mini-program-grid mini-program-grid-4"
-  }, React.createElement(MiniProgramTile, {
+    className: "list-head"
+  }, t('home.myMiniPrograms')), React.createElement(ListRow, {
     icon: "scan",
     label: t('tiles.lessons'),
     onClick: () => {
       setSelectedQueue(null);
       setCurrentView('lessons');
     }
-  }), React.createElement(MiniProgramTile, {
+  }), React.createElement(ListRow, {
     icon: "card",
     label: t('tiles.cards'),
     onClick: () => {
@@ -4774,7 +4291,7 @@ function HomeView({
       setSelectedQueue(null);
       setCurrentView('learn');
     }
-  }), React.createElement(MiniProgramTile, {
+  }), React.createElement(ListRow, {
     icon: "brush",
     label: t('tiles.write'),
     onClick: () => {
@@ -4782,7 +4299,7 @@ function HomeView({
       setSelectedQueue(null);
       setCurrentView('draw');
     }
-  }), React.createElement(MiniProgramTile, {
+  }), React.createElement(ListRow, {
     icon: "target",
     label: t('tiles.quiz'),
     onClick: () => {
@@ -4790,71 +4307,27 @@ function HomeView({
       setSelectedQueue(null);
       setCurrentView('quiz');
     }
-  }))));
+  })));
 }
-function LessonsView({
+function DailyTrainingView({
+  progress,
   setCurrentView,
   setSelectedLesson,
   setSelectedQueue,
-  progress,
+  playSound,
   t
 }) {
-  const lessons = [12, 13, 14, 15];
-  const lessonTitles = {
-    12: {
-      title: '天气',
-      chinese: 'Weather'
-    },
-    13: {
-      title: '正在',
-      chinese: 'Actions'
-    },
-    14: {
-      title: '买东西',
-      chinese: 'Shopping'
-    },
-    15: {
-      title: '是...的',
-      chinese: 'Structure'
-    }
-  };
-  const materialQueues = getMaterialCollectionQueues();
-  const materialGroups = React.useMemo(() => {
-    const order = ['HSK1', 'HSK2', 'Basics', 'Book3'];
-    const groups = new Map();
-    materialQueues.forEach(queue => {
-      const level = queue.level || 'Material';
-      if (!groups.has(level)) groups.set(level, []);
-      groups.get(level).push(queue);
+  const dailyQueue = React.useMemo(() => getDailyTrainingQueue(VOCABULARY, progress, 8), [progress]);
+  const summary = React.useMemo(() => getDailyTrainingSummary(dailyQueue), [dailyQueue]);
+  const openMode = view => {
+    setSelectedLesson(null);
+    setSelectedQueue({
+      id: `daily:${getTodayKey()}`,
+      labelKey: 'common.today',
+      items: dailyQueue
     });
-    return Array.from(groups.entries()).map(([level, queues]) => ({
-      level,
-      queues,
-      cards: queues.reduce((total, queue) => total + (queue.items?.length || 0), 0)
-    })).sort((a, b) => {
-      const ai = order.includes(a.level) ? order.indexOf(a.level) : order.length;
-      const bi = order.includes(b.level) ? order.indexOf(b.level) : order.length;
-      return ai - bi || a.level.localeCompare(b.level);
-    });
-  }, [materialQueues]);
-  const materialCardCount = materialQueues.reduce((total, queue) => total + (queue.items?.length || 0), 0);
-  const getLessonProgress = num => {
-    const chars = VOCABULARY.filter(v => v.lesson === num);
-    const mastered = chars.filter(v => progress.masteredChars.includes(v.hanzi)).length;
-    return {
-      mastered,
-      total: chars.length,
-      percent: Math.round(mastered / chars.length * 100)
-    };
-  };
-  const getQueueProgress = queue => {
-    const items = queue.items || [];
-    const mastered = items.filter(v => progress.masteredChars.includes(v.hanzi)).length;
-    return {
-      mastered,
-      total: items.length,
-      percent: items.length ? Math.round(mastered / items.length * 100) : 0
-    };
+    playSound('select');
+    setCurrentView(view);
   };
   return React.createElement("div", {
     className: "screen"
@@ -4863,143 +4336,141 @@ function LessonsView({
   }, React.createElement("button", {
     className: "back-btn",
     onClick: () => setCurrentView('home')
-  }, t('common.back')), React.createElement(HeaderLogoMark, null)), React.createElement(MiniAppHeader, {
-    icon: "scan",
-    title: t('lessons.title'),
-    subtitle: t('lessons.subtitle'),
-    pill: t('lessons.pill')
-  }), React.createElement("div", {
-    className: "service-section"
-  }, React.createElement("div", {
-    className: "service-section-head"
-  }, React.createElement("span", null, t('lessons.service')), React.createElement("span", null, "HSK1")), React.createElement("div", {
-    className: "service-list"
-  }, lessons.map(num => {
-    const {
-      mastered,
-      total,
-      percent
-    } = getLessonProgress(num);
-    return React.createElement("div", {
-      key: num,
-      className: "card card-clickable service-row",
-      onClick: () => {
-        setSelectedQueue(null);
-        setSelectedLesson(num);
-        setCurrentView('learn');
-      },
-      role: "button",
-      tabIndex: 0
-    }, React.createElement("div", {
-      className: "lesson-card"
-    }, React.createElement("div", {
-      className: "lesson-service-icon"
-    }, React.createElement(AppIcon, {
-      name: num === 12 ? 'sound' : num === 13 ? 'brush' : num === 14 ? 'wallet' : 'book'
-    })), React.createElement("div", {
-      className: "lesson-number"
-    }, num), React.createElement("div", {
-      className: "lesson-info"
-    }, React.createElement("div", {
-      className: "lesson-title-line"
-    }, React.createElement("p", {
-      className: "title-md"
-    }, lessonTitles[num].title), React.createElement("span", {
-      className: "lesson-chinese-chip"
-    }, lessonTitles[num].chinese)), React.createElement("p", {
-      className: "text-sm"
-    }, mastered, "/", total, " \u2022 ", percent, "%"), React.createElement("div", {
-      className: "progress-bar",
-      style: {
-        marginTop: '8px',
-        marginBottom: '0'
-      }
-    }, React.createElement("div", {
-      className: "progress-fill",
-      style: {
-        width: `${percent}%`
-      }
-    })))));
-  }))), materialQueues.length > 0 && React.createElement("div", {
-    className: "service-section"
-  }, React.createElement("div", {
-    className: "service-section-head"
-  }, React.createElement("span", null, t('lessons.materialBanks')), React.createElement("span", null, materialQueues.length, " \u2022 ", materialCardCount)), React.createElement("div", {
-    className: "service-list"
-  }, materialGroups.map(group => React.createElement("div", {
-    className: "material-group",
-    key: group.level
-  }, React.createElement("div", {
-    className: "material-group-head"
-  }, React.createElement("span", null, getMaterialLevelLabel(group.level)), React.createElement("span", null, group.queues.length, " \u2022 ", group.cards)), group.queues.map(queue => {
-    const queueProgress = getQueueProgress(queue);
-    return React.createElement("div", {
-      key: queue.id,
-      className: "card card-clickable service-row",
-      onClick: () => {
-        setSelectedLesson(null);
-        setSelectedQueue(queue);
-        setCurrentView('learn');
-      },
-      role: "button",
-      tabIndex: 0
-    }, React.createElement("div", {
-      className: "lesson-card"
-    }, React.createElement("div", {
-      className: "lesson-service-icon"
-    }, React.createElement(AppIcon, {
-      name: queue.level === 'Book3' ? 'scan' : queue.level === 'Basics' ? 'brush' : 'book'
-    })), React.createElement("div", {
-      className: "lesson-number"
-    }, queueProgress.total), React.createElement("div", {
-      className: "lesson-info"
-    }, React.createElement("div", {
-      className: "lesson-title-line"
-    }, React.createElement("p", {
-      className: "title-md"
-    }, getQueueDisplayLabel(queue, t)), React.createElement("span", {
-      className: "lesson-chinese-chip"
-    }, getQueueDisplayChip(queue, t))), React.createElement("p", {
-      className: "text-sm"
-    }, queueProgress.mastered, "/", queueProgress.total, " \u2022 ", queueProgress.percent, "%"), React.createElement("div", {
-      className: "progress-bar",
-      style: {
-        marginTop: '8px',
-        marginBottom: '0'
-      }
-    }, React.createElement("div", {
-      className: "progress-fill",
-      style: {
-        width: `${queueProgress.percent}%`
-      }
-    })))));
-  }))))), React.createElement("div", {
-    className: "section-title"
-  }, React.createElement("span", {
+  }, t('common.back')), React.createElement("span", {
     className: "text-sm"
-  }, t('lessons.quick')), React.createElement("div", {
-    className: "section-line"
-  })), React.createElement("div", {
-    className: "lessons-quick-actions",
+  }, getTodayKey())), React.createElement("h1", {
+    className: "title-lg"
+  }, t('daily.title')), React.createElement("p", {
+    className: "text-sm",
     style: {
-      display: 'flex',
-      gap: '12px'
+      marginTop: '4px'
     }
+  }, t('daily.subtitle')), React.createElement("div", {
+    className: "card"
+  }, React.createElement("p", {
+    className: "title-md"
+  }, t('daily.heroTitle')), React.createElement("p", {
+    className: "text-sm",
+    style: {
+      marginTop: '4px'
+    }
+  }, t('daily.heroCopy')), React.createElement("div", {
+    className: "daily-queue-grid"
+  }, dailyQueue.map(c => React.createElement("span", {
+    key: c.hanzi,
+    className: "daily-queue-char"
+  }, React.createElement("span", {
+    className: "hanzi-display"
+  }, c.hanzi), React.createElement("small", null, t(`daily.reason.${c.dailyReason}`))))), React.createElement("div", {
+    className: "daily-reason-row"
+  }, React.createElement("span", null, t('daily.reason.new'), " ", summary.new || 0), React.createElement("span", null, t('daily.reason.review'), " ", summary.review || 0), React.createElement("span", null, t('daily.reason.solidify'), " ", summary.solidify || 0))), React.createElement("div", {
+    className: "list-panel"
+  }, React.createElement("div", {
+    className: "list-head"
+  }, t('daily.count', {
+    count: dailyQueue.length
+  })), React.createElement(ListRow, {
+    icon: "card",
+    label: t('daily.step1.title'),
+    meta: t('daily.step1.copy'),
+    onClick: () => openMode('learn')
+  }), React.createElement(ListRow, {
+    icon: "brush",
+    label: t('daily.step2.title'),
+    meta: t('daily.step2.copy'),
+    onClick: () => openMode('draw')
+  }), React.createElement(ListRow, {
+    icon: "target",
+    label: t('daily.step3.title'),
+    meta: t('daily.step3.copy'),
+    onClick: () => openMode('quiz')
+  })), React.createElement("div", {
+    className: "nav-actions"
+  }, React.createElement("button", {
+    className: "btn btn-secondary",
+    onClick: () => setCurrentView('home')
+  }, t('daily.doneEnough')), React.createElement("button", {
+    className: "btn btn-primary",
+    onClick: () => openMode('learn')
+  }, t('daily.start'))));
+}
+function LessonsView({
+  setCurrentView,
+  setSelectedLesson,
+  setSelectedQueue,
+  progress,
+  t
+}) {
+  const lessons = [12, 13, 14, 15].map(l => ({
+    lesson: l,
+    total: VOCABULARY.filter(v => v.lesson === l).length,
+    mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.hanzi)).length
+  }));
+  const openLesson = (lesson, view) => {
+    setSelectedQueue(null);
+    setSelectedLesson(lesson);
+    setCurrentView(view);
+  };
+  const collections = getMaterialCollectionQueues();
+  return React.createElement("div", {
+    className: "screen"
+  }, React.createElement("header", {
+    className: "header"
+  }, React.createElement("button", {
+    className: "back-btn",
+    onClick: () => setCurrentView('home')
+  }, t('common.back')), React.createElement("span", {
+    className: "text-sm"
+  }, t('lessons.title'))), React.createElement("h1", {
+    className: "title-lg"
+  }, t('lessons.title')), React.createElement("p", {
+    className: "text-sm",
+    style: {
+      marginTop: '4px'
+    }
+  }, t('lessons.subtitle')), React.createElement("div", {
+    className: "list-panel"
+  }, React.createElement("div", {
+    className: "list-head"
+  }, t('lessons.quick')), lessons.map(l => React.createElement(ListRow, {
+    key: l.lesson,
+    icon: "book",
+    label: t('stats.lesson', {
+      lesson: l.lesson
+    }),
+    meta: `${l.mastered}/${l.total}`,
+    onClick: () => openLesson(l.lesson, 'learn')
+  }))), React.createElement("div", {
+    className: "list-panel"
+  }, React.createElement("div", {
+    className: "list-head"
+  }, t('lessons.materialBanks')), collections.map(c => React.createElement(ListRow, {
+    key: c.id,
+    icon: "card",
+    label: c.labelKey ? t(c.labelKey) : c.labelEn || c.labelZh || c.id,
+    meta: `${c.items.length}`,
+    onClick: () => {
+      setSelectedLesson(null);
+      setSelectedQueue(getMaterialCollectionQueue(MATERIAL_COLLECTIONS.find(m => m.id === c.id)));
+      setCurrentView('learn');
+    }
+  }))), React.createElement("div", {
+    className: "nav-actions"
   }, React.createElement("button", {
     className: "btn btn-secondary",
     onClick: () => {
       setSelectedLesson(null);
       setSelectedQueue(null);
-      setCurrentView('quiz');
+      setCurrentView('draw');
     }
-  }, t('lessons.quizAll')), React.createElement("button", {
+  }, t('lessons.drawAll')), React.createElement("button", {
     className: "btn btn-primary",
     onClick: () => {
       setSelectedLesson(null);
       setSelectedQueue(null);
-      setCurrentView('draw');
+      setCurrentView('quiz');
     }
-  }, t('lessons.drawAll'))));
+  }, t('lessons.quizAll'))));
 }
 function LearnView({
   selectedLesson,
@@ -5011,54 +4482,44 @@ function LearnView({
   playSound,
   t
 }) {
-  const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson, selectedQueue]);
-  const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
-  const positionKey = `learn:${selectedQueue?.id || selectedLesson || 'all'}`;
-  const scopePill = selectedQueue ? getQueueDisplayLabel(selectedQueue, t) : selectedLesson ? `L${selectedLesson}` : t('common.all');
-  const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
-  const [isFlipped, setIsFlipped] = React.useState(false);
-  const [showCompound, setShowCompound] = React.useState(false);
-  const currentChar = vocab[currentIndex];
-  const isWordItem = currentChar.kind === 'word';
-  const relatedCompounds = React.useMemo(() => isWordItem ? [] : COMPOUNDS.filter(c => c.hanzi.includes(currentChar.hanzi)), [currentChar, isWordItem]);
-  const handleNext = () => {
-    playSound(currentIndex === vocab.length - 1 ? 'complete' : 'tap');
-    markCharacterLearned(currentChar.hanzi);
-    setIsFlipped(false);
-    setShowCompound(false);
-    if (currentIndex < vocab.length - 1) {
-      const nextIndex = currentIndex + 1;
-      updateProgress({
-        lastPositions: {
-          ...(progress.lastPositions || {}),
-          [positionKey]: nextIndex
-        }
-      });
-      setCurrentIndex(nextIndex);
-    } else {
-      updateProgress({
-        lastPositions: {
-          ...(progress.lastPositions || {}),
-          [positionKey]: 0
-        }
-      });
-    }
-  };
-  const handlePrev = () => {
+  const vocab = React.useMemo(() => {
+    if (selectedQueue?.items) return selectedQueue.items;
+    if (selectedLesson) return getStudyQueue(VOCABULARY.filter(v => v.lesson === selectedLesson), progress);
+    return getStudyQueue(VOCABULARY, progress);
+  }, [selectedQueue, selectedLesson, progress]);
+  const [index, setIndex] = React.useState(0);
+  const [flipped, setFlipped] = React.useState(false);
+  const [showRelated, setShowRelated] = React.useState(false);
+  const current = vocab[Math.min(index, vocab.length - 1)];
+  const related = React.useMemo(() => {
+    if (!current?.lesson) return [];
+    return COMPOUNDS.filter(c => c.lesson === current.lesson && c.hanzi.includes(current.hanzi)).slice(0, 6);
+  }, [current]);
+  React.useEffect(() => {
+    setIndex(0);
+    setFlipped(false);
+  }, [selectedQueue, selectedLesson]);
+  const go = dir => {
     playSound('tap');
-    setIsFlipped(false);
-    setShowCompound(false);
-    if (currentIndex > 0) {
-      const prevIndex = currentIndex - 1;
-      updateProgress({
-        lastPositions: {
-          ...(progress.lastPositions || {}),
-          [positionKey]: prevIndex
-        }
-      });
-      setCurrentIndex(prevIndex);
-    }
+    if (dir > 0 && current) markCharacterLearned(current.hanzi);
+    updateProgress({
+      lastPositions: {
+        ...progress.lastPositions,
+        learn: index
+      }
+    });
+    setIndex(i => Math.max(0, Math.min(vocab.length - 1, i + dir)));
+    setFlipped(false);
+    setShowRelated(false);
   };
+  if (!current) return React.createElement("div", {
+    className: "screen"
+  }, React.createElement("header", {
+    className: "header"
+  }, React.createElement("button", {
+    className: "back-btn",
+    onClick: () => setCurrentView('home')
+  }, t('common.back'))));
   return React.createElement("div", {
     className: "screen"
   }, React.createElement("header", {
@@ -5067,124 +4528,74 @@ function LearnView({
     className: "back-btn",
     onClick: () => setCurrentView('home')
   }, t('common.back')), React.createElement("span", {
-    className: "text-sm",
-    style: {
-      color: 'var(--accent-lime)'
-    }
-  }, t('learn.cardNumber', {
-    count: currentIndex + 1
-  }))), React.createElement(MiniAppHeader, {
-    icon: "card",
-    title: t('learn.title'),
-    subtitle: t('learn.subtitle'),
-    pill: scopePill
-  }), React.createElement("div", {
-    className: "mini-app-progress-card"
-  }, React.createElement("p", {
     className: "text-sm"
-  }, t('learn.progress')), React.createElement("span", {
-    className: "mini-app-progress-count"
-  }, currentIndex + 1, " / ", vocab.length)), React.createElement("div", {
+  }, index + 1, " / ", vocab.length)), React.createElement("div", {
     className: "progress-bar"
   }, React.createElement("div", {
     className: "progress-fill",
     style: {
-      width: `${(currentIndex + 1) / vocab.length * 100}%`
+      width: `${(index + 1) / vocab.length * 100}%`
     }
   })), React.createElement("div", {
-    className: "study-pass-card card card-accent-lime flashcard",
+    className: "flashcard",
     onClick: () => {
       playSound('select');
-      setIsFlipped(!isFlipped);
-    },
-    role: "button",
-    tabIndex: 0,
-    "aria-label": "Flip card"
-  }, React.createElement("div", {
-    className: `hanzi-display hanzi-hero ${isWordItem ? 'hanzi-word' : ''}`,
-    style: {
-      color: 'var(--accent-lime)'
-    }
-  }, currentChar.hanzi), isFlipped && React.createElement("div", {
-    className: "animate-slide-up",
-    style: {
-      textAlign: 'center'
-    }
-  }, React.createElement("div", {
-    className: "pinyin-display"
-  }, currentChar.pinyin), React.createElement("div", {
-    className: "meaning-display"
-  }, currentChar.meaning), React.createElement("p", {
-    className: "text-sm",
-    style: {
-      marginTop: '12px'
-    }
-  }, isWordItem ? t('learn.wordLine', {
-    source: currentChar.source || 'HSK1'
-  }) : t('learn.strokesLine', {
-    strokes: currentChar.strokes,
-    lesson: currentChar.lesson
-  })), currentChar.example && React.createElement("p", {
-    className: "material-example"
-  }, currentChar.example), React.createElement(MemoryScroll, {
-    item: currentChar,
-    t: t
-  })), !isFlipped && React.createElement("p", {
-    className: "flashcard-hint"
-  }, t('learn.tap'))), relatedCompounds.length > 0 && React.createElement("div", {
-    className: "related-service-card card card-clickable",
-    onClick: () => {
-      playSound('reveal');
-      setShowCompound(!showCompound);
+      setFlipped(!flipped);
     },
     role: "button",
     tabIndex: 0
-  }, React.createElement("p", {
-    className: "title-md"
-  }, t('learn.related', {
-    count: relatedCompounds.length
-  })), showCompound && React.createElement("div", {
-    className: "animate-slide-up",
+  }, !flipped ? React.createElement("div", {
+    className: "hanzi-hero"
+  }, current.hanzi) : React.createElement("div", null, React.createElement("div", {
+    className: "hanzi-hero",
     style: {
-      marginTop: '12px'
+      fontSize: '56px',
+      color: 'var(--ink)'
     }
-  }, relatedCompounds.map((c, i) => React.createElement("div", {
-    key: i,
+  }, current.hanzi), React.createElement("div", {
+    className: "pinyin-display"
+  }, current.pinyin), React.createElement("div", {
+    className: "meaning-display"
+  }, current.meaning), current.example && React.createElement("p", {
+    className: "material-example"
+  }, current.example)), !flipped && React.createElement("p", {
+    className: "flashcard-hint"
+  }, t('learn.tap'))), related.length > 0 && React.createElement("div", {
+    className: "card"
+  }, React.createElement("button", {
+    className: "list-row",
     style: {
-      padding: '8px 0',
-      borderBottom: i < relatedCompounds.length - 1 ? '1px solid #dce7e2' : 'none'
+      width: '100%'
+    },
+    onClick: () => {
+      playSound('reveal');
+      setShowRelated(!showRelated);
     }
   }, React.createElement("span", {
-    className: "hanzi-display hanzi-md"
-  }, c.hanzi), React.createElement("span", {
+    className: "list-label"
+  }, t('learn.related', {
+    count: related.length
+  })), React.createElement("span", {
+    className: "list-arrow"
+  }, showRelated ? '−' : '+')), showRelated && React.createElement("div", {
+    className: "daily-entry-strip",
     style: {
-      marginLeft: '12px',
-      color: 'var(--accent-cyan)'
+      padding: '10px 0 2px'
     }
-  }, c.pinyin), React.createElement("span", {
-    style: {
-      marginLeft: '12px',
-      color: 'var(--text-secondary)',
-      fontSize: '14px'
-    }
-  }, c.meaning))))), React.createElement("div", {
+  }, related.map(c => React.createElement("span", {
+    key: c.hanzi,
+    className: "daily-entry-char",
+    title: `${c.pinyin} — ${c.meaning}`
+  }, c.hanzi)))), React.createElement("div", {
     className: "nav-actions"
   }, React.createElement("button", {
     className: "btn btn-secondary",
-    onClick: handlePrev,
-    disabled: currentIndex === 0
+    onClick: () => go(-1),
+    disabled: index === 0
   }, t('common.prevCard')), React.createElement("button", {
     className: "btn btn-primary",
-    onClick: handleNext
-  }, currentIndex === vocab.length - 1 ? t('common.done') : t('common.nextCard'))), currentIndex === vocab.length - 1 && isFlipped && React.createElement("div", {
-    className: "floating-indicator"
-  }, React.createElement("span", {
-    style: {
-      fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif",
-      fontSize: '15px',
-      fontWeight: 900
-    }
-  }, t('learn.roundDone'))));
+    onClick: () => go(1)
+  }, index === vocab.length - 1 ? t('common.done') : t('common.nextCard'))));
 }
 function DrawView({
   selectedLesson,
@@ -5196,247 +4607,98 @@ function DrawView({
   playSound,
   t
 }) {
-  const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson, selectedQueue]);
-  const [vocab] = React.useState(() => getDrawQueue(baseVocab, progress));
-  const positionKey = `draw:${selectedQueue?.id || selectedLesson || 'all'}`;
-  const scopePill = selectedQueue ? getQueueDisplayLabel(selectedQueue, t) : selectedLesson ? `L${selectedLesson}` : t('common.all');
-  const [currentIndex, setCurrentIndex] = React.useState(() => Math.min(progress.lastPositions?.[positionKey] || 0, Math.max(vocab.length - 1, 0)));
-  const [drawMode, setDrawMode] = React.useState('practice');
-  const [showReference, setShowReference] = React.useState(false);
-  const [strokesCompleted, setStrokesCompleted] = React.useState(0);
-  const [totalStrokes, setTotalStrokes] = React.useState(0);
-  const [mistakes, setMistakes] = React.useState(0);
-  const mistakesRef = React.useRef(0);
+  const vocab = React.useMemo(() => {
+    const base = selectedQueue?.items || (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY);
+    return getDrawQueue(base, progress);
+  }, [selectedQueue, selectedLesson, progress]);
+  const [index, setIndex] = React.useState(0);
   const [feedback, setFeedback] = React.useState(null);
-  const [isComplete, setIsComplete] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [charStats, setCharStats] = React.useState({
-    completed: 0,
-    totalMistakes: 0
-  });
-  const writerRef = React.useRef(null);
+  const [mistakes, setMistakes] = React.useState(0);
+  const [done, setDone] = React.useState(false);
   const containerRef = React.useRef(null);
-  const currentChar = vocab[currentIndex];
+  const writerRef = React.useRef(null);
+  const mistakesRef = React.useRef(0);
+  const current = vocab[Math.min(index, vocab.length - 1)];
   React.useEffect(() => {
-    if (!containerRef.current || !currentChar) return;
-    if (writerRef.current) {
-      writerRef.current = null;
-    }
-    containerRef.current.innerHTML = '';
-    setStrokesCompleted(0);
-    setMistakes(0);
-    mistakesRef.current = 0;
+    if (!current || !containerRef.current) return;
     setFeedback(null);
-    setIsComplete(false);
-    setIsLoading(true);
-    const containerWidth = containerRef.current.parentElement.offsetWidth - 20;
-    const size = Math.min(containerWidth, 320);
+    setMistakes(0);
+    setDone(false);
+    mistakesRef.current = 0;
+    let writer;
     try {
-      const writer = HanziWriter.create(containerRef.current, currentChar.hanzi, {
-        width: size,
-        height: size,
+      writer = HanziWriter.create(containerRef.current, current.hanzi, {
+        width: 280,
+        height: 280,
         padding: 10,
-        showOutline: drawMode === 'learn' || showReference,
-        showCharacter: drawMode === 'learn' || showReference,
-        strokeColor: '#07c160',
-        outlineColor: '#dce7e2',
-        drawingColor: '#07c160',
-        highlightColor: '#1677ff',
-        radicalColor: '#07c160',
-        strokeAnimationSpeed: 1,
-        delayBetweenStrokes: 300,
         drawingWidth: 6,
-        showHintAfterMisses: drawMode === 'practice' ? 2 : 3,
+        showHintAfterMisses: 2,
         highlightOnComplete: true,
         charDataLoader: (char, onComplete) => {
-          const strokeData = window.HANZI_STROKE_DATA?.[char];
-          if (strokeData) {
-            onComplete(strokeData);
-          } else {
-            setFeedback({
-              type: 'error',
-              message: t('draw.feedback.noData')
-            });
-          }
+          const data = window.HANZI_STROKE_DATA?.[char];
+          if (data) onComplete(data);else setFeedback({
+            type: 'error',
+            message: t('draw.feedback.noData')
+          });
         }
       });
       writerRef.current = writer;
-      const strokeData = window.HANZI_STROKE_DATA?.[currentChar.hanzi];
-      setTotalStrokes(strokeData?.strokes?.length || currentChar.strokes);
-      setIsLoading(false);
-      if (drawMode === 'learn') {} else {
-        setTimeout(() => {
-          writer.quiz({
-            onCorrectStroke: data => {
-              playSound('stroke');
-              setStrokesCompleted(data.strokeNum + 1);
-              if (data.strokeNum === 0) {
-                setFeedback({
-                  type: 'success',
-                  message: t('draw.feedback.start')
-                });
-              }
-              setTimeout(() => setFeedback(null), 800);
-            },
-            onMistake: data => {
-              playSound('wrong');
-              mistakesRef.current += 1;
-              setMistakes(prev => prev + 1);
-              setFeedback({
-                type: 'error',
-                message: t('draw.feedback.retry')
-              });
-              setTimeout(() => setFeedback(null), 800);
-            },
-            onComplete: data => {
-              playSound('complete');
-              setIsComplete(true);
-              const finalMistakes = mistakesRef.current;
-              setCharStats(prev => ({
-                completed: prev.completed + 1,
-                totalMistakes: prev.totalMistakes + finalMistakes
-              }));
-              if (finalMistakes === 0) {
-                setFeedback({
-                  type: 'success',
-                  message: t('draw.feedback.perfect')
-                });
-                markCharacterMastered(currentChar.hanzi);
-              } else if (finalMistakes <= 2) {
-                setFeedback({
-                  type: 'success',
-                  message: t('draw.feedback.good')
-                });
-              } else {
-                setFeedback({
-                  type: 'success',
-                  message: t('draw.feedback.done')
-                });
-              }
-            }
-          });
-        }, 300);
-      }
-    } catch (err) {
-      console.warn('Hanzi Writer init error:', err);
-    }
-    return () => {
-      if (writerRef.current) {
-        writerRef.current = null;
-      }
-    };
-  }, [currentChar, drawMode, showReference, playSound, t]);
-  const handleAnimate = () => {
-    if (writerRef.current) {
-      playSound('reveal');
-      writerRef.current.animateCharacter();
-    }
-  };
-  const handleReset = () => {
-    playSound('tap');
-    setStrokesCompleted(0);
-    setMistakes(0);
-    mistakesRef.current = 0;
-    setFeedback(null);
-    setIsComplete(false);
-    if (writerRef.current) {
-      if (drawMode === 'learn') {
-        writerRef.current.showCharacter();
-      } else {
-        writerRef.current.quiz({
-          onCorrectStroke: data => {
+      setTimeout(() => {
+        writer.quiz({
+          onCorrectStroke: () => {
             playSound('stroke');
-            setStrokesCompleted(data.strokeNum + 1);
             setFeedback({
               type: 'success',
-              message: t('draw.feedback.nice')
+              message: t('draw.feedback.start')
             });
-            setTimeout(() => setFeedback(null), 600);
+            setTimeout(() => setFeedback(null), 700);
           },
           onMistake: () => {
             playSound('wrong');
             mistakesRef.current += 1;
-            setMistakes(prev => prev + 1);
+            setMistakes(mistakesRef.current);
             setFeedback({
               type: 'error',
               message: t('draw.feedback.retry')
             });
-            setTimeout(() => setFeedback(null), 600);
+            setTimeout(() => setFeedback(null), 700);
           },
           onComplete: () => {
             playSound('complete');
-            setIsComplete(true);
-            const finalMistakes = mistakesRef.current;
-            setCharStats(prev => ({
-              completed: prev.completed + 1,
-              totalMistakes: prev.totalMistakes + finalMistakes
-            }));
+            setDone(true);
+            markCharacterMastered(current.hanzi);
             setFeedback({
               type: 'success',
-              message: finalMistakes === 0 ? t('draw.feedback.perfect') : t('draw.feedback.done')
+              message: mistakesRef.current === 0 ? t('draw.feedback.perfect') : t('draw.feedback.done')
             });
           }
         });
-      }
+      }, 250);
+    } catch (e) {
+      console.warn('writer error', e);
     }
-  };
-  const handleNext = () => {
-    playSound(currentIndex < vocab.length - 1 ? 'tap' : 'complete');
-    const nextIndex = currentIndex < vocab.length - 1 ? currentIndex + 1 : 0;
+    return () => {
+      writerRef.current = null;
+    };
+  }, [index, current?.hanzi]);
+  const go = dir => {
+    playSound('tap');
     updateProgress({
-      drawingAttempts: {
-        ...progress.drawingAttempts,
-        [currentChar.hanzi]: (progress.drawingAttempts[currentChar.hanzi] || 0) + 1
-      },
       lastPositions: {
-        ...(progress.lastPositions || {}),
-        [positionKey]: nextIndex
+        ...progress.lastPositions,
+        draw: index
       }
     });
-    if (currentIndex < vocab.length - 1) {
-      setCurrentIndex(nextIndex);
-    } else {
-      setCurrentView('home');
-    }
+    setIndex(i => Math.max(0, Math.min(vocab.length - 1, i + dir)));
   };
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      playSound('tap');
-      const prevIndex = currentIndex - 1;
-      updateProgress({
-        lastPositions: {
-          ...(progress.lastPositions || {}),
-          [positionKey]: prevIndex
-        }
-      });
-      setCurrentIndex(prevIndex);
-    }
-  };
-  const selectDrawMode = mode => {
-    if (mode !== drawMode) playSound('select');
-    setDrawMode(mode);
-  };
-  const strokeDots = React.useMemo(() => {
-    const dots = [];
-    for (let i = 0; i < Math.min(totalStrokes, 12); i++) {
-      let className = 'stroke-dot';
-      if (i < strokesCompleted) className += ' completed';else if (i === strokesCompleted && !isComplete) className += ' current';
-      dots.push(React.createElement("div", {
-        key: i,
-        className: className
-      }));
-    }
-    if (totalStrokes > 12) {
-      dots.push(React.createElement("span", {
-        key: "more",
-        style: {
-          fontSize: '12px',
-          color: 'var(--text-secondary)'
-        }
-      }, "+", totalStrokes - 12));
-    }
-    return dots;
-  }, [totalStrokes, strokesCompleted, isComplete]);
+  if (!current) return React.createElement("div", {
+    className: "screen"
+  }, React.createElement("header", {
+    className: "header"
+  }, React.createElement("button", {
+    className: "back-btn",
+    onClick: () => setCurrentView('home')
+  }, t('common.back'))));
   return React.createElement("div", {
     className: "screen"
   }, React.createElement("header", {
@@ -5445,155 +4707,33 @@ function DrawView({
     className: "back-btn",
     onClick: () => setCurrentView('home')
   }, t('common.back')), React.createElement("span", {
-    className: "text-sm",
-    style: {
-      color: 'var(--accent-coral)'
-    }
-  }, t('draw.charNumber', {
-    count: currentIndex + 1
-  }))), React.createElement(MiniAppHeader, {
-    icon: "brush",
-    title: t('draw.title'),
-    subtitle: t('draw.subtitle'),
-    pill: scopePill
-  }), React.createElement("div", {
-    className: "mini-app-segment draw-mode-selector"
-  }, React.createElement("button", {
-    className: `draw-mode-btn ${drawMode === 'learn' ? 'active' : ''}`,
-    onClick: () => selectDrawMode('learn')
-  }, React.createElement(AppIcon, {
-    name: "card"
-  }), " ", t('draw.mode.learn')), React.createElement("button", {
-    className: `draw-mode-btn ${drawMode === 'practice' ? 'active' : ''}`,
-    onClick: () => selectDrawMode('practice')
-  }, React.createElement(AppIcon, {
-    name: "brush"
-  }), " ", t('draw.mode.practice')), React.createElement("button", {
-    className: `draw-mode-btn ${drawMode === 'quiz' ? 'active' : ''}`,
-    onClick: () => selectDrawMode('quiz')
-  }, React.createElement(AppIcon, {
-    name: "target"
-  }), " ", t('draw.mode.quiz'))), React.createElement("div", {
-    className: "draw-prompt-card card",
-    style: {
-      textAlign: 'center',
-      padding: '16px'
-    }
-  }, React.createElement("div", {
-    style: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '16px'
-    }
-  }, React.createElement("div", {
-    className: "hanzi-display",
-    style: {
-      fontSize: '48px',
-      color: 'var(--accent-lime)',
-      minWidth: '64px'
-    }
-  }, drawMode === 'learn' || showReference ? currentChar.hanzi : '?'), React.createElement("div", {
-    style: {
-      textAlign: 'left'
-    }
-  }, React.createElement("div", {
-    className: "pinyin-display",
-    style: {
-      fontSize: '20px',
-      marginTop: 0
-    }
-  }, currentChar.pinyin), React.createElement("p", {
-    className: "text-sm",
-    style: {
-      margin: '4px 0 0 0'
-    }
-  }, currentChar.meaning)))), (drawMode === 'learn' || showReference) && React.createElement(MemoryScroll, {
-    item: currentChar,
-    t: t,
-    compact: true
-  }), React.createElement("div", {
-    className: "writer-mini-program hanzi-writer-container"
-  }, isLoading && React.createElement("div", {
-    style: {
-      position: 'absolute',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      gap: '8px'
-    }
-  }, React.createElement("div", {
-    style: {
-      color: '#07c160',
-      animation: 'loadingPulse 1s ease-in-out infinite'
-    }
-  }, React.createElement(AppIcon, {
-    name: "brush"
-  })), React.createElement("div", {
     className: "text-sm"
-  }, t('draw.loading'))), React.createElement("div", {
+  }, index + 1, " / ", vocab.length)), React.createElement("h1", {
+    className: "title-lg"
+  }, current.pinyin), React.createElement("p", {
+    className: "text-sm",
+    style: {
+      marginTop: '2px'
+    }
+  }, current.meaning), React.createElement("div", {
+    className: "draw-canvas-wrap"
+  }, React.createElement("div", {
     ref: containerRef,
-    style: {
-      touchAction: 'none',
-      opacity: isLoading ? 0 : 1
-    }
-  }), feedback && React.createElement("div", {
-    className: `draw-feedback ${feedback.type}`
-  }, feedback.message)), drawMode !== 'learn' && totalStrokes > 0 && React.createElement("div", {
-    className: "stroke-counter"
-  }, strokeDots), React.createElement("div", {
-    className: "canvas-controls"
-  }, drawMode === 'learn' ? React.createElement(React.Fragment, null, React.createElement("button", {
-    className: "btn btn-secondary",
-    onClick: handleAnimate
-  }, t('draw.animate')), React.createElement("button", {
-    className: "btn btn-primary",
-    onClick: handleNext
-  }, currentIndex === vocab.length - 1 ? t('common.done') : t('common.nextChar'))) : React.createElement(React.Fragment, null, React.createElement("button", {
-    className: "btn btn-secondary",
-    onClick: handleReset
-  }, isComplete ? t('common.writeAgain') : t('common.reset')), React.createElement("button", {
-    className: "btn btn-secondary",
-    onClick: () => {
-      playSound('reveal');
-      setShowReference(prev => !prev);
-    }
-  }, showReference ? t('common.hide') : t('common.hint')), isComplete && React.createElement("button", {
-    className: "btn btn-primary",
-    onClick: handleNext
-  }, currentIndex === vocab.length - 1 ? t('common.done') : t('common.nextChar')))), drawMode !== 'learn' && React.createElement("div", {
+    className: "hanzi-writer-container"
+  })), React.createElement("div", {
     className: "draw-stats"
-  }, React.createElement("div", {
-    className: "draw-stat"
-  }, React.createElement("div", {
-    className: "draw-stat-value"
-  }, strokesCompleted, "/", totalStrokes), React.createElement("div", {
-    className: "draw-stat-label"
-  }, t('draw.strokes'))), React.createElement("div", {
-    className: "draw-stat"
-  }, React.createElement("div", {
-    className: "draw-stat-value",
-    style: {
-      color: mistakes > 0 ? 'var(--accent-coral)' : 'var(--accent-lime)'
-    }
-  }, mistakes), React.createElement("div", {
-    className: "draw-stat-label"
-  }, t('draw.mistakes'))), React.createElement("div", {
-    className: "draw-stat"
-  }, React.createElement("div", {
-    className: "draw-stat-value"
-  }, charStats.completed), React.createElement("div", {
-    className: "draw-stat-label"
-  }, t('draw.completed')))), React.createElement("div", {
+  }, React.createElement("span", null, t('draw.strokes'), ": ", current.strokes), React.createElement("span", null, t('draw.mistakes'), ": ", mistakes), React.createElement("span", null, t('draw.completed'), ": ", done ? '✓' : '…')), React.createElement("p", {
+    className: `draw-feedback ${feedback?.type || ''}`
+  }, feedback?.message || ''), React.createElement("div", {
     className: "nav-actions"
   }, React.createElement("button", {
     className: "btn btn-secondary",
-    onClick: handlePrev,
-    disabled: currentIndex === 0
-  }, t('common.prevChar')), (drawMode === 'learn' || !isComplete) && React.createElement("button", {
-    className: "btn btn-secondary",
-    onClick: handleNext
-  }, t('common.skip'))));
+    onClick: () => go(-1),
+    disabled: index === 0
+  }, t('common.prevChar')), React.createElement("button", {
+    className: "btn btn-primary",
+    onClick: () => go(1)
+  }, index === vocab.length - 1 ? t('common.done') : t('common.nextChar'))));
 }
 function QuizView({
   selectedLesson,
@@ -5605,123 +4745,57 @@ function QuizView({
   playSound,
   t
 }) {
-  const baseVocab = React.useMemo(() => selectedQueue?.items?.length ? selectedQueue.items : selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : VOCABULARY, [selectedLesson, selectedQueue]);
-  const [vocab] = React.useState(() => getStudyQueue(baseVocab, progress));
-  const [initialMasteredChars] = React.useState(progress.masteredChars);
-  const scopePill = selectedQueue ? getQueueDisplayLabel(selectedQueue, t) : selectedLesson ? `L${selectedLesson}` : t('nav.quiz');
-  const [questions, setQuestions] = React.useState([]);
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [attemptedAnswers, setAttemptedAnswers] = React.useState([]);
-  const [answeredCorrect, setAnsweredCorrect] = React.useState(false);
-  const [revealedAnswer, setRevealedAnswer] = React.useState(false);
+  const [mode, setMode] = React.useState(null);
+  const [questions, setQuestions] = React.useState(null);
+  const [qIndex, setQIndex] = React.useState(0);
   const [score, setScore] = React.useState(0);
-  const [isComplete, setIsComplete] = React.useState(false);
-  const [quizType, setQuizType] = React.useState(null);
-  const generateQuestions = React.useCallback(() => {
-    const mastered = getKnownSet(initialMasteredChars);
-    const weakPool = vocab.filter(v => !mastered.has(v.hanzi));
-    const source = weakPool.length >= 4 ? weakPool : vocab;
-    const shuffled = [...source].sort(() => Math.random() - 0.5).slice(0, Math.min(10, source.length));
-    const qs = shuffled.map(char => {
-      const similar = getSimilarDistractors(char, vocab, 3);
-      const fill = vocab.filter(v => v.id !== char.id && !similar.some(s => s.id === v.id)).sort(() => Math.random() - 0.5);
-      const wrong = [...similar, ...fill].slice(0, 3);
-      let opts;
-      if (quizType === 'hanzi-to-pinyin') {
-        opts = [{
-          text: char.pinyin,
-          isCorrect: true
-        }, ...wrong.map(w => ({
-          text: w.pinyin,
-          isCorrect: false
-        }))];
-      } else if (quizType === 'pinyin-to-hanzi') {
-        opts = [{
-          text: char.hanzi,
-          isCorrect: true
-        }, ...wrong.map(w => ({
-          text: w.hanzi,
-          isCorrect: false
-        }))];
-      } else {
-        opts = [{
-          text: char.meaning,
-          isCorrect: true
-        }, ...wrong.map(w => ({
-          text: w.meaning,
-          isCorrect: false
-        }))];
-      }
-      const uniqueOpts = [];
-      opts.forEach(opt => {
-        if (!uniqueOpts.some(existing => existing.text === opt.text)) uniqueOpts.push(opt);
-      });
+  const [answered, setAnswered] = React.useState(null);
+  const startQuiz = m => {
+    playSound('select');
+    setMode(m);
+    const pool = selectedQueue?.items || (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : getStudyQueue(VOCABULARY, progress));
+    const qs = pool.slice(0, 10).map(item => {
+      const distractors = getSimilarDistractors(item, pool, 3);
+      const options = [...distractors, item].sort(() => Math.random() - 0.5);
       return {
-        char,
-        options: uniqueOpts.sort(() => Math.random() - 0.5),
-        type: quizType
+        item,
+        options
       };
     });
     setQuestions(qs);
-    setCurrentIndex(0);
+    setQIndex(0);
     setScore(0);
-    setAttemptedAnswers([]);
-    setAnsweredCorrect(false);
-    setRevealedAnswer(false);
-    setIsComplete(false);
-  }, [vocab, quizType, initialMasteredChars]);
-  React.useEffect(() => {
-    if (quizType) generateQuestions();
-  }, [quizType, generateQuestions]);
-  const handleAnswer = option => {
-    if (answeredCorrect || revealedAnswer || attemptedAnswers.some(a => a.text === option.text)) return;
-    if (option.isCorrect) {
-      playSound('correct');
-      const newScore = score + 1;
-      setScore(newScore);
-      setAnsweredCorrect(true);
-      markCharacterMastered(questions[currentIndex].char.hanzi);
-      return;
-    }
-    const nextAttempts = [...attemptedAnswers, option];
-    playSound(nextAttempts.length >= 2 ? 'reveal' : 'wrong');
-    setAttemptedAnswers(nextAttempts);
-    if (nextAttempts.length >= 2) {
-      setRevealedAnswer(true);
-    }
+    setAnswered(null);
   };
-  const handleNextQuestion = () => {
-    if (currentIndex < questions.length - 1) {
-      playSound('tap');
-      setCurrentIndex(currentIndex + 1);
-      setAttemptedAnswers([]);
-      setAnsweredCorrect(false);
-      setRevealedAnswer(false);
-    } else {
-      playSound('complete');
-      setIsComplete(true);
+  const answer = opt => {
+    if (answered !== null) return;
+    const q = questions[qIndex];
+    const correct = opt.hanzi === q.item.hanzi;
+    setAnswered(opt.hanzi);
+    if (correct) {
+      setScore(s => s + 1);
+      playSound('correct');
+      markCharacterMastered(q.item.hanzi);
+    } else playSound('wrong');
+  };
+  const next = () => {
+    playSound('tap');
+    if (qIndex === questions.length - 1) {
       updateProgress({
         quizScores: [...progress.quizScores, {
+          date: new Date().toISOString(),
           score,
-          total: questions.length,
-          date: new Date().toISOString()
-        }]
+          total: questions.length
+        }].slice(-50)
       });
+      setQuestions(null);
+      setMode(null);
+    } else {
+      setQIndex(qIndex + 1);
+      setAnswered(null);
     }
   };
-  const chooseQuizType = type => {
-    playSound('select');
-    setQuizType(type);
-  };
-  const restartQuiz = () => {
-    playSound('select');
-    generateQuestions();
-  };
-  const changeQuizMode = () => {
-    playSound('tap');
-    setQuizType(null);
-  };
-  if (!quizType) {
+  if (!mode) {
     return React.createElement("div", {
       className: "screen"
     }, React.createElement("header", {
@@ -5729,53 +4803,45 @@ function QuizView({
     }, React.createElement("button", {
       className: "back-btn",
       onClick: () => setCurrentView('home')
-    }, t('common.back')), React.createElement(HeaderLogoMark, null)), React.createElement(MiniAppHeader, {
+    }, t('common.back')), React.createElement("span", {
+      className: "text-sm"
+    }, t('quiz.title'))), React.createElement("h1", {
+      className: "title-lg"
+    }, t('quiz.title')), React.createElement("p", {
+      className: "text-sm",
+      style: {
+        marginTop: '4px'
+      }
+    }, t('quiz.subtitle')), React.createElement("div", {
+      className: "list-panel"
+    }, React.createElement(ListRow, {
+      icon: "sound",
+      label: t('quiz.mode.hanziPinyin'),
+      meta: t('quiz.mode.hanziPinyinCopy'),
+      onClick: () => startQuiz('hanzi-to-pinyin')
+    }), React.createElement(ListRow, {
       icon: "target",
-      title: t('quiz.title'),
-      subtitle: t('quiz.subtitle'),
-      pill: scopePill
-    }), React.createElement("div", {
-      className: "card card-clickable card-accent-lime quiz-mode-card",
-      onClick: () => chooseQuizType('hanzi-to-pinyin'),
-      role: "button",
-      tabIndex: 0
-    }, React.createElement("span", {
-      className: "quiz-mode-icon"
-    }, React.createElement(AppIcon, {
-      name: "sound"
-    })), React.createElement("div", null, React.createElement("p", {
-      className: "title-lg"
-    }, t('quiz.mode.hanziPinyin')), React.createElement("p", {
-      className: "text-sm"
-    }, t('quiz.mode.hanziPinyinCopy')))), React.createElement("div", {
-      className: "card card-clickable card-accent-cyan quiz-mode-card",
-      onClick: () => chooseQuizType('pinyin-to-hanzi'),
-      role: "button",
-      tabIndex: 0
-    }, React.createElement("span", {
-      className: "quiz-mode-icon"
-    }, React.createElement(AppIcon, {
-      name: "target"
-    })), React.createElement("div", null, React.createElement("p", {
-      className: "title-lg"
-    }, t('quiz.mode.pinyinHanzi')), React.createElement("p", {
-      className: "text-sm"
-    }, t('quiz.mode.pinyinHanziCopy')))), React.createElement("div", {
-      className: "card card-clickable card-accent-coral quiz-mode-card",
-      onClick: () => chooseQuizType('hanzi-to-meaning'),
-      role: "button",
-      tabIndex: 0
-    }, React.createElement("span", {
-      className: "quiz-mode-icon"
-    }, React.createElement(AppIcon, {
-      name: "book"
-    })), React.createElement("div", null, React.createElement("p", {
-      className: "title-lg"
-    }, t('quiz.mode.hanziMeaning')), React.createElement("p", {
-      className: "text-sm"
-    }, t('quiz.mode.hanziMeaningCopy')))));
+      label: t('quiz.mode.pinyinHanzi'),
+      meta: t('quiz.mode.pinyinHanziCopy'),
+      onClick: () => startQuiz('pinyin-to-hanzi')
+    }), React.createElement(ListRow, {
+      icon: "book",
+      label: t('quiz.mode.hanziMeaning'),
+      meta: t('quiz.mode.hanziMeaningCopy'),
+      onClick: () => startQuiz('hanzi-to-meaning')
+    })));
   }
-  if (isComplete) {
+  if (!questions) {
+    const pct = Math.round(score / Math.max(questions?.length || score, 1) * 100);
+    return null;
+  }
+  if (questions && qIndex === questions.length - 1 && answered !== null && mode) {}
+  const q = questions[qIndex];
+  const prompt = mode === 'hanzi-to-pinyin' ? q.item.hanzi : mode === 'pinyin-to-hanzi' ? q.item.pinyin : q.item.hanzi;
+  const answerText = o => mode === 'hanzi-to-pinyin' ? o.pinyin : mode === 'pinyin-to-hanzi' ? o.hanzi : o.meaning;
+  const questionLabel = mode === 'hanzi-to-pinyin' ? t('quiz.howRead') : mode === 'pinyin-to-hanzi' ? t('quiz.whichHanzi') : t('quiz.whatMeans');
+  const isLast = qIndex === questions.length - 1;
+  if (answered !== null && isLast) {
     const pct = Math.round(score / questions.length * 100);
     return React.createElement("div", {
       className: "screen"
@@ -5783,21 +4849,29 @@ function QuizView({
       className: "header"
     }, React.createElement("button", {
       className: "back-btn",
-      onClick: () => setCurrentView('home')
-    }, t('common.back'))), React.createElement("div", {
-      className: "results-display"
-    }, React.createElement("div", {
-      className: "score-circle"
+      onClick: () => {
+        setQuestions(null);
+        setMode(null);
+      }
+    }, t('quiz.changeMode'))), React.createElement("div", {
+      className: "card",
+      style: {
+        textAlign: 'center',
+        padding: '32px 20px'
+      }
     }, React.createElement("div", {
       className: "score-value"
     }, pct, "%"), React.createElement("div", {
       className: "score-label"
-    }, t('common.score'))), React.createElement("h2", {
-      className: "title-xl"
+    }, t('common.score')), React.createElement("h2", {
+      className: "title-lg",
+      style: {
+        marginTop: '12px'
+      }
     }, pct >= 80 ? t('quiz.resultGreat') : pct >= 60 ? t('quiz.resultGood') : t('quiz.resultKeep')), React.createElement("p", {
       className: "text-sm",
       style: {
-        marginTop: '12px'
+        marginTop: '8px'
       }
     }, t('quiz.scoreLine', {
       score,
@@ -5806,102 +4880,55 @@ function QuizView({
       className: "nav-actions"
     }, React.createElement("button", {
       className: "btn btn-secondary",
-      onClick: changeQuizMode
-    }, t('quiz.changeMode')), React.createElement("button", {
+      onClick: () => {
+        setQuestions(null);
+        setMode(null);
+      }
+    }, t('quiz.tryAgain')), React.createElement("button", {
       className: "btn btn-primary",
-      onClick: restartQuiz
-    }, t('quiz.again'))));
+      onClick: () => {
+        setQuestions(null);
+        setMode(null);
+        setCurrentView('home');
+      }
+    }, t('common.done'))));
   }
-  const q = questions[currentIndex];
-  if (!q) return null;
-  const canContinue = answeredCorrect || revealedAnswer;
-  const correctOption = q.options.find(opt => opt.isCorrect);
-  const isWordQuestion = q.char.kind === 'word';
   return React.createElement("div", {
     className: "screen"
   }, React.createElement("header", {
     className: "header"
   }, React.createElement("button", {
     className: "back-btn",
-    onClick: () => setCurrentView('home')
-  }, t('common.back')), React.createElement("span", {
+    onClick: () => {
+      setQuestions(null);
+      setMode(null);
+    }
+  }, t('quiz.changeMode')), React.createElement("span", {
+    className: "text-sm"
+  }, qIndex + 1, " / ", questions.length)), React.createElement("p", {
     className: "text-sm",
     style: {
-      color: 'var(--accent-purple)'
+      textAlign: 'center'
     }
-  }, currentIndex + 1, " / ", questions.length)), React.createElement(MiniAppHeader, {
-    icon: "target",
-    title: t('quiz.title'),
-    subtitle: t('quiz.subtitleActive'),
-    pill: t('quiz.scoreFooter', {
-      score,
-      total: questions.length
-    })
-  }), React.createElement("div", {
-    className: "progress-bar"
-  }, React.createElement("div", {
-    className: "progress-fill",
-    style: {
-      width: `${currentIndex / questions.length * 100}%`
-    }
-  })), React.createElement("div", {
-    className: "quiz-question quiz-pass-card"
-  }, q.type === 'pinyin-to-hanzi' ? React.createElement(React.Fragment, null, React.createElement("p", {
-    className: "text-sm"
-  }, t('quiz.whichHanzi')), React.createElement("div", {
-    className: "pinyin-display",
-    style: {
-      fontSize: '42px',
-      marginTop: '16px'
-    }
-  }, q.char.pinyin), React.createElement("p", {
-    className: "meaning-display"
-  }, q.char.meaning)) : React.createElement(React.Fragment, null, React.createElement("p", {
-    className: "text-sm"
-  }, q.type === 'hanzi-to-pinyin' ? t('quiz.howRead') : t('quiz.whatMeans')), React.createElement("div", {
-    className: `hanzi-display hanzi-xl ${isWordQuestion ? 'hanzi-word' : ''}`,
-    style: {
-      color: 'var(--accent-lime)'
-    }
-  }, q.char.hanzi))), React.createElement("div", {
-    className: "quiz-options service-list"
-  }, q.options.map((opt, i) => {
-    const wasTried = attemptedAnswers.some(a => a.text === opt.text);
-    const showCorrect = canContinue && opt.isCorrect;
+  }, questionLabel), React.createElement("div", {
+    className: "quiz-question"
+  }, prompt), React.createElement("div", {
+    className: "quiz-options"
+  }, q.options.map(o => {
+    const isCorrect = o.hanzi === q.item.hanzi;
+    const cls = answered === null ? '' : isCorrect ? 'correct' : answered === o.hanzi ? 'incorrect' : 'disabled';
     return React.createElement("button", {
-      key: i,
-      className: `quiz-option ${showCorrect ? 'correct' : ''} ${wasTried ? 'incorrect disabled' : ''} ${canContinue ? 'disabled' : ''}`,
-      onClick: () => handleAnswer(opt),
-      style: q.type === 'pinyin-to-hanzi' ? {
-        fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', sans-serif",
-        fontSize: opt.text.length > 2 ? '24px' : '32px',
-        textAlign: 'center',
-        justifyContent: 'center'
-      } : {}
-    }, opt.text);
-  })), (attemptedAnswers.length > 0 || canContinue) && React.createElement("div", {
-    className: "quiz-feedback"
-  }, answeredCorrect ? React.createElement("strong", null, t('quiz.correct')) : revealedAnswer ? React.createElement(React.Fragment, null, React.createElement("div", null, t('quiz.correctAnswer'), React.createElement("strong", null, correctOption?.text)), React.createElement("div", {
-    className: "pinyin-display"
-  }, q.char.pinyin)) : React.createElement("strong", null, t('quiz.tryAgain')), canContinue && React.createElement(MemoryScroll, {
-    item: q.char,
-    t: t,
-    compact: true
-  })), canContinue && React.createElement("div", {
+      key: o.hanzi + o.pinyin,
+      className: `quiz-option ${cls}`,
+      onClick: () => answer(o),
+      disabled: answered !== null
+    }, answerText(o));
+  })), answered !== null && React.createElement("div", {
     className: "nav-actions"
   }, React.createElement("button", {
     className: "btn btn-primary",
-    onClick: handleNextQuestion
-  }, currentIndex === questions.length - 1 ? t('common.done') : t('quiz.next'))), React.createElement("p", {
-    className: "text-sm",
-    style: {
-      textAlign: 'center',
-      marginTop: '20px'
-    }
-  }, t('quiz.scoreFooter', {
-    score,
-    total: currentIndex + (canContinue ? 1 : 0)
-  })));
+    onClick: next
+  }, isLast ? t('common.done') : t('quiz.next'))));
 }
 function StatsView({
   progress,
@@ -5933,13 +4960,12 @@ function StatsView({
     }
   };
   const handleExport = () => {
-    const exportData = {
+    const blob = new Blob([JSON.stringify({
       version: 1,
       exportDate: new Date().toISOString(),
       appName: 'hanzi-master',
-      progress: progress
-    };
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+      progress
+    }, null, 2)], {
       type: 'application/json'
     });
     const url = URL.createObjectURL(blob);
@@ -5953,32 +4979,20 @@ function StatsView({
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = event => {
+    reader.onload = ev => {
       try {
-        const data = JSON.parse(event.target.result);
+        const data = JSON.parse(ev.target.result);
         if (!data.progress || data.appName !== 'hanzi-master') {
           alert(t('stats.invalidBackup'));
           return;
         }
-        let imported = {
-          masteredChars: data.progress.masteredChars || [],
-          learningChars: data.progress.learningChars || [],
-          quizScores: data.progress.quizScores || [],
-          drawingAttempts: data.progress.drawingAttempts || {},
-          lastPositions: data.progress.lastPositions || {},
-          lastStudyDate: data.progress.lastStudyDate || null,
-          streak: data.progress.streak || 0,
-          totalReviews: data.progress.totalReviews || 0,
-          streakDays: data.progress.streakDays || 0
-        };
-        imported = migrateProgress(imported);
         if (window.confirm(t('stats.confirmImport', {
           date: new Date(data.exportDate).toLocaleDateString()
         }))) {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(imported));
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(migrateProgress(data.progress)));
           window.location.reload();
         }
-      } catch (err) {
+      } catch {
         alert(t('stats.importFail'));
       }
     };
@@ -5992,13 +5006,17 @@ function StatsView({
   }, React.createElement("button", {
     className: "back-btn",
     onClick: () => setCurrentView('home')
-  }, t('common.back')), React.createElement(HeaderLogoMark, null)), React.createElement(MiniAppHeader, {
-    icon: "wallet",
-    title: t('stats.title'),
-    subtitle: t('stats.subtitle'),
-    pill: `${progress.masteredChars.length}/${VOCABULARY.length}`
-  }), React.createElement("div", {
-    className: "stats-bar stats-wallet"
+  }, t('common.back')), React.createElement("span", {
+    className: "text-sm"
+  }, t('stats.title'))), React.createElement("h1", {
+    className: "title-lg"
+  }, t('stats.title')), React.createElement("p", {
+    className: "text-sm",
+    style: {
+      marginTop: '4px'
+    }
+  }, t('stats.subtitle')), React.createElement("div", {
+    className: "stats-bar"
   }, React.createElement("div", {
     className: "stat-item"
   }, React.createElement("div", {
@@ -6023,67 +5041,38 @@ function StatsView({
     className: "text-sm"
   }, t('stats.byLesson')), React.createElement("div", {
     className: "section-line"
-  })), byLesson.map(({
-    lesson,
-    mastered,
-    total
-  }) => React.createElement("div", {
-    key: lesson,
-    className: "card"
-  }, React.createElement("div", {
+  })), React.createElement("div", {
+    className: "list-panel"
+  }, byLesson.map(l => React.createElement("div", {
+    key: l.lesson,
+    className: "list-row",
     style: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
+      cursor: 'default'
     }
-  }, React.createElement("p", {
-    className: "title-md"
+  }, React.createElement("span", {
+    className: "list-label"
   }, t('stats.lesson', {
-    lesson
+    lesson: l.lesson
   })), React.createElement("span", {
-    className: "text-accent",
-    style: {
-      fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif",
-      fontSize: '20px',
-      fontWeight: 900
-    }
-  }, mastered, "/", total)), React.createElement("div", {
-    className: "progress-bar",
-    style: {
-      marginTop: '10px',
-      marginBottom: '0'
-    }
-  }, React.createElement("div", {
-    className: "progress-fill",
-    style: {
-      width: `${mastered / total * 100}%`
-    }
-  })))), recentScores.length > 0 && React.createElement(React.Fragment, null, React.createElement("div", {
+    className: "list-meta"
+  }, l.mastered, "/", l.total)))), recentScores.length > 0 && React.createElement(React.Fragment, null, React.createElement("div", {
     className: "section-title"
   }, React.createElement("span", {
     className: "text-sm"
   }, t('stats.recent')), React.createElement("div", {
     className: "section-line"
-  })), recentScores.map((q, i) => React.createElement("div", {
+  })), React.createElement("div", {
+    className: "list-panel"
+  }, recentScores.map((q, i) => React.createElement("div", {
     key: i,
-    className: "card"
-  }, React.createElement("div", {
+    className: "list-row",
     style: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
+      cursor: 'default'
     }
   }, React.createElement("span", {
-    style: {
-      fontSize: '13px'
-    }
+    className: "list-label"
   }, new Date(q.date).toLocaleDateString()), React.createElement("span", {
-    className: "text-accent",
-    style: {
-      fontFamily: "'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif",
-      fontSize: '22px',
-      fontWeight: 900
-    }
+    className: "list-meta"
   }, Math.round(q.score / q.total * 100), "%"))))), React.createElement("div", {
     className: "section-title"
   }, React.createElement("span", {
@@ -6094,15 +5083,12 @@ function StatsView({
     className: "section-line"
   })), React.createElement("div", {
     className: "char-grid"
-  }, VOCABULARY.map(c => React.createElement("div", {
+  }, VOCABULARY.map(c => React.createElement("span", {
     key: c.id,
     className: `char-item ${progress.masteredChars.includes(c.hanzi) ? 'mastered' : progress.learningChars.includes(c.hanzi) ? 'learning' : ''}`,
-    title: `${c.pinyin} - ${c.meaning}`
+    title: `${c.pinyin} — ${c.meaning}`
   }, c.hanzi))), React.createElement("div", {
-    className: "section-title",
-    style: {
-      marginTop: '28px'
-    }
+    className: "section-title"
   }, React.createElement("span", {
     className: "text-sm"
   }, t('settings.section')), React.createElement("div", {
@@ -6118,10 +5104,7 @@ function StatsView({
     setAmbienceEnabled: setAmbienceEnabled,
     t: t
   })), React.createElement("div", {
-    className: "section-title",
-    style: {
-      marginTop: '28px'
-    }
+    className: "section-title"
   }, React.createElement("span", {
     className: "text-sm"
   }, t('theme.section')), React.createElement("div", {
@@ -6132,11 +5115,8 @@ function StatsView({
     theme: theme,
     onChange: setTheme,
     t: t
-  })), window.location.protocol !== 'file:' && React.createElement(React.Fragment, null, React.createElement("div", {
-    className: "section-title",
-    style: {
-      marginTop: '28px'
-    }
+  })), !isOfflineCopy && React.createElement(React.Fragment, null, React.createElement("div", {
+    className: "section-title"
   }, React.createElement("span", {
     className: "text-sm"
   }, t('account.section')), React.createElement("div", {
@@ -6149,10 +5129,7 @@ function StatsView({
     t: t,
     playSound: playSound
   })), React.createElement("div", {
-    className: "section-title",
-    style: {
-      marginTop: '28px'
-    }
+    className: "section-title"
   }, React.createElement("span", {
     className: "text-sm"
   }, t('stats.backup')), React.createElement("div", {
@@ -6162,20 +5139,12 @@ function StatsView({
   }, React.createElement("button", {
     className: "btn btn-secondary",
     onClick: handleExport
-  }, React.createElement("span", {
-    style: {
-      marginRight: '8px'
-    }
-  }, "\uD83D\uDCE4"), " ", t('stats.export')), React.createElement("label", {
+  }, t('stats.export')), React.createElement("label", {
     className: "btn btn-secondary",
     style: {
       cursor: 'pointer'
     }
-  }, React.createElement("span", {
-    style: {
-      marginRight: '8px'
-    }
-  }, "\uD83D\uDCE5"), " ", t('stats.import'), React.createElement("input", {
+  }, t('stats.import'), React.createElement("input", {
     type: "file",
     accept: ".json",
     onChange: handleImport,
@@ -6183,16 +5152,13 @@ function StatsView({
       display: 'none'
     }
   }))), React.createElement("div", {
-    className: "section-title",
-    style: {
-      marginTop: '28px'
-    }
+    className: "section-title"
   }, React.createElement("span", {
     className: "text-sm"
   }, t('stats.offline')), React.createElement("div", {
     className: "section-line"
   })), React.createElement("div", {
-    className: "offline-pack-card"
+    className: "card offline-pack-card"
   }, React.createElement("span", {
     className: "offline-pack-icon"
   }, React.createElement(AppIcon, {
@@ -6203,18 +5169,12 @@ function StatsView({
     className: "title-md"
   }, t('stats.offlineTitle')), React.createElement("p", {
     className: "text-sm"
-  }, t('stats.offlineHint'))), isOfflineCopy ? React.createElement("span", {
-    className: "offline-ready-pill"
-  }, t('stats.offlineReady')) : React.createElement("a", {
-    className: "btn btn-primary offline-download-button",
+  }, t('stats.offlineHint'))), !isOfflineCopy && React.createElement("a", {
+    className: "btn btn-primary",
     href: "hanzi-master-offline.zip",
     download: "hanzi-master-offline.zip"
-  }, React.createElement(AppIcon, {
-    name: "download"
-  }), React.createElement("span", null, t('stats.offlineDownload')))), React.createElement("div", {
-    style: {
-      marginTop: '20px'
-    }
+  }, t('stats.offlineDownload'))), React.createElement("div", {
+    className: "nav-actions"
   }, React.createElement("button", {
     className: "btn btn-coral",
     onClick: handleReset
