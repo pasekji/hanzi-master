@@ -5291,3 +5291,255 @@
   }
 
   html[data-theme='sakura'] .hero-seal { background: #c2452e; }
+
+  /* ============================================================
+     INK LAYOUT — complete layout redesign (editorial lists,
+     hairline rules, big numerals/characters, left aligned)
+     ============================================================ */
+
+  /* screen header: hairline + big title */
+  .header {
+    border-bottom: 1px solid var(--border-color) !important;
+    box-shadow: none !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .header .text-sm {
+    font-size: 12px !important;
+    font-weight: 800 !important;
+  }
+
+  /* mini-program tiles -> editorial list rows */
+  .mini-program-panel {
+    padding: 4px 16px !important;
+  }
+
+  .mini-program-head {
+    padding: 12px 0 8px !important;
+    font-weight: 900 !important;
+    font-size: 14px !important;
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  .mini-program-grid, .mini-program-grid-4 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  .mini-program-tile {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 14px !important;
+    padding: 14px 0 !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: 0 !important;
+  }
+
+  .mini-program-tile:last-child {
+    border-bottom: none !important;
+  }
+
+  .mini-program-tile .mini-program-icon {
+    width: 36px !important;
+    height: 36px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .mini-program-tile .mini-program-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .mini-program-name {
+    flex: 1 !important;
+    text-align: left !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+    white-space: normal !important;
+  }
+
+  .mini-program-tile::after {
+    content: '→';
+    color: var(--text-secondary) !important;
+    font-size: 16px !important;
+  }
+
+  /* daily queue: big characters in a row, no boxes */
+  .daily-queue-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px 14px !important;
+    padding: 8px 0 !important;
+  }
+
+  .daily-queue-char {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 4px 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2px !important;
+  }
+
+  .daily-queue-char .hanzi-display {
+    font-size: 34px !important;
+    font-weight: 900 !important;
+    color: var(--text-primary) !important;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Songti SC', serif !important;
+  }
+
+  /* daily steps -> numbered list */
+  .daily-step-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  .daily-step-card {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 14px !important;
+    padding: 14px 0 !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-align: left !important;
+  }
+
+  .daily-step-card:last-child {
+    border-bottom: none !important;
+  }
+
+  .daily-step-index {
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    color: var(--accent-lime) !important;
+    font-family: ui-monospace, Menlo, Consolas, monospace !important;
+  }
+
+  .daily-step-icon {
+    display: none !important;
+  }
+
+  /* home daily strip: bigger characters */
+  .daily-entry-strip {
+    gap: 10px !important;
+  }
+
+  .daily-entry-char {
+    font-size: 26px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--text-primary) !important;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Songti SC', serif !important;
+  }
+
+  /* quiz options -> hairline rows */
+  .quiz-options.service-list {
+    gap: 0 !important;
+  }
+
+  .quiz-option {
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    box-shadow: none !important;
+    padding: 16px 4px !important;
+    font-size: 17px !important;
+    background: transparent !important;
+    color: var(--text-primary) !important;
+  }
+
+  .quiz-option:last-child {
+    border-bottom: none !important;
+  }
+
+  /* char grid: hairline cells */
+  .char-grid {
+    gap: 6px !important;
+  }
+
+  .char-item {
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-control) !important;
+    box-shadow: none !important;
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Songti SC', serif !important;
+  }
+
+  /* hero: left aligned editorial */
+  .hero-block {
+    text-align: left !important;
+    padding: 24px 20px 20px !important;
+  }
+
+  .hero-char-wrap {
+    margin-bottom: 10px !important;
+  }
+
+  .hero-subtitle {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: none !important;
+  }
+
+  .hero-title {
+    font-size: 26px !important;
+  }
+
+  /* wallet: big number */
+  .wallet-score {
+    font-size: 44px !important;
+    font-weight: 900 !important;
+  }
+
+  .progress-bar {
+    height: 3px !important;
+    border-radius: 0 !important;
+    background: var(--border-color) !important;
+  }
+
+  .progress-fill {
+    border-radius: 0 !important;
+  }
+
+  /* stats bar: hairline top/bottom, big numbers */
+  .stats-bar {
+    border-top: 1px solid var(--border-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 14px 0 !important;
+  }
+
+  .stat-value {
+    font-size: 26px !important;
+    font-weight: 900 !important;
+  }
+
+  /* section titles: small ink label with rule */
+  .section-title .text-sm {
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    color: var(--text-secondary) !important;
+    letter-spacing: 0.4px !important;
+  }
+
+  /* buttons full width at bottom actions */
+  .nav-actions {
+    gap: 10px !important;
+  }
+
+  .nav-actions .btn {
+    flex: 1 !important;
+  }
