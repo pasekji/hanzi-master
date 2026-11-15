@@ -79,3 +79,11 @@ Source folder: `C:/Users/jirip/Downloads/cinstina`
   deduped options); daily queue unchanged.
 - Totals: 105 writable characters, 47 compounds, 374 material cards,
   427 deduplicated entries on /secret.
+
+### Pinyin verification (36 new characters)
+All 36 per-character pinyin values verified against pinyin-pro (CC-CEDICT
+based) and cross-checked so each character's pinyin is a syllable of its
+example word from the Excel (e.g. 银=yín in yínháng, 行=háng in yínháng,
+便=pián in piányi). Differences vs single-character lists are only tone
+sandhi in compounds (gàosu, shìqing, piányi) or heteronyms — standalone
+readings are correct. Full list: /tmp/chars-report.txt
