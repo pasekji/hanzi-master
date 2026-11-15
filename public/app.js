@@ -1905,7 +1905,7 @@ function MemorySceneSvg({
   const gap = parts.length === 1 ? 0 : 8;
   const groupWidth = partWidth * parts.length + gap * Math.max(0, parts.length - 1);
   const startX = 120 - groupWidth / 2;
-  const accent = memory.category === 'nature' ? '#07a653' : memory.category === 'time' ? '#d99a18' : memory.category === 'language' ? '#1677ff' : memory.category === 'action' ? '#ef4b3e' : '#168b69';
+  const accent = memory.category === 'nature' ? '#c8371f' : memory.category === 'time' ? '#d99a18' : memory.category === 'language' ? '#191713' : memory.category === 'action' ? '#c8371f' : '#168b69';
   return React.createElement("svg", {
     className: "memory-scene-svg",
     viewBox: "0 0 240 132",
@@ -1917,13 +1917,13 @@ function MemorySceneSvg({
     width: "238",
     height: "130",
     rx: "7",
-    fill: "#f7fbf8",
+    fill: "#f8f5ef",
     stroke: "#dce9e2"
   }), React.createElement("circle", {
     cx: "202",
     cy: "24",
     r: "13",
-    fill: memory.category === 'time' ? '#ffd76a' : '#ffe2a8',
+    fill: memory.category === 'time' ? '#c8bfa8' : '#ffe2a8',
     opacity: "0.82"
   }), React.createElement("path", {
     d: "M0 101 C34 80 55 96 82 82 C112 65 136 96 165 77 C190 61 213 78 240 61 V132 H0 Z",
@@ -1933,22 +1933,22 @@ function MemorySceneSvg({
     fill: "#c9ead9"
   }), memory.category === 'language' && React.createElement(React.Fragment, null, React.createElement("path", {
     d: "M26 28 h40 a8 8 0 0 1 8 8 v12 a8 8 0 0 1-8 8 H48 l-9 8 2-8 H26 a8 8 0 0 1-8-8 V36 a8 8 0 0 1 8-8Z",
-    fill: "#dbeaff"
+    fill: "#f0ead9"
   }), React.createElement("circle", {
     cx: "34",
     cy: "42",
     r: "2.5",
-    fill: "#1677ff"
+    fill: "#191713"
   }), React.createElement("circle", {
     cx: "46",
     cy: "42",
     r: "2.5",
-    fill: "#1677ff"
+    fill: "#191713"
   }), React.createElement("circle", {
     cx: "58",
     cy: "42",
     r: "2.5",
-    fill: "#1677ff"
+    fill: "#191713"
   })), memory.category === 'number' && React.createElement("g", {
     stroke: "#d99a18",
     strokeWidth: "2"
@@ -1958,19 +1958,19 @@ function MemorySceneSvg({
     cx: "35",
     cy: "28",
     r: "4",
-    fill: "#ffd76a",
+    fill: "#c8bfa8",
     stroke: "none"
   }), React.createElement("circle", {
     cx: "51",
     cy: "38",
     r: "4",
-    fill: "#ffd76a",
+    fill: "#c8bfa8",
     stroke: "none"
   }), React.createElement("circle", {
     cx: "40",
     cy: "48",
     r: "4",
-    fill: "#ffd76a",
+    fill: "#c8bfa8",
     stroke: "none"
   })), memory.category === 'place' && React.createElement("g", {
     fill: "none",
@@ -1981,7 +1981,7 @@ function MemorySceneSvg({
     d: "M20 51 h53 M27 50 l8-17 h24 l8 17 M34 51 v19 M59 51 v19 M27 70 h40"
   })), memory.category === 'action' && React.createElement("g", {
     fill: "none",
-    stroke: "#ef4b3e",
+    stroke: "#c8371f",
     strokeWidth: "3",
     strokeLinecap: "round"
   }, React.createElement("path", {
@@ -2006,8 +2006,8 @@ function MemorySceneSvg({
   }), React.createElement("path", {
     d: "M52 68 q11-20 22 0Z"
   })), memory.category === 'object' && React.createElement("g", {
-    fill: "#dbeaff",
-    stroke: "#1677ff",
+    fill: "#f0ead9",
+    stroke: "#191713",
     strokeWidth: "2"
   }, React.createElement("rect", {
     x: "20",
@@ -2026,7 +2026,7 @@ function MemorySceneSvg({
     d: "M14 69 34 34 47 55 57 42 76 69"
   }), React.createElement("path", {
     d: "M20 76 q25-12 52 0",
-    stroke: "#1677ff"
+    stroke: "#191713"
   })), memory.category === 'time' && React.createElement("g", {
     fill: "#fff7dc",
     stroke: "#d99a18",
@@ -2063,13 +2063,13 @@ function MemorySceneSvg({
       height: "58",
       rx: "7",
       fill: "#ffffff",
-      stroke: index === parts.length - 1 ? accent : '#cddfd6',
+      stroke: index === parts.length - 1 ? accent : '#e4ddcf',
       strokeWidth: "1.5"
     }), React.createElement("text", {
       x: partWidth / 2,
       y: "39",
       textAnchor: "middle",
-      fill: "#173126",
+      fill: "#191713",
       fontFamily: "Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif",
       fontSize: parts.length === 1 ? '36' : '29',
       fontWeight: "900"
@@ -2087,38 +2087,38 @@ function MemorySceneSvg({
     cy: "17",
     r: "15",
     fill: "#ffffff",
-    stroke: "#18212b",
+    stroke: "#191713",
     strokeWidth: "2"
   }), React.createElement("circle", {
     cx: "8",
     cy: "6",
     r: "6",
-    fill: "#18212b"
+    fill: "#191713"
   }), React.createElement("circle", {
     cx: "26",
     cy: "6",
     r: "6",
-    fill: "#18212b"
+    fill: "#191713"
   }), React.createElement("ellipse", {
     cx: "17",
     cy: "19",
     rx: "10",
     ry: "8",
-    fill: "#f7fbf8"
+    fill: "#f8f5ef"
   }), React.createElement("circle", {
     cx: "13",
     cy: "16",
     r: "2",
-    fill: "#18212b"
+    fill: "#191713"
   }), React.createElement("circle", {
     cx: "21",
     cy: "16",
     r: "2",
-    fill: "#18212b"
+    fill: "#191713"
   }), React.createElement("path", {
     d: "M14 22 q3 3 6 0",
     fill: "none",
-    stroke: "#18212b",
+    stroke: "#191713",
     strokeWidth: "1.5",
     strokeLinecap: "round"
   })), React.createElement("g", {
@@ -2127,7 +2127,7 @@ function MemorySceneSvg({
     width: "25",
     height: "25",
     rx: "4",
-    fill: "#ef4b3e"
+    fill: "#c8371f"
   }), React.createElement("text", {
     x: "12.5",
     y: "18",
@@ -3347,20 +3347,20 @@ const THEME_STORAGE_KEY = 'hanzi_master_theme';
 const THEMES = [{
   id: 'light',
   labelKey: 'theme.light',
-  swatch: 'linear-gradient(135deg, #e8f7ef 45%, #07c160 55%, #1677ff)'
+  swatch: 'linear-gradient(135deg, #f8f5ef 45%, #c8371f 60%, #191713)'
 }, {
   id: 'dark',
   labelKey: 'theme.dark',
-  swatch: 'linear-gradient(135deg, #0d1210 45%, #2dd48a 55%, #1677ff)'
+  swatch: 'linear-gradient(135deg, #14120f 45%, #e04a2a 60%, #efe9dd)'
 }, {
   id: 'sakura',
   labelKey: 'theme.sakura',
-  swatch: 'linear-gradient(135deg, #fdeef4 45%, #ec4899 55%, #f59e0b)'
+  swatch: 'linear-gradient(135deg, #f9f1ee 45%, #c2452e 60%, #8a7a6d)'
 }];
 const THEME_META_COLOR = {
-  light: '#e8f7ef',
-  dark: '#0d1210',
-  sakura: '#fdeef4'
+  light: '#f8f5ef',
+  dark: '#14120f',
+  sakura: '#f9f1ee'
 };
 const isValidTheme = id => THEMES.some(t => t.id === id);
 const loadTheme = () => {
@@ -4563,7 +4563,14 @@ function LearnView({
     className: "material-example"
   }, current.example)), !flipped && React.createElement("p", {
     className: "flashcard-hint"
-  }, t('learn.tap'))), related.length > 0 && React.createElement("div", {
+  }, t('learn.tap'))), CHARACTER_MEMORY_CUES[current.hanzi] && React.createElement("div", {
+    className: "card"
+  }, React.createElement("p", {
+    className: "text-sm",
+    style: {
+      fontStyle: 'italic'
+    }
+  }, CHARACTER_MEMORY_CUES[current.hanzi])), related.length > 0 && React.createElement("div", {
     className: "card"
   }, React.createElement("button", {
     className: "list-row",

@@ -253,6 +253,12 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
         {!flipped && <p className="flashcard-hint">{t('learn.tap')}</p>}
       </div>
 
+      {CHARACTER_MEMORY_CUES[current.hanzi] && (
+        <div className="card">
+          <p className="text-sm" style={{ fontStyle: 'italic' }}>{CHARACTER_MEMORY_CUES[current.hanzi]}</p>
+        </div>
+      )}
+
       {related.length > 0 && (
         <div className="card">
           <button className="list-row" style={{ width: '100%' }} onClick={() => { playSound('reveal'); setShowRelated(!showRelated); }}>

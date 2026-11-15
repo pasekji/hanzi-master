@@ -6,12 +6,12 @@
 const THEME_STORAGE_KEY = 'hanzi_master_theme';
 
 const THEMES = [
-  { id: 'light', labelKey: 'theme.light', swatch: 'linear-gradient(135deg, #e8f7ef 45%, #07c160 55%, #1677ff)' },
-  { id: 'dark', labelKey: 'theme.dark', swatch: 'linear-gradient(135deg, #0d1210 45%, #2dd48a 55%, #1677ff)' },
-  { id: 'sakura', labelKey: 'theme.sakura', swatch: 'linear-gradient(135deg, #fdeef4 45%, #ec4899 55%, #f59e0b)' },
+  { id: 'light', labelKey: 'theme.light', swatch: 'linear-gradient(135deg, #f8f5ef 45%, #c8371f 60%, #191713)' },
+  { id: 'dark', labelKey: 'theme.dark', swatch: 'linear-gradient(135deg, #14120f 45%, #e04a2a 60%, #efe9dd)' },
+  { id: 'sakura', labelKey: 'theme.sakura', swatch: 'linear-gradient(135deg, #f9f1ee 45%, #c2452e 60%, #8a7a6d)' },
 ];
 
-const THEME_META_COLOR = { light: '#e8f7ef', dark: '#0d1210', sakura: '#fdeef4' };
+const THEME_META_COLOR = { light: '#f8f5ef', dark: '#14120f', sakura: '#f9f1ee' };
 
 const isValidTheme = (id) => THEMES.some((t) => t.id === id);
 
