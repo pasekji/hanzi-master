@@ -401,6 +401,7 @@ const UI_TEXT = {
     'lessons.subtitle': 'HSK 1 · Lessons 12-15',
     'lessons.pill': '4 lessons',
     'lessons.service': 'Lesson services',
+    'lessons.hsk2Lesson': 'HSK2 L{lesson}',
     'lessons.materialBanks': 'Material banks',
     'lessons.hsk1WordBankTitle': 'HSK1 Words',
     'lessons.wordBankChip': 'Word bank',

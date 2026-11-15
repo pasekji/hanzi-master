@@ -3,7 +3,7 @@
 Chinese superapp-inspired Hanzi learning mini-app for local HSK1 writing practice and word-bank review.
 
 ## Features
-- 📚 69 writing characters + 47 compound words + 284 material-bank cards
+- 📚 105 writing characters (HSK1 L12–15 + HSK2 L7–10) + 47 compound words + 374 material-bank cards
 - 🐼 今日训练 smart daily queue for review, new characters, and consolidation
 - 🌐 中文 / English UI language switch
 - 🎴 生词卡片 with related words
@@ -13,7 +13,7 @@ Chinese superapp-inspired Hanzi learning mini-app for local HSK1 writing practic
 - 💾 Progress saved locally
 - 🔑 Optional anonymous account (ID + one-time recovery code, no email/password) with progress sync across devices — see below
 - ✈️ Downloadable complete offline ZIP for travel
-- 🧾 Hidden `/secret` consolidated study sheet with 333 deduplicated entries
+- 🧾 Hidden `/secret` consolidated study sheet with 427 deduplicated entries
 - 🔒 Local-only runtime: browser storage, vendored assets, no external APIs/CDNs
 - 📱 Mobile-first WeChat/Alipay-inspired design
 
