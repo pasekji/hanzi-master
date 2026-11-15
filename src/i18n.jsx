@@ -85,7 +85,7 @@ const UI_TEXT = {
     'daily.title': '今日训练',
     'daily.subtitle': '不是从头来。先复习会忘的字，再加一点新内容。',
     'daily.count': '{count} 字',
-    'daily.heroTitle': '熊猫老师的今日清单',
+    'daily.heroTitle': '印章老师的今日清单',
     'daily.heroCopy': '这组字会优先放入卡片、写字和测验。',
     'daily.start': '开始训练',
     'daily.doneEnough': '今天先这样',
