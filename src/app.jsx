@@ -35,6 +35,19 @@ function HanziMasterApp() {
   });
 
   React.useEffect(() => { saveProgress(progress); }, [progress]);
+
+  // badge unlock detection
+  const [newBadge, setNewBadge] = React.useState(null);
+  const knownBadgeIds = React.useRef(new Set(getUnlockedBadgeIds(loadProgress())));
+  React.useEffect(() => {
+    const ids = new Set(getUnlockedBadgeIds(progress));
+    const fresh = BADGES.find((b) => ids.has(b.id) && !knownBadgeIds.current.has(b.id));
+    knownBadgeIds.current = ids;
+    if (fresh) {
+      setNewBadge(fresh);
+      playSoundEffect('complete', soundEnabled);
+    }
+  }, [progress]);
   React.useEffect(() => { applyTheme(theme); }, [theme]);
   React.useEffect(() => {
     try { localStorage.setItem(LANGUAGE_KEY, language); } catch {}
@@ -172,6 +185,7 @@ function HanziMasterApp() {
       {currentView === 'stats' && <StatsView key="stats" {...viewProps} />}
       {currentView === 'secret' && <SecretCheatSheetView key="secret" {...viewProps} />}
       <BottomNav currentView={currentView} setCurrentView={setCurrentViewWithSound} setSelectedLesson={setSelectedLesson} setSelectedQueue={setSelectedQueue} t={t} />
+      <BadgeToast badge={newBadge} onClose={() => setNewBadge(null)} t={t} />
       <TutorialOverlay
         open={tutorialOpen && currentView !== 'secret'}
         onClose={closeTutorial}

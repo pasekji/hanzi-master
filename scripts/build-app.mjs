@@ -16,6 +16,7 @@ const sourceFiles = [
   'src/progress.jsx',
   'src/account.jsx',
   'src/theme.jsx',
+  'src/badges.jsx',
   'src/app.jsx',
   'src/components.jsx',
   'src/screens.jsx',

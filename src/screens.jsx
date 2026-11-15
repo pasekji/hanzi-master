@@ -578,6 +578,9 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
         ))}
       </div>
 
+      <div className="section-title"><span className="text-sm">{t('badges.section')}</span><div className="section-line" /></div>
+      <BadgeGrid progress={progress} t={t} />
+
       <div className="section-title"><span className="text-sm">{t('settings.section')}</span><div className="section-line" /></div>
       <div className="card settings-row">
         <SoundToggle soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} t={t} />
