@@ -27,7 +27,9 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
             <AppIcon name="help" />
           </button>
           <LanguageToggle language={language} setLanguage={setLanguage} playSound={playSound} t={t} />
-          {progress.streakDays > 0 && <span className="daily-chip">🔥 {progress.streakDays}</span>}
+          {progress.streakDays > 0 && (
+            <span className="daily-chip"><span className="chip-char" aria-hidden="true">火</span> {progress.streakDays}</span>
+          )}
         </div>
       </header>
 
@@ -143,17 +145,28 @@ function DailyTrainingView({ progress, setCurrentView, setSelectedLesson, setSel
 }
 
 function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, progress, t }) {
-  const lessons = [12, 13, 14, 15].map(l => ({
-    lesson: l,
-    total: VOCABULARY.filter(v => v.lesson === l).length,
-    mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.hanzi)).length,
-  }));
+  const lessons = React.useMemo(() => {
+    const byLesson = new Map();
+    VOCABULARY.forEach(v => {
+      if (!byLesson.has(v.lesson)) byLesson.set(v.lesson, { lesson: v.lesson, book: v.book || 'hsk1', total: 0, mastered: 0 });
+      const g = byLesson.get(v.lesson);
+      g.total += 1;
+      if (progress.masteredChars.includes(v.hanzi)) g.mastered += 1;
+    });
+    return [...byLesson.values()].sort((a, b) => a.lesson - b.lesson);
+  }, [progress]);
+  const lessonLabel = (l) => l.book === 'hsk2' ? t('lessons.hsk2Lesson', { lesson: l.lesson }) : t('stats.lesson', { lesson: l.lesson });
   const openLesson = (lesson, view) => {
     setSelectedQueue(null);
     setSelectedLesson(lesson);
     setCurrentView(view);
   };
   const collections = getMaterialCollectionQueues();
+  const openCollection = (c, view) => {
+    setSelectedLesson(null);
+    setSelectedQueue(getMaterialCollectionQueue(MATERIAL_COLLECTIONS.find(m => m.id === c.id)));
+    setCurrentView(view);
+  };
   return (
     <div className="screen">
       <header className="header">
@@ -169,7 +182,7 @@ function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, prog
           <ListRow
             key={l.lesson}
             icon="book"
-            label={t('stats.lesson', { lesson: l.lesson })}
+            label={lessonLabel(l)}
             meta={`${l.mastered}/${l.total}`}
             onClick={() => openLesson(l.lesson, 'learn')}
           />
@@ -179,17 +192,21 @@ function LessonsView({ setCurrentView, setSelectedLesson, setSelectedQueue, prog
       <div className="list-panel">
         <div className="list-head">{t('lessons.materialBanks')}</div>
         {collections.map(c => (
-          <ListRow
-            key={c.id}
-            icon="card"
-            label={c.labelKey ? t(c.labelKey) : (c.labelEn || c.labelZh || c.id)}
-            meta={`${c.items.length}`}
-            onClick={() => {
-              setSelectedLesson(null);
-              setSelectedQueue(getMaterialCollectionQueue(MATERIAL_COLLECTIONS.find(m => m.id === c.id)));
-              setCurrentView('learn');
-            }}
-          />
+          <div key={c.id} className="list-row" style={{ cursor: 'default' }}>
+            <button className="list-row" style={{ flex: 1, border: 'none', padding: 0 }} onClick={() => openCollection(c, 'learn')}>
+              <span className="list-icon"><AppIcon name="card" /></span>
+              <span className="list-label">{c.labelKey ? t(c.labelKey) : (c.labelEn || c.labelZh || c.id)}</span>
+              <span className="list-meta">{c.items.length}</span>
+              <span className="list-arrow" aria-hidden="true">→</span>
+            </button>
+            <button
+              className="btn btn-secondary collection-quiz-btn"
+              onClick={() => openCollection(c, 'quiz')}
+              aria-label={`${t('quiz.title')} — ${c.labelEn || c.id}`}
+            >
+              <AppIcon name="target" /> {t('quiz.title')}
+            </button>
+          </div>
         ))}
       </div>
 
@@ -250,6 +267,12 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
         )}
         {!flipped && <p className="flashcard-hint">{t('learn.tap')}</p>}
       </div>
+
+      {CHARACTER_MEMORY_CUES[current.hanzi] && (
+        <div className="card">
+          <p className="text-sm" style={{ fontStyle: 'italic' }}>{CHARACTER_MEMORY_CUES[current.hanzi]}</p>
+        </div>
+      )}
 
       {related.length > 0 && (
         <div className="card">
@@ -368,10 +391,28 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
   const startQuiz = (m) => {
     playSound('select');
     setMode(m);
-    const pool = selectedQueue?.items || (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : getStudyQueue(VOCABULARY, progress));
+    let pool = selectedQueue?.items || (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : getStudyQueue(VOCABULARY, progress));
+    // shuffle non-daily queues so material banks don't always quiz the first 10
+    const isDaily = selectedQueue?.id?.startsWith('daily:');
+    if (!isDaily) pool = [...pool].sort(() => Math.random() - 0.5);
+    const answerKey = (o) => (m === 'hanzi-to-pinyin' ? o.pinyin : m === 'pinyin-to-hanzi' ? o.hanzi : o.meaning);
     const qs = pool.slice(0, 10).map((item) => {
-      const distractors = getSimilarDistractors(item, pool, 3);
-      const options = [...distractors, item].sort(() => Math.random() - 0.5);
+      let distractors = getSimilarDistractors(item, pool, 3);
+      let options = [...distractors, item];
+      // deduplicate by answer text, top up from pool if needed
+      const seen = new Set();
+      options = options.filter((o) => {
+        const k = answerKey(o);
+        if (!k || seen.has(k)) return false;
+        seen.add(k);
+        return true;
+      });
+      for (const extra of pool) {
+        if (options.length >= 4) break;
+        const k = answerKey(extra);
+        if (k && !seen.has(k) && extra.hanzi !== item.hanzi) { seen.add(k); options.push(extra); }
+      }
+      options = options.sort(() => Math.random() - 0.5);
       return { item, options };
     });
     setQuestions(qs);
@@ -480,13 +521,18 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
   );
 }
 
-function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, theme, setTheme, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound }) {
+function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, theme, setTheme, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, updateProgress }) {
   const isOfflineCopy = window.location.protocol === 'file:';
-  const byLesson = [12, 13, 14, 15].map(l => ({
-    lesson: l,
-    mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.hanzi)).length,
-    total: VOCABULARY.filter(v => v.lesson === l).length,
-  }));
+  const byLesson = React.useMemo(() => {
+    const byLesson = new Map();
+    VOCABULARY.forEach(v => {
+      if (!byLesson.has(v.lesson)) byLesson.set(v.lesson, { lesson: v.lesson, book: v.book || 'hsk1', mastered: 0, total: 0 });
+      const g = byLesson.get(v.lesson);
+      g.total += 1;
+      if (progress.masteredChars.includes(v.hanzi)) g.mastered += 1;
+    });
+    return [...byLesson.values()].sort((a, b) => a.lesson - b.lesson);
+  }, [progress]);
   const recentScores = progress.quizScores.slice(-5).reverse();
 
   const handleReset = () => {
@@ -543,7 +589,7 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
       <div className="list-panel">
         {byLesson.map(l => (
           <div key={l.lesson} className="list-row" style={{ cursor: 'default' }}>
-            <span className="list-label">{t('stats.lesson', { lesson: l.lesson })}</span>
+            <span className="list-label">{l.book === 'hsk2' ? t('lessons.hsk2Lesson', { lesson: l.lesson }) : t('stats.lesson', { lesson: l.lesson })}</span>
             <span className="list-meta">{l.mastered}/{l.total}</span>
           </div>
         ))}
@@ -570,6 +616,9 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
         ))}
       </div>
 
+      <div className="section-title"><span className="text-sm">{t('badges.section')}</span><div className="section-line" /></div>
+      <BadgeGrid progress={progress} t={t} />
+
       <div className="section-title"><span className="text-sm">{t('settings.section')}</span><div className="section-line" /></div>
       <div className="card settings-row">
         <SoundToggle soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} t={t} />
@@ -587,6 +636,9 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
           <AccountSection session={session} syncState={syncState} lastSyncAt={lastSyncAt} account={account} t={t} playSound={playSound} />
         </>
       )}
+
+      <div className="section-title"><span className="text-sm">{t('share.section')}</span><div className="section-line" /></div>
+      <ShareSection session={session} progress={progress} updateProgress={updateProgress} t={t} playSound={playSound} />
 
       <div className="section-title"><span className="text-sm">{t('stats.backup')}</span><div className="section-line" /></div>
       <div className="backup-buttons">

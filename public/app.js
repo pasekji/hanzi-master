@@ -1232,6 +1232,294 @@ const VOCABULARY = [{
   meaning: 'one',
   lesson: 15,
   strokes: 1
+}, {
+  id: 70,
+  hanzi: '还',
+  pinyin: 'hái',
+  meaning: 'still; yet',
+  lesson: 7,
+  strokes: 7,
+  book: 'hsk2'
+}, {
+  id: 71,
+  hanzi: '慢',
+  pinyin: 'màn',
+  meaning: 'slow',
+  lesson: 7,
+  strokes: 14,
+  book: 'hsk2'
+}, {
+  id: 72,
+  hanzi: '银',
+  pinyin: 'yín',
+  meaning: 'silver',
+  lesson: 7,
+  strokes: 11,
+  book: 'hsk2'
+}, {
+  id: 73,
+  hanzi: '行',
+  pinyin: 'háng',
+  meaning: 'row; line; OK (bank in 银行)',
+  lesson: 7,
+  strokes: 6,
+  book: 'hsk2'
+}, {
+  id: 74,
+  hanzi: '超',
+  pinyin: 'chāo',
+  meaning: 'super; ultra',
+  lesson: 7,
+  strokes: 12,
+  book: 'hsk2'
+}, {
+  id: 75,
+  hanzi: '市',
+  pinyin: 'shì',
+  meaning: 'market; city',
+  lesson: 7,
+  strokes: 5,
+  book: 'hsk2'
+}, {
+  id: 76,
+  hanzi: '圣',
+  pinyin: 'shèng',
+  meaning: 'holy; saint',
+  lesson: 7,
+  strokes: 5,
+  book: 'hsk2'
+}, {
+  id: 77,
+  hanzi: '诞',
+  pinyin: 'dàn',
+  meaning: 'birth',
+  lesson: 7,
+  strokes: 8,
+  book: 'hsk2'
+}, {
+  id: 78,
+  hanzi: '节',
+  pinyin: 'jié',
+  meaning: 'festival; node;节日 festival',
+  lesson: 7,
+  strokes: 5,
+  book: 'hsk2'
+}, {
+  id: 79,
+  hanzi: '到',
+  pinyin: 'dào',
+  meaning: 'to arrive; until',
+  lesson: 9,
+  strokes: 8,
+  book: 'hsk2'
+}, {
+  id: 80,
+  hanzi: '课',
+  pinyin: 'kè',
+  meaning: 'lesson; class',
+  lesson: 7,
+  strokes: 10,
+  book: 'hsk2'
+}, {
+  id: 81,
+  hanzi: '告',
+  pinyin: 'gào',
+  meaning: 'to tell',
+  lesson: 8,
+  strokes: 7,
+  book: 'hsk2'
+}, {
+  id: 82,
+  hanzi: '诉',
+  pinyin: 'sù',
+  meaning: 'to tell; complain (告诉)',
+  lesson: 8,
+  strokes: 7,
+  book: 'hsk2'
+}, {
+  id: 83,
+  hanzi: '事',
+  pinyin: 'shì',
+  meaning: 'matter; affair',
+  lesson: 8,
+  strokes: 8,
+  book: 'hsk2'
+}, {
+  id: 84,
+  hanzi: '情',
+  pinyin: 'qíng',
+  meaning: 'feeling; emotion',
+  lesson: 8,
+  strokes: 11,
+  book: 'hsk2'
+}, {
+  id: 85,
+  hanzi: '让',
+  pinyin: 'ràng',
+  meaning: 'to let; allow',
+  lesson: 8,
+  strokes: 5,
+  book: 'hsk2'
+}, {
+  id: 86,
+  hanzi: '贵',
+  pinyin: 'guì',
+  meaning: 'expensive; noble',
+  lesson: 8,
+  strokes: 9,
+  book: 'hsk2'
+}, {
+  id: 87,
+  hanzi: '便',
+  pinyin: 'pián',
+  meaning: 'cheap (in 便宜); convenient',
+  lesson: 8,
+  strokes: 9,
+  book: 'hsk2'
+}, {
+  id: 88,
+  hanzi: '宜',
+  pinyin: 'yí',
+  meaning: 'suitable;宜人 pleasant',
+  lesson: 8,
+  strokes: 8,
+  book: 'hsk2'
+}, {
+  id: 89,
+  hanzi: '秘',
+  pinyin: 'mì',
+  meaning: 'secret',
+  lesson: 8,
+  strokes: 10,
+  book: 'hsk2'
+}, {
+  id: 90,
+  hanzi: '密',
+  pinyin: 'mì',
+  meaning: 'dense; secret',
+  lesson: 8,
+  strokes: 11,
+  book: 'hsk2'
+}, {
+  id: 91,
+  hanzi: '饱',
+  pinyin: 'bǎo',
+  meaning: 'full (not hungry)',
+  lesson: 8,
+  strokes: 8,
+  book: 'hsk2'
+}, {
+  id: 92,
+  hanzi: '单',
+  pinyin: 'dān',
+  meaning: 'single; list (菜单)',
+  lesson: 8,
+  strokes: 8,
+  book: 'hsk2'
+}, {
+  id: 93,
+  hanzi: '马',
+  pinyin: 'mǎ',
+  meaning: 'horse',
+  lesson: 8,
+  strokes: 3,
+  book: 'hsk2'
+}, {
+  id: 94,
+  hanzi: '桶',
+  pinyin: 'tǒng',
+  meaning: 'bucket; barrel',
+  lesson: 8,
+  strokes: 11,
+  book: 'hsk2'
+}, {
+  id: 95,
+  hanzi: '灯',
+  pinyin: 'dēng',
+  meaning: 'lamp; light',
+  lesson: 8,
+  strokes: 6,
+  book: 'hsk2'
+}, {
+  id: 96,
+  hanzi: '空',
+  pinyin: 'kōng',
+  meaning: 'air; empty (空调 air conditioner)',
+  lesson: 8,
+  strokes: 8,
+  book: 'hsk2'
+}, {
+  id: 97,
+  hanzi: '调',
+  pinyin: 'tiáo',
+  meaning: 'to adjust; tune',
+  lesson: 8,
+  strokes: 10,
+  book: 'hsk2'
+}, {
+  id: 98,
+  hanzi: '迎',
+  pinyin: 'yíng',
+  meaning: 'to welcome',
+  lesson: 9,
+  strokes: 7,
+  book: 'hsk2'
+}, {
+  id: 99,
+  hanzi: '希',
+  pinyin: 'xī',
+  meaning: 'hope; rare (希望)',
+  lesson: 9,
+  strokes: 7,
+  book: 'hsk2'
+}, {
+  id: 100,
+  hanzi: '望',
+  pinyin: 'wàng',
+  meaning: 'to look; hope (希望)',
+  lesson: 9,
+  strokes: 11,
+  book: 'hsk2'
+}, {
+  id: 101,
+  hanzi: '从',
+  pinyin: 'cóng',
+  meaning: 'from; since',
+  lesson: 9,
+  strokes: 4,
+  book: 'hsk2'
+}, {
+  id: 102,
+  hanzi: '懂',
+  pinyin: 'dǒng',
+  meaning: 'to understand',
+  lesson: 9,
+  strokes: 15,
+  book: 'hsk2'
+}, {
+  id: 103,
+  hanzi: '镜',
+  pinyin: 'jìng',
+  meaning: 'mirror; lens',
+  lesson: 9,
+  strokes: 16,
+  book: 'hsk2'
+}, {
+  id: 104,
+  hanzi: '难',
+  pinyin: 'nán',
+  meaning: 'difficult',
+  lesson: 9,
+  strokes: 10,
+  book: 'hsk2'
+}, {
+  id: 105,
+  hanzi: '洗',
+  pinyin: 'xǐ',
+  meaning: 'to wash',
+  lesson: 10,
+  strokes: 9,
+  book: 'hsk2'
 }];
 const COMPOUNDS = [{
   hanzi: '天气',
@@ -1905,7 +2193,7 @@ function MemorySceneSvg({
   const gap = parts.length === 1 ? 0 : 8;
   const groupWidth = partWidth * parts.length + gap * Math.max(0, parts.length - 1);
   const startX = 120 - groupWidth / 2;
-  const accent = memory.category === 'nature' ? '#07a653' : memory.category === 'time' ? '#d99a18' : memory.category === 'language' ? '#1677ff' : memory.category === 'action' ? '#ef4b3e' : '#168b69';
+  const accent = memory.category === 'nature' ? '#c8371f' : memory.category === 'time' ? '#d99a18' : memory.category === 'language' ? '#191713' : memory.category === 'action' ? '#c8371f' : '#168b69';
   return React.createElement("svg", {
     className: "memory-scene-svg",
     viewBox: "0 0 240 132",
@@ -1917,13 +2205,13 @@ function MemorySceneSvg({
     width: "238",
     height: "130",
     rx: "7",
-    fill: "#f7fbf8",
+    fill: "#f8f5ef",
     stroke: "#dce9e2"
   }), React.createElement("circle", {
     cx: "202",
     cy: "24",
     r: "13",
-    fill: memory.category === 'time' ? '#ffd76a' : '#ffe2a8',
+    fill: memory.category === 'time' ? '#c8bfa8' : '#ffe2a8',
     opacity: "0.82"
   }), React.createElement("path", {
     d: "M0 101 C34 80 55 96 82 82 C112 65 136 96 165 77 C190 61 213 78 240 61 V132 H0 Z",
@@ -1933,22 +2221,22 @@ function MemorySceneSvg({
     fill: "#c9ead9"
   }), memory.category === 'language' && React.createElement(React.Fragment, null, React.createElement("path", {
     d: "M26 28 h40 a8 8 0 0 1 8 8 v12 a8 8 0 0 1-8 8 H48 l-9 8 2-8 H26 a8 8 0 0 1-8-8 V36 a8 8 0 0 1 8-8Z",
-    fill: "#dbeaff"
+    fill: "#f0ead9"
   }), React.createElement("circle", {
     cx: "34",
     cy: "42",
     r: "2.5",
-    fill: "#1677ff"
+    fill: "#191713"
   }), React.createElement("circle", {
     cx: "46",
     cy: "42",
     r: "2.5",
-    fill: "#1677ff"
+    fill: "#191713"
   }), React.createElement("circle", {
     cx: "58",
     cy: "42",
     r: "2.5",
-    fill: "#1677ff"
+    fill: "#191713"
   })), memory.category === 'number' && React.createElement("g", {
     stroke: "#d99a18",
     strokeWidth: "2"
@@ -1958,19 +2246,19 @@ function MemorySceneSvg({
     cx: "35",
     cy: "28",
     r: "4",
-    fill: "#ffd76a",
+    fill: "#c8bfa8",
     stroke: "none"
   }), React.createElement("circle", {
     cx: "51",
     cy: "38",
     r: "4",
-    fill: "#ffd76a",
+    fill: "#c8bfa8",
     stroke: "none"
   }), React.createElement("circle", {
     cx: "40",
     cy: "48",
     r: "4",
-    fill: "#ffd76a",
+    fill: "#c8bfa8",
     stroke: "none"
   })), memory.category === 'place' && React.createElement("g", {
     fill: "none",
@@ -1981,7 +2269,7 @@ function MemorySceneSvg({
     d: "M20 51 h53 M27 50 l8-17 h24 l8 17 M34 51 v19 M59 51 v19 M27 70 h40"
   })), memory.category === 'action' && React.createElement("g", {
     fill: "none",
-    stroke: "#ef4b3e",
+    stroke: "#c8371f",
     strokeWidth: "3",
     strokeLinecap: "round"
   }, React.createElement("path", {
@@ -2006,8 +2294,8 @@ function MemorySceneSvg({
   }), React.createElement("path", {
     d: "M52 68 q11-20 22 0Z"
   })), memory.category === 'object' && React.createElement("g", {
-    fill: "#dbeaff",
-    stroke: "#1677ff",
+    fill: "#f0ead9",
+    stroke: "#191713",
     strokeWidth: "2"
   }, React.createElement("rect", {
     x: "20",
@@ -2026,7 +2314,7 @@ function MemorySceneSvg({
     d: "M14 69 34 34 47 55 57 42 76 69"
   }), React.createElement("path", {
     d: "M20 76 q25-12 52 0",
-    stroke: "#1677ff"
+    stroke: "#191713"
   })), memory.category === 'time' && React.createElement("g", {
     fill: "#fff7dc",
     stroke: "#d99a18",
@@ -2063,13 +2351,13 @@ function MemorySceneSvg({
       height: "58",
       rx: "7",
       fill: "#ffffff",
-      stroke: index === parts.length - 1 ? accent : '#cddfd6',
+      stroke: index === parts.length - 1 ? accent : '#e4ddcf',
       strokeWidth: "1.5"
     }), React.createElement("text", {
       x: partWidth / 2,
       y: "39",
       textAnchor: "middle",
-      fill: "#173126",
+      fill: "#191713",
       fontFamily: "Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif",
       fontSize: parts.length === 1 ? '36' : '29',
       fontWeight: "900"
@@ -2087,38 +2375,38 @@ function MemorySceneSvg({
     cy: "17",
     r: "15",
     fill: "#ffffff",
-    stroke: "#18212b",
+    stroke: "#191713",
     strokeWidth: "2"
   }), React.createElement("circle", {
     cx: "8",
     cy: "6",
     r: "6",
-    fill: "#18212b"
+    fill: "#191713"
   }), React.createElement("circle", {
     cx: "26",
     cy: "6",
     r: "6",
-    fill: "#18212b"
+    fill: "#191713"
   }), React.createElement("ellipse", {
     cx: "17",
     cy: "19",
     rx: "10",
     ry: "8",
-    fill: "#f7fbf8"
+    fill: "#f8f5ef"
   }), React.createElement("circle", {
     cx: "13",
     cy: "16",
     r: "2",
-    fill: "#18212b"
+    fill: "#191713"
   }), React.createElement("circle", {
     cx: "21",
     cy: "16",
     r: "2",
-    fill: "#18212b"
+    fill: "#191713"
   }), React.createElement("path", {
     d: "M14 22 q3 3 6 0",
     fill: "none",
-    stroke: "#18212b",
+    stroke: "#191713",
     strokeWidth: "1.5",
     strokeLinecap: "round"
   })), React.createElement("g", {
@@ -2127,7 +2415,7 @@ function MemorySceneSvg({
     width: "25",
     height: "25",
     rx: "4",
-    fill: "#ef4b3e"
+    fill: "#c8371f"
   }), React.createElement("text", {
     x: "12.5",
     y: "18",
@@ -2478,7 +2766,7 @@ const UI_TEXT = {
     'home.search': '搜一搜 · 天气 / 写字 / 拼音',
     'home.heroTitleNew': '学会写汉字，每天只需 5 分钟',
     'home.heroTitle': '今天练哪个字？',
-    'home.heroSubtitle': '从认字到会写：卡片、默写、测验，熊猫老师一路陪你。',
+    'home.heroSubtitle': '从认字到会写：卡片、默写、测验，印章老师一路陪你。',
     'home.heroCtaNew': '开始第一课',
     'home.heroCtaReturn': '继续今天的训练',
     'home.heroHint': '今天有 {count} 个字等着你',
@@ -2488,12 +2776,12 @@ const UI_TEXT = {
     'home.masteredMeta': '{mastered} / {total} 已掌握',
     'home.learningMeta': '{count} 学习中',
     'home.dailyKicker': '今日训练',
-    'home.dailyTitle': '熊猫老师排好了 {count} 个字',
+    'home.dailyTitle': '印章老师排好了 {count} 个字',
     'home.myMiniPrograms': '我的小程序',
     'home.more': '更多',
-    'home.coachTitle': '熊猫老师陪你练',
-    'home.coachNew': '从课程开始，像点开一个小程序一样跟熊猫老师学习。',
-    'home.coachReview': '先复习，再默写。熊猫老师帮你把会认的字变成会写的字。',
+    'home.coachTitle': '印章老师陪你练',
+    'home.coachNew': '从课程开始，像点开一个小程序一样跟印章老师学习。',
+    'home.coachReview': '先复习，再默写。印章老师帮你把会认的字变成会写的字。',
     'home.taskTitle': '今日任务',
     'home.taskNew': '从课程入口开始，解锁今天的写字练习。',
     'home.taskReview': '先复习卡片，再进入默写练习。',
@@ -2506,7 +2794,7 @@ const UI_TEXT = {
     'daily.title': '今日训练',
     'daily.subtitle': '不是从头来。先复习会忘的字，再加一点新内容。',
     'daily.count': '{count} 字',
-    'daily.heroTitle': '熊猫老师的今日清单',
+    'daily.heroTitle': '印章老师的今日清单',
     'daily.heroCopy': '这组字会优先放入卡片、写字和测验。',
     'daily.start': '开始训练',
     'daily.doneEnough': '今天先这样',
@@ -2548,7 +2836,7 @@ const UI_TEXT = {
     'learn.related': '相关词 ({count})',
     'learn.strokesLine': '{strokes} 笔画 • L{lesson}',
     'learn.wordLine': '\u6750\u6599 • {source}',
-    'learn.roundDone': '🎉 本轮完成',
+    'learn.roundDone': '本轮完成',
     'memory.title': '记忆小卷',
     'memory.shape': '字形联想',
     'memory.build': '拆字记忆',
@@ -2568,7 +2856,7 @@ const UI_TEXT = {
     'draw.feedback.noData': '暂时没有笔画数据',
     'draw.feedback.start': '开头很好',
     'draw.feedback.retry': '再试一次',
-    'draw.feedback.perfect': '🎉 完美',
+    'draw.feedback.perfect': '完美',
     'draw.feedback.good': '👍 写得不错',
     'draw.feedback.done': '✓ 完成',
     'draw.feedback.nice': '很好',
@@ -2590,7 +2878,7 @@ const UI_TEXT = {
     'quiz.next': '下一题 →',
     'quiz.changeMode': '换题型',
     'quiz.again': '再测一次',
-    'quiz.resultGreat': '🎉 太棒了!',
+    'quiz.resultGreat': '太棒了!',
     'quiz.resultGood': '👍 很不错!',
     'quiz.resultKeep': '💪 继续练!',
     'quiz.scoreLine': '{score} / {total} 答对',
@@ -2644,6 +2932,40 @@ const UI_TEXT = {
     'secret.empty': '没有符合条件的词条。',
     'secret.footer': '浏览器本地运行 · 无外部 API',
     'settings.section': '设置',
+    'badges.section': '徽章',
+    'badge.unlocked': '徽章解锁！',
+    'badge.firstReview.title': '初次复习',
+    'badge.firstReview.desc': '完成第一次复习',
+    'badge.firstMastered.title': '第一个字',
+    'badge.firstMastered.desc': '掌握第一个汉字',
+    'badge.streak3.title': '三日连练',
+    'badge.streak3.desc': '连续学习 3 天',
+    'badge.firstQuiz.title': '首次测验',
+    'badge.firstQuiz.desc': '完成第一次测验',
+    'badge.mastered10.title': '十个字',
+    'badge.mastered10.desc': '掌握 10 个汉字',
+    'badge.streak7.title': '七日连练',
+    'badge.streak7.desc': '连续学习 7 天',
+    'badge.mastered50.title': '半百之功',
+    'badge.mastered50.desc': '掌握 50 个汉字',
+    'badge.streak30.title': '一月之功',
+    'badge.streak30.desc': '连续学习 30 天',
+    'badge.mastered100.title': '百字达人',
+    'badge.mastered100.desc': '掌握 100 个汉字',
+    'share.section': '分享进度',
+    'share.needAccount': '登录匿名账户后，可以生成分享码。无需邮箱密码。',
+    'share.create': '生成分享码',
+    'share.copy': '复制',
+    'share.copied': '已复制！',
+    'share.loadHint': '输入分享码，例如 ABCD-1234',
+    'share.load': '查看',
+    'share.notFound': '找不到这个分享码（或已过期）。',
+    'share.error': '出错了，请重试。',
+    'share.import': '导入这个进度',
+    'share.imported': '已导入！',
+    'profile.mastered': '已掌握',
+    'profile.streak': '连续天数',
+    'profile.reviews': '复习',
     'theme.section': '外观主题',
     'theme.light': '日间 · 浅色',
     'theme.dark': '夜间 · 深色',
@@ -2684,8 +3006,8 @@ const UI_TEXT = {
     'ambience.off': 'Tea ambience off',
     'ambience.label': 'Focus ambience',
     'tutorial.open': 'Guide',
-    'tutorial.badge': 'Panda guide',
-    'tutorial.title': 'Take a tour with Panda',
+    'tutorial.badge': '印章指南',
+    'tutorial.title': '跟印章老师逛一圈',
     'tutorial.intro': 'See how each mini app works, then start a calm daily practice flow.',
     'tutorial.stepCount': '{current}/{total}',
     'tutorial.close': 'Close guide',
@@ -2694,7 +3016,7 @@ const UI_TEXT = {
     'tutorial.next': 'Next',
     'tutorial.done': 'Start learning',
     'tutorial.step.daily.title': 'Begin with Daily training',
-    'tutorial.step.daily.body': 'Panda picks a small set: new characters, fragile review items, and characters to solidify.',
+    'tutorial.step.daily.body': 'The seal picks a small set for you: new characters, review items, and characters to solidify.',
     'tutorial.step.daily.action': 'Open Daily training',
     'tutorial.step.cards.title': 'Recall first with Cards',
     'tutorial.step.cards.body': 'Try to remember the pinyin and meaning before flipping the card open.',
@@ -2732,7 +3054,7 @@ const UI_TEXT = {
     'home.search': 'Search · weather / writing / pinyin',
     'home.heroTitleNew': 'Learn to write Chinese — 5 minutes a day',
     'home.heroTitle': 'Which character today?',
-    'home.heroSubtitle': 'From reading to writing: flashcards, drawing, quizzes — your panda coach is with you all the way.',
+    'home.heroSubtitle': 'From reading to writing: flashcards, drawing, quizzes — your seal coach is with you all the way.',
     'home.heroCtaNew': 'Start your first lesson',
     'home.heroCtaReturn': 'Continue today\'s training',
     'home.heroHint': '{count} characters waiting for you today',
@@ -2742,10 +3064,10 @@ const UI_TEXT = {
     'home.masteredMeta': '{mastered} / {total} mastered',
     'home.learningMeta': '{count} learning',
     'home.dailyKicker': 'Daily training',
-    'home.dailyTitle': 'Panda teacher picked {count} characters',
+    'home.dailyTitle': 'Seal teacher picked {count} characters',
     'home.myMiniPrograms': 'My mini programs',
     'home.more': 'More',
-    'home.coachTitle': 'Panda teacher practices with you',
+    'home.coachTitle': 'Seal teacher practices with you',
     'home.coachNew': 'Start with a lesson and learn like opening a mini program.',
     'home.coachReview': 'Review first, then write from memory. Turn recognition into writing.',
     'home.taskTitle': "Today's task",
@@ -2760,7 +3082,7 @@ const UI_TEXT = {
     'daily.title': 'Daily training',
     'daily.subtitle': 'Not from the top. Review fragile characters, then add a little new material.',
     'daily.count': '{count} chars',
-    'daily.heroTitle': "Panda teacher's list",
+    'daily.heroTitle': "Seal teacher's list",
     'daily.heroCopy': 'This set is used first in cards, writing, and quiz.',
     'daily.start': 'Start training',
     'daily.doneEnough': 'Done for today',
@@ -2788,6 +3110,7 @@ const UI_TEXT = {
     'lessons.subtitle': 'HSK 1 · Lessons 12-15',
     'lessons.pill': '4 lessons',
     'lessons.service': 'Lesson services',
+    'lessons.hsk2Lesson': 'HSK2 L{lesson}',
     'lessons.materialBanks': 'Material banks',
     'lessons.hsk1WordBankTitle': 'HSK1 Words',
     'lessons.wordBankChip': 'Word bank',
@@ -2802,7 +3125,7 @@ const UI_TEXT = {
     'learn.related': 'Related words ({count})',
     'learn.strokesLine': '{strokes} strokes • L{lesson}',
     'learn.wordLine': 'Material • {source}',
-    'learn.roundDone': '🎉 Round complete',
+    'learn.roundDone': 'Round complete',
     'memory.title': 'Memory scroll',
     'memory.shape': 'Shape story',
     'memory.build': 'Build the word',
@@ -2822,7 +3145,7 @@ const UI_TEXT = {
     'draw.feedback.noData': 'Stroke data is unavailable',
     'draw.feedback.start': 'Good start',
     'draw.feedback.retry': 'Try again',
-    'draw.feedback.perfect': '🎉 Perfect',
+    'draw.feedback.perfect': 'Perfect',
     'draw.feedback.good': '👍 Nice writing',
     'draw.feedback.done': '✓ Complete',
     'draw.feedback.nice': 'Nice',
@@ -2844,7 +3167,7 @@ const UI_TEXT = {
     'quiz.next': 'Next question →',
     'quiz.changeMode': 'Change mode',
     'quiz.again': 'Try again',
-    'quiz.resultGreat': '🎉 Excellent!',
+    'quiz.resultGreat': 'Excellent!',
     'quiz.resultGood': '👍 Pretty good!',
     'quiz.resultKeep': '💪 Keep practicing!',
     'quiz.scoreLine': '{score} / {total} correct',
@@ -2898,6 +3221,40 @@ const UI_TEXT = {
     'secret.empty': 'No entries match this filter.',
     'secret.footer': 'Browser-local · no external APIs',
     'settings.section': 'Settings',
+    'badges.section': 'Badges',
+    'badge.unlocked': 'Badge unlocked!',
+    'badge.firstReview.title': 'First review',
+    'badge.firstReview.desc': 'Complete your first review',
+    'badge.firstMastered.title': 'First character',
+    'badge.firstMastered.desc': 'Master your first character',
+    'badge.streak3.title': '3-day streak',
+    'badge.streak3.desc': 'Study 3 days in a row',
+    'badge.firstQuiz.title': 'First quiz',
+    'badge.firstQuiz.desc': 'Finish your first quiz',
+    'badge.mastered10.title': 'Ten characters',
+    'badge.mastered10.desc': 'Master 10 characters',
+    'badge.streak7.title': '7-day streak',
+    'badge.streak7.desc': 'Study 7 days in a row',
+    'badge.mastered50.title': 'Fifty strong',
+    'badge.mastered50.desc': 'Master 50 characters',
+    'badge.streak30.title': '30-day streak',
+    'badge.streak30.desc': 'Study 30 days in a row',
+    'badge.mastered100.title': 'Century of characters',
+    'badge.mastered100.desc': 'Master 100 characters',
+    'share.section': 'Share progress',
+    'share.needAccount': 'Sign in with an anonymous account to create a share code. No email, no password.',
+    'share.create': 'Create share code',
+    'share.copy': 'Copy',
+    'share.copied': 'Copied!',
+    'share.loadHint': 'Enter a share code, e.g. ABCD-1234',
+    'share.load': 'View',
+    'share.notFound': 'Share code not found (or expired).',
+    'share.error': 'Something went wrong. Try again.',
+    'share.import': 'Import this progress',
+    'share.imported': 'Imported!',
+    'profile.mastered': 'mastered',
+    'profile.streak': 'day streak',
+    'profile.reviews': 'reviews',
     'theme.section': 'Appearance',
     'theme.light': 'Daylight',
     'theme.dark': 'Night',
@@ -3063,7 +3420,7 @@ const getSimilarDistractors = (char, vocab, count = 3) => {
   });
   return [...byGroup, ...byShape].slice(0, count);
 };
-const styles = "/* ============================================================\n   HANZI MASTER — Ink & Paper design system (v2, clean rewrite)\n   Warm paper, ink text, vermilion seal accent. Hairlines, no shadows.\n   ============================================================ */\n\n:root {\n  --bg: #f8f5ef;\n  --bg-soft: #f0ead9;\n  --card: #fffdf8;\n  --ink: #191713;\n  --ink-soft: #7a7264;\n  --line: #e4ddcf;\n  --accent: #c8371f;\n  --accent-ink: #191713;\n  --danger: #c8371f;\n  --radius: 4px;\n  --font: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n  --font-serif: 'Songti SC', 'SimSun', 'Microsoft YaHei', serif;\n  --font-mono: ui-monospace, Menlo, Consolas, monospace;\n  --ease: 0.18s ease;\n}\n\nhtml[data-theme='dark'] {\n  --bg: #14120f;\n  --bg-soft: #1d1a15;\n  --card: #1d1a15;\n  --ink: #efe9dd;\n  --ink-soft: #a39a87;\n  --line: #2e2a22;\n  --accent: #e04a2a;\n  --accent-ink: #efe9dd;\n  color-scheme: dark;\n}\n\nhtml[data-theme='sakura'] {\n  --bg: #f9f1ee;\n  --bg-soft: #f3e4e0;\n  --card: #fffaf8;\n  --ink: #241f1a;\n  --ink-soft: #8a7a6d;\n  --line: #e8d8d2;\n  --accent: #c2452e;\n  --accent-ink: #191713;\n}\n\n* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }\n\nhtml, body {\n  width: 100%;\n  min-height: 100%;\n  overflow-x: clip;\n}\n\nbody {\n  background: var(--bg);\n  color: var(--ink);\n  font-family: var(--font);\n  font-size: 16px;\n  line-height: 1.5;\n  -webkit-font-smoothing: antialiased;\n  overscroll-behavior-y: contain;\n}\n\n#root { min-height: 100%; }\n\nbutton { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }\nbutton:disabled { opacity: 0.4; cursor: not-allowed; }\n:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }\n::selection { background: var(--accent); color: var(--card); }\n\n/* ---------- layout ---------- */\n.screen {\n  width: min(100vw - 24px, 460px);\n  max-width: 460px;\n  min-height: 100vh;\n  min-height: 100dvh;\n  margin: 0 auto;\n  padding: 16px 12px calc(96px + env(safe-area-inset-bottom, 0px));\n  animation: viewEnter 0.3s ease-out;\n}\n\n@keyframes viewEnter {\n  from { opacity: 0; transform: translateY(10px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n.header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 10px;\n  padding-bottom: 12px;\n  margin-bottom: 14px;\n  border-bottom: 1px solid var(--line);\n}\n\n.back-btn {\n  min-height: 44px;\n  padding: 8px 14px;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  background: var(--card);\n  font-weight: 800;\n  font-size: 14px;\n  transition: transform var(--ease);\n}\n\n/* ---------- topbar ---------- */\n.super-topbar {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 10px;\n  padding: 10px 0 12px;\n  border-bottom: 1px solid var(--line);\n}\n\n.brand-lockup { display: flex; align-items: center; gap: 10px; min-width: 0; }\n.brand-mark svg { width: 40px; height: 40px; display: block; }\n.brand-title { font-size: 18px; font-weight: 900; line-height: 1.1; }\n.brand-subtitle { font-size: 12px; color: var(--ink-soft); font-weight: 700; }\n\n.topbar-actions { display: flex; align-items: center; gap: 8px; }\n\n.guide-toggle, .sound-toggle {\n  width: 40px; height: 40px;\n  display: grid; place-items: center;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  background: var(--card);\n  color: var(--ink);\n  transition: transform var(--ease);\n}\n.guide-toggle svg, .sound-toggle svg { width: 20px; height: 20px; }\n.guide-toggle:active, .sound-toggle:active, .back-btn:active { transform: scale(0.96); }\n\n.language-toggle {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 2px;\n  min-height: 40px;\n  padding: 2px;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  background: var(--card);\n}\n.language-toggle button {\n  min-width: 40px; min-height: 36px;\n  padding: 0 8px;\n  border-radius: 3px;\n  font-size: 12px; font-weight: 900;\n  color: var(--ink-soft);\n}\n.language-toggle button.active { background: var(--accent); color: var(--card); }\n\n.daily-chip {\n  display: flex; align-items: center; gap: 4px;\n  min-height: 40px;\n  padding: 0 10px;\n  border: 1px solid var(--line);\n  border-radius: 999px;\n  background: var(--bg-soft);\n  font-size: 13px; font-weight: 900;\n  animation: streakPulse 2.2s ease-in-out infinite;\n}\n@keyframes streakPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } }\n\n/* ---------- bottom nav ---------- */\n.app-bottom-nav {\n  position: fixed;\n  left: 0; right: 0; bottom: 0;\n  z-index: 50;\n  display: flex;\n  background: var(--card);\n  border-top: 1px solid var(--line);\n  padding-bottom: env(safe-area-inset-bottom, 0px);\n}\n.bottom-nav-item {\n  flex: 1;\n  display: flex; flex-direction: column; align-items: center; gap: 2px;\n  min-height: 56px;\n  padding: 8px 0;\n  color: var(--ink-soft);\n  font-size: 11px; font-weight: 800;\n  transition: color var(--ease), transform var(--ease);\n}\n.bottom-nav-item:active { transform: scale(0.94); }\n.bottom-nav-item.active { color: var(--accent); }\n.bottom-nav-icon svg { width: 22px; height: 22px; }\n\n/* ---------- buttons ---------- */\n.btn {\n  display: inline-flex; align-items: center; justify-content: center; gap: 8px;\n  min-height: 48px;\n  padding: 12px 18px;\n  border-radius: var(--radius);\n  border: 1px solid var(--line);\n  background: var(--card);\n  color: var(--ink);\n  font-size: 15px; font-weight: 900;\n  transition: transform var(--ease);\n}\n.btn:active { transform: scale(0.97); }\n.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--card); }\n.btn-secondary { background: var(--card); }\n.btn-coral { background: var(--card); border-color: var(--accent); color: var(--accent); }\n\n.nav-actions { display: flex; gap: 10px; margin-top: 18px; }\n.nav-actions .btn { flex: 1; }\n\n/* ---------- type helpers ---------- */\n.text-sm { font-size: 12px; color: var(--ink-soft); line-height: 1.45; }\n.title-md { font-size: 16px; font-weight: 900; }\n.title-lg { font-size: 20px; font-weight: 900; }\n.text-accent { color: var(--accent); }\n\n.section-title { display: flex; align-items: center; gap: 10px; margin: 26px 0 10px; }\n.section-title .text-sm { font-weight: 800; letter-spacing: 0.4px; }\n.section-line { flex: 1; height: 1px; background: var(--line); }\n\n/* ---------- hero ---------- */\n.hero-block {\n  margin-top: 14px;\n  padding: 22px 18px;\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n}\n.hero-char-wrap { position: relative; display: inline-block; margin-bottom: 12px; }\n.hero-char {\n  display: block;\n  font-family: var(--font-serif);\n  font-size: 84px; font-weight: 900; line-height: 1;\n  color: var(--ink);\n}\n.hero-seal {\n  position: absolute; right: -16px; bottom: 2px;\n  width: 28px; height: 28px;\n  display: grid; place-items: center;\n  background: var(--accent); color: var(--card);\n  border-radius: 3px;\n  font-family: var(--font-serif);\n  font-size: 16px; font-weight: 900;\n}\n.hero-title { font-size: 25px; font-weight: 900; line-height: 1.25; }\n.hero-subtitle { margin-top: 8px; font-size: 14px; line-height: 1.55; color: var(--ink-soft); }\n.hero-cta { width: 100%; margin-top: 16px; }\n.hero-hint { margin-top: 10px; font-size: 12px; font-weight: 800; color: var(--accent); }\n\n/* ---------- cards & lists ---------- */\n.card {\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  padding: 16px;\n  margin-top: 12px;\n}\n\n.list-panel {\n  margin-top: 12px;\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  padding: 2px 16px;\n}\n.list-head {\n  padding: 12px 0 8px;\n  font-size: 14px; font-weight: 900;\n  border-bottom: 1px solid var(--line);\n}\n.list-row {\n  display: flex; align-items: center; gap: 14px;\n  width: 100%;\n  padding: 14px 0;\n  border-bottom: 1px solid var(--line);\n  text-align: left;\n  transition: transform var(--ease);\n}\n.list-row:active { transform: scale(0.98); }\n.list-row:last-child { border-bottom: none; }\n.list-icon {\n  width: 36px; height: 36px; flex-shrink: 0;\n  display: grid; place-items: center;\n  background: var(--bg-soft);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  color: var(--ink);\n}\n.list-icon svg { width: 18px; height: 18px; }\n.list-label { flex: 1; font-size: 15px; font-weight: 700; }\n.list-arrow { color: var(--ink-soft); font-size: 16px; }\n.list-meta { font-size: 12px; color: var(--ink-soft); font-weight: 700; }\n\n/* ---------- wallet / progress ---------- */\n.wallet-card { margin-top: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }\n.wallet-label { font-size: 12px; font-weight: 800; color: var(--ink-soft); letter-spacing: 0.4px; }\n.wallet-score { font-size: 44px; font-weight: 900; line-height: 1.1; margin-top: 6px; }\n.progress-bar { height: 3px; background: var(--line); margin-top: 10px; }\n.progress-fill { height: 100%; background: var(--accent); transition: width 0.4s linear; }\n.wallet-meta { display: flex; gap: 12px; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--ink-soft); }\n.wallet-empty-body { display: flex; align-items: center; gap: 14px; margin-top: 10px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }\n.wallet-empty-char {\n  width: 52px; height: 52px; flex-shrink: 0;\n  display: grid; place-items: center;\n  background: var(--accent); color: var(--card);\n  border-radius: var(--radius);\n  font-family: var(--font-serif); font-size: 28px; font-weight: 900;\n}\n\n/* ---------- daily ---------- */\n.daily-queue-grid { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 10px 0; }\n.daily-queue-char { display: flex; flex-direction: column; align-items: center; gap: 2px; }\n.daily-queue-char .hanzi-display { font-family: var(--font-serif); font-size: 34px; font-weight: 900; }\n.daily-queue-char small { font-size: 11px; font-weight: 800; color: var(--ink-soft); }\n.daily-reason-row { display: flex; gap: 12px; margin-top: 8px; font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.daily-entry-strip { display: flex; flex-wrap: wrap; gap: 10px; }\n.daily-entry-char { font-family: var(--font-serif); font-size: 26px; font-weight: 900; }\n\n/* ---------- learn / flashcard ---------- */\n.flashcard {\n  margin-top: 14px;\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  padding: 36px 20px 28px;\n  text-align: center;\n  cursor: pointer;\n  transition: transform var(--ease);\n}\n.flashcard:active { transform: scale(0.985); }\n.hanzi-hero { font-family: var(--font-serif); font-size: clamp(96px, 30vw, 132px); font-weight: 900; line-height: 1; color: var(--accent); }\n.hanzi-word { font-size: clamp(56px, 18vw, 84px); }\n.hanzi-md { font-family: var(--font-serif); font-size: 24px; font-weight: 900; }\n.pinyin-display { font-size: 20px; font-weight: 900; margin-top: 14px; }\n.meaning-display { font-size: 15px; color: var(--ink-soft); font-weight: 700; margin-top: 4px; }\n.material-example { margin-top: 12px; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }\n.flashcard-hint { margin-top: 16px; font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n\n/* ---------- draw ---------- */\n.draw-canvas-wrap { margin-top: 14px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; }\n.hanzi-writer-container { width: 100%; max-width: 300px; margin: 0 auto; }\n.draw-stats { display: flex; gap: 16px; margin-top: 12px; font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.draw-feedback { min-height: 24px; margin-top: 10px; text-align: center; font-weight: 900; font-size: 14px; }\n.draw-feedback.success { color: var(--accent); }\n.draw-feedback.error { color: var(--danger); }\n\n/* ---------- quiz ---------- */\n.quiz-question { margin-top: 14px; font-family: var(--font-serif); font-size: 40px; font-weight: 900; text-align: center; padding: 18px 0; }\n.quiz-options { display: flex; flex-direction: column; margin-top: 6px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 2px 16px; }\n.quiz-option {\n  padding: 16px 4px;\n  border-bottom: 1px solid var(--line);\n  font-size: 17px; font-weight: 700;\n  text-align: left;\n  transition: transform var(--ease);\n}\n.quiz-option:active { transform: scale(0.98); }\n.quiz-option:last-child { border-bottom: none; }\n.quiz-option.correct { color: var(--accent); }\n.quiz-option.incorrect { color: var(--danger); opacity: 0.7; }\n.quiz-option.disabled { opacity: 0.5; }\n.score-value { font-size: 56px; font-weight: 900; }\n.score-label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n\n/* ---------- stats ---------- */\n.stats-bar { display: flex; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; margin-top: 12px; }\n.stat-item { flex: 1; text-align: center; }\n.stat-value { font-size: 26px; font-weight: 900; }\n.stat-label { font-size: 11px; font-weight: 800; color: var(--ink-soft); margin-top: 2px; }\n.char-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-top: 10px; }\n.char-item {\n  aspect-ratio: 1;\n  display: grid; place-items: center;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  font-family: var(--font-serif);\n  font-size: 16px; font-weight: 900;\n  color: var(--ink-soft);\n}\n.char-item.mastered { background: var(--accent); border-color: var(--accent); color: var(--card); }\n.char-item.learning { border-color: var(--accent); color: var(--accent); }\n.backup-buttons { display: flex; gap: 10px; }\n.backup-buttons .btn { flex: 1; }\n.offline-pack-card { display: flex; align-items: center; gap: 12px; }\n.offline-pack-icon { width: 40px; height: 40px; display: grid; place-items: center; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius); }\n.offline-pack-copy { flex: 1; }\n\n/* ---------- settings / theme ---------- */\n.settings-row { display: flex; gap: 10px; align-items: center; }\n.theme-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }\n.theme-chip { display: flex; flex-direction: column; gap: 8px; padding: 10px 6px 12px; border: 2px solid transparent; border-radius: var(--radius); background: var(--bg-soft); transition: border-color var(--ease), transform var(--ease); }\n.theme-chip:active { transform: scale(0.97); }\n.theme-chip.active { border-color: var(--accent); background: var(--card); }\n.theme-swatch { width: 100%; height: 44px; border-radius: 3px; border: 1px solid var(--line); }\n.theme-chip-label { font-size: 12px; font-weight: 800; }\n\n/* ---------- account ---------- */\n.account-tabs { display: flex; gap: 4px; padding: 3px; margin-top: 10px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }\n.account-tab { flex: 1; min-height: 44px; border-radius: 3px; font-size: 13px; font-weight: 900; color: var(--ink-soft); }\n.account-tab.active { background: var(--card); color: var(--accent); }\n.account-input {\n  width: 100%; margin-top: 8px; min-height: 44px;\n  padding: 10px 12px;\n  border: 1px solid var(--line); border-radius: var(--radius);\n  background: var(--card); color: var(--ink);\n  font: inherit; font-size: 14px;\n}\n.recovery-box { margin-top: 12px; padding: 12px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--bg-soft); }\n.recovery-code { display: block; margin-top: 4px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--card); font-family: var(--font-mono); font-size: 13px; word-break: break-all; }\n.recovery-code.big { font-size: 16px; font-weight: 700; letter-spacing: 1px; }\n.account-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }\n.sync-pill { padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-soft); font-size: 11px; font-weight: 800; white-space: nowrap; }\n.sync-pill.error { color: var(--danger); border-color: var(--danger); }\n\n/* ---------- tutorial ---------- */\n.tutorial-backdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: rgba(20, 18, 15, 0.55); padding: 20px; }\n.tutorial-card { position: relative; width: min(360px, 100%); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }\n.tutorial-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--radius); font-size: 18px; font-weight: 900; }\n.tutorial-hero { display: flex; gap: 12px; align-items: center; }\n.tutorial-panda svg { width: 64px; height: 64px; }\n.tutorial-kicker { display: flex; gap: 8px; font-size: 11px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); }\n.tutorial-step-card { margin-top: 14px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }\n.tutorial-step-card h3 { font-size: 16px; font-weight: 900; }\n.tutorial-step-card p { margin-top: 4px; font-size: 13px; color: var(--ink-soft); }\n.tutorial-progress { height: 3px; background: var(--line); margin-top: 14px; }\n.tutorial-progress-fill { height: 100%; background: var(--accent); transition: width var(--ease); }\n.tutorial-dots { display: flex; gap: 6px; justify-content: center; margin-top: 12px; }\n.tutorial-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--line); }\n.tutorial-dots span.active { background: var(--accent); }\n.tutorial-open-step { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin-top: 14px; background: var(--accent); color: var(--card); border-radius: var(--radius); font-weight: 900; }\n.tutorial-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }\n.tutorial-quiet { min-height: 44px; padding: 0 12px; color: var(--ink-soft); font-weight: 800; font-size: 13px; }\n.tutorial-action-pair { display: flex; gap: 8px; }\n.tutorial-secondary, .tutorial-primary { min-height: 44px; padding: 0 16px; border-radius: var(--radius); font-weight: 900; font-size: 13px; }\n.tutorial-secondary { border: 1px solid var(--line); }\n.tutorial-primary { background: var(--ink); color: var(--card); }\n\n/* ---------- secret ---------- */\n.secret-kicker { font-size: 12px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); letter-spacing: 1px; }\n.secret-search { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 0 12px; min-height: 44px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }\n.secret-search input { flex: 1; border: 0; outline: 0; background: transparent; font: inherit; font-size: 14px; color: var(--ink); }\n.secret-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }\n.secret-table td, .secret-table th { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: left; }\n.secret-table th { font-size: 11px; font-weight: 900; color: var(--ink-soft); letter-spacing: 0.4px; }\n.secret-hanzi { font-family: var(--font-serif); font-size: 18px; font-weight: 900; }\n\n/* ---------- motion ---------- */\n@keyframes viewEnter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after {\n    animation-duration: 0.01ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 0.01ms !important;\n    scroll-behavior: auto !important;\n  }\n}\n\n@media (max-width: 380px) {\n  .hero-char { font-size: 72px; }\n  .char-grid { grid-template-columns: repeat(6, 1fr); }\n}\n\n/* ---------- secret cheat sheet (restyled to ink system) ---------- */\n.secret-topbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }\n.secret-topbar-actions { display: flex; align-items: center; gap: 8px; }\n.secret-print-button { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }\n.secret-print-button svg { width: 20px; height: 20px; }\n.secret-hero h1 { font-size: 26px; font-weight: 900; margin-top: 6px; }\n.secret-hero p { margin-top: 6px; font-size: 14px; color: var(--ink-soft); max-width: 60ch; }\n.secret-summary-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }\n.secret-summary-strip span { padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-soft); font-size: 12px; font-weight: 800; }\n.secret-section { margin-top: 26px; }\n.secret-section-heading { font-size: 12px; font-weight: 900; color: var(--ink-soft); letter-spacing: 0.6px; text-transform: none; }\n.secret-section > p, .secret-section-heading + p { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }\n.secret-reference-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }\n.secret-reference-block { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 12px; }\n.secret-reference-block strong { display: block; font-size: 14px; }\n.secret-reference-block span { font-size: 12px; color: var(--ink-soft); }\n.secret-rule-band, .secret-pattern-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-top: 12px; }\n.secret-tone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 12px; }\n.secret-pattern-label { font-size: 11px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); }\n.secret-vocab-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }\n.secret-level-filter { display: flex; flex-wrap: wrap; gap: 6px; }\n.secret-level-filter button { min-height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.secret-level-filter button.active { background: var(--accent); border-color: var(--accent); color: var(--card); }\n.secret-result-count { font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.secret-word-grid { display: flex; flex-direction: column; margin-top: 8px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 2px 16px; }\n.secret-word-row { display: flex; align-items: baseline; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }\n.secret-word-row:last-child { border-bottom: none; }\n.secret-word-main { display: flex; align-items: baseline; gap: 10px; min-width: 0; }\n.secret-word-main .secret-hanzi { flex-shrink: 0; }\n.secret-word-main span { font-size: 13px; color: var(--ink-soft); }\n.secret-source-tags { margin-left: auto; display: flex; gap: 6px; flex-shrink: 0; }\n.secret-source-tags span { font-size: 11px; font-weight: 800; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; }\n.secret-footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); font-weight: 700; }\n";
+const styles = "/* ============================================================\n   HANZI MASTER — Ink & Paper design system (v2, clean rewrite)\n   Warm paper, ink text, vermilion seal accent. Hairlines, no shadows.\n   ============================================================ */\n\n:root {\n  --bg: #f8f5ef;\n  --bg-soft: #f0ead9;\n  --card: #fffdf8;\n  --ink: #191713;\n  --ink-soft: #7a7264;\n  --line: #e4ddcf;\n  --accent: #c8371f;\n  --accent-ink: #191713;\n  --danger: #c8371f;\n  --radius: 4px;\n  --font: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Segoe UI', Arial, sans-serif;\n  --font-serif: 'Songti SC', 'SimSun', 'Microsoft YaHei', serif;\n  --font-mono: ui-monospace, Menlo, Consolas, monospace;\n  --ease: 0.18s ease;\n}\n\nhtml[data-theme='dark'] {\n  --bg: #14120f;\n  --bg-soft: #1d1a15;\n  --card: #1d1a15;\n  --ink: #efe9dd;\n  --ink-soft: #a39a87;\n  --line: #2e2a22;\n  --accent: #e04a2a;\n  --accent-ink: #efe9dd;\n  color-scheme: dark;\n}\n\nhtml[data-theme='sakura'] {\n  --bg: #f9f1ee;\n  --bg-soft: #f3e4e0;\n  --card: #fffaf8;\n  --ink: #241f1a;\n  --ink-soft: #8a7a6d;\n  --line: #e8d8d2;\n  --accent: #c2452e;\n  --accent-ink: #191713;\n}\n\n* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }\n\nhtml, body {\n  width: 100%;\n  min-height: 100%;\n  overflow-x: clip;\n}\n\nbody {\n  background: var(--bg);\n  color: var(--ink);\n  font-family: var(--font);\n  font-size: 16px;\n  line-height: 1.5;\n  -webkit-font-smoothing: antialiased;\n  overscroll-behavior-y: contain;\n}\n\n#root { min-height: 100%; }\n\nbutton { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }\nbutton:disabled { opacity: 0.4; cursor: not-allowed; }\n:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }\n::selection { background: var(--accent); color: var(--card); }\n\n/* ---------- layout ---------- */\n.screen {\n  width: min(100vw - 24px, 460px);\n  max-width: 460px;\n  min-height: 100vh;\n  min-height: 100dvh;\n  margin: 0 auto;\n  padding: 16px 12px calc(96px + env(safe-area-inset-bottom, 0px));\n  animation: viewEnter 0.3s ease-out;\n}\n\n@keyframes viewEnter {\n  from { opacity: 0; transform: translateY(10px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n.header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 10px;\n  padding-bottom: 12px;\n  margin-bottom: 14px;\n  border-bottom: 1px solid var(--line);\n}\n\n.back-btn {\n  min-height: 44px;\n  padding: 8px 14px;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  background: var(--card);\n  font-weight: 800;\n  font-size: 14px;\n  transition: transform var(--ease);\n}\n\n/* ---------- topbar ---------- */\n.super-topbar {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 10px;\n  padding: 10px 0 12px;\n  border-bottom: 1px solid var(--line);\n}\n\n.brand-lockup { display: flex; align-items: center; gap: 10px; min-width: 0; }\n.brand-mark svg { width: 40px; height: 40px; display: block; }\n.brand-title { font-size: 18px; font-weight: 900; line-height: 1.1; }\n.brand-subtitle { font-size: 12px; color: var(--ink-soft); font-weight: 700; }\n\n.topbar-actions { display: flex; align-items: center; gap: 8px; }\n\n.guide-toggle, .sound-toggle {\n  width: 40px; height: 40px;\n  display: grid; place-items: center;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  background: var(--card);\n  color: var(--ink);\n  transition: transform var(--ease);\n}\n.guide-toggle svg, .sound-toggle svg { width: 20px; height: 20px; }\n.guide-toggle:active, .sound-toggle:active, .back-btn:active { transform: scale(0.96); }\n\n.language-toggle {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 2px;\n  min-height: 40px;\n  padding: 2px;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  background: var(--card);\n}\n.language-toggle button {\n  min-width: 40px; min-height: 36px;\n  padding: 0 8px;\n  border-radius: 3px;\n  font-size: 12px; font-weight: 900;\n  color: var(--ink-soft);\n}\n.language-toggle button.active { background: var(--accent); color: var(--card); }\n\n.daily-chip {\n  display: flex; align-items: center; gap: 4px;\n  min-height: 40px;\n  padding: 0 10px;\n  border: 1px solid var(--line);\n  border-radius: 999px;\n  background: var(--bg-soft);\n  font-size: 13px; font-weight: 900;\n  animation: streakPulse 2.2s ease-in-out infinite;\n}\n@keyframes streakPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } }\n\n/* ---------- bottom nav ---------- */\n.app-bottom-nav {\n  position: fixed;\n  left: 0; right: 0; bottom: 0;\n  z-index: 50;\n  display: flex;\n  background: var(--card);\n  border-top: 1px solid var(--line);\n  padding-bottom: env(safe-area-inset-bottom, 0px);\n}\n.bottom-nav-item {\n  flex: 1;\n  display: flex; flex-direction: column; align-items: center; gap: 2px;\n  min-height: 56px;\n  padding: 8px 0;\n  color: var(--ink-soft);\n  font-size: 11px; font-weight: 800;\n  transition: color var(--ease), transform var(--ease);\n}\n.bottom-nav-item:active { transform: scale(0.94); }\n.bottom-nav-item.active { color: var(--accent); }\n.bottom-nav-icon svg { width: 22px; height: 22px; }\n\n/* ---------- buttons ---------- */\n.btn {\n  display: inline-flex; align-items: center; justify-content: center; gap: 8px;\n  min-height: 48px;\n  padding: 12px 18px;\n  border-radius: var(--radius);\n  border: 1px solid var(--line);\n  background: var(--card);\n  color: var(--ink);\n  font-size: 15px; font-weight: 900;\n  transition: transform var(--ease);\n}\n.btn:active { transform: scale(0.97); }\n.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--card); }\n.btn-secondary { background: var(--card); }\n.btn-coral { background: var(--card); border-color: var(--accent); color: var(--accent); }\n\n.nav-actions { display: flex; gap: 10px; margin-top: 18px; }\n.nav-actions .btn { flex: 1; }\n\n/* ---------- type helpers ---------- */\n.text-sm { font-size: 12px; color: var(--ink-soft); line-height: 1.45; }\n.title-md { font-size: 16px; font-weight: 900; }\n.title-lg { font-size: 20px; font-weight: 900; }\n.text-accent { color: var(--accent); }\n\n.section-title { display: flex; align-items: center; gap: 10px; margin: 26px 0 10px; }\n.section-title .text-sm { font-weight: 800; letter-spacing: 0.4px; }\n.section-line { flex: 1; height: 1px; background: var(--line); }\n\n/* ---------- hero ---------- */\n.hero-block {\n  margin-top: 14px;\n  padding: 22px 18px;\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n}\n.hero-char-wrap { position: relative; display: inline-block; margin-bottom: 12px; }\n.hero-char {\n  display: block;\n  font-family: var(--font-serif);\n  font-size: 84px; font-weight: 900; line-height: 1;\n  color: var(--ink);\n}\n.hero-seal {\n  position: absolute; right: -16px; bottom: 2px;\n  width: 28px; height: 28px;\n  display: grid; place-items: center;\n  background: var(--accent); color: var(--card);\n  border-radius: 3px;\n  font-family: var(--font-serif);\n  font-size: 16px; font-weight: 900;\n}\n.hero-title { font-size: 25px; font-weight: 900; line-height: 1.25; }\n.hero-subtitle { margin-top: 8px; font-size: 14px; line-height: 1.55; color: var(--ink-soft); }\n.hero-cta { width: 100%; margin-top: 16px; }\n.hero-hint { margin-top: 10px; font-size: 12px; font-weight: 800; color: var(--accent); }\n\n/* ---------- cards & lists ---------- */\n.card {\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  padding: 16px;\n  margin-top: 12px;\n}\n\n.list-panel {\n  margin-top: 12px;\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  padding: 2px 16px;\n}\n.list-head {\n  padding: 12px 0 8px;\n  font-size: 14px; font-weight: 900;\n  border-bottom: 1px solid var(--line);\n}\n.list-row {\n  display: flex; align-items: center; gap: 14px;\n  width: 100%;\n  padding: 14px 0;\n  border-bottom: 1px solid var(--line);\n  text-align: left;\n  transition: transform var(--ease);\n}\n.list-row:active { transform: scale(0.98); }\n.list-row:last-child { border-bottom: none; }\n.list-icon {\n  width: 36px; height: 36px; flex-shrink: 0;\n  display: grid; place-items: center;\n  background: var(--bg-soft);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  color: var(--ink);\n}\n.list-icon svg { width: 18px; height: 18px; }\n.list-label { flex: 1; font-size: 15px; font-weight: 700; }\n.list-arrow { color: var(--ink-soft); font-size: 16px; }\n.list-meta { font-size: 12px; color: var(--ink-soft); font-weight: 700; }\n\n/* ---------- wallet / progress ---------- */\n.wallet-card { margin-top: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }\n.wallet-label { font-size: 12px; font-weight: 800; color: var(--ink-soft); letter-spacing: 0.4px; }\n.wallet-score { font-size: 44px; font-weight: 900; line-height: 1.1; margin-top: 6px; }\n.progress-bar { height: 3px; background: var(--line); margin-top: 10px; }\n.progress-fill { height: 100%; background: var(--accent); transition: width 0.4s linear; }\n.wallet-meta { display: flex; gap: 12px; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--ink-soft); }\n.wallet-empty-body { display: flex; align-items: center; gap: 14px; margin-top: 10px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }\n.wallet-empty-char {\n  width: 52px; height: 52px; flex-shrink: 0;\n  display: grid; place-items: center;\n  background: var(--accent); color: var(--card);\n  border-radius: var(--radius);\n  font-family: var(--font-serif); font-size: 28px; font-weight: 900;\n}\n\n/* ---------- daily ---------- */\n.daily-queue-grid { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 10px 0; }\n.daily-queue-char { display: flex; flex-direction: column; align-items: center; gap: 2px; }\n.daily-queue-char .hanzi-display { font-family: var(--font-serif); font-size: 34px; font-weight: 900; }\n.daily-queue-char small { font-size: 11px; font-weight: 800; color: var(--ink-soft); }\n.daily-reason-row { display: flex; gap: 12px; margin-top: 8px; font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.daily-entry-strip { display: flex; flex-wrap: wrap; gap: 10px; }\n.daily-entry-char { font-family: var(--font-serif); font-size: 26px; font-weight: 900; }\n\n/* ---------- learn / flashcard ---------- */\n.flashcard {\n  margin-top: 14px;\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  padding: 36px 20px 28px;\n  text-align: center;\n  cursor: pointer;\n  transition: transform var(--ease);\n}\n.flashcard:active { transform: scale(0.985); }\n.hanzi-hero { font-family: var(--font-serif); font-size: clamp(96px, 30vw, 132px); font-weight: 900; line-height: 1; color: var(--accent); }\n.hanzi-word { font-size: clamp(56px, 18vw, 84px); }\n.hanzi-md { font-family: var(--font-serif); font-size: 24px; font-weight: 900; }\n.pinyin-display { font-size: 20px; font-weight: 900; margin-top: 14px; }\n.meaning-display { font-size: 15px; color: var(--ink-soft); font-weight: 700; margin-top: 4px; }\n.material-example { margin-top: 12px; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }\n.flashcard-hint { margin-top: 16px; font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n\n/* ---------- draw ---------- */\n.draw-canvas-wrap { margin-top: 14px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; }\n.hanzi-writer-container { width: 100%; max-width: 300px; margin: 0 auto; }\n.draw-stats { display: flex; gap: 16px; margin-top: 12px; font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.draw-feedback { min-height: 24px; margin-top: 10px; text-align: center; font-weight: 900; font-size: 14px; }\n.draw-feedback.success { color: var(--accent); }\n.draw-feedback.error { color: var(--danger); }\n\n/* ---------- quiz ---------- */\n.quiz-question { margin-top: 14px; font-family: var(--font-serif); font-size: 40px; font-weight: 900; text-align: center; padding: 18px 0; }\n.quiz-options { display: flex; flex-direction: column; margin-top: 6px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 2px 16px; }\n.quiz-option {\n  padding: 16px 4px;\n  border-bottom: 1px solid var(--line);\n  font-size: 17px; font-weight: 700;\n  text-align: left;\n  transition: transform var(--ease);\n}\n.quiz-option:active { transform: scale(0.98); }\n.quiz-option:last-child { border-bottom: none; }\n.quiz-option.correct { color: var(--accent); }\n.quiz-option.incorrect { color: var(--danger); opacity: 0.7; }\n.quiz-option.disabled { opacity: 0.5; }\n.score-value { font-size: 56px; font-weight: 900; }\n.score-label { font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n\n/* ---------- stats ---------- */\n.stats-bar { display: flex; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; margin-top: 12px; }\n.stat-item { flex: 1; text-align: center; }\n.stat-value { font-size: 26px; font-weight: 900; }\n.stat-label { font-size: 11px; font-weight: 800; color: var(--ink-soft); margin-top: 2px; }\n.char-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-top: 10px; }\n.char-item {\n  aspect-ratio: 1;\n  display: grid; place-items: center;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  font-family: var(--font-serif);\n  font-size: 16px; font-weight: 900;\n  color: var(--ink-soft);\n}\n.char-item.mastered { background: var(--accent); border-color: var(--accent); color: var(--card); }\n.char-item.learning { border-color: var(--accent); color: var(--accent); }\n.backup-buttons { display: flex; gap: 10px; }\n.backup-buttons .btn { flex: 1; }\n.offline-pack-card { display: flex; align-items: center; gap: 12px; }\n.offline-pack-icon { width: 40px; height: 40px; display: grid; place-items: center; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius); }\n.offline-pack-copy { flex: 1; }\n\n/* ---------- settings / theme ---------- */\n.settings-row { display: flex; gap: 10px; align-items: center; }\n.theme-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }\n.theme-chip { display: flex; flex-direction: column; gap: 8px; padding: 10px 6px 12px; border: 2px solid transparent; border-radius: var(--radius); background: var(--bg-soft); transition: border-color var(--ease), transform var(--ease); }\n.theme-chip:active { transform: scale(0.97); }\n.theme-chip.active { border-color: var(--accent); background: var(--card); }\n.theme-swatch { width: 100%; height: 44px; border-radius: 3px; border: 1px solid var(--line); }\n.theme-chip-label { font-size: 12px; font-weight: 800; }\n\n/* ---------- account ---------- */\n.account-tabs { display: flex; gap: 4px; padding: 3px; margin-top: 10px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }\n.account-tab { flex: 1; min-height: 44px; border-radius: 3px; font-size: 13px; font-weight: 900; color: var(--ink-soft); }\n.account-tab.active { background: var(--card); color: var(--accent); }\n.account-input {\n  width: 100%; margin-top: 8px; min-height: 44px;\n  padding: 10px 12px;\n  border: 1px solid var(--line); border-radius: var(--radius);\n  background: var(--card); color: var(--ink);\n  font: inherit; font-size: 14px;\n}\n.recovery-box { margin-top: 12px; padding: 12px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--bg-soft); }\n.recovery-code { display: block; margin-top: 4px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--card); font-family: var(--font-mono); font-size: 13px; word-break: break-all; }\n.recovery-code.big { font-size: 16px; font-weight: 700; letter-spacing: 1px; }\n.account-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }\n.sync-pill { padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-soft); font-size: 11px; font-weight: 800; white-space: nowrap; }\n.sync-pill.error { color: var(--danger); border-color: var(--danger); }\n\n/* ---------- tutorial ---------- */\n.tutorial-backdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: rgba(20, 18, 15, 0.55); padding: 20px; }\n.tutorial-card { position: relative; width: min(360px, 100%); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }\n.tutorial-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--radius); font-size: 18px; font-weight: 900; }\n.tutorial-hero { display: flex; gap: 12px; align-items: center; }\n.tutorial-seal svg { width: 64px; height: 64px; }\n.tutorial-kicker { display: flex; gap: 8px; font-size: 11px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); }\n.tutorial-step-card { margin-top: 14px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }\n.tutorial-step-card h3 { font-size: 16px; font-weight: 900; }\n.tutorial-step-card p { margin-top: 4px; font-size: 13px; color: var(--ink-soft); }\n.tutorial-progress { height: 3px; background: var(--line); margin-top: 14px; }\n.tutorial-progress-fill { height: 100%; background: var(--accent); transition: width var(--ease); }\n.tutorial-dots { display: flex; gap: 6px; justify-content: center; margin-top: 12px; }\n.tutorial-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--line); }\n.tutorial-dots span.active { background: var(--accent); }\n.tutorial-open-step { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin-top: 14px; background: var(--accent); color: var(--card); border-radius: var(--radius); font-weight: 900; }\n.tutorial-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }\n.tutorial-quiet { min-height: 44px; padding: 0 12px; color: var(--ink-soft); font-weight: 800; font-size: 13px; }\n.tutorial-action-pair { display: flex; gap: 8px; }\n.tutorial-secondary, .tutorial-primary { min-height: 44px; padding: 0 16px; border-radius: var(--radius); font-weight: 900; font-size: 13px; }\n.tutorial-secondary { border: 1px solid var(--line); }\n.tutorial-primary { background: var(--ink); color: var(--card); }\n\n/* ---------- secret ---------- */\n.secret-kicker { font-size: 12px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); letter-spacing: 1px; }\n.secret-search { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 0 12px; min-height: 44px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }\n.secret-search input { flex: 1; border: 0; outline: 0; background: transparent; font: inherit; font-size: 14px; color: var(--ink); }\n.secret-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }\n.secret-table td, .secret-table th { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: left; }\n.secret-table th { font-size: 11px; font-weight: 900; color: var(--ink-soft); letter-spacing: 0.4px; }\n.secret-hanzi { font-family: var(--font-serif); font-size: 18px; font-weight: 900; }\n\n/* ---------- motion ---------- */\n@keyframes viewEnter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after {\n    animation-duration: 0.01ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 0.01ms !important;\n    scroll-behavior: auto !important;\n  }\n}\n\n@media (max-width: 380px) {\n  .hero-char { font-size: 72px; }\n  .char-grid { grid-template-columns: repeat(6, 1fr); }\n}\n\n/* ---------- secret cheat sheet (restyled to ink system) ---------- */\n.secret-topbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }\n.secret-topbar-actions { display: flex; align-items: center; gap: 8px; }\n.secret-print-button { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }\n.secret-print-button svg { width: 20px; height: 20px; }\n.secret-hero h1 { font-size: 26px; font-weight: 900; margin-top: 6px; }\n.secret-hero p { margin-top: 6px; font-size: 14px; color: var(--ink-soft); max-width: 60ch; }\n.secret-summary-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }\n.secret-summary-strip span { padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-soft); font-size: 12px; font-weight: 800; }\n.secret-section { margin-top: 26px; }\n.secret-section-heading { font-size: 12px; font-weight: 900; color: var(--ink-soft); letter-spacing: 0.6px; text-transform: none; }\n.secret-section > p, .secret-section-heading + p { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }\n.secret-reference-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }\n.secret-reference-block { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 12px; }\n.secret-reference-block strong { display: block; font-size: 14px; }\n.secret-reference-block span { font-size: 12px; color: var(--ink-soft); }\n.secret-rule-band, .secret-pattern-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-top: 12px; }\n.secret-tone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin-top: 12px; }\n.secret-pattern-label { font-size: 11px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); }\n.secret-vocab-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }\n.secret-level-filter { display: flex; flex-wrap: wrap; gap: 6px; }\n.secret-level-filter button { min-height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.secret-level-filter button.active { background: var(--accent); border-color: var(--accent); color: var(--card); }\n.secret-result-count { font-size: 12px; font-weight: 800; color: var(--ink-soft); }\n.secret-word-grid { display: flex; flex-direction: column; margin-top: 8px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 2px 16px; }\n.secret-word-row { display: flex; align-items: baseline; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }\n.secret-word-row:last-child { border-bottom: none; }\n.secret-word-main { display: flex; align-items: baseline; gap: 10px; min-width: 0; }\n.secret-word-main .secret-hanzi { flex-shrink: 0; }\n.secret-word-main span { font-size: 13px; color: var(--ink-soft); }\n.secret-source-tags { margin-left: auto; display: flex; gap: 6px; flex-shrink: 0; }\n.secret-source-tags span { font-size: 11px; font-weight: 800; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; }\n.secret-footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); font-weight: 700; }\n\n.chip-char {\n  font-family: var(--font-serif);\n  font-size: 15px;\n  font-weight: 900;\n  color: var(--accent);\n}\n\n/* ---------- share & profile card ---------- */\n.share-create-row { display: flex; gap: 8px; align-items: center; }\n.share-load-row { display: flex; gap: 8px; margin-top: 10px; }\n.share-load-row .account-input { margin-top: 0; }\n.share-load-row .btn { flex-shrink: 0; }\n\n.profile-card {\n  position: relative;\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  overflow: hidden;\n}\n.profile-banner { height: 56px; background: var(--accent); }\n.profile-avatar {\n  position: absolute;\n  top: 24px; left: 16px;\n  width: 64px; height: 64px;\n  border-radius: 50%;\n  border: 4px solid var(--card);\n  background: var(--card);\n  overflow: hidden;\n}\n.profile-avatar svg { display: block; }\n.profile-body { padding: 40px 16px 16px; }\n.profile-name { font-size: 18px; font-weight: 900; }\n.profile-sub { font-size: 12px; color: var(--ink-soft); font-weight: 700; font-family: var(--font-mono); margin-top: 2px; }\n.profile-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; font-size: 12px; font-weight: 700; color: var(--ink-soft); }\n.profile-stats b { color: var(--ink); font-size: 14px; }\n.profile-pct { margin-top: 6px; font-size: 12px; font-weight: 900; color: var(--accent); }\n\n/* ---------- badges ---------- */\n.badge-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }\n.badge-cell {\n  display: flex; flex-direction: column; align-items: center; gap: 6px;\n  padding: 14px 6px;\n  border: 1px solid var(--line);\n  border-radius: var(--radius);\n  background: var(--card);\n  opacity: 0.45;\n}\n.badge-cell.unlocked { opacity: 1; border-color: var(--accent); }\n.badge-seal {\n  width: 44px; height: 44px;\n  display: grid; place-items: center;\n  background: var(--bg-soft);\n  border: 1px solid var(--line);\n  border-radius: 8px;\n  font-family: var(--font-serif);\n  font-size: 22px; font-weight: 900;\n  color: var(--ink-soft);\n}\n.badge-cell.unlocked .badge-seal { background: var(--accent); border-color: var(--accent); color: var(--card); }\n.badge-label { font-size: 11px; font-weight: 800; color: var(--ink-soft); text-align: center; }\n.badge-cell.unlocked .badge-label { color: var(--ink); }\n\n.badge-toast {\n  position: fixed;\n  top: calc(12px + env(safe-area-inset-top, 0px));\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 200;\n  display: flex; align-items: center; gap: 12px;\n  padding: 12px 18px;\n  background: var(--card);\n  border: 1px solid var(--accent);\n  border-radius: var(--radius);\n  box-shadow: 0 8px 24px rgba(25, 23, 19, 0.18);\n  animation: badgeIn 0.35s cubic-bezier(0.2, 0.9, 0.2, 1.2);\n  cursor: pointer;\n}\n@keyframes badgeIn { from { opacity: 0; transform: translateX(-50%) translateY(-16px) scale(0.9); } to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); } }\n.badge-toast-seal {\n  width: 40px; height: 40px;\n  display: grid; place-items: center;\n  background: var(--accent); color: var(--card);\n  border-radius: 8px;\n  font-family: var(--font-serif);\n  font-size: 20px; font-weight: 900;\n}\n.badge-toast-kicker { font-size: 11px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); }\n.badge-toast-title { font-size: 15px; font-weight: 900; }\n\n.collection-quiz-btn {\n  min-height: 40px;\n  padding: 6px 12px;\n  font-size: 12px;\n  flex-shrink: 0;\n}\n.collection-quiz-btn svg { width: 16px; height: 16px; }\n";
 const apiFetch = (path, options = {}) => fetch(path, {
   credentials: 'same-origin',
   headers: {
@@ -3115,6 +3472,20 @@ const deleteAccount = async () => {
 const fetchServerProgress = async () => {
   const res = await apiFetch('/api/progress');
   if (!res.ok) throw new Error('fetch_failed');
+  return res.json();
+};
+const createShareCode = async () => {
+  const res = await apiFetch('/api/share', {
+    method: 'POST',
+    body: '{}'
+  });
+  if (!res.ok) throw new Error('share_failed');
+  return res.json();
+};
+const fetchSharedProgress = async code => {
+  const res = await apiFetch(`/api/share/${encodeURIComponent(code)}`);
+  if (res.status === 404) throw new Error('not_found');
+  if (!res.ok) throw new Error('share_failed');
   return res.json();
 };
 const pushProgressToServer = async progress => {
@@ -3343,24 +3714,194 @@ function AccountSection({
     disabled: busy
   }, t('account.delete')))));
 }
+function ProfileCard({
+  data,
+  code,
+  t
+}) {
+  const total = typeof STUDY_CATALOG !== 'undefined' && STUDY_CATALOG.length || VOCABULARY.length;
+  const mastered = data.masteredChars?.length || 0;
+  const pct = Math.round(mastered / total * 100);
+  const firstChar = data.masteredChars?.[0] || data.learningChars?.[0] || '字';
+  return React.createElement("div", {
+    className: "profile-card"
+  }, React.createElement("div", {
+    className: "profile-banner"
+  }), React.createElement("div", {
+    className: "profile-avatar",
+    "aria-hidden": "true"
+  }, React.createElement("svg", {
+    width: "64",
+    height: "64",
+    viewBox: "0 0 96 96",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, React.createElement("rect", {
+    x: "6",
+    y: "6",
+    width: "84",
+    height: "84",
+    rx: "14",
+    fill: "#c8371f"
+  }), React.createElement("text", {
+    x: "48",
+    y: "64",
+    textAnchor: "middle",
+    fontFamily: "Songti SC, SimSun, Microsoft YaHei, serif",
+    fontSize: "46",
+    fontWeight: "900",
+    fill: "#fffdf8"
+  }, firstChar))), React.createElement("div", {
+    className: "profile-body"
+  }, React.createElement("div", {
+    className: "profile-name"
+  }, "Hanzi Master"), React.createElement("div", {
+    className: "profile-sub"
+  }, "share \xB7 ", code), React.createElement("div", {
+    className: "profile-stats"
+  }, React.createElement("span", null, React.createElement("b", null, mastered), "/", total, " ", t('profile.mastered')), React.createElement("span", null, React.createElement("b", null, data.streakDays || 0), " ", t('profile.streak')), React.createElement("span", null, React.createElement("b", null, data.totalReviews || 0), " ", t('profile.reviews'))), React.createElement("div", {
+    className: "progress-bar"
+  }, React.createElement("div", {
+    className: "progress-fill",
+    style: {
+      width: `${pct}%`
+    }
+  })), React.createElement("div", {
+    className: "profile-pct"
+  }, pct, "%")));
+}
+function ShareSection({
+  session,
+  progress,
+  updateProgress,
+  t,
+  playSound
+}) {
+  const [code, setCode] = React.useState(null);
+  const [copied, setCopied] = React.useState(false);
+  const [busy, setBusy] = React.useState(false);
+  const [errorKey, setErrorKey] = React.useState(null);
+  const [loadCode, setLoadCode] = React.useState('');
+  const [preview, setPreview] = React.useState(null);
+  const [imported, setImported] = React.useState(false);
+  const handleCreate = async () => {
+    setBusy(true);
+    setErrorKey(null);
+    try {
+      const res = await createShareCode();
+      setCode(res.code);
+      playSound?.('reveal');
+    } catch {
+      setErrorKey('share.error');
+    }
+    setBusy(false);
+  };
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setErrorKey('share.error');
+    }
+  };
+  const handleLoad = async () => {
+    setBusy(true);
+    setErrorKey(null);
+    setPreview(null);
+    setImported(false);
+    try {
+      const res = await fetchSharedProgress(loadCode.trim());
+      setPreview({
+        data: res.data,
+        code: loadCode.trim().toUpperCase()
+      });
+    } catch (e) {
+      setErrorKey(e.message === 'not_found' ? 'share.notFound' : 'share.error');
+    }
+    setBusy(false);
+  };
+  const handleImport = () => {
+    if (!preview) return;
+    updateProgress(mergeProgress(progress, preview.data));
+    setImported(true);
+    playSound?.('complete');
+  };
+  return React.createElement("div", {
+    className: "card"
+  }, !session && React.createElement("p", {
+    className: "text-sm"
+  }, t('share.needAccount')), session && React.createElement("div", {
+    className: "share-create-row"
+  }, React.createElement("button", {
+    className: "btn btn-secondary",
+    onClick: handleCreate,
+    disabled: busy
+  }, t('share.create')), code && React.createElement(React.Fragment, null, React.createElement("code", {
+    className: "recovery-code big",
+    style: {
+      flex: 1
+    }
+  }, code), React.createElement("button", {
+    className: "btn btn-primary",
+    onClick: handleCopy
+  }, copied ? t('share.copied') : t('share.copy')))), React.createElement("div", {
+    className: "share-load-row"
+  }, React.createElement("input", {
+    className: "account-input",
+    placeholder: t('share.loadHint'),
+    value: loadCode,
+    onChange: e => setLoadCode(e.target.value),
+    autoComplete: "off",
+    autoCapitalize: "characters",
+    spellCheck: false
+  }), React.createElement("button", {
+    className: "btn btn-primary",
+    onClick: handleLoad,
+    disabled: busy || !loadCode.trim()
+  }, t('share.load'))), errorKey && React.createElement("p", {
+    className: "text-sm",
+    style: {
+      color: 'var(--danger)',
+      marginTop: '8px',
+      fontWeight: 700
+    }
+  }, t(errorKey)), preview && React.createElement("div", {
+    style: {
+      marginTop: '14px'
+    }
+  }, React.createElement(ProfileCard, {
+    data: preview.data,
+    code: preview.code,
+    t: t
+  }), React.createElement("button", {
+    className: "btn btn-primary",
+    style: {
+      width: '100%',
+      marginTop: '12px'
+    },
+    onClick: handleImport,
+    disabled: imported
+  }, imported ? t('share.imported') : t('share.import'))));
+}
 const THEME_STORAGE_KEY = 'hanzi_master_theme';
 const THEMES = [{
   id: 'light',
   labelKey: 'theme.light',
-  swatch: 'linear-gradient(135deg, #e8f7ef 45%, #07c160 55%, #1677ff)'
+  swatch: 'linear-gradient(135deg, #f8f5ef 45%, #c8371f 60%, #191713)'
 }, {
   id: 'dark',
   labelKey: 'theme.dark',
-  swatch: 'linear-gradient(135deg, #0d1210 45%, #2dd48a 55%, #1677ff)'
+  swatch: 'linear-gradient(135deg, #14120f 45%, #e04a2a 60%, #efe9dd)'
 }, {
   id: 'sakura',
   labelKey: 'theme.sakura',
-  swatch: 'linear-gradient(135deg, #fdeef4 45%, #ec4899 55%, #f59e0b)'
+  swatch: 'linear-gradient(135deg, #f9f1ee 45%, #c2452e 60%, #8a7a6d)'
 }];
 const THEME_META_COLOR = {
-  light: '#e8f7ef',
-  dark: '#0d1210',
-  sakura: '#fdeef4'
+  light: '#f8f5ef',
+  dark: '#14120f',
+  sakura: '#f9f1ee'
 };
 const isValidTheme = id => THEMES.some(t => t.id === id);
 const loadTheme = () => {
@@ -3408,6 +3949,104 @@ function ThemePicker({
     className: "theme-chip-label"
   }, t(th.labelKey)))));
 }
+const BADGES = [{
+  id: 'first-review',
+  char: '始',
+  titleKey: 'badge.firstReview.title',
+  descKey: 'badge.firstReview.desc',
+  test: p => p.totalReviews >= 1
+}, {
+  id: 'first-mastered',
+  char: '一',
+  titleKey: 'badge.firstMastered.title',
+  descKey: 'badge.firstMastered.desc',
+  test: p => p.masteredChars.length >= 1
+}, {
+  id: 'streak-3',
+  char: '火',
+  titleKey: 'badge.streak3.title',
+  descKey: 'badge.streak3.desc',
+  test: p => p.streakDays >= 3
+}, {
+  id: 'first-quiz',
+  char: '成',
+  titleKey: 'badge.firstQuiz.title',
+  descKey: 'badge.firstQuiz.desc',
+  test: p => (p.quizScores?.length || 0) >= 1
+}, {
+  id: 'mastered-10',
+  char: '十',
+  titleKey: 'badge.mastered10.title',
+  descKey: 'badge.mastered10.desc',
+  test: p => p.masteredChars.length >= 10
+}, {
+  id: 'streak-7',
+  char: '七',
+  titleKey: 'badge.streak7.title',
+  descKey: 'badge.streak7.desc',
+  test: p => p.streakDays >= 7
+}, {
+  id: 'mastered-50',
+  char: '满',
+  titleKey: 'badge.mastered50.title',
+  descKey: 'badge.mastered50.desc',
+  test: p => p.masteredChars.length >= 50
+}, {
+  id: 'streak-30',
+  char: '卅',
+  titleKey: 'badge.streak30.title',
+  descKey: 'badge.streak30.desc',
+  test: p => p.streakDays >= 30
+}, {
+  id: 'mastered-100',
+  char: '百',
+  titleKey: 'badge.mastered100.title',
+  descKey: 'badge.mastered100.desc',
+  test: p => p.masteredChars.length >= 100
+}];
+const getUnlockedBadgeIds = progress => BADGES.filter(b => b.test(progress)).map(b => b.id);
+const getBadgeById = id => BADGES.find(b => b.id === id);
+function BadgeToast({
+  badge,
+  onClose,
+  t
+}) {
+  React.useEffect(() => {
+    const h = window.setTimeout(onClose, 3500);
+    return () => window.clearTimeout(h);
+  }, [onClose]);
+  if (!badge) return null;
+  return React.createElement("div", {
+    className: "badge-toast",
+    role: "status",
+    onClick: onClose
+  }, React.createElement("span", {
+    className: "badge-toast-seal",
+    "aria-hidden": "true"
+  }, badge.char), React.createElement("div", null, React.createElement("p", {
+    className: "badge-toast-kicker"
+  }, t('badge.unlocked')), React.createElement("p", {
+    className: "badge-toast-title"
+  }, t(badge.titleKey))));
+}
+function BadgeGrid({
+  progress,
+  t
+}) {
+  const unlocked = React.useMemo(() => new Set(getUnlockedBadgeIds(progress)), [progress]);
+  return React.createElement("div", {
+    className: "badge-grid"
+  }, BADGES.map(b => React.createElement("div", {
+    key: b.id,
+    className: `badge-cell ${unlocked.has(b.id) ? 'unlocked' : ''}`,
+    title: t(b.titleKey)
+  }, React.createElement("span", {
+    className: "badge-seal",
+    "aria-hidden": "true"
+  }, b.char), React.createElement("span", {
+    className: "badge-label"
+  }, t(b.titleKey)))));
+}
 const TUTORIAL_STORAGE_KEY = 'hanzi_master_tutorial_seen';
 const isSecretRoute = () => {
   const path = window.location.pathname.replace(/\/+$/, '');
@@ -3443,6 +4082,17 @@ function HanziMasterApp() {
   });
   React.useEffect(() => {
     saveProgress(progress);
+  }, [progress]);
+  const [newBadge, setNewBadge] = React.useState(null);
+  const knownBadgeIds = React.useRef(new Set(getUnlockedBadgeIds(loadProgress())));
+  React.useEffect(() => {
+    const ids = new Set(getUnlockedBadgeIds(progress));
+    const fresh = BADGES.find(b => ids.has(b.id) && !knownBadgeIds.current.has(b.id));
+    knownBadgeIds.current = ids;
+    if (fresh) {
+      setNewBadge(fresh);
+      playSoundEffect('complete', soundEnabled);
+    }
   }, [progress]);
   React.useEffect(() => {
     applyTheme(theme);
@@ -3658,6 +4308,10 @@ function HanziMasterApp() {
     setCurrentView: setCurrentViewWithSound,
     setSelectedLesson: setSelectedLesson,
     setSelectedQueue: setSelectedQueue,
+    t: t
+  }), React.createElement(BadgeToast, {
+    badge: newBadge,
+    onClose: () => setNewBadge(null),
     t: t
   }), React.createElement(TutorialOverlay, {
     open: tutorialOpen && currentView !== 'secret',
@@ -4204,7 +4858,10 @@ function HomeView({
     t: t
   }), progress.streakDays > 0 && React.createElement("span", {
     className: "daily-chip"
-  }, "\uD83D\uDD25 ", progress.streakDays))), React.createElement("div", {
+  }, React.createElement("span", {
+    className: "chip-char",
+    "aria-hidden": "true"
+  }, "\u706B"), " ", progress.streakDays))), React.createElement("div", {
     className: "hero-block"
   }, React.createElement("div", {
     className: "hero-char-wrap"
@@ -4401,17 +5058,37 @@ function LessonsView({
   progress,
   t
 }) {
-  const lessons = [12, 13, 14, 15].map(l => ({
-    lesson: l,
-    total: VOCABULARY.filter(v => v.lesson === l).length,
-    mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.hanzi)).length
-  }));
+  const lessons = React.useMemo(() => {
+    const byLesson = new Map();
+    VOCABULARY.forEach(v => {
+      if (!byLesson.has(v.lesson)) byLesson.set(v.lesson, {
+        lesson: v.lesson,
+        book: v.book || 'hsk1',
+        total: 0,
+        mastered: 0
+      });
+      const g = byLesson.get(v.lesson);
+      g.total += 1;
+      if (progress.masteredChars.includes(v.hanzi)) g.mastered += 1;
+    });
+    return [...byLesson.values()].sort((a, b) => a.lesson - b.lesson);
+  }, [progress]);
+  const lessonLabel = l => l.book === 'hsk2' ? t('lessons.hsk2Lesson', {
+    lesson: l.lesson
+  }) : t('stats.lesson', {
+    lesson: l.lesson
+  });
   const openLesson = (lesson, view) => {
     setSelectedQueue(null);
     setSelectedLesson(lesson);
     setCurrentView(view);
   };
   const collections = getMaterialCollectionQueues();
+  const openCollection = (c, view) => {
+    setSelectedLesson(null);
+    setSelectedQueue(getMaterialCollectionQueue(MATERIAL_COLLECTIONS.find(m => m.id === c.id)));
+    setCurrentView(view);
+  };
   return React.createElement("div", {
     className: "screen"
   }, React.createElement("header", {
@@ -4435,26 +5112,45 @@ function LessonsView({
   }, t('lessons.quick')), lessons.map(l => React.createElement(ListRow, {
     key: l.lesson,
     icon: "book",
-    label: t('stats.lesson', {
-      lesson: l.lesson
-    }),
+    label: lessonLabel(l),
     meta: `${l.mastered}/${l.total}`,
     onClick: () => openLesson(l.lesson, 'learn')
   }))), React.createElement("div", {
     className: "list-panel"
   }, React.createElement("div", {
     className: "list-head"
-  }, t('lessons.materialBanks')), collections.map(c => React.createElement(ListRow, {
+  }, t('lessons.materialBanks')), collections.map(c => React.createElement("div", {
     key: c.id,
-    icon: "card",
-    label: c.labelKey ? t(c.labelKey) : c.labelEn || c.labelZh || c.id,
-    meta: `${c.items.length}`,
-    onClick: () => {
-      setSelectedLesson(null);
-      setSelectedQueue(getMaterialCollectionQueue(MATERIAL_COLLECTIONS.find(m => m.id === c.id)));
-      setCurrentView('learn');
+    className: "list-row",
+    style: {
+      cursor: 'default'
     }
-  }))), React.createElement("div", {
+  }, React.createElement("button", {
+    className: "list-row",
+    style: {
+      flex: 1,
+      border: 'none',
+      padding: 0
+    },
+    onClick: () => openCollection(c, 'learn')
+  }, React.createElement("span", {
+    className: "list-icon"
+  }, React.createElement(AppIcon, {
+    name: "card"
+  })), React.createElement("span", {
+    className: "list-label"
+  }, c.labelKey ? t(c.labelKey) : c.labelEn || c.labelZh || c.id), React.createElement("span", {
+    className: "list-meta"
+  }, c.items.length), React.createElement("span", {
+    className: "list-arrow",
+    "aria-hidden": "true"
+  }, "\u2192")), React.createElement("button", {
+    className: "btn btn-secondary collection-quiz-btn",
+    onClick: () => openCollection(c, 'quiz'),
+    "aria-label": `${t('quiz.title')} — ${c.labelEn || c.id}`
+  }, React.createElement(AppIcon, {
+    name: "target"
+  }), " ", t('quiz.title'))))), React.createElement("div", {
     className: "nav-actions"
   }, React.createElement("button", {
     className: "btn btn-secondary",
@@ -4560,7 +5256,14 @@ function LearnView({
     className: "material-example"
   }, current.example)), !flipped && React.createElement("p", {
     className: "flashcard-hint"
-  }, t('learn.tap'))), related.length > 0 && React.createElement("div", {
+  }, t('learn.tap'))), CHARACTER_MEMORY_CUES[current.hanzi] && React.createElement("div", {
+    className: "card"
+  }, React.createElement("p", {
+    className: "text-sm",
+    style: {
+      fontStyle: 'italic'
+    }
+  }, CHARACTER_MEMORY_CUES[current.hanzi])), related.length > 0 && React.createElement("div", {
     className: "card"
   }, React.createElement("button", {
     className: "list-row",
@@ -4753,10 +5456,29 @@ function QuizView({
   const startQuiz = m => {
     playSound('select');
     setMode(m);
-    const pool = selectedQueue?.items || (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : getStudyQueue(VOCABULARY, progress));
+    let pool = selectedQueue?.items || (selectedLesson ? VOCABULARY.filter(v => v.lesson === selectedLesson) : getStudyQueue(VOCABULARY, progress));
+    const isDaily = selectedQueue?.id?.startsWith('daily:');
+    if (!isDaily) pool = [...pool].sort(() => Math.random() - 0.5);
+    const answerKey = o => m === 'hanzi-to-pinyin' ? o.pinyin : m === 'pinyin-to-hanzi' ? o.hanzi : o.meaning;
     const qs = pool.slice(0, 10).map(item => {
-      const distractors = getSimilarDistractors(item, pool, 3);
-      const options = [...distractors, item].sort(() => Math.random() - 0.5);
+      let distractors = getSimilarDistractors(item, pool, 3);
+      let options = [...distractors, item];
+      const seen = new Set();
+      options = options.filter(o => {
+        const k = answerKey(o);
+        if (!k || seen.has(k)) return false;
+        seen.add(k);
+        return true;
+      });
+      for (const extra of pool) {
+        if (options.length >= 4) break;
+        const k = answerKey(extra);
+        if (k && !seen.has(k) && extra.hanzi !== item.hanzi) {
+          seen.add(k);
+          options.push(extra);
+        }
+      }
+      options = options.sort(() => Math.random() - 0.5);
       return {
         item,
         options
@@ -4944,14 +5666,25 @@ function StatsView({
   setSoundEnabled,
   ambienceEnabled,
   setAmbienceEnabled,
-  playSound
+  playSound,
+  updateProgress
 }) {
   const isOfflineCopy = window.location.protocol === 'file:';
-  const byLesson = [12, 13, 14, 15].map(l => ({
-    lesson: l,
-    mastered: VOCABULARY.filter(v => v.lesson === l && progress.masteredChars.includes(v.hanzi)).length,
-    total: VOCABULARY.filter(v => v.lesson === l).length
-  }));
+  const byLesson = React.useMemo(() => {
+    const byLesson = new Map();
+    VOCABULARY.forEach(v => {
+      if (!byLesson.has(v.lesson)) byLesson.set(v.lesson, {
+        lesson: v.lesson,
+        book: v.book || 'hsk1',
+        mastered: 0,
+        total: 0
+      });
+      const g = byLesson.get(v.lesson);
+      g.total += 1;
+      if (progress.masteredChars.includes(v.hanzi)) g.mastered += 1;
+    });
+    return [...byLesson.values()].sort((a, b) => a.lesson - b.lesson);
+  }, [progress]);
   const recentScores = progress.quizScores.slice(-5).reverse();
   const handleReset = () => {
     if (window.confirm(t('stats.confirmReset'))) {
@@ -5051,7 +5784,9 @@ function StatsView({
     }
   }, React.createElement("span", {
     className: "list-label"
-  }, t('stats.lesson', {
+  }, l.book === 'hsk2' ? t('lessons.hsk2Lesson', {
+    lesson: l.lesson
+  }) : t('stats.lesson', {
     lesson: l.lesson
   })), React.createElement("span", {
     className: "list-meta"
@@ -5088,6 +5823,15 @@ function StatsView({
     className: `char-item ${progress.masteredChars.includes(c.hanzi) ? 'mastered' : progress.learningChars.includes(c.hanzi) ? 'learning' : ''}`,
     title: `${c.pinyin} — ${c.meaning}`
   }, c.hanzi))), React.createElement("div", {
+    className: "section-title"
+  }, React.createElement("span", {
+    className: "text-sm"
+  }, t('badges.section')), React.createElement("div", {
+    className: "section-line"
+  })), React.createElement(BadgeGrid, {
+    progress: progress,
+    t: t
+  }), React.createElement("div", {
     className: "section-title"
   }, React.createElement("span", {
     className: "text-sm"
@@ -5129,6 +5873,18 @@ function StatsView({
     t: t,
     playSound: playSound
   })), React.createElement("div", {
+    className: "section-title"
+  }, React.createElement("span", {
+    className: "text-sm"
+  }, t('share.section')), React.createElement("div", {
+    className: "section-line"
+  })), React.createElement(ShareSection, {
+    session: session,
+    progress: progress,
+    updateProgress: updateProgress,
+    t: t,
+    playSound: playSound
+  }), React.createElement("div", {
     className: "section-title"
   }, React.createElement("span", {
     className: "text-sm"
@@ -5970,3 +6726,8 @@ function SecretCheatSheetView({
 }
 document.body.classList.add('app-ready');
 ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(HanziMasterApp, null));
+if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(e => console.warn('SW registration failed:', e));
+  });
+}

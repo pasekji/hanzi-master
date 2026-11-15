@@ -55,3 +55,35 @@ Source folder: `C:/Users/jirip/Downloads/cinstina`
 - HSK2 Lesson 15: 7 cards.
 - Book 3 preview: 10 cards.
 - Basic strokes: 28 cards.
+
+## Content update 2026-11-15 (branch obsah-hsk2)
+
+- +90 material cards from "Má tam být" (Excel hanzi-master-obsah-a-nova-slova.xlsx):
+  appended to hsk2-lesson-7 (+20), hsk2-lesson-9 (+19), hsk2-lesson-10 (+13);
+  new collections hsk2-lesson-8 (32) and class-whiteboard (6).
+  IDs 10107–10196, no collisions with existing IDs. Written as proper UTF-8,
+  no entries added to material-repairs.jsx.
+- class-whiteboard (6 words) is an UNVERIFIED DeepSeek transcription of a
+  whiteboard photo ("nepotvrzeno") — kept visible as such in the source field.
+  Example sentences marked "Doplněno (Claude)" (13) were written by Claude, not
+  the teacher — do not present them as slide content.
+- 白, 黑, 服务员, 等 intentionally appear both in book3-preview and the new
+  HSK2 sets (alsoInApp). Dedup by hanzi in STUDY_CATALOG keeps this safe;
+  both entries remain reachable via their collections.
+- +36 single characters (Psát=Ano) added to VOCABULARY (id 70–105, book 'hsk2',
+  lessons 7–10) with stroke data from hanzi-writer-data@2.0.1 appended to
+  hanzi-strokes.js (Arphic Public License data, same handling as before).
+  Per-character pinyin/meaning filled in manually (see /tmp/chars-report.txt).
+- LessonsView/StatsView now group VOCABULARY dynamically by lesson (HSK2
+  labelled separately). Quiz can now run on any material collection (shuffled,
+  deduped options); daily queue unchanged.
+- Totals: 105 writable characters, 47 compounds, 374 material cards,
+  427 deduplicated entries on /secret.
+
+### Pinyin verification (36 new characters)
+All 36 per-character pinyin values verified against pinyin-pro (CC-CEDICT
+based) and cross-checked so each character's pinyin is a syllable of its
+example word from the Excel (e.g. 银=yín in yínháng, 行=háng in yínháng,
+便=pián in piányi). Differences vs single-character lists are only tone
+sandhi in compounds (gàosu, shìqing, piányi) or heteronyms — standalone
+readings are correct. Full list: /tmp/chars-report.txt

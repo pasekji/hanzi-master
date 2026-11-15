@@ -29,7 +29,13 @@ app.use('/api', (req, res) => res.status(404).json({ error: 'not_found' }));
 app.use(express.static(path.join(__dirname, 'public'), {
   maxAge: '1d',
   etag: true,
-  index: false // Don't serve index.html from static middleware
+  index: false, // Don't serve index.html from static middleware
+  setHeaders: (res, filePath) => {
+    // Service worker + manifest must always be fresh
+    if (filePath.endsWith('sw.js') || filePath.endsWith('manifest.webmanifest')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+  },
 }));
 
 app.use((req, res, next) => {

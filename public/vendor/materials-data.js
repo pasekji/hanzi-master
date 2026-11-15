@@ -3627,6 +3627,206 @@ window.HANZI_MATERIAL_COLLECTIONS = [
         "meaning": "far",
         "example": "????????",
         "source": "L7.pptx"
+      },
+      {
+        "id": 10107,
+        "kind": "word",
+        "hanzi": "还",
+        "pinyin": "hái",
+        "meaning": "still; yet",
+        "example": "他还在教室学习呢。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10108,
+        "kind": "word",
+        "hanzi": "快",
+        "pinyin": "kuài",
+        "meaning": "fast; quick",
+        "example": "走路慢，开车快。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10109,
+        "kind": "word",
+        "hanzi": "慢",
+        "pinyin": "màn",
+        "meaning": "slow",
+        "example": "走路慢，开车快。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10110,
+        "kind": "word",
+        "hanzi": "小时",
+        "pinyin": "xiǎoshí",
+        "meaning": "hour",
+        "example": "坐公共汽车要一个多小时呢！",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10111,
+        "kind": "word",
+        "hanzi": "银行",
+        "pinyin": "yínháng",
+        "meaning": "bank",
+        "example": "从学校到银行，走路要多长时间？",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10112,
+        "kind": "word",
+        "hanzi": "超市",
+        "pinyin": "chāoshì",
+        "meaning": "supermarket",
+        "example": "超市离教室不远。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10113,
+        "kind": "word",
+        "hanzi": "圣诞节",
+        "pinyin": "Shèngdànjié",
+        "meaning": "Christmas",
+        "example": "离圣诞节还有一个多月。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10114,
+        "kind": "word",
+        "hanzi": "公共汽车",
+        "pinyin": "gōnggòng qìchē",
+        "meaning": "bus",
+        "example": "坐公共汽车太慢了，你怎么不开车？",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10115,
+        "kind": "word",
+        "hanzi": "已经",
+        "pinyin": "yǐjīng",
+        "meaning": "already",
+        "example": "已经9点多了，他怎么还在学习？",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10116,
+        "kind": "word",
+        "hanzi": "非常",
+        "pinyin": "fēicháng",
+        "meaning": "very; extremely",
+        "example": "机场非常远。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10117,
+        "kind": "word",
+        "hanzi": "有点儿",
+        "pinyin": "yǒudiǎnr",
+        "meaning": "a bit; somewhat",
+        "example": "学校离机场有点儿远。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10118,
+        "kind": "word",
+        "hanzi": "多长时间",
+        "pinyin": "duō cháng shíjiān",
+        "meaning": "how long (of time)",
+        "example": "去机场要多长时间？",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10119,
+        "kind": "word",
+        "hanzi": "路上",
+        "pinyin": "lùshang",
+        "meaning": "on the way",
+        "example": "在去机场的路上。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10120,
+        "kind": "word",
+        "hanzi": "过生日",
+        "pinyin": "guò shēngrì",
+        "meaning": "to celebrate a birthday",
+        "example": "今天晚上我们一起吃饭吧，给你过生日。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10121,
+        "kind": "word",
+        "hanzi": "饭馆",
+        "pinyin": "fànguǎn",
+        "meaning": "restaurant",
+        "example": "离这儿不远有一个中国饭馆。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10122,
+        "kind": "word",
+        "hanzi": "骑车",
+        "pinyin": "qí chē",
+        "meaning": "to ride a bike",
+        "example": "银行离超市有点儿远，骑车15分钟。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10123,
+        "kind": "word",
+        "hanzi": "到",
+        "pinyin": "dào",
+        "meaning": "to arrive; to reach",
+        "example": "二十分钟就到。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10124,
+        "kind": "word",
+        "hanzi": "回来",
+        "pinyin": "huílai",
+        "meaning": "to come back",
+        "example": "大卫回来了吗？",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10125,
+        "kind": "word",
+        "hanzi": "下课",
+        "pinyin": "xiàkè",
+        "meaning": "class is over",
+        "example": "下课了，她还在看书。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
+      },
+      {
+        "id": 10126,
+        "kind": "word",
+        "hanzi": "左右",
+        "pinyin": "zuǒyòu",
+        "meaning": "about; approximately",
+        "example": "半个小时左右。",
+        "source": "HSK2 L7 (hsk2-lesson7.pdf)",
+        "sourceFile": "hsk2-lesson7.pdf"
       }
     ]
   },
@@ -3719,6 +3919,196 @@ window.HANZI_MATERIAL_COLLECTIONS = [
         "meaning": "to finish",
         "example": "?????",
         "source": "L9.pptx"
+      },
+      {
+        "id": 10159,
+        "kind": "word",
+        "hanzi": "欢迎",
+        "pinyin": "huānyíng",
+        "meaning": "to welcome",
+        "example": "欢迎来中国！",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10160,
+        "kind": "word",
+        "hanzi": "希望",
+        "pinyin": "xīwàng",
+        "meaning": "to hope; hope",
+        "example": "这是我送给你的礼物，希望你喜欢。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10161,
+        "kind": "word",
+        "hanzi": "从……到……",
+        "pinyin": "cóng…dào…",
+        "meaning": "from … to …",
+        "example": "从学校到银行，走路要多长时间？",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10162,
+        "kind": "word",
+        "hanzi": "懂",
+        "pinyin": "dǒng",
+        "meaning": "to understand",
+        "example": "爸爸听懂了。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10163,
+        "kind": "word",
+        "hanzi": "眼镜",
+        "pinyin": "yǎnjìng",
+        "meaning": "glasses",
+        "example": "爸爸在找眼镜。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10164,
+        "kind": "word",
+        "hanzi": "难",
+        "pinyin": "nán",
+        "meaning": "difficult",
+        "example": "汉字有点儿难",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10165,
+        "kind": "word",
+        "hanzi": "找到",
+        "pinyin": "zhǎodào",
+        "meaning": "to find (successfully)",
+        "example": "大卫找到工作了。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10166,
+        "kind": "word",
+        "hanzi": "做好",
+        "pinyin": "zuòhǎo",
+        "meaning": "to finish doing; to get ready",
+        "example": "晚饭妈妈做好了。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10167,
+        "kind": "word",
+        "hanzi": "听见",
+        "pinyin": "tīngjiàn",
+        "meaning": "to hear",
+        "example": "他听见了。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10168,
+        "kind": "word",
+        "hanzi": "第二",
+        "pinyin": "dì'èr",
+        "meaning": "second",
+        "example": "这是你们的第二本汉语书吗？",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10169,
+        "kind": "word",
+        "hanzi": "第一次",
+        "pinyin": "dì yī cì",
+        "meaning": "the first time",
+        "example": "我们第一次去中国旅游。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10170,
+        "kind": "word",
+        "hanzi": "开始",
+        "pinyin": "kāishǐ",
+        "meaning": "to begin; to start",
+        "example": "我们从下个月开始学习汉语。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10171,
+        "kind": "word",
+        "hanzi": "作业",
+        "pinyin": "zuòyè",
+        "meaning": "homework",
+        "example": "她做完作业了。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10172,
+        "kind": "word",
+        "hanzi": "份",
+        "pinyin": "fèn",
+        "meaning": "measure word for jobs",
+        "example": "这是他第一份工作。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10173,
+        "kind": "word",
+        "hanzi": "可乐",
+        "pinyin": "kělè",
+        "meaning": "cola",
+        "example": "可乐我喝完了。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10174,
+        "kind": "word",
+        "hanzi": "礼物",
+        "pinyin": "lǐwù",
+        "meaning": "gift; present",
+        "example": "这是我送给你的礼物。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10175,
+        "kind": "word",
+        "hanzi": "下班",
+        "pinyin": "xiàbān",
+        "meaning": "to get off work",
+        "example": "你几点下班？",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10176,
+        "kind": "word",
+        "hanzi": "上课",
+        "pinyin": "shàngkè",
+        "meaning": "to attend class",
+        "example": "我们从星期一到星期五上课。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
+      },
+      {
+        "id": 10177,
+        "kind": "word",
+        "hanzi": "上车",
+        "pinyin": "shàngchē",
+        "meaning": "to get on (a vehicle)",
+        "example": "请上车。",
+        "source": "HSK2 L9 (hsk2-lesson9.pdf)",
+        "sourceFile": "hsk2-lesson9.pdf"
       }
     ]
   },
@@ -3793,6 +4183,136 @@ window.HANZI_MATERIAL_COLLECTIONS = [
         "meaning": "to look for",
         "example": "????",
         "source": "L10.pptx"
+      },
+      {
+        "id": 10178,
+        "kind": "word",
+        "hanzi": "课",
+        "pinyin": "kè",
+        "meaning": "class; lesson",
+        "example": "我们今天有汉语课。",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10179,
+        "kind": "word",
+        "hanzi": "洗",
+        "pinyin": "xǐ",
+        "meaning": "to wash",
+        "example": "那件衣服我帮你洗了。",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10180,
+        "kind": "word",
+        "hanzi": "洗澡",
+        "pinyin": "xǐzǎo",
+        "meaning": "to take a bath/shower",
+        "example": "我想洗澡。",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10181,
+        "kind": "word",
+        "hanzi": "洗手间",
+        "pinyin": "xǐshǒujiān",
+        "meaning": "toilet; restroom",
+        "example": "洗手间在哪儿？",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10182,
+        "kind": "word",
+        "hanzi": "羊肉",
+        "pinyin": "yángròu",
+        "meaning": "lamb; mutton",
+        "example": "羊肉、鸡蛋、面条、西瓜……真不少！",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10183,
+        "kind": "word",
+        "hanzi": "面条",
+        "pinyin": "miàntiáo",
+        "meaning": "noodles",
+        "example": "羊肉、鸡蛋、面条、西瓜……真不少！",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10184,
+        "kind": "word",
+        "hanzi": "汉堡包",
+        "pinyin": "hànbǎobāo",
+        "meaning": "hamburger",
+        "example": "弟弟已经吃了6个汉堡包。",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10185,
+        "kind": "word",
+        "hanzi": "鸡肉",
+        "pinyin": "jīròu",
+        "meaning": "chicken (meat)",
+        "example": "我爱吃鸡肉。",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10186,
+        "kind": "word",
+        "hanzi": "玩",
+        "pinyin": "wán",
+        "meaning": "to play; to have fun",
+        "example": "你不要玩手机了。",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10187,
+        "kind": "word",
+        "hanzi": "用",
+        "pinyin": "yòng",
+        "meaning": "to use",
+        "example": "用手机打电话",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10188,
+        "kind": "word",
+        "hanzi": "外面",
+        "pinyin": "wàimiàn",
+        "meaning": "outside",
+        "example": "我们去外面吃吧！",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10189,
+        "kind": "word",
+        "hanzi": "电视机",
+        "pinyin": "diànshìjī",
+        "meaning": "television set",
+        "example": "电视机很大。",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
+      },
+      {
+        "id": 10190,
+        "kind": "word",
+        "hanzi": "汉语课",
+        "pinyin": "Hànyǔ kè",
+        "meaning": "Chinese class",
+        "example": "他们在上汉语课。",
+        "source": "HSK2 L10 (hsk2-lesson10.pdf)",
+        "sourceFile": "hsk2-lesson10.pdf"
       }
     ]
   },
@@ -4398,6 +4918,414 @@ window.HANZI_MATERIAL_COLLECTIONS = [
         "example": "From the stroke practice worksheet.",
         "source": "Stroke practice DOCX worksheets",
         "sourceFile": "Stroke practice worksheets"
+      }
+    ]
+  },
+  {
+    "id": "hsk2-lesson-8",
+    "level": "HSK2",
+    "labelZh": "HSK2 L8",
+    "labelEn": "HSK2 L8",
+    "chipZh": "HSK2",
+    "chipEn": "HSK2",
+    "sourceFile": "hsk2-lesson8.pdf",
+    "items": [
+      {
+        "id": 10127,
+        "kind": "word",
+        "hanzi": "告诉",
+        "pinyin": "gàosu",
+        "meaning": "to tell",
+        "example": "妈妈告诉我今天晚上吃鱼。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10128,
+        "kind": "word",
+        "hanzi": "事情",
+        "pinyin": "shìqing",
+        "meaning": "matter; affair",
+        "example": "今天我有很多事情要做！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10129,
+        "kind": "word",
+        "hanzi": "再",
+        "pinyin": "zài",
+        "meaning": "again; then; later",
+        "example": "你休息一下再去吧。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10130,
+        "kind": "word",
+        "hanzi": "让",
+        "pinyin": "ràng",
+        "meaning": "to let; to ask (sb. to do sth.)",
+        "example": "老师让我说汉语。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10131,
+        "kind": "word",
+        "hanzi": "贵",
+        "pinyin": "guì",
+        "meaning": "expensive",
+        "example": "太贵了！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10132,
+        "kind": "word",
+        "hanzi": "便宜",
+        "pinyin": "piányi",
+        "meaning": "cheap",
+        "example": "不贵，很便宜。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10133,
+        "kind": "word",
+        "hanzi": "秘密",
+        "pinyin": "mìmì",
+        "meaning": "secret",
+        "example": "我告诉她一个秘密。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10134,
+        "kind": "word",
+        "hanzi": "吃饱",
+        "pinyin": "chībǎo",
+        "meaning": "to eat one's fill; be full",
+        "example": "谢谢，我已经吃饱了。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10135,
+        "kind": "word",
+        "hanzi": "买单",
+        "pinyin": "mǎidān",
+        "meaning": "to pay the bill",
+        "example": "服务员，买单！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10136,
+        "kind": "word",
+        "hanzi": "马桶",
+        "pinyin": "mǎtǒng",
+        "meaning": "toilet",
+        "example": "服务员，我房间的马桶坏了！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10137,
+        "kind": "word",
+        "hanzi": "灯",
+        "pinyin": "dēng",
+        "meaning": "lamp; light",
+        "example": "服务员，我房间的灯坏了！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10138,
+        "kind": "word",
+        "hanzi": "空调",
+        "pinyin": "kōngtiáo",
+        "meaning": "air conditioner",
+        "example": "服务员，我房间的空调坏了！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10139,
+        "kind": "word",
+        "hanzi": "白",
+        "pinyin": "bái",
+        "meaning": "white",
+        "example": "这件白的有点儿长。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10140,
+        "kind": "word",
+        "hanzi": "黑",
+        "pinyin": "hēi",
+        "meaning": "black; dark",
+        "example": "那件黑的有点儿贵。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10141,
+        "kind": "word",
+        "hanzi": "服务员",
+        "pinyin": "fúwùyuán",
+        "meaning": "waiter; service staff",
+        "example": "服务员在饭馆工作。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10142,
+        "kind": "word",
+        "hanzi": "等",
+        "pinyin": "děng",
+        "meaning": "to wait",
+        "example": "他们在等公共汽车。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10143,
+        "kind": "word",
+        "hanzi": "周末",
+        "pinyin": "zhōumò",
+        "meaning": "weekend",
+        "example": "这个周末你有时间吗？",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10144,
+        "kind": "word",
+        "hanzi": "白色",
+        "pinyin": "báisè",
+        "meaning": "white (colour)",
+        "example": "白色的手表",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10145,
+        "kind": "word",
+        "hanzi": "黑色",
+        "pinyin": "hēisè",
+        "meaning": "black (colour)",
+        "example": "黑色的衣服",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10146,
+        "kind": "word",
+        "hanzi": "姓",
+        "pinyin": "xìng",
+        "meaning": "to be surnamed",
+        "example": "我姓王，你呢？",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10147,
+        "kind": "word",
+        "hanzi": "运动员",
+        "pinyin": "yùndòngyuán",
+        "meaning": "athlete",
+        "example": "她是运动员。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10148,
+        "kind": "word",
+        "hanzi": "演员",
+        "pinyin": "yǎnyuán",
+        "meaning": "actor; actress",
+        "example": "他是演员。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10149,
+        "kind": "word",
+        "hanzi": "坏",
+        "pinyin": "huài",
+        "meaning": "broken; bad",
+        "example": "服务员，我房间的空调坏了！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10150,
+        "kind": "word",
+        "hanzi": "外边",
+        "pinyin": "wàibian",
+        "meaning": "outside",
+        "example": "外边天气很好，我们出去运动运动吧！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10151,
+        "kind": "word",
+        "hanzi": "出去",
+        "pinyin": "chūqu",
+        "meaning": "to go out",
+        "example": "我们出去运动运动吧！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10152,
+        "kind": "word",
+        "hanzi": "病",
+        "pinyin": "bìng",
+        "meaning": "to be ill; illness",
+        "example": "听说大卫病了。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10153,
+        "kind": "word",
+        "hanzi": "一会儿",
+        "pinyin": "yíhuìr",
+        "meaning": "a little while",
+        "example": "我们再等一会儿吧！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10154,
+        "kind": "word",
+        "hanzi": "下次",
+        "pinyin": "xiàcì",
+        "meaning": "next time",
+        "example": "欢迎下次再来！",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10155,
+        "kind": "word",
+        "hanzi": "明年",
+        "pinyin": "míngnián",
+        "meaning": "next year",
+        "example": "我们明年再来中国。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10156,
+        "kind": "word",
+        "hanzi": "颜色",
+        "pinyin": "yánsè",
+        "meaning": "colour",
+        "example": "B买了什么颜色的衣服？",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10157,
+        "kind": "word",
+        "hanzi": "长",
+        "pinyin": "cháng",
+        "meaning": "long",
+        "example": "这件白的有点儿长。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      },
+      {
+        "id": 10158,
+        "kind": "word",
+        "hanzi": "新",
+        "pinyin": "xīn",
+        "meaning": "new",
+        "example": "这是今天新来的。",
+        "source": "HSK2 L8 (E-mail 7. 10. 2026 · hsk2-lesson 8.pdf)",
+        "sourceFile": "E-mail 7. 10. 2026 · hsk2-lesson 8.pdf"
+      }
+    ]
+  },
+  {
+    "id": "class-whiteboard",
+    "level": "Neověřeno",
+    "labelZh": "白板课（未核对）",
+    "labelEn": "Class whiteboard (unverified)",
+    "chipZh": "白板",
+    "chipEn": "Whiteboard · unverified",
+    "sourceFile": "fotka tabule, přepis DeepSeek",
+    "items": [
+      {
+        "id": 10191,
+        "kind": "word",
+        "hanzi": "暑假",
+        "pinyin": "shǔjià",
+        "meaning": "summer vacation",
+        "example": "暑假我想去中国。",
+        "source": "Tabule – DeepSeek (nepotvrzeno)",
+        "sourceFile": "fotka tabule, přepis DeepSeek",
+        "note": "Pinyin i význam přečetl DeepSeek z fotky – ověřit u učitelky."
+      },
+      {
+        "id": 10192,
+        "kind": "word",
+        "hanzi": "羽毛球",
+        "pinyin": "yǔmáoqiú",
+        "meaning": "badminton",
+        "example": "我喜欢打羽毛球。",
+        "source": "Tabule – DeepSeek (nepotvrzeno)",
+        "sourceFile": "fotka tabule, přepis DeepSeek",
+        "note": "Pinyin i význam přečetl DeepSeek z fotky – ověřit u učitelky."
+      },
+      {
+        "id": 10193,
+        "kind": "word",
+        "hanzi": "台风",
+        "pinyin": "táifēng",
+        "meaning": "typhoon",
+        "example": "今天有台风。",
+        "source": "Tabule – DeepSeek (nepotvrzeno)",
+        "sourceFile": "fotka tabule, přepis DeepSeek",
+        "note": "Pinyin i význam přečetl DeepSeek z fotky – ověřit u učitelky."
+      },
+      {
+        "id": 10194,
+        "kind": "word",
+        "hanzi": "网上",
+        "pinyin": "wǎngshàng",
+        "meaning": "online; on the internet",
+        "example": "我在网上买东西。",
+        "source": "Tabule – DeepSeek (nepotvrzeno)",
+        "sourceFile": "fotka tabule, přepis DeepSeek",
+        "note": "Pinyin i význam přečetl DeepSeek z fotky – ověřit u učitelky."
+      },
+      {
+        "id": 10195,
+        "kind": "word",
+        "hanzi": "头疼",
+        "pinyin": "tóuténg",
+        "meaning": "headache",
+        "example": "我头疼。",
+        "source": "Tabule – DeepSeek (nepotvrzeno)",
+        "sourceFile": "fotka tabule, přepis DeepSeek",
+        "note": "Pinyin i význam přečetl DeepSeek z fotky – ověřit u učitelky."
+      },
+      {
+        "id": 10196,
+        "kind": "word",
+        "hanzi": "滑冰",
+        "pinyin": "huábīng",
+        "meaning": "ice skating",
+        "example": "他喜欢滑冰。",
+        "source": "Tabule – DeepSeek (nepotvrzeno)",
+        "sourceFile": "fotka tabule, přepis DeepSeek",
+        "note": "Pinyin i význam přečetl DeepSeek z fotky – ověřit u učitelky."
       }
     ]
   }

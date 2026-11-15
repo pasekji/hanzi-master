@@ -254,28 +254,28 @@ function MemorySceneSvg({ item, memory }) {
   const gap = parts.length === 1 ? 0 : 8;
   const groupWidth = (partWidth * parts.length) + (gap * Math.max(0, parts.length - 1));
   const startX = 120 - (groupWidth / 2);
-  const accent = memory.category === 'nature' ? '#07a653'
+  const accent = memory.category === 'nature' ? '#c8371f'
     : memory.category === 'time' ? '#d99a18'
-      : memory.category === 'language' ? '#1677ff'
-        : memory.category === 'action' ? '#ef4b3e'
+      : memory.category === 'language' ? '#191713'
+        : memory.category === 'action' ? '#c8371f'
           : '#168b69';
 
   return (
     <svg className="memory-scene-svg" viewBox="0 0 240 132" role="img" aria-label={`${item.hanzi}: ${memory.story}`}>
-      <rect x="1" y="1" width="238" height="130" rx="7" fill="#f7fbf8" stroke="#dce9e2" />
-      <circle cx="202" cy="24" r="13" fill={memory.category === 'time' ? '#ffd76a' : '#ffe2a8'} opacity="0.82" />
+      <rect x="1" y="1" width="238" height="130" rx="7" fill="#f8f5ef" stroke="#dce9e2" />
+      <circle cx="202" cy="24" r="13" fill={memory.category === 'time' ? '#c8bfa8' : '#ffe2a8'} opacity="0.82" />
       <path d="M0 101 C34 80 55 96 82 82 C112 65 136 96 165 77 C190 61 213 78 240 61 V132 H0 Z" fill="#dff3e8" />
       <path d="M0 114 C35 98 65 112 96 99 C130 84 165 112 195 96 C213 87 228 89 240 84 V132 H0 Z" fill="#c9ead9" />
       {memory.category === 'language' && (
         <>
-          <path d="M26 28 h40 a8 8 0 0 1 8 8 v12 a8 8 0 0 1-8 8 H48 l-9 8 2-8 H26 a8 8 0 0 1-8-8 V36 a8 8 0 0 1 8-8Z" fill="#dbeaff" />
-          <circle cx="34" cy="42" r="2.5" fill="#1677ff" /><circle cx="46" cy="42" r="2.5" fill="#1677ff" /><circle cx="58" cy="42" r="2.5" fill="#1677ff" />
+          <path d="M26 28 h40 a8 8 0 0 1 8 8 v12 a8 8 0 0 1-8 8 H48 l-9 8 2-8 H26 a8 8 0 0 1-8-8 V36 a8 8 0 0 1 8-8Z" fill="#f0ead9" />
+          <circle cx="34" cy="42" r="2.5" fill="#191713" /><circle cx="46" cy="42" r="2.5" fill="#191713" /><circle cx="58" cy="42" r="2.5" fill="#191713" />
         </>
       )}
       {memory.category === 'number' && (
         <g stroke="#d99a18" strokeWidth="2">
           <path d="M20 28 h48 M20 38 h48 M20 48 h48 M25 22 v34 M63 22 v34" />
-          <circle cx="35" cy="28" r="4" fill="#ffd76a" stroke="none" /><circle cx="51" cy="38" r="4" fill="#ffd76a" stroke="none" /><circle cx="40" cy="48" r="4" fill="#ffd76a" stroke="none" />
+          <circle cx="35" cy="28" r="4" fill="#c8bfa8" stroke="none" /><circle cx="51" cy="38" r="4" fill="#c8bfa8" stroke="none" /><circle cx="40" cy="48" r="4" fill="#c8bfa8" stroke="none" />
         </g>
       )}
       {memory.category === 'place' && (
@@ -284,7 +284,7 @@ function MemorySceneSvg({ item, memory }) {
         </g>
       )}
       {memory.category === 'action' && (
-        <g fill="none" stroke="#ef4b3e" strokeWidth="3" strokeLinecap="round">
+        <g fill="none" stroke="#c8371f" strokeWidth="3" strokeLinecap="round">
           <path d="M18 61 C33 37 50 66 70 35" strokeDasharray="5 6" />
           <path d="m61 36 10-2-3 10" />
         </g>
@@ -296,13 +296,13 @@ function MemorySceneSvg({ item, memory }) {
         </g>
       )}
       {memory.category === 'object' && (
-        <g fill="#dbeaff" stroke="#1677ff" strokeWidth="2">
+        <g fill="#f0ead9" stroke="#191713" strokeWidth="2">
           <rect x="20" y="31" width="48" height="34" rx="5" /><path d="M29 40 h30 M29 49 h22 M29 58 h26" />
         </g>
       )}
       {memory.category === 'nature' && (
         <g fill="none" stroke="#168b69" strokeWidth="3" strokeLinecap="round">
-          <path d="M14 69 34 34 47 55 57 42 76 69" /><path d="M20 76 q25-12 52 0" stroke="#1677ff" />
+          <path d="M14 69 34 34 47 55 57 42 76 69" /><path d="M20 76 q25-12 52 0" stroke="#191713" />
         </g>
       )}
       {memory.category === 'time' && (
@@ -321,22 +321,22 @@ function MemorySceneSvg({ item, memory }) {
         const x = startX + index * (partWidth + gap);
         return (
           <g key={`${part.character}-${index}`} transform={`translate(${x} 42)`}>
-            <rect width={partWidth} height="58" rx="7" fill="#ffffff" stroke={index === parts.length - 1 ? accent : '#cddfd6'} strokeWidth="1.5" />
-            <text x={partWidth / 2} y="39" textAnchor="middle" fill="#173126" fontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fontSize={parts.length === 1 ? '36' : '29'} fontWeight="900">{part.character}</text>
+            <rect width={partWidth} height="58" rx="7" fill="#ffffff" stroke={index === parts.length - 1 ? accent : '#e4ddcf'} strokeWidth="1.5" />
+            <text x={partWidth / 2} y="39" textAnchor="middle" fill="#191713" fontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fontSize={parts.length === 1 ? '36' : '29'} fontWeight="900">{part.character}</text>
             {parts.length > 1 && index < parts.length - 1 && <text x={partWidth + 4} y="35" fill={accent} fontSize="13" fontWeight="900">+</text>}
           </g>
         );
       })}
 
       <g transform="translate(195 94)">
-        <circle cx="17" cy="17" r="15" fill="#ffffff" stroke="#18212b" strokeWidth="2" />
-        <circle cx="8" cy="6" r="6" fill="#18212b" /><circle cx="26" cy="6" r="6" fill="#18212b" />
-        <ellipse cx="17" cy="19" rx="10" ry="8" fill="#f7fbf8" />
-        <circle cx="13" cy="16" r="2" fill="#18212b" /><circle cx="21" cy="16" r="2" fill="#18212b" />
-        <path d="M14 22 q3 3 6 0" fill="none" stroke="#18212b" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="17" cy="17" r="15" fill="#ffffff" stroke="#191713" strokeWidth="2" />
+        <circle cx="8" cy="6" r="6" fill="#191713" /><circle cx="26" cy="6" r="6" fill="#191713" />
+        <ellipse cx="17" cy="19" rx="10" ry="8" fill="#f8f5ef" />
+        <circle cx="13" cy="16" r="2" fill="#191713" /><circle cx="21" cy="16" r="2" fill="#191713" />
+        <path d="M14 22 q3 3 6 0" fill="none" stroke="#191713" strokeWidth="1.5" strokeLinecap="round" />
       </g>
       <g transform="translate(12 101)">
-        <rect width="25" height="25" rx="4" fill="#ef4b3e" />
+        <rect width="25" height="25" rx="4" fill="#c8371f" />
         <text x="12.5" y="18" textAnchor="middle" fill="#fff" fontFamily="Microsoft YaHei, PingFang SC, sans-serif" fontSize="14" fontWeight="900">记</text>
       </g>
     </svg>
