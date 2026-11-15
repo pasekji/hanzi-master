@@ -27,7 +27,9 @@ function HomeView({ progress, setCurrentView, setSelectedLesson, setSelectedQueu
             <AppIcon name="help" />
           </button>
           <LanguageToggle language={language} setLanguage={setLanguage} playSound={playSound} t={t} />
-          {progress.streakDays > 0 && <span className="daily-chip">🔥 {progress.streakDays}</span>}
+          {progress.streakDays > 0 && (
+            <span className="daily-chip"><span className="chip-char" aria-hidden="true">火</span> {progress.streakDays}</span>
+          )}
         </div>
       </header>
 
