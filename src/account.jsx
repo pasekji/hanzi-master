@@ -55,6 +55,19 @@ const fetchServerProgress = async () => {
   return res.json();
 };
 
+const createShareCode = async () => {
+  const res = await apiFetch('/api/share', { method: 'POST', body: '{}' });
+  if (!res.ok) throw new Error('share_failed');
+  return res.json();
+};
+
+const fetchSharedProgress = async (code) => {
+  const res = await apiFetch(`/api/share/${encodeURIComponent(code)}`);
+  if (res.status === 404) throw new Error('not_found');
+  if (!res.ok) throw new Error('share_failed');
+  return res.json();
+};
+
 const pushProgressToServer = async (progress) => {
   const res = await apiFetch('/api/progress', {
     method: 'PUT',
@@ -247,6 +260,129 @@ function AccountSection({ session, syncState, lastSyncAt, account, t, playSound 
             <button className="btn btn-coral" onClick={handleDelete} disabled={busy}>{t('account.delete')}</button>
           </div>
         </>
+      )}
+    </div>
+  );
+}
+
+// ============================================
+// SHARE CODES + PROFILE CARD (Discord-style preview)
+// ============================================
+function ProfileCard({ data, code, t }) {
+  const total = (typeof STUDY_CATALOG !== 'undefined' && STUDY_CATALOG.length) || VOCABULARY.length;
+  const mastered = data.masteredChars?.length || 0;
+  const pct = Math.round((mastered / total) * 100);
+  const firstChar = data.masteredChars?.[0] || data.learningChars?.[0] || '字';
+  return (
+    <div className="profile-card">
+      <div className="profile-banner" />
+      <div className="profile-avatar" aria-hidden="true">
+        <svg width="64" height="64" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="6" width="84" height="84" rx="14" fill="#c8371f" />
+          <text x="48" y="64" textAnchor="middle" fontFamily="Songti SC, SimSun, Microsoft YaHei, serif" fontSize="46" fontWeight="900" fill="#fffdf8">{firstChar}</text>
+        </svg>
+      </div>
+      <div className="profile-body">
+        <div className="profile-name">Hanzi Master</div>
+        <div className="profile-sub">share · {code}</div>
+        <div className="profile-stats">
+          <span><b>{mastered}</b>/{total} {t('profile.mastered')}</span>
+          <span><b>{data.streakDays || 0}</b> {t('profile.streak')}</span>
+          <span><b>{data.totalReviews || 0}</b> {t('profile.reviews')}</span>
+        </div>
+        <div className="progress-bar"><div className="progress-fill" style={{ width: `${pct}%` }} /></div>
+        <div className="profile-pct">{pct}%</div>
+      </div>
+    </div>
+  );
+}
+
+function ShareSection({ session, progress, updateProgress, t, playSound }) {
+  const [code, setCode] = React.useState(null);
+  const [copied, setCopied] = React.useState(false);
+  const [busy, setBusy] = React.useState(false);
+  const [errorKey, setErrorKey] = React.useState(null);
+  const [loadCode, setLoadCode] = React.useState('');
+  const [preview, setPreview] = React.useState(null);
+  const [imported, setImported] = React.useState(false);
+
+  const handleCreate = async () => {
+    setBusy(true); setErrorKey(null);
+    try {
+      const res = await createShareCode();
+      setCode(res.code);
+      playSound?.('reveal');
+    } catch { setErrorKey('share.error'); }
+    setBusy(false);
+  };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch { setErrorKey('share.error'); }
+  };
+
+  const handleLoad = async () => {
+    setBusy(true); setErrorKey(null); setPreview(null); setImported(false);
+    try {
+      const res = await fetchSharedProgress(loadCode.trim());
+      setPreview({ data: res.data, code: loadCode.trim().toUpperCase() });
+    } catch (e) {
+      setErrorKey(e.message === 'not_found' ? 'share.notFound' : 'share.error');
+    }
+    setBusy(false);
+  };
+
+  const handleImport = () => {
+    if (!preview) return;
+    updateProgress(mergeProgress(progress, preview.data));
+    setImported(true);
+    playSound?.('complete');
+  };
+
+  return (
+    <div className="card">
+      {!session && <p className="text-sm">{t('share.needAccount')}</p>}
+      {session && (
+        <div className="share-create-row">
+          <button className="btn btn-secondary" onClick={handleCreate} disabled={busy}>
+            {t('share.create')}
+          </button>
+          {code && (
+            <>
+              <code className="recovery-code big" style={{ flex: 1 }}>{code}</code>
+              <button className="btn btn-primary" onClick={handleCopy}>{copied ? t('share.copied') : t('share.copy')}</button>
+            </>
+          )}
+        </div>
+      )}
+
+      <div className="share-load-row">
+        <input
+          className="account-input"
+          placeholder={t('share.loadHint')}
+          value={loadCode}
+          onChange={(e) => setLoadCode(e.target.value)}
+          autoComplete="off"
+          autoCapitalize="characters"
+          spellCheck={false}
+        />
+        <button className="btn btn-primary" onClick={handleLoad} disabled={busy || !loadCode.trim()}>
+          {t('share.load')}
+        </button>
+      </div>
+
+      {errorKey && <p className="text-sm" style={{ color: 'var(--danger)', marginTop: '8px', fontWeight: 700 }}>{t(errorKey)}</p>}
+
+      {preview && (
+        <div style={{ marginTop: '14px' }}>
+          <ProfileCard data={preview.data} code={preview.code} t={t} />
+          <button className="btn btn-primary" style={{ width: '100%', marginTop: '12px' }} onClick={handleImport} disabled={imported}>
+            {imported ? t('share.imported') : t('share.import')}
+          </button>
+        </div>
       )}
     </div>
   );

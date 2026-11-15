@@ -488,7 +488,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
   );
 }
 
-function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, theme, setTheme, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound }) {
+function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, theme, setTheme, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, updateProgress }) {
   const isOfflineCopy = window.location.protocol === 'file:';
   const byLesson = [12, 13, 14, 15].map(l => ({
     lesson: l,
@@ -595,6 +595,9 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
           <AccountSection session={session} syncState={syncState} lastSyncAt={lastSyncAt} account={account} t={t} playSound={playSound} />
         </>
       )}
+
+      <div className="section-title"><span className="text-sm">{t('share.section')}</span><div className="section-line" /></div>
+      <ShareSection session={session} progress={progress} updateProgress={updateProgress} t={t} playSound={playSound} />
 
       <div className="section-title"><span className="text-sm">{t('stats.backup')}</span><div className="section-line" /></div>
       <div className="backup-buttons">
