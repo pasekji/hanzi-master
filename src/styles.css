@@ -343,6 +343,11 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 .meaning-display { font-size: 15px; color: var(--ink-soft); font-weight: 700; margin-top: 4px; }
 .material-example { margin-top: 12px; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
 .flashcard-hint { margin-top: 16px; font-size: 12px; font-weight: 800; color: var(--ink-soft); }
+.related-list { display: flex; flex-direction: column; margin-top: 8px; }
+.related-item { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.related-item:last-child { border-bottom: none; padding-bottom: 0; }
+.related-hanzi { font-family: var(--font-hanzi); font-size: 20px; font-weight: 900; color: var(--ink); flex-shrink: 0; }
+.related-meta { font-size: 12px; font-weight: 700; color: var(--ink-soft); }
 
 /* ---------- draw ---------- */
 .draw-canvas-wrap { margin-top: 14px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; }

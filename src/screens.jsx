@@ -298,9 +298,12 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
             <span className="list-arrow">{showRelated ? '−' : '+'}</span>
           </button>
           {showRelated && (
-            <div className="daily-entry-strip" style={{ padding: '10px 0 2px' }}>
+            <div className="related-list">
               {related.map(c => (
-                <span key={c.hanzi} className="daily-entry-char" title={`${c.pinyin} — ${c.meaning}`}>{c.hanzi}</span>
+                <div key={c.hanzi} className="related-item">
+                  <span className="related-hanzi">{c.hanzi}</span>
+                  <span className="related-meta">{c.pinyin} — {c.meaning}</span>
+                </div>
               ))}
             </div>
           )}
