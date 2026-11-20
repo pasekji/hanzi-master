@@ -172,6 +172,30 @@ const TUTORIAL_STEPS = [
   { icon: 'wallet', view: 'stats', titleKey: 'tutorial.step.wallet.title', bodyKey: 'tutorial.step.wallet.body', actionKey: 'tutorial.step.wallet.action' },
 ];
 
+const SHORTCUT_ROWS = [
+  { keys: ['1', '2', '3', '4', '5', 'D', 'L'], labelKey: 'keys.nav' },
+  { keys: ['Space', 'Enter'], labelKey: 'keys.flip' },
+  { keys: ['←', '→'], labelKey: 'keys.cards' },
+  { keys: ['1–4', 'Enter'], labelKey: 'keys.quiz' },
+  { keys: ['?'], labelKey: 'keys.guide' },
+  { keys: ['Esc'], labelKey: 'keys.back' },
+];
+
+function ShortcutsCard({ t }) {
+  return (
+    <div className="keys-list">
+      {SHORTCUT_ROWS.map((row) => (
+        <div key={row.labelKey} className="key-row">
+          <span className="key-chips">
+            {row.keys.map((k) => <kbd key={k} className="key-chip">{k}</kbd>)}
+          </span>
+          <span className="key-label">{t(row.labelKey)}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function TutorialOverlay({ open, onClose, setCurrentView, setSelectedLesson, setSelectedQueue, playSound, t }) {
   const [stepIndex, setStepIndex] = React.useState(0);
   React.useEffect(() => { if (open) setStepIndex(0); }, [open]);

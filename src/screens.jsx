@@ -244,6 +244,23 @@ function LearnView({ selectedLesson, selectedQueue, progress, markCharacterLearn
     setShowRelated(false);
   };
 
+  // keyboard: Space/Enter/F flip, arrows or N/P prev/next, Esc back
+  React.useEffect(() => {
+    const onKey = (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const tag = (e.target?.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target?.isContentEditable) return;
+      if (!current) return;
+      const k = e.key;
+      if (k === 'Escape') { e.preventDefault(); setCurrentView('home'); }
+      else if (k === ' ' || k === 'Enter' || k.toLowerCase() === 'f') { e.preventDefault(); playSound('select'); setFlipped(f => !f); }
+      else if (k === 'ArrowRight' || k.toLowerCase() === 'n') { e.preventDefault(); go(1); }
+      else if (k === 'ArrowLeft' || k.toLowerCase() === 'p') { e.preventDefault(); go(-1); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
+
   if (!current) return <div className="screen"><header className="header"><button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button></header></div>;
 
   return (
@@ -352,6 +369,22 @@ function DrawView({ selectedLesson, selectedQueue, progress, updateProgress, mar
     setIndex(i => Math.max(0, Math.min(vocab.length - 1, i + dir)));
   };
 
+  // keyboard: arrows or N/P prev/next character, Esc back
+  React.useEffect(() => {
+    const onKey = (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const tag = (e.target?.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target?.isContentEditable) return;
+      if (!current) return;
+      const k = e.key;
+      if (k === 'Escape') { e.preventDefault(); setCurrentView('home'); }
+      else if (k === 'ArrowRight' || k.toLowerCase() === 'n') { e.preventDefault(); go(1); }
+      else if (k === 'ArrowLeft' || k.toLowerCase() === 'p') { e.preventDefault(); go(-1); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
+
   if (!current) return <div className="screen"><header className="header"><button className="back-btn" onClick={() => setCurrentView('home')}>{t('common.back')}</button></header></div>;
 
   return (
@@ -437,6 +470,39 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
       setQIndex(qIndex + 1); setAnswered(null);
     }
   };
+
+  // keyboard: 1-3 pick mode, 1-4 answer, Enter/Space/→ next, Esc back
+  React.useEffect(() => {
+    const onKey = (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const tag = (e.target?.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target?.isContentEditable) return;
+      const k = e.key;
+      if (k === 'Escape') {
+        e.preventDefault();
+        if (!mode) setCurrentView('home');
+        else { setQuestions(null); setMode(null); }
+        return;
+      }
+      if (!mode) {
+        const modes = ['hanzi-to-pinyin', 'pinyin-to-hanzi', 'hanzi-to-meaning'];
+        const n = parseInt(k, 10);
+        if (n >= 1 && n <= modes.length) { e.preventDefault(); startQuiz(modes[n - 1]); }
+        return;
+      }
+      if (!questions) return;
+      if (qIndex === questions.length - 1 && answered !== null) return; // results screen
+      if (answered === null) {
+        const n = parseInt(k, 10);
+        const q = questions[qIndex];
+        if (q && n >= 1 && n <= q.options.length) { e.preventDefault(); answer(q.options[n - 1]); }
+      } else if (k === 'Enter' || k === ' ' || k === 'ArrowRight') {
+        e.preventDefault(); next();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
 
   if (!mode) {
     return (
@@ -633,6 +699,11 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
       <div className="section-title"><span className="text-sm">{t('font.section')}</span><div className="section-line" /></div>
       <div className="card">
         <HanziFontPicker hanziFont={hanziFont} onChange={setHanziFont} t={t} />
+      </div>
+
+      <div className="section-title keys-section"><span className="text-sm">{t('keys.section')}</span><div className="section-line" /></div>
+      <div className="card keys-section">
+        <ShortcutsCard t={t} />
       </div>
 
       {!isOfflineCopy && (
