@@ -709,6 +709,11 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
         <ShortcutsCard t={t} />
       </div>
 
+      <div className="section-title"><span className="text-sm">{t('profile.section')}</span><div className="section-line" /></div>
+      <div className="card">
+        <ProfileEditor progress={progress} updateProgress={updateProgress} t={t} />
+      </div>
+
       {!isOfflineCopy && (
         <>
           <div className="section-title"><span className="text-sm">{t('account.section')}</span><div className="section-line" /></div>

@@ -51,6 +51,8 @@ const loadProgress = () => {
     lastPositions: {},
     theme: null,
     hanziFont: null,
+    nickname: '',
+    avatar: 'hanzi',
   };
 };
 

@@ -114,6 +114,8 @@ const mergeProgress = (local, remote) => {
     lastPositions: { ...(local.lastPositions || {}), ...(remote.lastPositions || {}) },
     theme: remote.theme || local.theme || null,
     hanziFont: remote.hanziFont || local.hanziFont || null,
+    nickname: remote.nickname || local.nickname || '',
+    avatar: remote.avatar || local.avatar || 'hanzi',
   };
 };
 
@@ -269,22 +271,72 @@ function AccountSection({ session, syncState, lastSyncAt, account, t, playSound 
 // ============================================
 // SHARE CODES + PROFILE CARD (Discord-style preview)
 // ============================================
+const AVATAR_CHOICES = ['hanzi', 'tea', 'gift', 'brush', 'target', 'wallet', 'card', 'book'];
+const DEFAULT_AVATAR = 'hanzi';
+
+const validAvatar = (a) => AVATAR_CHOICES.includes(a) ? a : DEFAULT_AVATAR;
+
+function ProfileEditor({ progress, updateProgress, t }) {
+  const [nick, setNick] = React.useState(progress.nickname || '');
+  const commitNick = () => {
+    const v = nick.trim().slice(0, 24);
+    if (v !== (progress.nickname || '')) updateProgress({ nickname: v });
+    setNick(v);
+  };
+  const avatar = validAvatar(progress.avatar);
+  return (
+    <div className="profile-editor">
+      <p className="text-sm" style={{ fontWeight: 800 }}>{t('profile.nickname')}</p>
+      <input
+        className="account-input profile-nick-input"
+        placeholder={t('profile.nicknameHint')}
+        value={nick}
+        maxLength={24}
+        onChange={(e) => setNick(e.target.value)}
+        onBlur={commitNick}
+        onKeyDown={(e) => { if (e.key === 'Enter') e.currentTarget.blur(); }}
+        autoComplete="off"
+      />
+      <p className="text-sm" style={{ fontWeight: 800, marginTop: '12px' }}>{t('profile.avatar')}</p>
+      <div className="avatar-picker" role="group" aria-label={t('profile.avatar')}>
+        {AVATAR_CHOICES.map((id) => (
+          <button
+            key={id}
+            type="button"
+            className={`avatar-choice ${avatar === id ? 'active' : ''}`}
+            aria-pressed={avatar === id}
+            onClick={() => updateProgress({ avatar: id })}
+          >
+            {id === 'hanzi' ? <span className="avatar-hanzi">字</span> : <AppIcon name={id} />}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ProfileCard({ data, code, t }) {
   const total = (typeof STUDY_CATALOG !== 'undefined' && STUDY_CATALOG.length) || VOCABULARY.length;
   const mastered = data.masteredChars?.length || 0;
   const pct = Math.round((mastered / total) * 100);
   const firstChar = data.masteredChars?.[0] || data.learningChars?.[0] || '字';
+  const name = (typeof data.nickname === 'string' && data.nickname.trim()) || 'Hanzi Master';
+  const avatar = validAvatar(data.avatar);
   return (
     <div className="profile-card">
       <div className="profile-banner" />
       <div className="profile-avatar" aria-hidden="true">
-        <svg width="64" height="64" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="6" y="6" width="84" height="84" rx="14" fill="#c8371f" />
-          <text x="48" y="64" textAnchor="middle" style={{ fontFamily: 'var(--font-hanzi)' }} fontSize="46" fontWeight="900" fill="#fffdf8">{firstChar}</text>
-        </svg>
+        {avatar === 'hanzi' ? (
+          <svg width="64" height="64" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="6" width="84" height="84" rx="14" fill="#c8371f" />
+            <text x="48" y="64" textAnchor="middle" style={{ fontFamily: 'var(--font-hanzi)' }} fontSize="46" fontWeight="900" fill="#fffdf8">{firstChar}</text>
+          </svg>
+        ) : (
+          <span className="profile-avatar-icon"><AppIcon name={avatar} /></span>
+        )}
       </div>
       <div className="profile-body">
-        <div className="profile-name">Hanzi Master</div>
+        <div className="profile-name">{name}</div>
         <div className="profile-sub">share · {code}</div>
         <div className="profile-stats">
           <span><b>{mastered}</b>/{total} {t('profile.mastered')}</span>
@@ -338,7 +390,9 @@ function ShareSection({ session, progress, updateProgress, t, playSound }) {
 
   const handleImport = () => {
     if (!preview) return;
-    updateProgress(mergeProgress(progress, preview.data));
+    // Import learning data only — never adopt the sharer's nickname/avatar.
+    const merged = mergeProgress(progress, preview.data);
+    updateProgress({ ...merged, nickname: progress.nickname || '', avatar: validAvatar(progress.avatar) });
     setImported(true);
     playSound?.('complete');
   };
