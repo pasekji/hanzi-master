@@ -113,6 +113,7 @@ const mergeProgress = (local, remote) => {
     drawingAttempts: mergeNumMap(local.drawingAttempts, remote.drawingAttempts),
     lastPositions: { ...(local.lastPositions || {}), ...(remote.lastPositions || {}) },
     theme: remote.theme || local.theme || null,
+    hanziFont: remote.hanziFont || local.hanziFont || null,
   };
 };
 
@@ -279,7 +280,7 @@ function ProfileCard({ data, code, t }) {
       <div className="profile-avatar" aria-hidden="true">
         <svg width="64" height="64" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="6" y="6" width="84" height="84" rx="14" fill="#c8371f" />
-          <text x="48" y="64" textAnchor="middle" fontFamily="Songti SC, SimSun, Microsoft YaHei, serif" fontSize="46" fontWeight="900" fill="#fffdf8">{firstChar}</text>
+          <text x="48" y="64" textAnchor="middle" style={{ fontFamily: 'var(--font-hanzi)' }} fontSize="46" fontWeight="900" fill="#fffdf8">{firstChar}</text>
         </svg>
       </div>
       <div className="profile-body">

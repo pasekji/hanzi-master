@@ -50,6 +50,7 @@ const loadProgress = () => {
     drawingAttempts: {},
     lastPositions: {},
     theme: null,
+    hanziFont: null,
   };
 };
 

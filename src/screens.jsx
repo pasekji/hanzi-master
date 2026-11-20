@@ -521,7 +521,7 @@ function QuizView({ selectedLesson, selectedQueue, progress, updateProgress, mar
   );
 }
 
-function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, theme, setTheme, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, updateProgress }) {
+function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt, account, theme, setTheme, hanziFont, setHanziFont, soundEnabled, setSoundEnabled, ambienceEnabled, setAmbienceEnabled, playSound, updateProgress }) {
   const isOfflineCopy = window.location.protocol === 'file:';
   const byLesson = React.useMemo(() => {
     const byLesson = new Map();
@@ -628,6 +628,11 @@ function StatsView({ progress, setCurrentView, t, session, syncState, lastSyncAt
       <div className="section-title"><span className="text-sm">{t('theme.section')}</span><div className="section-line" /></div>
       <div className="card">
         <ThemePicker theme={theme} onChange={setTheme} t={t} />
+      </div>
+
+      <div className="section-title"><span className="text-sm">{t('font.section')}</span><div className="section-line" /></div>
+      <div className="card">
+        <HanziFontPicker hanziFont={hanziFont} onChange={setHanziFont} t={t} />
       </div>
 
       {!isOfflineCopy && (

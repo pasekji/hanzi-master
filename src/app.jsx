@@ -33,6 +33,10 @@ function HanziMasterApp() {
     const saved = loadProgress().theme;
     return isValidTheme(saved) ? saved : loadTheme();
   });
+  const [hanziFont, setHanziFontState] = React.useState(() => {
+    const saved = loadProgress().hanziFont;
+    return isValidHanziFont(saved) ? saved : loadHanziFont();
+  });
 
   React.useEffect(() => { saveProgress(progress); }, [progress]);
 
@@ -49,6 +53,7 @@ function HanziMasterApp() {
     }
   }, [progress]);
   React.useEffect(() => { applyTheme(theme); }, [theme]);
+  React.useEffect(() => { applyHanziFont(hanziFont); }, [hanziFont]);
   React.useEffect(() => {
     try { localStorage.setItem(LANGUAGE_KEY, language); } catch {}
   }, [language]);
@@ -135,6 +140,11 @@ function HanziMasterApp() {
     setProgress(prev => ({ ...prev, theme: isValidTheme(id) ? id : prev.theme }));
   }, []);
 
+  const setHanziFont = React.useCallback((id) => {
+    setHanziFontState(id);
+    setProgress(prev => ({ ...prev, hanziFont: isValidHanziFont(id) ? id : prev.hanziFont }));
+  }, []);
+
   const t = React.useCallback((key, vars) => translateUi(language, key, vars), [language]);
   const playSound = React.useCallback((name) => playSoundEffect(name, soundEnabled), [soundEnabled]);
   const openTutorial = React.useCallback(() => { playSoundEffect('reveal', soundEnabled); setTutorialOpen(true); }, [soundEnabled]);
@@ -171,6 +181,7 @@ function HanziMasterApp() {
     progress, setCurrentView: setCurrentViewWithSound, selectedLesson, setSelectedLesson, selectedQueue, setSelectedQueue,
     updateProgress, markCharacterLearned, markCharacterMastered, language, setLanguage, soundEnabled, setSoundEnabled,
     ambienceEnabled, setAmbienceEnabled, playSound, openTutorial, t, session, syncState, lastSyncAt, account, theme, setTheme,
+    hanziFont, setHanziFont,
   };
 
   return (

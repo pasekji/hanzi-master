@@ -322,7 +322,7 @@ function MemorySceneSvg({ item, memory }) {
         return (
           <g key={`${part.character}-${index}`} transform={`translate(${x} 42)`}>
             <rect width={partWidth} height="58" rx="7" fill="#ffffff" stroke={index === parts.length - 1 ? accent : '#e4ddcf'} strokeWidth="1.5" />
-            <text x={partWidth / 2} y="39" textAnchor="middle" fill="#191713" fontFamily="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" fontSize={parts.length === 1 ? '36' : '29'} fontWeight="900">{part.character}</text>
+            <text x={partWidth / 2} y="39" textAnchor="middle" fill="#191713" style={{ fontFamily: 'var(--font-hanzi)' }} fontSize={parts.length === 1 ? '36' : '29'} fontWeight="900">{part.character}</text>
             {parts.length > 1 && index < parts.length - 1 && <text x={partWidth + 4} y="35" fill={accent} fontSize="13" fontWeight="900">+</text>}
           </g>
         );
@@ -337,7 +337,7 @@ function MemorySceneSvg({ item, memory }) {
       </g>
       <g transform="translate(12 101)">
         <rect width="25" height="25" rx="4" fill="#c8371f" />
-        <text x="12.5" y="18" textAnchor="middle" fill="#fff" fontFamily="Microsoft YaHei, PingFang SC, sans-serif" fontSize="14" fontWeight="900">记</text>
+        <text x="12.5" y="18" textAnchor="middle" fill="#fff" style={{ fontFamily: 'var(--font-hanzi)' }} fontSize="14" fontWeight="900">记</text>
       </g>
     </svg>
   );
