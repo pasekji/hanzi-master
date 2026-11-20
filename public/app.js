@@ -4222,53 +4222,6 @@ function HanziMasterApp() {
   }, [ambienceEnabled]);
   React.useEffect(() => () => stopAmbienceLoop(), []);
   React.useEffect(() => {
-    const onKey = e => {
-      if (e.metaKey || e.ctrlKey || e.altKey) return;
-      const tag = (e.target?.tagName || '').toLowerCase();
-      if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target?.isContentEditable) return;
-      if (currentView === 'secret') return;
-      const key = e.key;
-      if (tutorialOpen) {
-        if (key === 'Escape' || key === '?') {
-          e.preventDefault();
-          closeTutorial();
-        }
-        return;
-      }
-      if (key === 'Escape') {
-        if (['learn', 'draw', 'quiz'].includes(currentView)) return;
-        if (currentView !== 'home') {
-          e.preventDefault();
-          setCurrentViewWithSound('home');
-        }
-        return;
-      }
-      if (key === '?') {
-        e.preventDefault();
-        openTutorial();
-        return;
-      }
-      if (['learn', 'draw', 'quiz'].includes(currentView)) return;
-      const nav = {
-        1: 'home',
-        2: 'learn',
-        3: 'draw',
-        4: 'quiz',
-        5: 'stats',
-        d: 'daily',
-        l: 'lessons'
-      }[key.toLowerCase()];
-      if (nav) {
-        e.preventDefault();
-        setSelectedQueue(null);
-        if (['learn', 'draw', 'quiz', 'daily'].includes(nav)) setSelectedLesson(null);
-        setCurrentViewWithSound(nav);
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [currentView, tutorialOpen, setCurrentViewWithSound, openTutorial, closeTutorial, setSelectedLesson, setSelectedQueue]);
-  React.useEffect(() => {
     const today = new Date().toDateString();
     if (progress.lastStudyDate !== today) {
       const yesterday = new Date();
@@ -4371,6 +4324,53 @@ function HanziMasterApp() {
     }
     setCurrentView(prev => view(prev));
   }, [currentView, soundEnabled]);
+  React.useEffect(() => {
+    const onKey = e => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const tag = (e.target?.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target?.isContentEditable) return;
+      if (currentView === 'secret') return;
+      const key = e.key;
+      if (tutorialOpen) {
+        if (key === 'Escape' || key === '?') {
+          e.preventDefault();
+          closeTutorial();
+        }
+        return;
+      }
+      if (key === 'Escape') {
+        if (['learn', 'draw', 'quiz'].includes(currentView)) return;
+        if (currentView !== 'home') {
+          e.preventDefault();
+          setCurrentViewWithSound('home');
+        }
+        return;
+      }
+      if (key === '?') {
+        e.preventDefault();
+        openTutorial();
+        return;
+      }
+      if (currentView === 'quiz') return;
+      const nav = {
+        1: 'home',
+        2: 'learn',
+        3: 'draw',
+        4: 'quiz',
+        5: 'stats',
+        d: 'daily',
+        l: 'lessons'
+      }[key.toLowerCase()];
+      if (nav) {
+        e.preventDefault();
+        setSelectedQueue(null);
+        if (['learn', 'draw', 'quiz', 'daily'].includes(nav)) setSelectedLesson(null);
+        setCurrentViewWithSound(nav);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [currentView, tutorialOpen, setCurrentViewWithSound, openTutorial, closeTutorial, setSelectedLesson, setSelectedQueue]);
   const account = React.useMemo(() => ({
     register: async () => {
       const d = await registerAccount();
