@@ -56,7 +56,7 @@ function AppIcon({ name }) {
     case 'mute':
       return <svg {...p}><path d="M4 9v6h4l5 4V5L8 9H4Z" /><path d="M16 9l5 6M21 9l-5 6" /></svg>;
     case 'tea':
-      return <svg {...p}><path d="M5 11h12v4a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-4Z" /><path d="M17 12h1.5a2.5 2.5 0 0 1 0 5H17" /><path d="M8 21h8" /><path d="M9 8c-.8-1-.8-2 0-3M13 8c-.8-1-.8-2 0-3" /></svg>;
+      return <svg {...p}><path d="M5 11h12v4a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5v-4Z" /><path d="M17 12h1.5a2.5 2.5 0 0 1 0 5H17" /><path d="M8 21h8" /><path className="tea-steam" d="M9 8c-.8-1-.8-2 0-3M13 8c-.8-1-.8-2 0-3" /></svg>;
     case 'gift':
       return <svg {...p}><rect x="4" y="10" width="16" height="10" rx="1" /><path d="M12 10v10M4 14h16" /><path d="M12 10c-4 0-5-2-4.5-3.5C8 5 10 5 11 6c.8.8 1 2.5 1 4Zm0 0c4 0 5-2 4.5-3.5C16 5 14 5 13 6c-.8.8-1 2.5-1 4Z" /></svg>;
     case 'wallet':

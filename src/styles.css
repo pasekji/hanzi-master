@@ -141,6 +141,13 @@ button:disabled { opacity: 0.4; cursor: not-allowed; }
 }
 .guide-toggle svg, .sound-toggle svg { width: 20px; height: 20px; }
 .guide-toggle:active, .sound-toggle:active, .back-btn:active { transform: scale(0.96); }
+.sound-toggle { transition: transform var(--ease), background var(--ease), border-color var(--ease), color var(--ease); }
+.sound-toggle.active { border-color: var(--accent); background: var(--accent); color: var(--card); }
+.sound-toggle.active .tea-steam { animation: steamRise 1.6s ease-in-out infinite; transform-box: fill-box; }
+@keyframes steamRise {
+  0%, 100% { opacity: 0.35; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-1.5px); }
+}
 
 .language-toggle {
   display: grid;
